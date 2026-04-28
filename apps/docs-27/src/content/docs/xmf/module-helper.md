@@ -1,6 +1,6 @@
 ---
 title: "XMF Module Helper"
-description: "Simplified module operations using the Xmf\Module\Helper class and related helpers"
+description: 'Simplified module operations using the Xmf\Module\Helper class and related helpers'
 ---
 
 The `Xmf\Module\Helper` class provides an easy way to access module-related information, configurations, handlers, and more. Using the module helper simplifies your code and reduces boilerplate.

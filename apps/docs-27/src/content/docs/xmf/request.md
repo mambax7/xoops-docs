@@ -1,6 +1,6 @@
 ---
 title: "XMF Request"
-description: "Secure HTTP request handling and input validation with the Xmf\Request class"
+description: 'Secure HTTP request handling and input validation with the Xmf\Request class'
 ---
 
 The `Xmf\Request` class provides controlled access to HTTP request variables with built-in sanitization and type conversion. It protects against potentially harmful injections by default while conforming input to specified types.
