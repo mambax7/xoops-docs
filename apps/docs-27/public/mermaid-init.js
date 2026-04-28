@@ -80,8 +80,4 @@ if (document.readyState === 'loading') {
   renderMermaid();
 }
 
-document.addEventListener('astro:page-load', renderMermaid);
-
-// Re-render with correct palette when the user toggles dark/light
-new MutationObserver(rerenderMermaid)
-  .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+document.addEventListener('astro:page-lo
