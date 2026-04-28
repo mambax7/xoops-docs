@@ -1,6 +1,6 @@
 ---
 title: "طلب XMF"
-description: "معالجة الطلبات الآمنة والتحقق من صحة الإدخال مع فئة Xmf\Request"
+description: 'معالجة الطلبات الآمنة والتحقق من صحة الإدخال مع فئة Xmf\Request'
 dir: rtl
 lang: ar
 ---
