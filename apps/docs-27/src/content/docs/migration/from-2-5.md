@@ -9,7 +9,7 @@ Always back up your database and files before upgrading. No exceptions.
 
 ## What Changed in 2.7
 
-- **PHP 8.1+ required** — PHP 7.x is no longer supported
+- **PHP 8.2+ required** — PHP 7.x is no longer supported
 - **Composer-managed dependencies** — Core libraries managed via `composer.json`
 - **PSR-4 autoloading** — Module classes can use namespaces
 - **Improved XoopsObject** — New `getVar()` type safety, deprecated `obj2Array()`
@@ -17,7 +17,7 @@ Always back up your database and files before upgrading. No exceptions.
 
 ## Pre-Upgrade Checklist
 
-- [ ] PHP 8.1+ available on your server
+- [ ] PHP 8.2+ available on your server
 - [ ] Full database backup (`mysqldump -u user -p xoops_db > backup.sql`)
 - [ ] Full file backup of your installation
 - [ ] List of installed modules and their versions
@@ -61,7 +61,7 @@ The upgrade wizard will apply database migrations.
 
 ### 5. Update modules
 
-XOOPS 2.7 modules must be PHP 8.1 compatible.
+XOOPS 2.7 modules must be PHP 8.2 compatible.
 Check the [Module Ecosystem](/xoops-docs/2.7/module-guide/introduction/) for updated versions.
 
 In Admin → Modules, click **Update** for each installed module.
@@ -79,7 +79,7 @@ verify all pages load correctly.
 
 **Module broken after update**
 - Check the module's GitHub releases for a 2.7-compatible version
-- The module may need code changes for PHP 8.1 (deprecated functions, typed properties)
+- The module may need code changes for PHP 8.2 (deprecated functions, typed properties)
 
 **Admin panel CSS broken**
 - Clear your browser cache

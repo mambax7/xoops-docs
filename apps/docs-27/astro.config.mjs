@@ -67,7 +67,7 @@ export default defineConfig({
 						fr: 'Migration',
 					},
 					items: [
-						{ slug: 'migration/from-2-6' },
+						{ slug: 'migration/from-2-5' },
 					],
 				},
 			],
