@@ -1,6 +1,6 @@
 ---
-title: Upgrading from XOOPS 2.6 to 2.7
-description: Step-by-step guide to safely upgrade your XOOPS installation from 2.6.x to 2.7.x.
+title: Upgrading from XOOPS 2.5 to 2.7
+description: Step-by-step guide to safely upgrade your XOOPS installation from 2.5.x to 2.7.x.
 ---
 
 :::caution[Back up first]
