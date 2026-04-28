@@ -1,8 +1,12 @@
 // Mermaid diagram renderer for XOOPS Docs
 // Loaded as a static asset — no build step, no npm dependency.
-// Finds every <pre><code class="language-mermaid"> block that Starlight emits
-// and replaces it with a rendered SVG.  Re-renders when the user switches
-// between dark and light mode.
+// Starlight uses expressive-code, which renders mermaid blocks as:
+//   <div class="expressive-code">
+//     <figure><pre data-language="mermaid"><code>...</code></pre></figure>
+//   </div>
+// We target that structure, extract the raw source via textContent,
+// replace the whole expressive-code container with the rendered SVG,
+// and re-render when the user toggles dark/light mode.
 
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
@@ -13,14 +17,15 @@ function currentTheme() {
 }
 
 async function renderMermaid() {
-  const codeBlocks = document.querySelectorAll('pre code.language-mermaid');
+  const codeBlocks = document.querySelectorAll('pre[data-language="mermaid"] code');
   if (!codeBlocks.length) return;
 
   mermaid.initialize({ startOnLoad: false, theme: currentTheme() });
 
   for (const code of codeBlocks) {
-    const pre = code.closest('pre');
-    const src = code.textContent;
+    const src = code.textContent.trim();
+    // Replace the whole expressive-code wrapper, falling back to the <pre>
+    const container = code.closest('.expressive-code') || code.closest('pre');
     const wrapper = document.createElement('div');
     wrapper.dataset.mermaidSrc = src;
     wrapper.className = 'mermaid-diagram not-content';
@@ -32,7 +37,7 @@ async function renderMermaid() {
     } catch {
       wrapper.textContent = src;
     }
-    pre.replaceWith(wrapper);
+    container.replaceWith(wrapper);
   }
 }
 
