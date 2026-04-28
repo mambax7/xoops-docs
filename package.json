@@ -6,6 +6,6 @@
     "dev:4x": "pnpm --filter docs-4x dev",
     "build:27": "pnpm --filter docs-27 build",
     "build:4x": "pnpm --filter docs-4x build",
-    "build:all": "pnpm --filter 'docs-*' build"
+    "build:all": "pnpm --filter \"docs-*\" build"
   }
 }
