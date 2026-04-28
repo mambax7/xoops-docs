@@ -1,6 +1,24 @@
+# IDE files
+.idea/
+.vscode/
+
+# Dependencies
 node_modules/
+
+# Build outputs
 dist/
+dist-all/
+
+# Astro generated files
 .astro/
+
+# pnpm store (never commit the local package cache)
+.pnpm-store/
+
+# Content migration staging area
+_staging/
+
+# Environment files
 *.local
 .env
 .env.local
