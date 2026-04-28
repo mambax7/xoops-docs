@@ -1,78 +1,120 @@
 ---
-// src/pages/index.astro
+/**
+ * XOOPS Documentation Portal Homepage
+ *
+ * This file lives in src/pages/ and takes routing precedence over any
+ * src/content/docs/index.mdx at the same URL.
+ *
+ * import.meta.env.BASE_URL is set by Astro from astro.config.mjs `base`:
+ *   development + production  →  '/xoops-docs/2.7/'
+ * All internal links use this so they survive a base-path change.
+ */
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+// Trim trailing slash for cleaner string concatenation
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// base === '/xoops-docs/2.7'
 ---
 
-<StarlightPage frontmatter={{ title: 'XOOPS Documentation' }}>
+<StarlightPage
+  frontmatter={{
+    title: 'XOOPS Documentation',
+    description: 'Official documentation for XOOPS CMS — the world\'s best open-source PHP content management system.',
+    template: 'splash',
+  }}
+>
   <div class="portal-hero">
-    <img src="/xoops-logo.svg" alt="XOOPS CMS" class="portal-logo" />
-    <h1>XOOPS Documentation</h1>
+    <p class="portal-version-label">XOOPS 2.7.x</p>
+    <h1 class="portal-title">XOOPS Documentation</h1>
     <p class="portal-tagline">
-      The world's best PHP CMS — documented properly.
+      Open-source PHP CMS — fast to install, easy to extend, built to last.
     </p>
   </div>
 
+  <!-- Navigation Cards -->
   <div class="portal-grid">
-    <a href="/en/quick-start/" class="portal-card card-new">
+    <a href={`${base}/quick-start/`} class="portal-card">
       <span class="card-icon">🚀</span>
-      <div>
+      <div class="card-text">
         <strong>New to XOOPS?</strong>
         <span>Quick Start →</span>
       </div>
     </a>
 
-    <a href="/en/module-guide/" class="portal-card card-module">
+    <a href={`${base}/module-guide/introduction/`} class="portal-card">
       <span class="card-icon">🧩</span>
-      <div>
+      <div class="card-text">
         <strong>Module Developer?</strong>
         <span>Module Guide →</span>
       </div>
     </a>
 
-    <a href="/en/theme-guide/" class="portal-card card-theme">
+    <a href={`${base}/theme-guide/introduction/`} class="portal-card">
       <span class="card-icon">🎨</span>
-      <div>
+      <div class="card-text">
         <strong>Theme Developer?</strong>
         <span>Theme Guide →</span>
       </div>
     </a>
 
-    <a href="/en/migration/" class="portal-card card-upgrade">
+    <a href={`${base}/migration/from-2-6/`} class="portal-card">
       <span class="card-icon">⬆️</span>
-      <div>
+      <div class="card-text">
         <strong>Upgrading?</strong>
         <span>Migration Guide →</span>
       </div>
     </a>
   </div>
 
+  <!-- Version Switcher -->
   <div class="portal-versions">
     <h2>Documentation Versions</h2>
     <div class="version-links">
-      <a href="/2.7/" class="version-badge active">XOOPS 2.7.x</a>
-      <a href="/4.x/" class="version-badge">XOOPS 4.x</a>
+      <!-- Active version: 2.7 (this site) -->
+      <a href="/xoops-docs/2.7/" class="version-badge active">XOOPS 2.7.x</a>
+      <!-- Cross-site link to the 4.x docs -->
+      <a href="/xoops-docs/4.x/" class="version-badge">XOOPS 4.x</a>
     </div>
   </div>
 </StarlightPage>
 
 <style>
+  /* ── Hero ─────────────────────────────────────────────────────────────── */
   .portal-hero {
     text-align: center;
-    padding: 3rem 1rem 2rem;
+    padding: 2.5rem 1rem 2rem;
   }
-  .portal-logo {
-    height: 80px;
+  .portal-version-label {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 2rem;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     margin-bottom: 1rem;
+  }
+  .portal-title {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--sl-color-white);
+    margin: 0 0 0.75rem;
   }
   .portal-tagline {
     color: var(--sl-color-gray-3);
     font-size: 1.1rem;
+    max-width: 520px;
+    margin: 0 auto;
   }
+
+  /* ── Card Grid ────────────────────────────────────────────────────────── */
   .portal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
-    margin: 2rem 0;
+    margin: 2.5rem 0;
   }
   .portal-card {
     display: flex;
@@ -82,26 +124,60 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
     border-radius: 0.75rem;
     border: 1px solid var(--sl-color-gray-5);
     text-decoration: none;
-    transition: border-color 0.2s, transform 0.1s;
-    background: var(--sl-color-black);
+    background: var(--sl-color-bg-sidebar);
+    transition: border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
   }
   .portal-card:hover {
     border-color: var(--sl-color-accent);
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
   }
-  .portal-card strong { display: block; color: var(--sl-color-white); }
-  .portal-card span { color: var(--sl-color-accent); font-size: 0.9rem; }
-  .card-icon { font-size: 2rem; }
-  .portal-versions { margin-top: 3rem; }
-  .version-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+  .card-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .card-text strong {
+    display: block;
+    color: var(--sl-color-white);
+    font-size: 1rem;
+  }
+  .card-text span {
+    color: var(--sl-color-accent);
+    font-size: 0.875rem;
+  }
+
+  /* ── Version Switcher ─────────────────────────────────────────────────── */
+  .portal-versions {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+  }
+  .portal-versions h2 {
+    font-size: 1rem;
+    color: var(--sl-color-gray-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+  .version-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
   .version-badge {
-    padding: 0.4rem 1rem;
+    padding: 0.4rem 1.1rem;
     border-radius: 2rem;
     border: 1px solid var(--sl-color-accent);
     color: var(--sl-color-accent);
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: background 0.2s;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
   }
   .version-badge.active,
   .version-badge:hover {

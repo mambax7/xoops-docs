@@ -1,0 +1,16 @@
+/* XOOPS brand colors injected into Starlight's theme system */
+:root {
+	--sl-color-accent-low:  #1a3a5c;
+	--sl-color-accent:      #2171b5;
+	--sl-color-accent-high: #6baed6;
+	--sl-font-system:       'Inter', system-ui, sans-serif;
+}
+
+/* RTL code block isolation — prevents Arabic prose bleeding into PHP code */
+[dir='rtl'] code,
+[dir='rtl'] pre,
+[dir='rtl'] .expressive-code {
+	direction:     ltr;
+	text-align:    left;
+	unicode-bidi:  isolate;
+}
