@@ -1,6 +1,6 @@
 ---
 title: "مساعد وحدة XMF"
-description: "عمليات وحدة مبسطة باستخدام فئة Xmf\Module\Helper والمساعدات ذات الصلة"
+description: 'عمليات وحدة مبسطة باستخدام فئة Xmf\Module\Helper والمساعدات ذات الصلة'
 dir: rtl
 lang: ar
 ---
