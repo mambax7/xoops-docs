@@ -695,4 +695,4 @@ $xoopsTpl->display($module->getPath() . '/templates/user/index.tpl');
 
 ---
 
-*See also: [XOOPS Module Development Guide](https://github.com/XOOPS/XoopsCore25/wiki/Module-Development)*
+*See also: [XOOPS Module Development Guide](https://github.com/XOOPS/XoopsCore27//wiki/Module-Development)*

@@ -572,4 +572,4 @@ if ($article->validate() && $article->cleanVars()) {
 
 ---
 
-*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore25/blob/master/htdocs/class/xoopsobject.php)*
+*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore27//blob/master/htdocs/class/xoopsobject.php)*

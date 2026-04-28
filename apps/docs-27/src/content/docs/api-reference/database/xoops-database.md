@@ -788,4 +788,4 @@ $db->commit();  // or $db->rollback();
 
 ---
 
-*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore25/tree/master/htdocs/class/database)*
+*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore27//tree/master/htdocs/class/database)*

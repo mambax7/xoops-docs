@@ -24,7 +24,7 @@ Before you start contributing, ensure you have:
 
 ### On GitHub Web Interface
 
-1. Navigate to the repository (e.g., `XOOPS/XoopsCore25`)
+1. Navigate to the repository (e.g., `XOOPS/XoopsCore27`)
 2. Click the **Fork** button in the top-right corner
 3. Select where to fork (your personal account)
 4. Wait for the fork to complete
@@ -42,18 +42,18 @@ Before you start contributing, ensure you have:
 
 ```bash
 # Clone your fork (replace YOUR_USERNAME)
-git clone https://github.com/YOUR_USERNAME/XoopsCore25.git
-cd XoopsCore25
+git clone https://github.com/YOUR_USERNAME/XoopsCore27.git
+cd XoopsCore27
 
 # Add upstream remote to track original repository
-git remote add upstream https://github.com/XOOPS/XoopsCore25.git
+git remote add upstream https://github.com/XOOPS/XoopsCore27/.git
 
 # Verify remotes are set correctly
 git remote -v
-# origin    https://github.com/YOUR_USERNAME/XoopsCore25.git (fetch)
-# origin    https://github.com/YOUR_USERNAME/XoopsCore25.git (push)
-# upstream  https://github.com/XOOPS/XoopsCore25.git (fetch)
-# upstream  https://github.com/XOOPS/XoopsCore25.git (nofetch)
+# origin    https://github.com/YOUR_USERNAME/XoopsCore27.git (fetch)
+# origin    https://github.com/YOUR_USERNAME/XoopsCore27.git (push)
+# upstream  https://github.com/XOOPS/XoopsCore27/.git (fetch)
+# upstream  https://github.com/XOOPS/XoopsCore27/.git (nofetch)
 ```
 
 ---

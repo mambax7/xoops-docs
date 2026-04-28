@@ -494,4 +494,4 @@ set_exception_handler(function($exception) {
 
 ---
 
-*See also: [XOOPS Kernel Source](https://github.com/XOOPS/XoopsCore25/tree/master/htdocs/class)*
+*See also: [XOOPS Kernel Source](https://github.com/XOOPS/XoopsCore27//tree/master/htdocs/class)*

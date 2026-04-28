@@ -659,4 +659,4 @@ Template:
 
 ---
 
-*See also: [Smarty Documentation](https://www.smarty.net/docs) | [XOOPS Template API](https://github.com/XOOPS/XoopsCore25/tree/master/htdocs/class)*
+*See also: [Smarty Documentation](https://www.smarty.net/docs) | [XOOPS Template API](https://github.com/XOOPS/XoopsCore27//tree/master/htdocs/class)*

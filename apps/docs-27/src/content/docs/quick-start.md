@@ -14,11 +14,11 @@ description: Get XOOPS 2.7 running in under 5 minutes.
 
 ## Download
 
-Download the latest release from [GitHub Releases](https://github.com/XOOPS/XoopsCore25/releases).
+Download the latest release from [GitHub Releases](https://github.com/XOOPS/XoopsCore27/releases).
 
 ```bash
 # Or clone directly
-git clone https://github.com/XOOPS/XoopsCore25.git mysite
+git clone https://github.com/XOOPS/XoopsCore27/.git mysite
 cd mysite
 ```
 
