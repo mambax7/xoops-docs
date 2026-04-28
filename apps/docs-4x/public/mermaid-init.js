@@ -72,7 +72,14 @@ async function rerenderMermaid() {
   }
 }
 
-// astro:page-load fires on every navigation AND on the initial page load
+// Static Starlight pages do not emit astro:page-load unless Astro's client
+// router is present, so render once on normal page load as well.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderMermaid, { once: true });
+} else {
+  renderMermaid();
+}
+
 document.addEventListener('astro:page-load', renderMermaid);
 
 // Re-render with correct palette when the user toggles dark/light
