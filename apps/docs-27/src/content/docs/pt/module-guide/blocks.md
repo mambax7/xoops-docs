@@ -1,14 +1,14 @@
 ---
-title: "Block Development"
+title: "Desenvolvimento de Bloco"
 ---
 
-## Overview
+## Visão Geral
 
-Blocks are reusable content widgets displayed in theme sidebars and content areas. This guide covers creating, configuring, and customizing XOOPS blocks.
+Blocos são widgets de conteúdo reutilizáveis exibidos em barras laterais de tema e áreas de conteúdo. Este guia cobre criação, configuração e personalização de blocos do XOOPS.
 
-## Block Structure
+## Estrutura de Bloco
 
-### Block Definition in xoops_version.php
+### Definição de Bloco em xoops_version.php
 
 ```php
 $modversion['blocks'][] = [
@@ -18,41 +18,41 @@ $modversion['blocks'][] = [
     'show_func'   => 'mymodule_recent_show',
     'edit_func'   => 'mymodule_recent_edit',
     'template'    => 'mymodule_block_recent.tpl',
-    'options'     => '10|0|date',  // Default options: limit|category|sort
+    'options'     => '10|0|date',  // Opções padrão: limit|category|sort
 ];
 ```
 
-### Block Parameters
+### Parâmetros de Bloco
 
-| Parameter | Description |
-|-----------|-------------|
-| `file` | PHP file containing block functions |
-| `name` | Language constant for block title |
-| `description` | Language constant for description |
-| `show_func` | Function to render block content |
-| `edit_func` | Function to render block options form |
-| `template` | Smarty template file |
-| `options` | Pipe-separated default options |
+| Parâmetro | Descrição |
+|-----------|-----------|
+| `file` | Arquivo PHP contendo funções de bloco |
+| `name` | Constante de linguagem para título de bloco |
+| `description` | Constante de linguagem para descrição |
+| `show_func` | Função para renderizar conteúdo de bloco |
+| `edit_func` | Função para renderizar formulário de opções de bloco |
+| `template` | Arquivo de template Smarty |
+| `options` | Opções padrão separadas por pipe |
 
-## Block Functions
+## Funções de Bloco
 
-### Show Function
+### Função de Exibição
 
 ```php
 // blocks/recent.php
 
 function mymodule_recent_show(array $options): array
 {
-    // Parse options
+    // Analisar opções
     $limit = (int) ($options[0] ?? 10);
     $categoryId = (int) ($options[1] ?? 0);
     $sortBy = $options[2] ?? 'date';
 
-    // Get module helper
+    // Obter auxiliar de módulo
     $helper = \Xmf\Module\Helper::getHelper('mymodule');
     $handler = $helper->getHandler('Item');
 
-    // Build criteria
+    // Construir critério
     $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('status', 'published'));
 
@@ -64,10 +64,10 @@ function mymodule_recent_show(array $options): array
     $criteria->setOrder('DESC');
     $criteria->setLimit($limit);
 
-    // Fetch items
+    // Buscar itens
     $items = $handler->getObjects($criteria);
 
-    // Build block array
+    // Construir matriz de bloco
     $block = [];
     foreach ($items as $item) {
         $block['items'][] = [
@@ -86,19 +86,19 @@ function mymodule_recent_show(array $options): array
 }
 ```
 
-### Edit Function
+### Função de Edição
 
 ```php
 function mymodule_recent_edit(array $options): string
 {
     $helper = \Xmf\Module\Helper::getHelper('mymodule');
 
-    // Option 1: Number of items
+    // Opção 1: Número de itens
     $form = _MI_MYMODULE_BLOCK_LIMIT . ': ';
     $form .= '<input type="text" name="options[0]" value="' . ($options[0] ?? 10) . '" size="5">';
     $form .= '<br>';
 
-    // Option 2: Category select
+    // Opção 2: Seleção de categoria
     $form .= _MI_MYMODULE_BLOCK_CATEGORY . ': ';
     $form .= '<select name="options[1]">';
     $form .= '<option value="0">' . _ALL . '</option>';
@@ -112,7 +112,7 @@ function mymodule_recent_edit(array $options): string
     }
     $form .= '</select><br>';
 
-    // Option 3: Sort order
+    // Opção 3: Ordem de classificação
     $form .= _MI_MYMODULE_BLOCK_SORT . ': ';
     $form .= '<select name="options[2]">';
     $sortOptions = ['date' => _MI_MYMODULE_SORT_DATE, 'popular' => _MI_MYMODULE_SORT_POPULAR];
@@ -126,7 +126,7 @@ function mymodule_recent_edit(array $options): string
 }
 ```
 
-## Block Template
+## Template de Bloco
 
 ```smarty
 {* templates/blocks/mymodule_block_recent.tpl *}
@@ -143,7 +143,7 @@ function mymodule_recent_edit(array $options): string
                 <{/if}>
                 <span class="item-meta">
                     <span class="date"><{$item.date}></span>
-                    <span class="views"><{$item.views}> views</span>
+                    <span class="views"><{$item.views}> visualizações</span>
                 </span>
             </li>
             <{/foreach}>
@@ -154,9 +154,9 @@ function mymodule_recent_edit(array $options): string
 </div>
 ```
 
-## Block with Clone Support
+## Bloco com Suporte de Clone
 
-Cloneable blocks allow multiple instances:
+Blocos clonáveis permitem múltiplas instâncias:
 
 ```php
 $modversion['blocks'][] = [
@@ -167,13 +167,13 @@ $modversion['blocks'][] = [
     'edit_func'   => 'mymodule_category_edit',
     'template'    => 'mymodule_block_category.tpl',
     'options'     => '0',
-    'can_clone'   => true,  // Enable cloning
+    'can_clone'   => true,  // Habilitar clonagem
 ];
 ```
 
-## Dynamic Block Content
+## Conteúdo de Bloco Dinâmico
 
-### AJAX-Loaded Blocks
+### Blocos Carregados por AJAX
 
 ```php
 function mymodule_ajax_show(array $options): array
@@ -181,7 +181,7 @@ function mymodule_ajax_show(array $options): array
     $block = [
         'block_id'  => $options['bid'] ?? 0,
         'ajax_url'  => XOOPS_URL . '/modules/mymodule/ajax/block.php',
-        'interval'  => (int) ($options[0] ?? 30),  // Refresh interval in seconds
+        'interval'  => (int) ($options[0] ?? 30),  // Intervalo de atualização em segundos
     ];
 
     return $block;
@@ -189,7 +189,7 @@ function mymodule_ajax_show(array $options): array
 ```
 
 ```smarty
-{* Template with AJAX refresh *}
+{* Template com atualização AJAX *}
 <div id="mymodule-block-<{$block.block_id}>" class="ajax-block">
     <div class="block-content"></div>
 </div>
@@ -213,18 +213,18 @@ function mymodule_ajax_show(array $options): array
 </script>
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Cache Results** - Cache expensive queries
-2. **Validate Options** - Always validate block options
-3. **Escape Output** - Sanitize all user content
-4. **Use Criteria** - Build queries with Criteria class
-5. **Limit Queries** - Set reasonable limits for performance
-6. **Responsive Templates** - Ensure blocks work on mobile
+1. **Cachear Resultados** - Cache consultas custosas
+2. **Validar Opções** - Sempre validar opções de bloco
+3. **Escapar Saída** - Sanitizar todo conteúdo do usuário
+4. **Usar Criteria** - Construir consultas com classe Criteria
+5. **Limitar Consultas** - Definir limites razoáveis para desempenho
+6. **Templates Responsivos** - Garantir que blocos funcionem em mobile
 
-## Related Documentation
+## Documentação Relacionada
 
-- Module-Development - Module creation guide
-- ../02-Core-Concepts/Templates/Smarty-Templating - Template syntax
-- ../04-API-Reference/Template/Template-System - XOOPS template engine
-- xoops_version.php - Module manifest
+- Desenvolvimento-de-Módulo - Guia de criação de módulo
+- ../02-Conceitos-Principais/Templates/Templating-Smarty - Sintaxe de template
+- ../04-API-Reference/Template/Sistema-de-Template - Motor de template XOOPS
+- xoops_version.php - Manifesto de módulo

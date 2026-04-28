@@ -1,13 +1,13 @@
 ---
-title: "XoopsForm API Reference"
-description: "Complete API reference for XoopsForm and form element classes"
+title: "Referência da API XoopsForm"
+description: "Referência completa da API para classes XoopsForm e elementos de formulário"
 ---
 
-> Complete API documentation for the XOOPS form generation system.
+> Documentação completa da API para o sistema de geração de formulários do XOOPS.
 
 ---
 
-## Class Hierarchy
+## Hierarquia de Classe
 
 ```mermaid
 classDiagram
@@ -76,45 +76,45 @@ classDiagram
 
 ---
 
-## XoopsForm (Abstract Base)
+## XoopsForm (Base Abstrata)
 
-### Constructor
+### Construtor
 
 ```php
 public function __construct(
-    string $title,      // Form title
-    string $name,       // Form name attribute
-    string $action,     // Form action URL
-    string $method = 'post',  // HTTP method
-    bool $addToken = false    // Add CSRF token
+    string $title,      // Título do formulário
+    string $name,       // Atributo de nome do formulário
+    string $action,     // URL de ação do formulário
+    string $method = 'post',  // Método HTTP
+    bool $addToken = false    // Adicionar token CSRF
 )
 ```
 
-### Methods
+### Métodos
 
-| Method | Parameters | Returns | Description |
+| Método | Parâmetros | Retorna | Descrição |
 |--------|------------|---------|-------------|
-| `addElement` | `XoopsFormElement $element, bool $required = false` | `void` | Add element to form |
-| `getElements` | - | `array` | Get all elements |
-| `getElement` | `string $name` | `XoopsFormElement|null` | Get element by name |
-| `setExtra` | `string $extra` | `void` | Set extra HTML attributes |
-| `getExtra` | - | `string` | Get extra attributes |
-| `getTitle` | - | `string` | Get form title |
-| `setTitle` | `string $title` | `void` | Set form title |
-| `getName` | - | `string` | Get form name |
-| `getAction` | - | `string` | Get action URL |
-| `render` | - | `string` | Render form HTML |
-| `display` | - | `void` | Echo rendered form |
-| `insertBreak` | `string $extra = ''` | `void` | Insert visual break |
-| `setRequired` | `XoopsFormElement $element` | `void` | Mark element required |
+| `addElement` | `XoopsFormElement $element, bool $required = false` | `void` | Adicionar elemento ao formulário |
+| `getElements` | - | `array` | Obter todos os elementos |
+| `getElement` | `string $name` | `XoopsFormElement\|null` | Obter elemento pelo nome |
+| `setExtra` | `string $extra` | `void` | Definir atributos HTML extras |
+| `getExtra` | - | `string` | Obter atributos extras |
+| `getTitle` | - | `string` | Obter título do formulário |
+| `setTitle` | `string $title` | `void` | Definir título do formulário |
+| `getName` | - | `string` | Obter nome do formulário |
+| `getAction` | - | `string` | Obter URL de ação |
+| `render` | - | `string` | Renderizar HTML do formulário |
+| `display` | - | `void` | Ecoar formulário renderizado |
+| `insertBreak` | `string $extra = ''` | `void` | Inserir quebra visual |
+| `setRequired` | `XoopsFormElement $element` | `void` | Marcar elemento como obrigatório |
 
 ---
 
 ## XoopsThemeForm
 
-The most commonly used form class, renders with theme-aware styling.
+A classe de formulário mais comumente usada, renderiza com estilo ciente do tema.
 
-### Usage
+### Uso
 
 ```php
 <?php
@@ -123,7 +123,7 @@ $form = new XoopsThemeForm(
     'registration_form',
     'register.php',
     'post',
-    true  // Include CSRF token
+    true  // Incluir token CSRF
 );
 
 $form->addElement(new XoopsFormText('Username', 'uname', 25, 255, ''), true);
@@ -133,7 +133,7 @@ $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 echo $form->render();
 ```
 
-### Rendered Output
+### Saída Renderizada
 
 ```html
 <form name="registration_form" action="register.php" method="post"
@@ -146,7 +146,7 @@ echo $form->render();
         <input type="text" name="uname" size="25" maxlength="255" value="">
       </td>
     </tr>
-    <!-- ... more fields ... -->
+    <!-- ... mais campos ... -->
   </table>
   <input type="hidden" name="XOOPS_TOKEN_REQUEST" value="...">
 </form>
@@ -154,22 +154,22 @@ echo $form->render();
 
 ---
 
-## Form Elements
+## Elementos de Formulário
 
 ### XoopsFormText
 
-Single-line text input.
+Entrada de texto de linha única.
 
 ```php
 $text = new XoopsFormText(
-    string $caption,    // Label text
-    string $name,       // Input name
-    int $size,          // Display width
-    int $maxlength,     // Max characters
-    mixed $value = ''   // Default value
+    string $caption,    // Texto do rótulo
+    string $name,       // Nome da entrada
+    int $size,          // Largura de exibição
+    int $maxlength,     // Caracteres máximos
+    mixed $value = ''   // Valor padrão
 );
 
-// Methods
+// Métodos
 $text->getValue();
 $text->setValue($value);
 $text->getSize();
@@ -178,7 +178,7 @@ $text->getMaxlength();
 
 ### XoopsFormTextArea
 
-Multi-line text input.
+Entrada de texto multi-linha.
 
 ```php
 $textarea = new XoopsFormTextArea(
@@ -189,14 +189,14 @@ $textarea = new XoopsFormTextArea(
     int $cols = 50
 );
 
-// Methods
+// Métodos
 $textarea->getRows();
 $textarea->getCols();
 ```
 
 ### XoopsFormSelect
 
-Dropdown or multi-select.
+Dropdown ou multi-select.
 
 ```php
 $select = new XoopsFormSelect(
@@ -207,7 +207,7 @@ $select = new XoopsFormSelect(
     bool $multiple = false
 );
 
-// Methods
+// Métodos
 $select->addOption(mixed $value, string $name = '');
 $select->addOptionArray(array $options);
 $select->getOptions();
@@ -217,7 +217,7 @@ $select->isMultiple();
 
 ### XoopsFormCheckBox
 
-Checkbox or checkbox group.
+Checkbox ou grupo de checkboxes.
 
 ```php
 $checkbox = new XoopsFormCheckBox(
@@ -227,7 +227,7 @@ $checkbox = new XoopsFormCheckBox(
     string $delimeter = '&nbsp;'
 );
 
-// Methods
+// Métodos
 $checkbox->addOption(mixed $value, string $name = '');
 $checkbox->addOptionArray(array $options);
 $checkbox->getValue();
@@ -235,7 +235,7 @@ $checkbox->getValue();
 
 ### XoopsFormRadio
 
-Radio button group.
+Grupo de botões de rádio.
 
 ```php
 $radio = new XoopsFormRadio(
@@ -245,14 +245,14 @@ $radio = new XoopsFormRadio(
     string $delimeter = '&nbsp;'
 );
 
-// Methods
+// Métodos
 $radio->addOption(mixed $value, string $name = '');
 $radio->addOptionArray(array $options);
 ```
 
 ### XoopsFormButton
 
-Submit, reset, or custom button.
+Botão de envio, reset ou personalizado.
 
 ```php
 $button = new XoopsFormButton(
@@ -265,7 +265,7 @@ $button = new XoopsFormButton(
 
 ### XoopsFormFile
 
-File upload input.
+Entrada de upload de arquivo.
 
 ```php
 $file = new XoopsFormFile(
@@ -274,14 +274,14 @@ $file = new XoopsFormFile(
     int $maxFileSize = 0
 );
 
-// Methods
+// Métodos
 $file->getMaxFileSize();
 $file->setMaxFileSize(int $size);
 ```
 
 ### XoopsFormHidden
 
-Hidden input field.
+Campo de entrada oculto.
 
 ```php
 $hidden = new XoopsFormHidden(
@@ -292,7 +292,7 @@ $hidden = new XoopsFormHidden(
 
 ### XoopsFormHiddenToken
 
-CSRF protection token.
+Token de proteção CSRF.
 
 ```php
 $token = new XoopsFormHiddenToken(
@@ -302,7 +302,7 @@ $token = new XoopsFormHiddenToken(
 
 ### XoopsFormLabel
 
-Display-only label (not an input).
+Rótulo somente exibição (não é uma entrada).
 
 ```php
 $label = new XoopsFormLabel(
@@ -313,7 +313,7 @@ $label = new XoopsFormLabel(
 
 ### XoopsFormPassword
 
-Password input field.
+Campo de entrada de senha.
 
 ```php
 $password = new XoopsFormPassword(
@@ -327,7 +327,7 @@ $password = new XoopsFormPassword(
 
 ### XoopsFormElementTray
 
-Groups multiple elements together.
+Agrupa múltiplos elementos juntos.
 
 ```php
 $tray = new XoopsFormElementTray(
@@ -335,50 +335,50 @@ $tray = new XoopsFormElementTray(
     string $delimeter = '&nbsp;'
 );
 
-// Methods
+// Métodos
 $tray->addElement(XoopsFormElement $element, bool $required = false);
 $tray->getElements();
 ```
 
 ---
 
-## Form Flow Diagram
+## Diagrama de Fluxo de Formulário
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Browser
-    participant Form
-    participant Security
+    participant Usuário
+    participant Navegador
+    participant Formulário
+    participant Segurança
     participant Handler
-    participant Database
+    participant BancoDados
 
-    User->>Browser: Fill form
-    Browser->>Form: Submit POST
-    Form->>Security: Validate CSRF token
+    Usuário->>Navegador: Preencher formulário
+    Navegador->>Formulário: Enviar POST
+    Formulário->>Segurança: Validar token CSRF
 
-    alt Token Invalid
-        Security-->>Browser: Error: Invalid token
-        Browser-->>User: Show error
-    else Token Valid
-        Security->>Handler: Process data
-        Handler->>Handler: Validate input
+    alt Token Inválido
+        Segurança-->>Navegador: Erro: Token inválido
+        Navegador-->>Usuário: Mostrar erro
+    else Token Válido
+        Segurança->>Handler: Processar dados
+        Handler->>Handler: Validar entrada
 
-        alt Validation Failed
-            Handler-->>Browser: Show form with errors
-            Browser-->>User: Display errors
-        else Validation Passed
-            Handler->>Database: Save data
-            Database-->>Handler: Success
-            Handler-->>Browser: Redirect
-            Browser-->>User: Success message
+        alt Validação Falhou
+            Handler-->>Navegador: Mostrar formulário com erros
+            Navegador-->>Usuário: Exibir erros
+        else Validação Passou
+            Handler->>BancoDados: Salvar dados
+            BancoDados-->>Handler: Sucesso
+            Handler-->>Navegador: Redirecionar
+            Navegador-->>Usuário: Mensagem de sucesso
         end
     end
 ```
 
 ---
 
-## Complete Example
+## Exemplo Completo
 
 ```php
 <?php
@@ -389,20 +389,20 @@ use Xmf\Request;
 $helper = \XoopsModules\MyModule\Helper::getInstance();
 $itemHandler = $helper->getHandler('Item');
 
-// Process form submission
+// Processar envio de formulário
 if (Request::hasVar('submit', 'POST')) {
-    // Verify CSRF token
+    // Verificar token CSRF
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header('form.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
     }
 
-    // Get validated input
+    // Obter entrada validada
     $title = Request::getString('title', '', 'POST');
     $content = Request::getText('content', '', 'POST');
     $categoryId = Request::getInt('category_id', 0, 'POST');
     $status = Request::getString('status', 'draft', 'POST');
 
-    // Create and populate object
+    // Criar e popular objeto
     $item = $itemHandler->create();
     $item->setVars([
         'title' => $title,
@@ -413,7 +413,7 @@ if (Request::hasVar('submit', 'POST')) {
         'uid' => $GLOBALS['xoopsUser']->getVar('uid')
     ]);
 
-    // Save
+    // Salvar
     if ($itemHandler->insert($item)) {
         redirect_header('index.php', 2, _MD_MYMODULE_SAVED);
     } else {
@@ -421,22 +421,22 @@ if (Request::hasVar('submit', 'POST')) {
     }
 }
 
-// Build form
+// Construir formulário
 $form = new XoopsThemeForm(_MD_MYMODULE_ADD_ITEM, 'itemform', 'form.php', 'post', true);
 
-// Title field
+// Campo de título
 $titleElement = new XoopsFormText(_MD_MYMODULE_TITLE, 'title', 50, 255, $title ?? '');
 $titleElement->setDescription(_MD_MYMODULE_TITLE_DESC);
 $form->addElement($titleElement, true);
 
-// Category dropdown
+// Dropdown de categoria
 $categoryHandler = $helper->getHandler('Category');
 $categories = $categoryHandler->getList();
 $categorySelect = new XoopsFormSelect(_MD_MYMODULE_CATEGORY, 'category_id', $categoryId ?? 0);
 $categorySelect->addOptionArray($categories);
 $form->addElement($categorySelect, true);
 
-// Content textarea with editor
+// Textarea de conteúdo com editor
 $editorConfigs = [
     'name' => 'content',
     'value' => $content ?? '',
@@ -447,7 +447,7 @@ $editorConfigs = [
 ];
 $form->addElement(new XoopsFormEditor(_MD_MYMODULE_CONTENT, 'content', $editorConfigs));
 
-// Status radio buttons
+// Botões de rádio de status
 $statusRadio = new XoopsFormRadio(_MD_MYMODULE_STATUS, 'status', $status ?? 'draft');
 $statusRadio->addOptionArray([
     'draft' => _MD_MYMODULE_DRAFT,
@@ -456,13 +456,13 @@ $statusRadio->addOptionArray([
 ]);
 $form->addElement($statusRadio);
 
-// Submit button
+// Botão de envio
 $buttonTray = new XoopsFormElementTray('', '&nbsp;');
 $buttonTray->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 $buttonTray->addElement(new XoopsFormButton('', 'reset', _CANCEL, 'reset'));
 $form->addElement($buttonTray);
 
-// Display
+// Exibir
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 if (!empty($error)) {
@@ -476,12 +476,12 @@ require_once XOOPS_ROOT_PATH . '/footer.php';
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- XoopsObject API
-- Forms Guide
-- CSRF Protection
+- API XoopsObject
+- Guia de Formulários
+- Proteção CSRF
 
 ---
 
-#xoops #api #forms #xoopsform #reference
+#xoops #api #formulários #xoopsform #referência

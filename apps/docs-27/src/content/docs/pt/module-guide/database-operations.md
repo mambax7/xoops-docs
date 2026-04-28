@@ -1,33 +1,33 @@
 ---
-title: "Database Operations"
+title: "Operações de Banco de Dados"
 ---
 
-## Overview
+## Visão Geral
 
-XOOPS provides a database abstraction layer that supports both legacy procedural patterns and modern object-oriented approaches. This guide covers common database operations for module development.
+O XOOPS fornece uma camada de abstração de banco de dados que suporta padrões legados procedurais e abordagens modernas orientadas a objetos. Este guia cobre operações de banco de dados comuns para desenvolvimento de módulo.
 
-## Database Connection
+## Conexão de Banco de Dados
 
-### Getting the Database Instance
+### Obtendo a Instância de Banco de Dados
 
 ```php
-// Legacy approach
+// Abordagem legada
 global $xoopsDB;
 
-// Modern approach via helper
+// Abordagem moderna via factory
 $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
-// Via XMF helper
+// Via auxiliar XMF
 $helper = \Xmf\Module\Helper::getHelper('mymodule');
 $db = $GLOBALS['xoopsDB'];
 ```
 
-## Basic Operations
+## Operações Básicas
 
-### SELECT Queries
+### Consultas SELECT
 
 ```php
-// Simple query
+// Consulta simples
 $sql = "SELECT * FROM " . $db->prefix('mymodule_items') . " WHERE status = 1";
 $result = $db->query($sql);
 
@@ -35,23 +35,23 @@ while ($row = $db->fetchArray($result)) {
     echo $row['title'];
 }
 
-// With parameters (safe approach)
+// Com parâmetros (abordagem segura)
 $sql = sprintf(
     "SELECT * FROM %s WHERE id = %d",
     $db->prefix('mymodule_items'),
     intval($id)
 );
 
-// Single row
+// Linha única
 $sql = "SELECT * FROM " . $db->prefix('mymodule_items') . " WHERE id = " . intval($id);
 $result = $db->query($sql);
 $row = $db->fetchArray($result);
 ```
 
-### INSERT Operations
+### Operações INSERT
 
 ```php
-// Basic insert
+// Insert básico
 $sql = sprintf(
     "INSERT INTO %s (title, content, created) VALUES (%s, %s, %d)",
     $db->prefix('mymodule_items'),
@@ -61,11 +61,11 @@ $sql = sprintf(
 );
 $db->queryF($sql);
 
-// Get last insert ID
+// Obter ID do último insert
 $newId = $db->getInsertId();
 ```
 
-### UPDATE Operations
+### Operações UPDATE
 
 ```php
 $sql = sprintf(
@@ -77,11 +77,11 @@ $sql = sprintf(
 );
 $db->queryF($sql);
 
-// Check affected rows
+// Verificar linhas afetadas
 $affectedRows = $db->getAffectedRows();
 ```
 
-### DELETE Operations
+### Operações DELETE
 
 ```php
 $sql = sprintf(
@@ -92,19 +92,19 @@ $sql = sprintf(
 $db->queryF($sql);
 ```
 
-## Using Criteria
+## Usando Criteria
 
-The Criteria system provides a type-safe way to build queries:
+O sistema Criteria fornece uma forma type-safe de construir consultas:
 
 ```php
 use Criteria;
 use CriteriaCompo;
 
-// Simple criteria
+// Criteria simples
 $criteria = new Criteria('status', 1);
 $items = $itemHandler->getObjects($criteria);
 
-// Compound criteria
+// Criteria composta
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 1));
 $criteria->add(new Criteria('category_id', $categoryId));
@@ -117,62 +117,62 @@ $items = $itemHandler->getObjects($criteria);
 $count = $itemHandler->getCount($criteria);
 ```
 
-### Criteria Operators
+### Operadores de Criteria
 
-| Operator | Description |
-|----------|-------------|
-| `=` | Equal (default) |
-| `!=` | Not equal |
-| `<` | Less than |
-| `>` | Greater than |
-| `<=` | Less than or equal |
-| `>=` | Greater than or equal |
-| `LIKE` | Pattern matching |
-| `IN` | In set of values |
+| Operador | Descrição |
+|----------|-----------|
+| `=` | Igual (padrão) |
+| `!=` | Não igual |
+| `<` | Menor que |
+| `>` | Maior que |
+| `<=` | Menor ou igual |
+| `>=` | Maior ou igual |
+| `LIKE` | Correspondência de padrão |
+| `IN` | Em conjunto de valores |
 
 ```php
-// LIKE criteria
+// Criteria LIKE
 $criteria = new Criteria('title', '%search%', 'LIKE');
 
-// IN criteria
+// Criteria IN
 $criteria = new Criteria('id', '(1,2,3)', 'IN');
 
-// Date range
+// Intervalo de data
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('created', $startDate, '>='));
 $criteria->add(new Criteria('created', $endDate, '<='));
 ```
 
-## Object Handlers
+## Manipuladores de Objeto
 
-### Handler Methods
+### Métodos de Manipulador
 
 ```php
 $handler = xoops_getModuleHandler('item', 'mymodule');
 
-// Create new object
+// Criar novo objeto
 $item = $handler->create();
 
-// Get by ID
+// Obter por ID
 $item = $handler->get($id);
 
-// Get multiple
+// Obter múltiplos
 $items = $handler->getObjects($criteria);
 
-// Get as array
+// Obter como matriz
 $items = $handler->getAll($criteria);
 
-// Count
+// Contar
 $count = $handler->getCount($criteria);
 
-// Save
+// Salvar
 $success = $handler->insert($item);
 
-// Delete
+// Deletar
 $success = $handler->delete($item);
 ```
 
-### Custom Handler Methods
+### Métodos de Manipulador Personalizado
 
 ```php
 class ItemHandler extends \XoopsPersistableObjectHandler
@@ -196,40 +196,40 @@ class ItemHandler extends \XoopsPersistableObjectHandler
 }
 ```
 
-## Transactions
+## Transações
 
 ```php
-// Begin transaction
+// Iniciar transação
 $db->query('START TRANSACTION');
 
 try {
-    // Perform multiple operations
+    // Realizar múltiplas operações
     $db->queryF($sql1);
     $db->queryF($sql2);
     $db->queryF($sql3);
 
-    // Commit if all succeed
+    // Confirmar se todos bem-sucedidos
     $db->query('COMMIT');
 } catch (\Exception $e) {
-    // Rollback on error
+    // Reverter em erro
     $db->query('ROLLBACK');
     throw $e;
 }
 ```
 
-## Prepared Statements (Modern)
+## Instruções Preparadas (Moderno)
 
 ```php
-// Using PDO through XOOPS database layer
+// Usando PDO através da camada de banco de dados do XOOPS
 $sql = "SELECT * FROM " . $db->prefix('mymodule_items') . " WHERE id = :id";
 $stmt = $db->prepare($sql);
 $stmt->execute(['id' => $id]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 ```
 
-## Schema Management
+## Gerenciamento de Esquema
 
-### Creating Tables
+### Criando Tabelas
 
 ```sql
 -- sql/mysql.sql
@@ -247,7 +247,7 @@ CREATE TABLE `{PREFIX}_mymodule_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-### Migrations
+### Migrações
 
 ```php
 // migrations/001_create_items.php
@@ -270,18 +270,18 @@ return new class {
 };
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Always Quote Strings** - Use `$db->quoteString()` for user input
-2. **Use Intval** - Cast integers with `intval()` or type declarations
-3. **Prefer Handlers** - Use object handlers over raw SQL when possible
-4. **Use Criteria** - Build queries with Criteria for type safety
-5. **Handle Errors** - Check return values and handle failures
-6. **Use Transactions** - Wrap related operations in transactions
+1. **Sempre Quoted Strings** - Usar `$db->quoteString()` para entrada do usuário
+2. **Usar Intval** - Converter inteiros com `intval()` ou declarações de tipo
+3. **Preferir Manipuladores** - Usar manipuladores de objeto sobre SQL bruto quando possível
+4. **Usar Criteria** - Construir consultas com Criteria para type safety
+5. **Tratar Erros** - Verificar valores de retorno e tratar falhas
+6. **Usar Transações** - Envolver operações relacionadas em transações
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../04-API-Reference/Kernel/Criteria - Query building with Criteria
-- ../04-API-Reference/Core/XoopsObjectHandler - Handler pattern
-- ../02-Core-Concepts/Database/Database-Layer - Database abstraction
-- Database/Database-Schema - Schema design guide
+- ../04-API-Reference/Kernel/Criteria - Construção de consulta com Criteria
+- ../04-API-Reference/Core/XoopsObjectHandler - Padrão de manipulador
+- ../02-Core-Concepts/Database/Database-Layer - Abstração de banco de dados
+- Database/Database-Schema - Guia de design de esquema

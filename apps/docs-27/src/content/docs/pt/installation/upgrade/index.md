@@ -1,20 +1,20 @@
 ---
-title: "Upgrading XOOPS"
-description: "How to safely upgrade an existing XOOPS installation to a newer version."
+title: "Atualizando XOOPS"
+description: "Como atualizar com segurança uma instalação existente do XOOPS para uma versão mais recente."
 ---
 
-This section walks you through upgrading an existing XOOPS site. The upgrade wizard preserves your data, modules, and themes while updating the core files.
+Esta seção o orienta através da atualização de um site XOOPS existente. O assistente de atualização preserva seus dados, módulos e temas enquanto atualiza os arquivos principais.
 
-## Upgrade path
+## Caminho de atualização
 
-| Step | Page | What to do |
-|------|------|------------|
-| 1 | [Preparations](./step-01/) | Backup, review changelog, download new release |
-| 2 | [Preflight Check](./preflight/) | Verify compatibility before running the upgrade |
-| 3 | [Running the Upgrade](./step-02/) | Execute the upgrade wizard |
-| 4 | [Troubleshooting](./step-03/) | Resolve common upgrade issues |
-| 5 | [After the Upgrade](./step-04/) | Verify, update modules, clear cache |
+| Etapa | Página | O que fazer |
+|------|--------|------------|
+| 1 | [Preparações](./step-01/) | Backup, revise changelog, download nova versão |
+| 2 | [Verificação de Pré-voo](./preflight/) | Verifique compatibilidade antes de executar a atualização |
+| 3 | [Executando a Atualização](./step-02/) | Execute o assistente de atualização |
+| 4 | [Solução de Problemas](./step-03/) | Resolva problemas comuns de atualização |
+| 5 | [Após a Atualização](./step-04/) | Verifique, atualize módulos, limpe cache |
 
 :::tip
-Always make a **full database backup and file backup** before upgrading. The upgrade is irreversible without a backup.
+Sempre faça um **backup completo do banco de dados e backup de arquivo** antes de atualizar. A atualização é irreversível sem um backup.
 :::

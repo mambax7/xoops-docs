@@ -1,30 +1,30 @@
 ---
-title: "Notes for Developers"
+title: "Notas para Desenvolvedores"
 ---
 
-While the actual installation of XOOPS for development use is similar to the normal installation already described, there are key differences when building a developer ready system.
+Embora a instalação real de XOOPS para uso de desenvolvimento seja semelhante à instalação normal já descrita, há diferenças principais ao construir um sistema pronto para desenvolvedor.
 
-One big difference in a developer install is that instead of just focusing on the contents of the _htdocs_ directory, a developer install keeps all of the files, and keeps them under source code control using git.
+Uma grande diferença em uma instalação de desenvolvedor é que em vez de apenas focar no conteúdo do diretório _htdocs_, uma instalação de desenvolvedor mantém todos os arquivos e os mantém sob controle de código-fonte usando git.
 
-Another difference is that the _xoops_data_ and _xoops_lib_ directories can usually remain in place without renaming, as long as your development system is not directly accessible on the open internet (i.e. on a private network, such as behind a router.)
+Outra diferença é que os diretórios _xoops_data_ e _xoops_lib_ geralmente podem permanecer no lugar sem renomeação, contanto que seu sistema de desenvolvimento não seja diretamente acessível na internet aberta (ou seja, em uma rede privada, como atrás de um roteador.)
 
-Most developers work on a _localhost_ system, that has the source code, a web server stack, and any tools needed to work with the code and database.
+A maioria dos desenvolvedores trabalha em um sistema _localhost_, que tem o código-fonte, uma pilha de servidor web e quaisquer ferramentas necessárias para trabalhar com o código e banco de dados.
 
-You can find more information in the [Tools of the Trade](../tools/tools.md) chapter.
+Você pode encontrar mais informações no capítulo [Ferramentas do Ofício](../tools/tools.md).
 
-## Git and Virtual Hosts
+## Git e Virtual Hosts
 
-Most developers want to be able to stay up to date with current sources, and contribute changes back to the upstream [XOOPS/XoopsCore27 repository on GitHub](https://github.com/XOOPS/XoopsCore27). This means that instead of downloading a release archive, you will want to [fork](https://help.github.com/articles/fork-a-repo/) a copy of XOOPS and use **git** to [clone](https://help.github.com/categories/bootcamp/) that repository to your dev box.
+A maioria dos desenvolvedores quer ser capaz de manter-se atualizada com fontes atuais e contribuir mudanças de volta para o repositório upstream [XOOPS/XoopsCore27 no GitHub](https://github.com/XOOPS/XoopsCore27). Isso significa que em vez de baixar um arquivo de release, você vai querer [fazer fork](https://help.github.com/articles/fork-a-repo/) de uma cópia de XOOPS e usar **git** para [clonar](https://help.github.com/categories/bootcamp/) esse repositório para sua caixa de dev.
 
-Since the repository has a specific structure, instead of _copying_ files from the _htdocs_ directory to your web server, it is better to point your web server to the htdocs folder inside your locally cloned repository. To acomplish this, we typically create a new _Virtual Host_, or _vhost_ that points to our git controlled source code.
+Como o repositório tem uma estrutura específica, em vez de _copiar_ arquivos do diretório _htdocs_ para seu servidor web, é melhor apontar seu servidor web para a pasta htdocs dentro de seu repositório clonado localmente. Para realizar isso, geralmente criamos um novo _Virtual Host_, ou _vhost_ que aponta para nosso código-fonte controlado por git.
 
-In a [WAMP](http://www.wampserver.com/) environment, the default [localhost](http://localhost/) page has in the _Tools_ section a link to _Add a Virtual Host_ which leads here:
+Em um ambiente [WAMP](http://www.wampserver.com/), a página padrão [localhost](http://localhost/) tem em uma seção _Tools_ um link para _Add a Virtual Host_ que leva aqui:
 
 ![WAMP Add Virtual Host](/xoops-docs/2.7/img/installation/wamp-vhost-03.png)
 
-Using this you can set up a VirtualHost entry that will drop right into your (still) git controlled repository.
+Usando isto você pode configurar uma entrada VirtualHost que cairá direto em seu repositório (ainda) controlado por git.
 
-Here is an example entry in `wamp64/bin/apache/apache2.x.xx/conf/extra/httpd-vhosts.conf`
+Aqui está uma entrada de exemplo em `wamp64/bin/apache/apache2.x.xx/conf/extra/httpd-vhosts.conf`
 
 ```text
 <VirtualHost *:80>
@@ -38,38 +38,36 @@ Here is an example entry in `wamp64/bin/apache/apache2.x.xx/conf/extra/httpd-vho
 </VirtualHost>
 ```
 
-You might also need to add an entry in `Windows/System32/drivers/etc/hosts`:
+Você também pode precisar adicionar uma entrada em `Windows/System32/drivers/etc/hosts`:
 
 ```text
 127.0.0.1    xoops.localhost
 ```
 
-Now, you can install on `http://xoops.localhost/` for testing, while keeping your repository intact, and keeping the webserver inside the htdocs directory with a simple URL. Plus, you can update your local copy of XOOPS to the latest master at any time without having to reinstall or copy files. And, you can make enhancements and fixes to the code to contribute back to XOOPS through GitHub.
+Agora, você pode instalar em `http://xoops.localhost/` para testes, enquanto mantém seu repositório intacto e mantém o servidor web dentro do diretório htdocs com uma URL simples. Além disso, você pode atualizar sua cópia local de XOOPS para o master mais recente a qualquer momento sem precisar reinstalar ou copiar arquivos. E, você pode fazer aprimoramentos e correções ao código para contribuir de volta para XOOPS através do GitHub.
 
-## Composer Dependencies
+## Dependências do Composer
 
-XOOPS 2.7.0 uses [Composer](https://getcomposer.org/) to manage its PHP dependencies. The dependency tree lives in `htdocs/xoops_lib/` inside the source repository:
+XOOPS 2.7.0 usa [Composer](https://getcomposer.org/) para gerenciar suas dependências de PHP. A árvore de dependências fica em `htdocs/xoops_lib/` dentro do repositório de fontes:
 
-* `composer.dist.json` is the master list of dependencies shipped with the release.
-* `composer.json` is the local copy, which you can customize for your development environment if needed.
-* `composer.lock` pins exact versions so installs are reproducible.
-* `vendor/` contains the installed libraries (Smarty 4, PHPMailer, HTMLPurifier, firebase/php-jwt, monolog, symfony/var-dumper, xoops/xmf, xoops/regdom, and others).
+* `composer.dist.json` é a lista mestre de dependências enviadas com a release.
+* `composer.json` é a cópia local, que você pode personalizar para seu ambiente de desenvolvimento se necessário.
+* `composer.lock` fixa versões exatas para que instalações sejam reproduzíveis.
+* `vendor/` contém as bibliotecas instaladas (Smarty 4, PHPMailer, HTMLPurifier, firebase/php-jwt, monolog, symfony/var-dumper, xoops/xmf, xoops/regdom, e outras).
 
-For a fresh git clone of XOOPS 2.7.0, starting from the repo root, run:
+Para um clone git fresco de XOOPS 2.7.0, começando pela raiz do repositório, execute:
 
 ```text
 cd htdocs/xoops_lib
 composer install
 ```
 
-Note that there is no `composer.json` at the repo root — the project lives under `htdocs/xoops_lib/`, so you must `cd` into that directory before running Composer.
+Observe que não há `composer.json` na raiz do repositório — o projeto fica em `htdocs/xoops_lib/`, então você deve `cd` para esse diretório antes de executar o Composer.
 
-Release tarballs ship with `vendor/` pre-populated, but git clones may not. Keep `vendor/` intact on development installs — XOOPS will load its dependencies from there at runtime.
+Os tarballs de release são enviados com `vendor/` pré-populado, mas clones git podem não ter. Mantenha `vendor/` intacto em instalações de desenvolvimento — XOOPS carregará suas dependências de lá em tempo de execução.
 
-The [XMF (XOOPS Module Framework)](https://github.com/XOOPS/xmf) library ships as a Composer dependency in 2.7.0, so you can use `Xmf\Request`, `Xmf\Database\TableLoad`, and related classes in your module code without any additional installation.
+A biblioteca [XMF (XOOPS Module Framework)](https://github.com/XOOPS/xmf) é enviada como uma dependência do Composer em 2.7.0, para que você possa usar `Xmf\Request`, `Xmf\Database\TableLoad` e classes relacionadas em seu código de módulo sem qualquer instalação adicional.
 
-## DebugBar Module
+## Módulo DebugBar
 
-XOOPS 2.7.0 ships a **DebugBar** module based on Symfony VarDumper. It adds a debug toolbar to rendered pages that exposes request, database, and template information. Install it from the Modules admin area on development and staging sites. Do not leave it installed on a public-facing production site unless you know you want to.
-
-
+XOOPS 2.7.0 envia um módulo **DebugBar** baseado em Symfony VarDumper. Ele adiciona uma barra de ferramentas de debug às páginas renderizadas que expõe informações de request, banco de dados e template. Instale-o na área de administrador de Módulos em sites de desenvolvimento e staging. Não o deixe instalado em um site de produção voltado para o público a menos que você saiba que deseja.

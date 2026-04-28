@@ -1,64 +1,64 @@
 ---
-title: "Smarty Template Conventions"
-description: "XOOPS Smarty template coding standards and best practices"
+title: "Convenções de Template Smarty"
+description: "Padrões de codificação de templates Smarty do XOOPS e melhores práticas"
 ---
 
-> XOOPS uses Smarty for templating. This guide covers conventions and best practices for developing Smarty templates.
-
----
-
-## Overview
-
-XOOPS Smarty templates follow:
-
-- **XOOPS template structure** and naming
-- **Accessibility standards** (WCAG)
-- **Semantic HTML5** markup
-- **BEM-style class naming**
-- **Performance optimization**
+> XOOPS usa Smarty para templating. Este guia cobre convenções e melhores práticas para desenvolvimento de templates Smarty.
 
 ---
 
-## File Structure
+## Visão Geral
 
-### Template Organization
+Templates Smarty do XOOPS seguem:
+
+- **Estrutura de template XOOPS** e nomenclatura
+- **Padrões de acessibilidade** (WCAG)
+- **Marcação HTML5 semântica**
+- **Nomenclatura de classe estilo BEM**
+- **Otimização de performance**
+
+---
+
+## Estrutura de Arquivo
+
+### Organização de Template
 
 ```
 templates/
-├── admin/                   # Admin templates
+├── admin/                   # Templates de administrador
 │   ├── admin_header.tpl
 │   ├── admin_footer.tpl
 │   ├── items_list.tpl
 │   └── item_form.tpl
-├── blocks/                  # Block templates
+├── blocks/                  # Templates de bloco
 │   ├── recent_items.tpl
 │   └── featured.tpl
-├── common/                  # Shared templates
+├── common/                  # Templates compartilhados
 │   ├── pagination.tpl
 │   ├── breadcrumb.tpl
 │   └── empty_state.tpl
-├── emails/                  # Email templates
+├── emails/                  # Templates de email
 │   ├── notification.tpl
 │   └── verification.tpl
-├── pages/                   # Page templates
+├── pages/                   # Templates de página
 │   ├── index.tpl
 │   ├── detail.tpl
 │   └── list.tpl
-├── db:modulename_header.tpl # Stored in DB for theme overrides
+├── db:modulename_header.tpl # Armazenado em BD para sobreposições de tema
 └── db:modulename_footer.tpl
 ```
 
-### File Naming
+### Nomenclatura de Arquivo
 
 ```smarty
-{* XOOPS template files use module prefix *}
+{* Arquivos de template XOOPS usam prefixo de módulo *}
 modulename_index.tpl
 modulename_item_detail.tpl
 modulename_item_form.tpl
 modulename_list.tpl
 modulename_pagination.tpl
 
-{* Admin templates *}
+{* Templates de administrador *}
 admin_index.tpl
 admin_edit.tpl
 admin_list.tpl
@@ -66,18 +66,18 @@ admin_list.tpl
 
 ---
 
-## File Header
+## Cabeçalho de Arquivo
 
-### Template Header Comment
+### Comentário de Cabeçalho de Template
 
 ```smarty
 {*
- * XOOPS Module - Module Name
- * @file Item list template
- * @author Your Name <email@example.com>
- * @copyright 2026 XOOPS Project
+ * XOOPS Module - Nome do Módulo
+ * @file Template de lista de itens
+ * @author Seu Nome <email@example.com>
+ * @copyright 2026 Projeto XOOPS
  * @license GPL-2.0-or-later
- * Description of what this template displays
+ * Descrição do que este template exibe
  *}
 
 <h1><{$page_title}></h1>
@@ -85,77 +85,77 @@ admin_list.tpl
 
 ---
 
-## Variables and Naming
+## Variáveis e Nomenclatura
 
-### Variable Naming Convention
+### Convenção de Nomenclatura de Variável
 
 ```smarty
-{* Use descriptive names *}
-<{$page_title}>              {* ✅ Clear *}
-<{$items}>                   {* ✅ Clear *}
-<{$user_count}>              {* ✅ Clear *}
+{* Use nomes descritivos *}
+<{$page_title}>              {* ✅ Claro *}
+<{$items}>                   {* ✅ Claro *}
+<{$user_count}>              {* ✅ Claro *}
 
-<{$p_t}>                     {* ❌ Unclear abbreviation *}
-<{$x}>                       {* ❌ Unclear *}
+<{$p_t}>                     {* ❌ Abreviação pouco clara *}
+<{$x}>                       {* ❌ Pouco claro *}
 ```
 
-### Variable Scope
+### Escopo de Variável
 
 ```smarty
-{* Global XOOPS variables *}
-<{$xoops_url}>              {* Root URL *}
-<{$xoops_sitename}>         {* Site name *}
-<{$xoops_requesturi}>       {* Current URI *}
-<{$xoops_isadmin}>          {* Admin mode flag *}
-<{$xoops_user_is_admin}>    {* Is user admin *}
+{* Variáveis globais XOOPS *}
+<{$xoops_url}>              {* URL raiz *}
+<{$xoops_sitename}>         {* Nome do site *}
+<{$xoops_requesturi}>       {* URI atual *}
+<{$xoops_isadmin}>          {* Flag de modo admin *}
+<{$xoops_user_is_admin}>    {* Usuário é admin *}
 
-{* Common module variables *}
-<{$module_id}>              {* Current module ID *}
-<{$module_name}>            {* Current module name *}
-<{$moduledir}>              {* Module directory *}
-<{$lang}>                   {* Current language *}
+{* Variáveis comuns de módulo *}
+<{$module_id}>              {* ID do módulo atual *}
+<{$module_name}>            {* Nome do módulo atual *}
+<{$moduledir}>              {* Diretório de módulo *}
+<{$lang}>                   {* Idioma atual *}
 ```
 
 ---
 
-## Formatting and Spacing
+## Formatação e Espaçamento
 
-### Basic Structure
+### Estrutura Básica
 
 ```smarty
 {*
- * Template header
+ * Cabeçalho de template
  *}
 
-{* Include other templates *}
+{* Incluir outros templates *}
 <{include file="db:modulename_header.tpl"}>
 
-{* Main content *}
+{* Conteúdo principal *}
 <main class="modulename-container">
   <h1><{$page_title}></h1>
 
   <{if $items|@count > 0}>
-    {* Render items *}
+    {* Renderizar itens *}
   <{else}>
-    {* Show empty state *}
+    {* Mostrar estado vazio *}
   <{/if}>
 </main>
 
-{* Footer *}
+{* Rodapé *}
 <{include file="db:modulename_footer.tpl"}>
 ```
 
-### Indentation
+### Indentação
 
 ```smarty
-{* Use 2 spaces for indentation *}
+{* Use 2 espaços para indentação *}
 <{if $condition}>
   <div>
     <p><{$content}></p>
   </div>
 <{/if}>
 
-{* Don't skip lines within blocks *}
+{* Não pule linhas dentro de blocos *}
 <{foreach item=item from=$items}>
   <div class="item">
     <h3><{$item.title}></h3>
@@ -164,46 +164,46 @@ admin_list.tpl
 <{/foreach}>
 ```
 
-### Spacing Around Tags
+### Espaçamento Ao Redor de Tags
 
 ```smarty
-{* No spaces inside tag delimiters *}
+{* Sem espaços dentro dos delimitadores de tag *}
 <{$variable}>                {* ✅ *}
 <{ $variable }>              {* ❌ *}
 
-{* Space after pipes in modifiers *}
+{* Espaço após pipes em modificadores *}
 <{$text|truncate:50}>        {* ✅ *}
 <{$text|truncate:50}>        {* ✅ *}
 
-{* Space around operators in conditionals *}
+{* Espaço ao redor de operadores em condicionais *}
 <{if $count > 0}>            {* ✅ *}
 <{if $count>0}>              {* ❌ *}
 ```
 
 ---
 
-## Control Structures
+## Estruturas de Controle
 
-### Conditionals
+### Condicionais
 
 ```smarty
-{* Simple if/else *}
+{* if/else simples *}
 <{if $is_published}>
-  <span class="status--published">Published</span>
+  <span class="status--published">Publicado</span>
 <{else}>
-  <span class="status--draft">Draft</span>
+  <span class="status--draft">Rascunho</span>
 <{/if}>
 
 {* if/elseif/else *}
 <{if $status == 'active'}>
-  <div class="alert--success">Active</div>
+  <div class="alert--success">Ativo</div>
 <{elseif $status == 'pending'}>
-  <div class="alert--warning">Pending Review</div>
+  <div class="alert--warning">Revisão Pendente</div>
 <{else}>
-  <div class="alert--danger">Inactive</div>
+  <div class="alert--danger">Inativo</div>
 <{/if}>
 
-{* Inline ternary (Smarty 3+) *}
+{* Ternário inline (Smarty 3+) *}
 <span class="badge <{if $is_featured}>badge--featured<{/if}>">
   <{$label}>
 </span>
@@ -212,7 +212,7 @@ admin_list.tpl
 ### Loops
 
 ```smarty
-{* Basic foreach *}
+{* foreach básico *}
 <ul class="item-list">
   <{foreach item=item from=$items}>
     <li class="item-list__item">
@@ -221,21 +221,21 @@ admin_list.tpl
   <{/foreach}>
 </ul>
 
-{* With key and counter *}
+{* Com chave e contador *}
 <{foreach item=item key=key from=$items}>
   <div class="item" data-index="<{$key}>">
     <{$item.title}> (<{$smarty.foreach.item.iteration}>/<{$smarty.foreach.item.total}>)
   </div>
 <{/foreach}>
 
-{* With alternation *}
+{* Com alternação *}
 <{foreach item=item from=$items}>
   <div class="item <{if $smarty.foreach.item.iteration % 2 == 0}>item--even<{else}>item--odd<{/if}>">
     <{$item.title}>
   </div>
 <{/foreach}>
 
-{* Check if empty *}
+{* Verificar se vazio *}
 <{if $items|@count > 0}>
   <ul>
     <{foreach item=item from=$items}>
@@ -243,101 +243,101 @@ admin_list.tpl
     <{/foreach}>
   </ul>
 <{else}>
-  <p class="empty-state">No items found</p>
+  <p class="empty-state">Nenhum item encontrado</p>
 <{/if}>
 ```
 
-### Section (deprecated, use foreach instead)
+### Section (descontinuado, use foreach em seu lugar)
 
 ```smarty
-{* Don't use section - it's deprecated *}
+{* Não use section - está descontinuado *}
 {* ❌ <{section name=i loop=$items}> *}
 
-{* Use foreach instead *}
+{* Use foreach em seu lugar *}
 {* ✅ *}
 <{foreach item=item from=$items}>
 ```
 
 ---
 
-## Variable Output
+## Saída de Variável
 
-### Basic Output
+### Saída Básica
 
 ```smarty
-{* Display variable as-is *}
+{* Exibir variável como está *}
 <{$title}>
 
-{* Display with default if empty *}
-<{$title|default:'Untitled'}>
+{* Exibir com padrão se vazio *}
+<{$title|default:'Sem Título'}>
 
-{* HTML escape (default for safety) *}
-<{$content}>                  {* Escaped by default *}
-<{$content|escape:'html'}>    {* Explicitly escaped *}
+{* Escape HTML (padrão por segurança) *}
+<{$content}>                  {* Escapado por padrão *}
+<{$content|escape:'html'}>    {* Explicitamente escapado *}
 
-{* Raw output (use carefully!) *}
+{* Saída bruta (use com cuidado!) *}
 <{$html_content|escape:false}>
 
-{* Special encoding *}
-<{$url|escape:'url'}>         {* For URL context *}
-<{$json|escape:'javascript'}> {* For JavaScript *}
+{* Codificação especial *}
+<{$url|escape:'url'}>         {* Para contexto de URL *}
+<{$json|escape:'javascript'}> {* Para JavaScript *}
 ```
 
-### Modifiers
+### Modificadores
 
 ```smarty
-{* Text formatting *}
-<{$text|upper}>              {* Convert to uppercase *}
-<{$text|lower}>              {* Convert to lowercase *}
-<{$text|capitalize}>         {* Capitalize first letter *}
-<{$text|truncate:50:'...'}>  {* Truncate to 50 chars *}
+{* Formatação de texto *}
+<{$text|upper}>              {* Converter para maiúsculas *}
+<{$text|lower}>              {* Converter para minúsculas *}
+<{$text|capitalize}>         {* Capitalizar primeira letra *}
+<{$text|truncate:50:'...'}>  {* Truncar para 50 caracteres *}
 
-{* Number formatting *}
-<{$price|number_format:2}>   {* Format number *}
-<{$count|string_format:"%03d"}> {* Format as string *}
+{* Formatação de número *}
+<{$price|number_format:2}>   {* Formatar número *}
+<{$count|string_format:"%03d"}> {* Formatar como string *}
 
-{* Date formatting *}
-<{$date|date_format:'%Y-%m-%d'}> {* Format date *}
+{* Formatação de data *}
+<{$date|date_format:'%Y-%m-%d'}> {* Formatar data *}
 <{$date|date_format:'%B %d, %Y'}>
 
-{* Array operations *}
-<{$items|@count}>            {* Count items (note @) *}
-<{$items|@array_keys}>       {* Get keys *}
+{* Operações de array *}
+<{$items|@count}>            {* Contar itens (note @) *}
+<{$items|@array_keys}>       {* Obter chaves *}
 
-{* Chaining modifiers *}
-<{$title|upper|truncate:30:'...'}> {* Chain multiple *}
+{* Encadeando modificadores *}
+<{$title|upper|truncate:30:'...'}> {* Encadear múltiplos *}
 
-{* Conditional modifier *}
+{* Modificador condicional *}
 <{$status|default:'pending'}>
 ```
 
 ---
 
-## Constants
+## Constantes
 
-### Using XOOPS Constants
+### Usando Constantes XOOPS
 
 ```smarty
-{* Use define()d constants from PHP *}
-{* These must be defined in PHP first *}
+{* Use constantes define()d do PHP *}
+{* Estas devem ser definidas em PHP primeiro *}
 
-{* Core constants *}
+{* Constantes principais *}
 <{$smarty.const._MD_MODULENAME_TITLE}>
 <{$smarty.const._MD_MODULENAME_SUBMIT}>
 
-{* Module constants *}
+{* Constantes de módulo *}
 <{$smarty.const.MODULEDIR}>
 <{$smarty.const.MODULEURL}>
 
-{* Custom constants *}
+{* Constantes customizadas *}
 <{$smarty.const._MY_CONSTANT}>
 ```
 
-### Language Constants
+### Constantes de Idioma
 
 ```smarty
-{* Use language constants for i18n *}
-{* Define in language file: define('_MD_MODULENAME_TITLE', 'English Title'); *}
+{* Use constantes de idioma para i18n *}
+{* Definir em arquivo de idioma: define('_MD_MODULENAME_TITLE', 'Título em Inglês'); *}
 
 <h1><{$smarty.const._MD_MODULENAME_TITLE}></h1>
 <p><{$smarty.const._MD_MODULENAME_DESCRIPTION}></p>
@@ -346,12 +346,12 @@ admin_list.tpl
 
 ---
 
-## HTML Best Practices
+## Melhores Práticas HTML
 
-### Semantic Markup
+### Marcação Semântica
 
 ```smarty
-{* Use semantic HTML elements *}
+{* Use elementos HTML semânticos *}
 
 <article class="item">
   <header class="item__header">
@@ -366,37 +366,37 @@ admin_list.tpl
   </main>
 
   <footer class="item__footer">
-    <span class="item__author">By <{$item.author}></span>
+    <span class="item__author">Por <{$item.author}></span>
   </footer>
 </article>
 ```
 
-### Accessibility
+### Acessibilidade
 
 ```smarty
-{* Use semantic HTML for accessibility *}
+{* Use HTML semântico para acessibilidade *}
 
-{* Links with meaningful text *}
+{* Links com texto significativo *}
 <a href="<{$item.url}>" class="button">
-  <{$item.title}> {* ✅ Meaningful link text *}
+  <{$item.title}> {* ✅ Texto de link significativo *}
 </a>
 
-{* Images with alt text *}
+{* Imagens com texto alternativo *}
 <img src="<{$image.url}>" alt="<{$image.alt_text}>" class="item__image">
 
-{* Form labels with inputs *}
+{* Rótulos de formulário com entradas *}
 <label for="email-input" class="form-field__label">
-  Email Address
+  Endereço de Email
 </label>
 <input id="email-input" type="email" name="email" class="form-field__input" required>
 
-{* Headings in order *}
+{* Cabeçalhos em ordem *}
 <h1><{$page_title}></h1>
-<h2><{$section_title}></h2> {* ✅ In order *}
-<h4></h4>                  {* ❌ Skips h3 *}
+<h2><{$section_title}></h2> {* ✅ Em ordem *}
+<h4></h4>                  {* ❌ Pula h3 *}
 
-{* Use aria attributes when needed *}
-<nav aria-label="Main navigation">
+{* Use atributos aria quando necessário *}
+<nav aria-label="Navegação principal">
   <{$menu}>
 </nav>
 
@@ -407,18 +407,18 @@ admin_list.tpl
 
 ---
 
-## Common Patterns
+## Padrões Comuns
 
-### Pagination
+### Paginação
 
 ```smarty
-{* Display pagination *}
+{* Exibir paginação *}
 <{if $paginator|default:false}>
-  <nav class="pagination" aria-label="Pagination">
+  <nav class="pagination" aria-label="Paginação">
     <ul class="pagination__list">
       <{if $paginator.has_previous}>
         <li class="pagination__item">
-          <a href="<{$paginator.first_url}>" class="pagination__link">First</a>
+          <a href="<{$paginator.first_url}>" class="pagination__link">Primeira</a>
         </li>
       <{/if}>
 
@@ -438,7 +438,7 @@ admin_list.tpl
 
       <{if $paginator.has_next}>
         <li class="pagination__item">
-          <a href="<{$paginator.last_url}>" class="pagination__link">Last</a>
+          <a href="<{$paginator.last_url}>" class="pagination__link">Última</a>
         </li>
       <{/if}>
     </ul>
@@ -446,14 +446,14 @@ admin_list.tpl
 <{/if}>
 ```
 
-### Breadcrumb
+### Trilha de Navegação
 
 ```smarty
-{* Display breadcrumb navigation *}
-<nav class="breadcrumb" aria-label="Breadcrumb">
+{* Exibir navegação de trilha *}
+<nav class="breadcrumb" aria-label="Trilha">
   <ol class="breadcrumb__list">
     <li class="breadcrumb__item">
-      <a href="<{$xoops_url}>" class="breadcrumb__link">Home</a>
+      <a href="<{$xoops_url}>" class="breadcrumb__link">Início</a>
     </li>
 
     <{foreach item=crumb from=$breadcrumbs}>
@@ -473,10 +473,10 @@ admin_list.tpl
 </nav>
 ```
 
-### Alert Messages
+### Mensagens de Alerta
 
 ```smarty
-{* Display messages *}
+{* Exibir mensagens *}
 <{if $messages|default:false}>
   <{foreach item=message from=$messages}>
     <div class="alert alert--<{$message.type}>" role="alert">
@@ -485,10 +485,10 @@ admin_list.tpl
   <{/foreach}>
 <{/if}>
 
-{* Display errors *}
+{* Exibir erros *}
 <{if $errors|default:false}>
   <div class="alert alert--danger" role="alert">
-    <h2 class="alert__title">Error</h2>
+    <h2 class="alert__title">Erro</h2>
     <ul class="alert__list">
       <{foreach item=error from=$errors}>
         <li><{$error}></li>
@@ -502,13 +502,13 @@ admin_list.tpl
 
 ## Performance
 
-### Template Optimization
+### Otimização de Template
 
 ```smarty
-{* Assign variables once, reuse *}
+{* Atribuir variáveis uma vez, reutilizar *}
 <{assign var=item_count value=$items|@count}>
 <{if $item_count > 0}>
-  <p>Found <{$item_count}> items</p>
+  <p>Encontrado <{$item_count}> itens</p>
   <ul>
     <{foreach item=item from=$items}>
       <li><{$item.title}></li>
@@ -516,66 +516,66 @@ admin_list.tpl
   </ul>
 <{/if}>
 
-{* Use {assign} for computed values *}
+{* Use {assign} para valores calculados *}
 <{assign var=is_admin value=$xoops_isadmin}>
 <{if $is_admin}>
-  {* Admin options *}
+  {* Opções de admin *}
 <{/if}>
 <{if $is_admin}>
-  {* Reuse same computed value *}
+  {* Reutilizar mesmo valor calculado *}
 <{/if}>
 
-{* Avoid complex logic in templates *}
-{* ❌ Complex calculation in template *}
+{* Evite lógica complexa em templates *}
+{* ❌ Cálculo complexo em template *}
 <{$total = 0}>
 <{foreach item=item from=$items}>
   <{$total = $total + $item.price * $item.quantity}>
 <{/foreach}>
 <p><{$total}></p>
 
-{* ✅ Compute in PHP, display in template *}
-<p><{$total}></p> {* Passed from PHP controller *}
+{* ✅ Computar em PHP, exibir em template *}
+<p><{$total}></p> {* Passado do controlador PHP *}
 ```
 
 ---
 
-## Best Practices
+## Melhores Práticas
 
-### Do
+### Faça
 
-- Use semantic HTML5
-- Include alt text for images
-- Use language constants for text
-- Escape output (default)
-- Keep logic minimal
-- Use meaningful variable names
-- Include file headers
-- Use BEM-style class names
-- Test with screen readers
+- Use HTML5 semântico
+- Inclua texto alternativo para imagens
+- Use constantes de idioma para texto
+- Escape saída (padrão)
+- Mantenha lógica mínima
+- Use nomes de variável significativos
+- Inclua cabeçalhos de arquivo
+- Use nomes de classe estilo BEM
+- Teste com leitores de tela
 
-### Don't
+### Não Faça
 
-- Don't mix logic and presentation
-- Don't forget alt text
-- Don't use raw HTML without escaping
-- Don't create global variables in templates
-- Don't use deprecated Smarty features
-- Don't nest templates too deeply
-- Don't ignore accessibility
-- Don't hardcode text (use constants)
+- Não misture lógica e apresentação
+- Não esqueça texto alternativo
+- Não use HTML bruto sem escapar
+- Não crie variáveis globais em templates
+- Não use recursos Smarty descontinuados
+- Não aninhe templates muito profundamente
+- Não ignore acessibilidade
+- Não codifique texto (use constantes)
 
 ---
 
-## Template Examples
+## Exemplos de Template
 
-### Complete Module Template
+### Template de Módulo Completo
 
 ```smarty
 {*
  * XOOPS Module - Publisher
- * @file Item list template
- * @author XOOPS Team
- * @copyright 2026 XOOPS Project
+ * @file Template de lista de itens
+ * @author Equipe XOOPS
+ * @copyright 2026 Projeto XOOPS
  * @license GPL-2.0-or-later
  *}
 
@@ -604,7 +604,7 @@ admin_list.tpl
                   <{$item.created|date_format:'%B %d, %Y'}>
                 </time>
                 <span class="item-card__author">
-                  By <{$item.author}>
+                  Por <{$item.author}>
                 </span>
               </div>
 
@@ -638,12 +638,12 @@ admin_list.tpl
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- JavaScript Standards
-- CSS Guidelines
-- Code of Conduct
-- PHP Standards
+- Padrões JavaScript
+- Diretrizes CSS
+- Código de Conduta
+- Padrões PHP
 
 ---
 

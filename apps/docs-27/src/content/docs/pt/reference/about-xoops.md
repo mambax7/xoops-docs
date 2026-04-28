@@ -1,65 +1,65 @@
 ---
-title: "About XOOPS CMS"
+title: "Sobre XOOPS CMS"
 ---
 
 ![](/xoops-docs/2.7/img/installation/logoxoops.jpg)
 
-## About XOOPS CMS
+## Sobre XOOPS CMS
 
-XOOPS is a Content Management System (CMS) and web portal program that allows administrators to easily create dynamic websites with great content and many outstanding features. It is an ideal tool for developing small to large dynamic community websites, intra-company portals, corporate portals, weblogs, and much more. It can be installed on any host with a PHP-capable web server (e.g. Apache or Nginx) and a MySQL-compatible database.
+XOOPS é um Sistema de Gerenciamento de Conteúdo (CMS) e programa de portal web que permite que administradores criem facilmente sites dinâmicos com ótimo conteúdo e muitos recursos excelentes. É uma ferramenta ideal para desenvolver sites comunitários dinâmicos pequenos e grandes, portais intra-empresariais, portais corporativos, blogs e muito mais. Pode ser instalado em qualquer hospedagem com um servidor web capaz de PHP (ex. Apache ou Nginx) e um banco de dados compatível com MySQL.
 
-**Main project website:** [https://xoops.org](https://xoops.org)
+**Site do projeto principal:** [https://xoops.org](https://xoops.org)
 
-XOOPS is released under the terms of the GNU General Public License (GPL) and is free to use and modify. You may redistribute it as long as you abide by the distribution terms of the GPL.
+XOOPS é lançado nos termos da Licença Pública Geral GNU (GPL) e é livre para usar e modificar. Você pode redistribuí-lo desde que cumpra com os termos de distribuição da GPL.
 
-### What XOOPS stands for
+### O que XOOPS significa
 
-XOOPS is an acronym of **eXtensible Object Oriented Portal System**. Though it started as a portal system, it is now a fully featured Content Management System that can serve small personal sites through large enterprise installations.
+XOOPS é um acrônimo de **eXtensible Object Oriented Portal System** (Sistema de Portal Orientado a Objetos Extensível). Embora tenha começado como um sistema de portal, agora é um Sistema de Gerenciamento de Conteúdo completo que pode servir desde pequenos sites pessoais até grandes instalações empresariais.
 
-### Pronunciation
+### Pronúncia
 
-The standard pronunciation of XOOPS follows English rules and is pronounced `[zoo'ps]`.
+A pronúncia padrão de XOOPS segue as regras do inglês e é pronunciado `[zoo'ps]`.
 
-### Key features
+### Recursos principais
 
-**Database-driven**
+**Orientado por banco de dados**
 
-XOOPS uses a relational database (MySQL, 5.7.8 or later) to store the data required for running a web-based content management system.
+XOOPS usa um banco de dados relacional (MySQL, 5.7.8 ou posterior) para armazenar os dados necessários para executar um sistema de gerenciamento de conteúdo baseado na web.
 
-**Fully modularized**
+**Totalmente modularizado**
 
-Modules can be installed, uninstalled, activated, or deactivated with a click through the XOOPS module administration system.
+Módulos podem ser instalados, desinstalados, ativados ou desativados com um clique através do sistema de administração de módulos do XOOPS.
 
-**Personalization**
+**Personalização**
 
-Registered users can edit their profiles, select site themes, upload custom avatars, and more.
+Usuários registrados podem editar seus perfis, selecionar temas do site, fazer upload de avatares customizados e muito mais.
 
-**User management**
+**Gerenciamento de usuário**
 
-XOOPS offers search across users by various criteria, email, and a template-based private messaging system.
+XOOPS oferece busca entre usuários por vários critérios, email e um sistema de mensagens privadas baseado em template.
 
-**Worldwide support**
+**Suporte mundial**
 
-XOOPS is created and maintained by a team of volunteers from around the world. The XOOPS community has support sites in multiple languages.
+XOOPS é criado e mantido por uma equipe de voluntários de todo o mundo. A comunidade XOOPS tem sites de suporte em múltiplos idiomas.
 
-**Multibyte language support**
+**Suporte a idioma multibyte**
 
-XOOPS fully supports multibyte languages, including Japanese, Simplified and Traditional Chinese, Korean, and Arabic (with RTL support added in 2.7.0).
+XOOPS suporta completamente idiomas multibyte, incluindo japonês, chinês simplificado e tradicional, coreano e árabe (com suporte RTL adicionado em 2.7.0).
 
-**Versatile group permissions**
+**Permissões de grupo versáteis**
 
-A powerful and user-friendly permissions system allows administrators to set permissions by group.
+Um poderoso e fácil de usar sistema de permissões permite que administradores definam permissões por grupo.
 
-**Theme-based skinnable interface**
+**Interface tema-base ajustável**
 
-The theme system lets both administrators and users change the look of the entire site. The 2.7.0 distribution ships with modern Bootstrap-5 and Tailwind-based themes.
+O sistema de tema permite que administradores e usuários alterem a aparência de todo o site. A distribuição 2.7.0 vem com temas modernos baseados em Bootstrap-5 e Tailwind.
 
-### The current development is on GitHub
+### O desenvolvimento atual está no GitHub
 
-To see what's coming, please check out our GitHub repositories:
+Para ver o que vem por aí, confira nossos repositórios GitHub:
 
 - [XOOPS 2.7.x Core](https://github.com/XOOPS/XoopsCore27)
 - [XOOPS 2.7.x Releases](https://github.com/XOOPS/XoopsCore27/releases)
-- [XOOPS Modules](https://github.com/XoopsModules25x) — community-maintained modules. The organization is named `XoopsModules25x` for historical reasons; it is the canonical home for modules used with both XOOPS 2.5.x and XOOPS 2.7.x. The 2.7.0 themes shipped in `XoopsCore27` (`xswatch4`, `xswatch5`) explicitly recommend modules from this org.
+- [XOOPS Modules](https://github.com/XoopsModules25x) — módulos mantidos pela comunidade. A organização é nomeada `XoopsModules25x` por razões históricas; é a casa canônica para módulos usados tanto com XOOPS 2.5.x quanto XOOPS 2.7.x. Os temas 2.7.0 enviados em `XoopsCore27` (`xswatch4`, `xswatch5`) explicitamente recomendam módulos desta organização.
 - [XOOPS Documentation](https://github.com/XoopsDocs)
 - [XOOPS Themes](https://github.com/XoopsThemes)

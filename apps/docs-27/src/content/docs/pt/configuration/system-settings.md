@@ -1,55 +1,55 @@
 ---
-title: "System Settings"
-description: "Comprehensive guide to XOOPS admin system settings, configuration options, and preferences hierarchy"
+title: "Configurações do Sistema"
+description: "Guia abrangente das configurações do sistema de administração do XOOPS, opções de configuração e hierarquia de preferências"
 ---
 
-# XOOPS System Settings
+# Configurações de Sistema do XOOPS
 
-This guide covers the complete system settings available in the XOOPS admin panel, organized by category.
+Este guia cobre as configurações de sistema completas disponíveis no painel de administração do XOOPS, organizadas por categoria.
 
-## System Settings Architecture
+## Arquitetura de Configurações do Sistema
 
 ```mermaid
 graph TD
-    A[System Settings] --> B[General Settings]
-    A --> C[User Settings]
-    A --> D[Module Settings]
-    A --> E[Meta Tags & Footer]
-    A --> F[Email Settings]
-    A --> G[Cache Settings]
-    A --> H[URL Settings]
-    A --> I[Security Settings]
-    B --> B1[Site Name]
-    B --> B2[Timezone]
-    B --> B3[Language]
-    C --> C1[Registration]
-    C --> C2[Profiles]
-    C --> C3[Permissions]
-    F --> F1[SMTP Config]
-    F --> F2[Notification Rules]
+    A[Configurações do Sistema] --> B[Configurações Gerais]
+    A --> C[Configurações de Usuário]
+    A --> D[Configurações de Módulo]
+    A --> E[Meta Tags e Rodapé]
+    A --> F[Configurações de Email]
+    A --> G[Configurações de Cache]
+    A --> H[Configurações de URL]
+    A --> I[Configurações de Segurança]
+    B --> B1[Nome do Site]
+    B --> B2[Fuso Horário]
+    B --> B3[Idioma]
+    C --> C1[Registro]
+    C --> C2[Perfis]
+    C --> C3[Permissões]
+    F --> F1[Config SMTP]
+    F --> F2[Regras de Notificação]
 ```
 
-## Accessing System Settings
+## Acessando Configurações do Sistema
 
-### Location
+### Localização
 
-**Admin Panel > System > Preferences**
+**Painel de Administração > Sistema > Preferências**
 
-Or navigate directly:
+Ou navegue diretamente:
 
 ```
-http://your-domain.com/xoops/admin/index.php?fct=preferences
+http://seu-dominio.com/xoops/admin/index.php?fct=preferences
 ```
 
-### Permission Requirements
+### Requisitos de Permissão
 
-- Only administrators (webmasters) can access system settings
-- Changes affect the entire site
-- Most changes take effect immediately
+- Apenas administradores (webmasters) podem acessar configurações do sistema
+- Alterações afetam todo o site
+- A maioria das alterações entra em vigor imediatamente
 
-## General Settings
+## Configurações Gerais
 
-The foundational configuration for your XOOPS installation.
+A configuração fundamental para sua instalação XOOPS.
 
 ### Basic Information
 
@@ -675,20 +675,20 @@ systemctl restart apache2
 3. Check error logs
 4. Try using PHP mail() instead of SMTP
 
-## Next Steps
+## Próximos Passos
 
-After system settings configuration:
+Após a configuração de configurações do sistema:
 
-1. Configure security settings
-2. Optimize performance
-3. Explore admin panel features
-4. Set up user management
+1. Configurar definições de segurança
+2. Otimizar desempenho
+3. Explorar recursos do painel de administração
+4. Configurar gerenciamento de usuários
 
 ---
 
 **Tags:** #system-settings #configuration #preferences #admin-panel
 
-**Related Articles:**
+**Artigos Relacionados:**
 - ../../06-Publisher-Module/User-Guide/Basic-Configuration
 - Security-Configuration
 - Performance-Optimization

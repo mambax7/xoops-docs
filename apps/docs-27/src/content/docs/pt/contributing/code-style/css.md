@@ -1,86 +1,86 @@
 ---
-title: "CSS and SCSS Guidelines"
-description: "XOOPS CSS/SCSS coding standards and best practices"
+title: "Diretrizes de CSS e SCSS"
+description: "Padrões de codificação CSS/SCSS do XOOPS e melhores práticas"
 ---
 
-> XOOPS follows modern CSS standards with SCSS preprocessing, focusing on maintainability and performance.
-
----
-
-## Overview
-
-XOOPS CSS standards emphasize:
-
-- **SCSS preprocessing** for organization
-- **BEM methodology** for naming
-- **Mobile-first responsive design**
-- **Accessibility and semantic HTML**
-- **Performance optimization**
+> XOOPS segue padrões CSS modernos com pré-processamento SCSS, focando em manutenibilidade e performance.
 
 ---
 
-## File Structure
+## Visão Geral
 
-### SCSS Organization
+Padrões CSS do XOOPS enfatizam:
+
+- **Pré-processamento SCSS** para organização
+- **Metodologia BEM** para nomenclatura
+- **Design responsivo mobile-first**
+- **Acessibilidade e HTML semântico**
+- **Otimização de performance**
+
+---
+
+## Estrutura de Arquivo
+
+### Organização SCSS
 
 ```
 styles/
-├── abstracts/           # Variables, mixins, functions
+├── abstracts/           # Variáveis, mixins, funções
 │   ├── _variables.scss
 │   ├── _mixins.scss
 │   └── _functions.scss
-├── base/                # Reset, typography, defaults
+├── base/                # Reset, tipografia, padrões
 │   ├── _reset.scss
 │   ├── _typography.scss
 │   └── _base.scss
-├── components/          # Reusable components
+├── components/          # Componentes reutilizáveis
 │   ├── _button.scss
 │   ├── _form.scss
 │   ├── _card.scss
 │   └── _navigation.scss
-├── layout/              # Page layout
+├── layout/              # Layout da página
 │   ├── _header.scss
 │   ├── _footer.scss
 │   ├── _sidebar.scss
 │   └── _container.scss
-├── pages/               # Page-specific styles
+├── pages/               # Estilos específicos da página
 │   ├── _home.scss
 │   ├── _dashboard.scss
 │   └── _admin.scss
-└── main.scss            # Import all files
+└── main.scss            # Importar todos os arquivos
 ```
 
-### File Naming
+### Nomenclatura de Arquivo
 
 ```scss
-// Use lowercase with hyphens
-_button.scss        // Component
-_modal-dialog.scss  // Multi-word component
-_colors.scss        // Variables
+// Use minúsculas com hífens
+_button.scss        // Componente
+_modal-dialog.scss  // Componente de múltiplas palavras
+_colors.scss        // Variáveis
 ```
 
 ---
 
-## Naming Conventions
+## Convenções de Nomenclatura
 
-### BEM Methodology
+### Metodologia BEM
 
 BEM = Block Element Modifier
 
 ```scss
-// Block: Standalone component
+// Block: Componente independente
 .button { }
 
-// Block__Element: Child of block
+// Block__Element: Filho de block
 .button__text { }
 .button__icon { }
 
-// Block--Modifier: Variation of block
+// Block--Modifier: Variação de block
 .button--primary { }
 .button--disabled { }
 .button--small { }
 
-// Complex example
+// Exemplo complexo
 .card { }
 .card__header { }
 .card__body { }
@@ -89,64 +89,64 @@ BEM = Block Element Modifier
 .card--loading { }
 ```
 
-### Naming Best Practices
+### Melhores Práticas de Nomenclatura
 
 ```scss
-// ✅ Descriptive BEM naming
+// ✅ Nomenclatura BEM descritiva
 .form-field { }
 .form-field__label { }
 .form-field__input { }
 .form-field--disabled { }
 .form-field--error { }
 
-// ❌ Avoid
-.form-f { }                 // Too abbreviated
-.form_field { }             // Use hyphens, not underscores
-.formField { }              // Don't use camelCase
-.form-field-2 { }           // Don't use numbers for variants
-.form-field.active { }      // Use modifiers, not classes
+// ❌ Evitar
+.form-f { }                 // Muito abreviado
+.form_field { }             // Use hífens, não underscores
+.formField { }              // Não use camelCase
+.form-field-2 { }           // Não use números para variantes
+.form-field.active { }      // Use modificadores, não classes
 ```
 
 ---
 
-## Formatting
+## Formatação
 
-### Basic Structure
+### Estrutura Básica
 
 ```scss
 .component {
-  // 1. Positioning and layout
+  // 1. Posicionamento e layout
   display: flex;
   position: relative;
   top: 0;
   left: 0;
 
-  // 2. Box model
+  // 2. Modelo de caixa
   width: 100%;
   height: auto;
   padding: 1rem;
   margin: 0.5rem;
   border: 1px solid;
 
-  // 3. Typography
+  // 3. Tipografia
   font-size: 1rem;
   line-height: 1.5;
   color: #333;
 
-  // 4. Visual effects
+  // 4. Efeitos visuais
   background: #fff;
   border-radius: 4px;
   box-shadow: none;
 
-  // 5. Animations
+  // 5. Animações
   transition: all 0.3s ease;
 }
 ```
 
-### Spacing and Indentation
+### Espaçamento e Indentação
 
 ```scss
-// Use 2 spaces for indentation
+// Use 2 espaços para indentação
 .component {
   padding: 1rem;
 
@@ -155,28 +155,28 @@ BEM = Block Element Modifier
   }
 }
 
-// Properties on separate lines
+// Propriedades em linhas separadas
 .component {
   display: flex;        // ✅
   color: red;
   font-size: 1rem;
 }
 
-// ❌ Don't compact
+// ❌ Não compacte
 .component { display: flex; color: red; }
 ```
 
-### Selectors
+### Seletores
 
 ```scss
-// One selector per line
+// Um seletor por linha
 .button,
 .button-group,
 .button-list {
   // ...
 }
 
-// Don't skip lines between selectors
+// Não pule linhas entre seletores
 // ✅
 .component {
 }
@@ -195,12 +195,12 @@ BEM = Block Element Modifier
 
 ---
 
-## Variables
+## Variáveis
 
-### Variable Naming
+### Nomenclatura de Variável
 
 ```scss
-// Use descriptive names
+// Use nomes descritivos
 $color-primary: #0066cc;
 $color-secondary: #666666;
 $color-danger: #dc3545;
@@ -222,21 +222,21 @@ $transition-duration: 0.3s;
 $transition-timing: ease-in-out;
 ```
 
-### Variable Organization
+### Organização de Variável
 
 ```scss
 // _variables.scss
 
-// Colors
+// Cores
 $color-primary: #0066cc;
 $color-secondary: #666666;
 
-// Typography
+// Tipografia
 $font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 $font-size-base: 1rem;
 $line-height-base: 1.5;
 
-// Spacing
+// Espaçamento
 $spacing-unit: 0.5rem;
 $spacing-xs: $spacing-unit;
 $spacing-sm: $spacing-unit * 2;
@@ -252,28 +252,28 @@ $breakpoint-xl: 1200px;
 
 ---
 
-## Colors
+## Cores
 
-### Color System
+### Sistema de Cor
 
 ```scss
-// Primary palette
+// Paleta primária
 $color-primary: #0066cc;
 $color-primary-dark: #004499;
 $color-primary-light: #3399ff;
 
-// Secondary palette
+// Paleta secundária
 $color-secondary: #666666;
 $color-secondary-dark: #333333;
 $color-secondary-light: #999999;
 
-// Semantic colors
+// Cores semânticas
 $color-success: #28a745;
 $color-warning: #ffc107;
 $color-danger: #dc3545;
 $color-info: #17a2b8;
 
-// Neutral colors
+// Cores neutras
 $color-white: #ffffff;
 $color-black: #000000;
 $color-gray-100: #f8f9fa;
@@ -286,7 +286,7 @@ $color-gray-700: #495057;
 $color-gray-800: #343a40;
 $color-gray-900: #212529;
 
-// Usage
+// Uso
 .button {
   background-color: $color-primary;
   color: $color-white;
@@ -303,16 +303,16 @@ $color-gray-900: #212529;
 
 ---
 
-## Typography
+## Tipografia
 
-### Font Declarations
+### Declarações de Fonte
 
 ```scss
-// Define typography variables
+// Definir variáveis de tipografia
 $font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 $font-family-monospace: 'Courier New', monospace;
 
-// Font sizes
+// Tamanhos de fonte
 $font-size-base: 1rem;      // 16px
 $font-size-small: 0.875rem; // 14px
 $font-size-large: 1.25rem;  // 20px
@@ -321,14 +321,14 @@ $line-height-base: 1.5;
 $line-height-tight: 1.25;
 $line-height-loose: 1.75;
 
-// Font weights
+// Pesos de fonte
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 ```
 
-### Heading Hierarchy
+### Hierarquia de Cabeçalho
 
 ```scss
 h1, .h1 {
@@ -367,10 +367,10 @@ small {
 
 ## Mixins
 
-### Common Mixins
+### Mixins Comuns
 
 ```scss
-// Responsive breakpoint mixin
+// Mixin de breakpoint responsivo
 @mixin respond-to($breakpoint) {
   @if $breakpoint == 'sm' {
     @media (min-width: $breakpoint-sm) { @content; }
@@ -383,7 +383,7 @@ small {
   }
 }
 
-// Usage
+// Uso
 .component {
   font-size: 0.875rem;
 
@@ -396,33 +396,33 @@ small {
   }
 }
 
-// Flexbox mixin
+// Mixin de flexbox
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// Usage
+// Uso
 .modal__overlay {
   @include flex-center;
   height: 100vh;
 }
 
-// Truncate text mixin
+// Mixin truncar texto
 @mixin truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-// Usage
+// Uso
 .breadcrumb__item {
   @include truncate;
   max-width: 200px;
 }
 
-// Clearfix mixin (legacy)
+// Mixin clearfix (legado)
 @mixin clearfix {
   &::after {
     content: '';
@@ -434,18 +434,18 @@ small {
 
 ---
 
-## Responsive Design
+## Design Responsivo
 
-### Mobile-First Approach
+### Abordagem Mobile-First
 
 ```scss
-// Base styles (mobile)
+// Estilos base (mobile)
 .component {
   font-size: 0.875rem;
   padding: $spacing-sm;
 }
 
-// Tablets and up
+// Tablets e acima
 @include respond-to('md') {
   .component {
     font-size: 1rem;
@@ -453,7 +453,7 @@ small {
   }
 }
 
-// Desktops and up
+// Desktops e acima
 @include respond-to('lg') {
   .component {
     font-size: 1.125rem;
@@ -462,10 +462,10 @@ small {
 }
 ```
 
-### Breakpoint System
+### Sistema de Breakpoint
 
 ```scss
-// Define breakpoints
+// Definir breakpoints
 $breakpoints: (
   'xs': 0,
   'sm': 576px,
@@ -475,7 +475,7 @@ $breakpoints: (
   'xxl': 1400px,
 );
 
-// Flexible mixin for any breakpoint
+// Mixin flexível para qualquer breakpoint
 @mixin media($breakpoint) {
   $min-width: map-get($breakpoints, $breakpoint);
   @media (min-width: $min-width) {
@@ -483,7 +483,7 @@ $breakpoints: (
   }
 }
 
-// Usage
+// Uso
 .component {
   width: 100%;
 
@@ -499,205 +499,60 @@ $breakpoints: (
 
 ---
 
-## Components
+## Melhores Práticas
 
-### Button Component
+### Faça
 
-```scss
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: $spacing-sm $spacing-md;
-  border: 1px solid transparent;
-  border-radius: $border-radius-medium;
-  font-size: $font-size-base;
-  font-weight: $font-weight-semibold;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all $transition-duration $transition-timing;
+- Use variáveis SCSS para cores, espaçamento, fonts
+- Siga convenção de nomenclatura BEM
+- Design responsivo mobile-first
+- Organize arquivos por propósito
+- Escreva mixins reutilizáveis
+- Mantenha seletores simples (máx 3 níveis de profundidade)
+- Use HTML semântico
+- Minimize especificidade
+- Comente seções complexas
 
-  &:hover {
-    opacity: 0.9;
-  }
+### Não Faça
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.25);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  // Variants
-  &--primary {
-    background-color: $color-primary;
-    color: $color-white;
-
-    &:hover {
-      background-color: $color-primary-dark;
-    }
-  }
-
-  &--secondary {
-    background-color: $color-secondary;
-    color: $color-white;
-  }
-
-  &--danger {
-    background-color: $color-danger;
-    color: $color-white;
-  }
-
-  &--small {
-    padding: $spacing-xs $spacing-sm;
-    font-size: $font-size-small;
-  }
-
-  &--large {
-    padding: $spacing-md $spacing-lg;
-    font-size: $font-size-large;
-  }
-
-  // Icons
-  &__icon {
-    margin-right: 0.5em;
-
-    &:last-child {
-      margin-right: 0;
-      margin-left: 0.5em;
-    }
-  }
-}
-```
-
-### Form Component
-
-```scss
-.form-group {
-  margin-bottom: $spacing-lg;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-
-  &__label {
-    font-weight: $font-weight-semibold;
-    margin-bottom: 0.5rem;
-    color: $color-secondary-dark;
-  }
-
-  &__input,
-  &__select,
-  &__textarea {
-    padding: $spacing-sm;
-    border: 1px solid #ddd;
-    border-radius: $border-radius-medium;
-    font-size: $font-size-base;
-    font-family: inherit;
-    transition: border-color $transition-duration;
-
-    &:focus {
-      outline: none;
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
-    }
-
-    &:disabled {
-      background-color: #f5f5f5;
-      cursor: not-allowed;
-    }
-  }
-
-  &__help {
-    font-size: $font-size-small;
-    color: $color-gray-600;
-    margin-top: 0.25rem;
-  }
-
-  &--error {
-    .form-field__input,
-    .form-field__select {
-      border-color: $color-danger;
-
-      &:focus {
-        box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
-      }
-    }
-
-    .form-field__error {
-      color: $color-danger;
-      font-size: $font-size-small;
-      margin-top: 0.25rem;
-    }
-  }
-
-  &--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}
-```
+- Use estilos inline
+- Use !important (quase nunca)
+- Crie seletores excessivamente específicos
+- Use seletores de ID para estilo
+- Aninha muito profundo (máx 3-4 níveis)
+- Use px para tamanhos de fonte (use rem)
+- Crie números mágicos (use variáveis)
+- Deixe CSS não usado
+- Esqueça acessibilidade
 
 ---
 
-## Best Practices
+## Acessibilidade
 
-### Do
-
-- Use SCSS variables for colors, spacing, fonts
-- Follow BEM naming convention
-- Mobile-first responsive design
-- Organize files by purpose
-- Write reusable mixins
-- Keep selectors simple (max 3 levels deep)
-- Use semantic HTML
-- Minimize specificity
-- Comment complex sections
-
-### Don't
-
-- Use inline styles
-- Use !important (almost never)
-- Create overly specific selectors
-- Use ID selectors for styling
-- Nest too deeply (max 3-4 levels)
-- Use px for font sizes (use rem)
-- Create magic numbers (use variables)
-- Leave unused CSS
-- Forget accessibility
-
----
-
-## Accessibility
-
-### Color Contrast
+### Contraste de Cor
 
 ```scss
-// Ensure sufficient contrast
-// Level AA: 4.5:1 for normal text
-// Level AAA: 7:1 for normal text
+// Certifique-se contraste suficiente
+// Nível AA: 4.5:1 para texto normal
+// Nível AAA: 7:1 para texto normal
 
 .button--primary {
   background-color: $color-primary; // #0066cc
   color: $color-white;               // #ffffff
-  // Contrast ratio: 8.6:1 ✅
+  // Taxa de contraste: 8.6:1 ✅
 }
 
 .button--secondary {
   background-color: $color-gray-300; // #dee2e6
   color: $color-black;               // #000000
-  // Contrast ratio: 9.3:1 ✅
+  // Taxa de contraste: 9.3:1 ✅
 }
 ```
 
-### Focus States
+### Estados de Foco
 
 ```scss
-// Always provide focus styles
+// Sempre forneça estilos de foco
 .button:focus,
 .form-field__input:focus {
   outline: 3px solid $color-primary;
@@ -705,10 +560,10 @@ $breakpoints: (
 }
 ```
 
-### Semantic HTML with CSS
+### HTML Semântico com CSS
 
 ```scss
-// Use proper semantic structure
+// Use estrutura semântica apropriada
 main {
   padding: $spacing-lg;
 }
@@ -734,10 +589,10 @@ nav {
 
 ## Performance
 
-### Optimize Selectors
+### Otimizar Seletores
 
 ```scss
-// ✅ Efficient
+// ✅ Eficiente
 .button {
   // ...
 }
@@ -746,22 +601,22 @@ nav {
   // ...
 }
 
-// ❌ Inefficient (too specific, deep nesting)
+// ❌ Ineficiente (muito específico, aninhamento profundo)
 div.container section.content article .button {
   // ...
 }
 ```
 
-### Minimize Repaints
+### Minimizar Repintos
 
 ```scss
-// Group animations
+// Agrupar animações
 .component {
-  // Change multiple properties at once
+  // Mudar múltiplas propriedades de uma vez
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-// Or use shorthand
+// Ou use shorthand
 .component {
   transition: all 0.3s ease;
 }
@@ -769,9 +624,9 @@ div.container section.content article .button {
 
 ---
 
-## Tools
+## Ferramentas
 
-### Stylelint Configuration
+### Configuração Stylelint
 
 ```json
 {
@@ -788,12 +643,12 @@ div.container section.content article .button {
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- JavaScript Standards
-- Code of Conduct
-- Contribution Workflow
-- PHP Standards
+- Padrões JavaScript
+- Código de Conduta
+- Fluxo de Contribuição
+- Padrões PHP
 
 ---
 

@@ -1,23 +1,23 @@
 ---
-title: "PHPUnit Testing Best Practices"
-description: "Setting up PHPUnit, writing unit and integration tests, code coverage"
+title: "Boas Práticas de Testes PHPUnit"
+description: "Configuração de PHPUnit, escrita de testes unitários e integração, cobertura de código"
 ---
 
-# PHPUnit Testing Best Practices in XOOPS
+# Boas Práticas de Testes PHPUnit em XOOPS
 
-Testing is essential for ensuring code quality, preventing regressions, and enabling confident refactoring.
+Testes são essenciais para garantir qualidade de código, prevenir regressões e permitir refatoração confiante.
 
-## Installing PHPUnit
+## Instalando PHPUnit
 
 ```bash
-# Using Composer
+# Usando Composer
 composer require --dev phpunit/phpunit ^9.0
 
-# Run tests
+# Executar testes
 ./vendor/bin/phpunit
 ```
 
-## phpunit.xml Configuration
+## Configuração phpunit.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -44,7 +44,7 @@ composer require --dev phpunit/phpunit ^9.0
 </phpunit>
 ```
 
-## Writing Unit Tests
+## Escrevendo Testes Unitários
 
 ```php
 <?php
@@ -101,7 +101,7 @@ class UserServiceTest extends TestCase
 ?>
 ```
 
-## Testing Data Objects
+## Testes de Objetos de Dados
 
 ```php
 <?php
@@ -135,28 +135,28 @@ class UserDTOTest extends TestCase
 ?>
 ```
 
-## Code Coverage
+## Cobertura de Código
 
 ```bash
-# Generate coverage report
+# Gerar relatório de cobertura
 ./vendor/bin/phpunit --coverage-html coverage
 
-# View coverage percentage
+# Ver percentagem de cobertura
 ./vendor/bin/phpunit --coverage-text
 ```
 
-## Best Practices
+## Boas Práticas
 
-- Write one test per method/scenario
-- Use descriptive test names
-- Follow Arrange-Act-Assert pattern
-- Mock external dependencies
-- Keep tests focused and independent
-- Aim for 80%+ code coverage
-- Test error conditions
-- Test boundary cases
+- Escrever um teste por método/cenário
+- Usar nomes de teste descritivos
+- Seguir padrão Arrange-Act-Assert
+- Mockar dependências externas
+- Manter testes focados e independentes
+- Almejar cobertura 80%+
+- Testar condições de erro
+- Testar casos limites
 
-## Test Organization
+## Organização de Testes
 
 ```
 tests/
@@ -173,14 +173,14 @@ tests/
 └── phpunit.xml
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- Error-Handling for exception testing
-- ../Patterns/Repository-Pattern for repository testing
-- ../Patterns/Service-Layer for service testing
-- Code-Organization for test structure
+Veja também:
+- Tratamento-de-Erros para teste de exceção
+- ../Padrões/Padrão-Repository para teste de repositório
+- ../Padrões/Camada-de-Serviço para teste de serviço
+- Organização-de-Código para estrutura de teste
 
 ---
 
-Tags: #best-practices #testing #phpunit #code-coverage #module-development
+Tags: #boas-práticas #testes #phpunit #cobertura-de-código #desenvolvimento-de-módulo

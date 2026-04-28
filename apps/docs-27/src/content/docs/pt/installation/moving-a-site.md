@@ -1,56 +1,56 @@
 ---
-title: "Moving a Site"
+title: "Movendo um Site"
 ---
 
-It can be a very useful technique to prototype a new XOOPS site on a local system or a development server. It can also be very prudent to test a XOOPS upgrade on a copy of your production site first, just in case something goes wrong. To accomplish these, you need to be able to move your XOOPS site from one site to another. Here is what you need to know to successfully move your XOOPS site.
+Pode ser uma técnica muito útil fazer um protótipo de um novo site XOOPS em um sistema local ou em um servidor de desenvolvimento. Também pode ser muito prudente testar uma atualização do XOOPS em uma cópia do seu site de produção primeiro, apenas no caso de algo dar errado. Para fazer isso, você precisa ser capaz de mover seu site XOOPS de um site para outro. Aqui está o que você precisa saber para mover com sucesso seu site XOOPS.
 
-The first step is to establish your new site environment. The same items that are covered in the section [Advance Preparations](../installation/preparations/) apply here as well.
+O primeiro passo é estabelecer seu novo ambiente de site. Os mesmos itens cobertos na seção [Preparações Avançadas](../installation/preparations/) também se aplicam aqui.
 
-In review, those steps are:
+Em resumo, essas etapas são:
 
-* obtain hosting, including any domain name or email requirements
-* obtain a MySQL user account and password
-* obtain a MySQL database that above user has all privileges on
+* obter hospedagem, incluindo quaisquer requisitos de nome de domínio ou e-mail
+* obter uma conta e senha de usuário MySQL
+* obter um banco de dados MySQL que o usuário acima tem todos os privilégios
 
-The remainder of the process is quite similar to a normal install, but:
+O resto do processo é bastante semelhante a uma instalação normal, mas:
 
-* instead of copying the files from the XOOPS distribution, you will copy them from the existing site
-* instead of running the installer, you will import a database already populated
-* instead of entering answers in the installer, you will change the previous answers in the files and database
+* em vez de copiar os arquivos da distribuição do XOOPS, você os copiará do site existente
+* em vez de executar o instalador, você importará um banco de dados já populado
+* em vez de inserir respostas no instalador, você alterará as respostas anteriores nos arquivos e banco de dados
 
-## Copy the Existing Site Files
+## Copiar os Arquivos do Site Existente
 
-Make a full copy of files of your existing site to your local machine where you can edit them. If you are working with a remote host, you can use FTP to copy the files. You need a copy to work with even if the site is running on your local machine, just make another copy of the site's directories in that case.
+Faça uma cópia completa dos arquivos do seu site existente para sua máquina local, onde você possa editá-los. Se você estiver trabalhando com um host remoto, você pode usar FTP para copiar os arquivos. Você precisa de uma cópia para trabalhar mesmo se o site estiver sendo executado na sua máquina local, basta fazer outra cópia dos diretórios do site nesse caso.
 
-It is important to remember to include the _xoops_data_ and _xoops_lib_ directories even if they were renamed and/or relocated.
+É importante lembrar de incluir os diretórios _xoops_data_ e _xoops_lib_ mesmo se forem renomeados e/ou realocados.
 
-To make things smoother, you should eliminate cache and Smarty compiled templates files from your copy. These files will be recreated in your new environment, and might cause issues with old incorrect information being retained if not cleared. To do this, delete all files, except for _index.html_, in all three of these directories:
+Para tornar as coisas mais suaves, você deve eliminar os arquivos de cache e templates compilados do Smarty da sua cópia. Esses arquivos serão recriados no seu novo ambiente e podem causar problemas se forem mantidas informações antigas incorretas se não forem limpas. Para fazer isso, delete todos os arquivos, exceto _index.html_, em todos esses três diretórios:
 
 * _xoops_data_/caches/smarty_cache
 * _xoops_data_/caches/smarty_compile
 * _xoops_data_/caches/xoops_cache
 
-> **Note:** Clearing `smarty_compile` is especially important when moving a site to or from XOOPS 2.7.0. XOOPS 2.7.0 uses Smarty 4, and Smarty 4 compiled templates are not interchangeable with Smarty 3 compiled templates. Leaving stale compiled files in place will cause template errors at first page load on the new site.
+> **Nota:** Limpar `smarty_compile` é especialmente importante ao mover um site para ou do XOOPS 2.7.0. O XOOPS 2.7.0 usa Smarty 4, e os templates compilados do Smarty 4 não são intercambiáveis com os templates compilados do Smarty 3. Deixar arquivos compilados obsoletos no lugar causará erros de template no primeiro carregamento de página no novo site.
 
-### `xoops_lib` and Composer Dependencies
+### `xoops_lib` e Dependências do Composer
 
-XOOPS 2.7.0 manages its PHP dependencies through Composer, inside `xoops_lib/`. The `xoops_lib/vendor/` directory contains the third-party libraries that XOOPS needs at runtime (Smarty 4, PHPMailer, HTMLPurifier, etc.). When moving a site, you must copy the entire `xoops_lib/` tree — including `vendor/` — to the new host. Do not attempt to regenerate `vendor/` on the target host unless you are a developer who has customized `composer.json` and has Composer available on the target.
+O XOOPS 2.7.0 gerencia suas dependências PHP através do Composer, dentro de `xoops_lib/`. O diretório `xoops_lib/vendor/` contém as bibliotecas de terceiros que o XOOPS precisa em tempo de execução (Smarty 4, PHPMailer, HTMLPurifier, etc.). Ao mover um site, você deve copiar toda a árvore `xoops_lib/` — incluindo `vendor/` — para o novo host. Não tente regenerar `vendor/` no host de destino, a menos que seja um desenvolvedor que tenha personalizado `composer.json` e tenha o Composer disponível no destino.
 
-## Setup the New Environment
+## Configurar o Novo Ambiente
 
-The same items that are covered in the section [Advance Preparations](../installation/preparations/) apply here as well. We will assume here that you have whatever hosting you will need for the site you are moving.
+Os mesmos itens cobertos na seção [Preparações Avançadas](../installation/preparations/) também se aplicam aqui. Assumiremos aqui que você tem qualquer hospedagem que precisar para o site que está movendo.
 
-### Key Information (mainfile.php and secure.php)
+### Informações Chave (mainfile.php e secure.php)
 
-Successfully moving a site involves changing any references to absolute file and path names, URLs, database parameters and access credentials.
+Mover um site com sucesso envolve alterar quaisquer referências a nomes de arquivo absolutos e nomes de caminho, URLs, parâmetros de banco de dados e credenciais de acesso.
 
-Two files, `mainfile.php` in your site's web root, and `data/secure.php` in your site's (renamed and/or relocated) _xoops_data_ directory define your site's basic parameters, such as its URL, where is sits in the host file system, and how it connects to the database.
+Dois arquivos, `mainfile.php` na raiz web do seu site, e `data/secure.php` no diretório _xoops_data_ (renomeado e/ou realocado) do seu site definem os parâmetros básicos do site, como sua URL, onde fica no sistema de arquivos do host, e como ele se conecta ao banco de dados.
 
-You will need to know both what the values are in the old system, and what they will be in the new system.
+Você precisará saber quais são os valores no sistema antigo e quais serão no sistema novo.
 
 #### mainfile.php
 
-| Name | Old Value in mainfile.php | New Value in mainfile.php |
+| Nome | Valor Antigo em mainfile.php | Novo Valor em mainfile.php |
 | :--- | :--- | :--- |
 | XOOPS_ROOT_PATH |  |  |
 | XOOPS_PATH |  |  |
@@ -58,13 +58,13 @@ You will need to know both what the values are in the old system, and what they 
 | XOOPS_URL |  |  |
 | XOOPS_COOKIE_DOMAIN |  |  |
 
-Open _mainfile.php_ in your editor. Change the values for the defines shown in the chart above from the old values, to the appropriate values for the new site.
+Abra _mainfile.php_ no seu editor. Altere os valores das definições mostradas no gráfico acima dos valores antigos para os valores apropriados para o novo site.
 
-Keep notes of the old an new values, as we will need to make similar changes in other places in some later steps.
+Mantenha notas dos valores antigos e novos, pois precisaremos fazer alterações semelhantes em outros lugares em algumas etapas posteriores.
 
-As an example, if you are moving a site from your local PC to a commercial hosting service, your values might look like this:
+Como exemplo, se você estiver movendo um site do seu PC local para um serviço de hospedagem comercial, seus valores podem ser assim:
 
-| Name | Old Value in mainfile.php | New Value in mainfile.php |
+| Nome | Valor Antigo em mainfile.php | Novo Valor em mainfile.php |
 | :--- | :--- | :--- |
 | XOOPS_ROOT_PATH | c:/wamp/xoopscore27/htdocs | /home8/example/public_html |
 | XOOPS_PATH | c:/wamp/xoopscore27/htdocs/xoops_lib | /home8/example/private/xoops_lib |
@@ -72,83 +72,82 @@ As an example, if you are moving a site from your local PC to a commercial hosti
 | XOOPS_URL | http://localhost/xoops | https://example.com |
 | XOOPS_COOKIE_DOMAIN | localhost | example.com |
 
-After you have changed _mainfile.php_, save it.
+Após alterar _mainfile.php_, salve-o.
 
-It is possible that some other files may contain hardcoded references to your URL or even paths. This is more likely in customized themes and menus, but with your editor, you can seach across all files, just to be sure.
+É possível que alguns outros arquivos possam conter referências codificadas à sua URL ou mesmo caminhos. Isso é mais provável em temas e menus personalizados, mas com seu editor, você pode pesquisar em todos os arquivos, apenas para ter certeza.
 
-In your editor, do a search across the files in your copy, searching for the old XOOPS_URL value, and replace it with the new value.
+No seu editor, faça uma pesquisa em todos os arquivos da sua cópia, procurando pelo valor antigo de XOOPS_URL, e substitua-o pelo novo valor.
 
-Do the same for the old XOOPS_ROOT_PATH value, replacing all occurrences with the new value.
+Faça o mesmo para o valor antigo de XOOPS_ROOT_PATH, substituindo todas as ocorrências pelo novo valor.
 
-Keep your notes, because we will have to use them again later with as we move the database.
+Mantenha suas notas, porque precisaremos usá-las novamente mais tarde conforme movemos o banco de dados.
 
 #### data/secure.php
 
-| Name | Old Value in data/secure.php | New Value in data/secure.php |
+| Nome | Valor Antigo em data/secure.php | Novo Valor em data/secure.php |
 | :--- | :--- | :--- |
 | XOOPS_DB_HOST |  |  |
 | XOOPS_DB_USER |  |  |
 | XOOPS_DB_PASS |  |  |
 | XOOPS_DB_NAME |  |  |
 
-Open the _data/secure.php_ in the renamed and/or relocated _xoops_data_ directory in your editor. Change the values for the defines shown in the chart above from the old values, to the appropriate values for the new site.
+Abra a _data/secure.php_ no diretório _xoops_data_ renomeado e/ou realocado no seu editor. Altere os valores das definições mostradas no gráfico acima dos valores antigos para os valores apropriados para o novo site.
 
-#### Other Files
+#### Outros Arquivos
 
-There may be other files that may need attention when your site moves. Some common examples are API keys for various services that may be tied to the domain, such as:
+Pode haver outros arquivos que podem precisar de atenção quando seu site se move. Alguns exemplos comuns são chaves de API para vários serviços que podem estar vinculadas ao domínio, como:
 
-* Google Maps
-* Recaptch2
-* Like buttons
-* Link sharing and/or advertising such as Shareaholic or AddThis
+* Mapas do Google
+* Recaptcha2
+* Botões de gosto
+* Compartilhamento de link e/ou publicidade como Shareaholic ou AddThis
 
-Changing these types of associations cannot easily be automated, as the connections to the old domain are typically part of the registration on the service side. In some cases, this may simply add or changing the domain associated with the service.
+Alterar esses tipos de associações não pode ser facilmente automatizado, pois as conexões ao domínio antigo são tipicamente parte do registro no lado do serviço. Em alguns casos, isso pode simplesmente ser adicionar ou alterar o domínio associado ao serviço.
 
-### Copy the Files to the New Site
+### Copiar os Arquivos para o Novo Site
 
-Copy your now modified files to your new site. The techniques are the same as were used during [Installation](../installation/installation/), i.e. using FTP.
+Copie seus arquivos agora modificados para o seu novo site. As técnicas são as mesmas que foram usadas durante a [Instalação](../installation/installation/), ou seja, usando FTP.
 
-## Copy the Existing Site Database
+## Copiar o Banco de Dados do Site Existente
 
-### Backup the Database from the Old Server
+### Fazer Backup do Banco de Dados do Servidor Antigo
 
-For this step, using _phpMyAdmin_ is highly recommended. Log in to _phpMyAdmin_ for your existing site, select your database, and choose _Export_.
+Para esta etapa, usar _phpMyAdmin_ é altamente recomendado. Faça login no _phpMyAdmin_ do seu site existente, selecione seu banco de dados e escolha _Exportar_.
 
-The default setting are usually fine, so just select "Export method" of _Quick_ and "Format" of _SQL_.
+As configurações padrão geralmente estão bem, portanto, basta selecionar "Método de exportação" de _Rápido_ e "Formato" de _SQL_.
 
-Use the _Go_ button to download the database backup.
+Use o botão _Ir_ para baixar o backup do banco de dados.
 
-![Exporting a Database with phpMyAdmin](/xoops-docs/2.7/img/installation/phpmyadmin-export-01.png)
+![Exportando um Banco de Dados com phpMyAdmin](/xoops-docs/2.7/img/installation/phpmyadmin-export-01.png)
 
-If you have tables in your database that are not from XOOPS or its modules, and are NOT supposed to be moved, you should select the "Export method" of _Custom_ and choose just the XOOPS related tables in your database. (These start with the "prefix" that you specified during the install. You can look up your database prefix in the `xoops_data/data/secure.php` file.)
+Se você tiver tabelas no seu banco de dados que não são do XOOPS ou de seus módulos, e NÃO devem ser movidas, você deverá selecionar o "Método de exportação" de _Personalizado_ e escolher apenas as tabelas relacionadas ao XOOPS no seu banco de dados. (Estas começam com o "prefixo" que você especificou durante a instalação. Você pode procurar seu prefixo de banco de dados no arquivo `xoops_data/data/secure.php`.)
 
-### Restore the Database to the New Server
+### Restaurar o Banco de Dados para o Novo Servidor
 
-On your new host, using your new database, restore the database using [tools](../tools/tools.md) such as the _Import_ tab in _phpMyAdmin_ (or _bigdump_ if needed.)
+No seu novo host, usando seu novo banco de dados, restaure o banco de dados usando [ferramentas](../tools/tools.md) como a aba _Importar_ no _phpMyAdmin_ (ou _bigdump_ se necessário.)
 
-### Update URLs and Paths in the Database
+### Atualizar URLs e Caminhos no Banco de Dados
 
-Update any http links to resources on your site in your database. This can be a huge effort, and there is a [tool](../tools/tools.md) to make this easier.
+Atualize todos os links HTTP para recursos no seu site no seu banco de dados. Isso pode ser um esforço enorme, e há uma [ferramenta](../tools/tools.md) para facilitar isso.
 
-Interconnect/it has a product called Search-Replace-DB which can help with this. It comes with awareness of Wordpress and Drupal environments built in. As is, this tool can be very helpful, but it is even better when it is aware of your XOOPS. You can find a XOOPS aware version at [https://github.com/geekwright/srdb](https://github.com/geekwright/srdb)
+Interconnect/it tem um produto chamado Search-Replace-DB que pode ajudar com isso. Ele vem com conscientização dos ambientes Wordpress e Drupal integrados. Como está, essa ferramenta pode ser muito útil, mas é ainda melhor quando está ciente de seu XOOPS. Você pode encontrar uma versão ciente do XOOPS em [https://github.com/geekwright/srdb](https://github.com/geekwright/srdb)
 
-Follow the instructions in the README.md file to download and temporarily install this utility on your site. Earlier, we changed the XOOPS_URL define. When you run this tool, you want to replace the original XOOPS_URL definition with the new definition, i.e replace [http://localhost/xoops](http://localhost/xoops) with [https://example.com](https://example.com)
+Siga as instruções no arquivo README.md para baixar e instalar temporariamente esse utilitário no seu site. Anteriormente, alteramos a definição de XOOPS_URL. Quando você executar essa ferramenta, deseja substituir a definição original de XOOPS_URL pela nova definição, ou seja, substituir [http://localhost/xoops](http://localhost/xoops) por [https://example.com](https://example.com)
 
-![Using Seach and Replace DB](/xoops-docs/2.7/img/installation/srdb-01.png)
+![Usando Pesquisa e Substituição DB](/xoops-docs/2.7/img/installation/srdb-01.png)
 
-Enter your old and new URLs, and choose the dry run option. Review the changes, and if everything looks good, go for the live run option. This step will catch configuration items and links inside your content that refer to your site URL.
+Inserir as URLs antigas e novas e escolher a opção de execução seca. Revise as alterações e, se tudo parecer bem, vá para a opção de execução ao vivo. Esta etapa capturará itens de configuração e links dentro do seu conteúdo que se referem à URL do seu site.
 
-![Reviewing Changes in SRDB](/xoops-docs/2.7/img/installation/srdb-02.png)
+![Revisando Alterações em SRDB](/xoops-docs/2.7/img/installation/srdb-02.png)
 
-Repeat the process using your old and new values for XOOPS_ROOT_PATH.
+Repita o processo usando seus valores antigos e novos para XOOPS_ROOT_PATH.
 
-#### Alternative Approach Without SRDB
+#### Abordagem Alternativa Sem SRDB
 
-Another way to accomplish this step without the srdb tool would be to dump your database, edit the dump in a text editor changing the URLs and paths, and then reloading the database from your edited dump. Yes, that process is involved enough and carries enough risk that people were motivated to create specialized tools such as Search-Replace-DB.
+Outra forma de realizar esta etapa sem a ferramenta srdb seria despejar seu banco de dados, editar o despejo em um editor de texto alterando os URLs e caminhos, e depois recarregar o banco de dados a partir do seu despejo editado. Sim, esse processo é envolvido o suficiente e carrega risco suficiente que as pessoas foram motivadas a criar ferramentas especializadas como Search-Replace-DB.
 
-## Try Out Your Relocated Site
+## Tente Seu Site Realocado
 
-At this point, your site should be ready to run in its new environment!
+Neste ponto, seu site deve estar pronto para ser executado em seu novo ambiente!
 
-Of course, there can always be problems. Don't be afraid to post any questions on the [xoops.org Forums](https://xoops.org/modules/newbb/index.php).
-
+Obviamente, sempre pode haver problemas. Não tenha medo de postar qualquer pergunta nos [Fóruns do xoops.org](https://xoops.org/modules/newbb/index.php).

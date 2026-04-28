@@ -1,47 +1,47 @@
 ---
-title: "Database Utilities"
-description: "XMF database utilities for schema management, migrations, and data loading"
+title: "Utilitários de Banco de Dados"
+description: "Utilitários de banco de dados XMF para gerenciamento de schema, migrações e carregamento de dados"
 ---
 
-The `Xmf\Database` namespace provides classes to simplify database maintenance tasks associated with installing and updating XOOPS modules. These utilities handle schema migrations, table modifications, and initial data loading.
+O namespace `Xmf\Database` fornece classes para simplificar tarefas de manutenção de banco de dados associadas com instalação e atualização de módulos XOOPS. Estes utilitários manipulam migrações de schema, modificações de tabelas e carregamento de dados inicial.
 
-## Overview
+## Visão Geral
 
-The database utilities include:
+Os utilitários de banco de dados incluem:
 
-- **Tables** - Building and executing DDL statements for table modifications
-- **Migrate** - Synchronizing database schema between module versions
-- **TableLoad** - Loading initial data into tables
+- **Tables** - Construindo e executando declarações DDL para modificações de tabela
+- **Migrate** - Sincronizando schema de banco de dados entre versões de módulo
+- **TableLoad** - Carregando dados inicial em tabelas
 
 ## Xmf\Database\Tables
 
-The `Tables` class simplifies creating and modifying database tables. It builds a work queue of DDL (Data Definition Language) statements that are executed together.
+A classe `Tables` simplifica criar e modificar tabelas de banco de dados. Ela constrói uma fila de trabalho de declarações DDL (Data Definition Language) que são executadas juntas.
 
-### Key Features
+### Principais Características
 
-- Loads current schema from existing tables
-- Queues changes without immediate execution
-- Considers current state when determining work to do
-- Automatically handles XOOPS table prefix
+- Carrega schema atual de tabelas existentes
+- Enfileira mudanças sem execução imediata
+- Considera estado atual ao determinar trabalho a fazer
+- Manipula automaticamente prefixo de tabela XOOPS
 
-### Getting Started
+### Começando
 
 ```php
 use Xmf\Database\Tables;
 
-// Create a new Tables instance
+// Criar nova instância Tables
 $tables = new Tables();
 
-// Load an existing table or start new schema
+// Carregar tabela existente ou iniciar novo schema
 $tables->addTable('mymodule_items');
 
-// For existing tables only (fails if table doesn't exist)
+// Apenas para tabelas existentes (falha se tabela não existe)
 $tables->useTable('mymodule_items');
 ```
 
-### Table Operations
+### Operações de Tabela
 
-#### Rename a Table
+#### Renomear uma Tabela
 
 ```php
 $tables = new Tables();
@@ -50,7 +50,7 @@ $tables->renameTable('mymodule_old_name', 'mymodule_new_name');
 $tables->executeQueue();
 ```
 
-#### Set Table Options
+#### Definir Opções de Tabela
 
 ```php
 $tables->addTable('mymodule_items');
@@ -58,7 +58,7 @@ $tables->setTableOptions('mymodule_items', 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb
 $tables->executeQueue();
 ```
 
-#### Drop a Table
+#### Dropar uma Tabela
 
 ```php
 $tables->addTable('mymodule_temp');
@@ -66,20 +66,20 @@ $tables->dropTable('mymodule_temp');
 $tables->executeQueue();
 ```
 
-#### Copy a Table
+#### Copiar uma Tabela
 
 ```php
-// Copy structure only
+// Copiar apenas estrutura
 $tables->copyTable('mymodule_items', 'mymodule_items_backup', false);
 
-// Copy structure and data
+// Copiar estrutura e dados
 $tables->copyTable('mymodule_items', 'mymodule_items_backup', true);
 $tables->executeQueue();
 ```
 
-### Working with Columns
+### Trabalhando com Colunas
 
-#### Add a Column
+#### Adicionar uma Coluna
 
 ```php
 $tables = new Tables();
@@ -94,19 +94,19 @@ $tables->addColumn(
 $tables->executeQueue();
 ```
 
-#### Alter a Column
+#### Alterar uma Coluna
 
 ```php
 $tables->useTable('mymodule_items');
 
-// Change column attributes
+// Mudar atributos de coluna
 $tables->alterColumn(
     'mymodule_items',
     'title',
     "VARCHAR(255) NOT NULL DEFAULT ''"
 );
 
-// Rename and modify column
+// Renomear e modificar coluna
 $tables->alterColumn(
     'mymodule_items',
     'old_column_name',
@@ -117,15 +117,15 @@ $tables->alterColumn(
 $tables->executeQueue();
 ```
 
-#### Get Column Attributes
+#### Obter Atributos de Coluna
 
 ```php
 $tables->useTable('mymodule_items');
 $attributes = $tables->getColumnAttributes('mymodule_items', 'title');
-// Returns: "VARCHAR(255) NOT NULL DEFAULT ''"
+// Retorna: "VARCHAR(255) NOT NULL DEFAULT ''"
 ```
 
-#### Drop a Column
+#### Dropar uma Coluna
 
 ```php
 $tables->useTable('mymodule_items');
@@ -133,50 +133,50 @@ $tables->dropColumn('mymodule_items', 'obsolete_field');
 $tables->executeQueue();
 ```
 
-### Working with Indexes
+### Trabalhando com Índices
 
-#### Get Table Indexes
+#### Obter Índices de Tabela
 
 ```php
 $tables->useTable('mymodule_items');
 $indexes = $tables->getTableIndexes('mymodule_items');
 
-// Returns array like:
+// Retorna array como:
 // [
 //     'PRIMARY' => ['columns' => 'item_id', 'unique' => true],
 //     'idx_category' => ['columns' => 'category_id', 'unique' => false]
 // ]
 ```
 
-#### Add Primary Key
+#### Adicionar Chave Primária
 
 ```php
 $tables->addTable('mymodule_items');
 $tables->addPrimaryKey('mymodule_items', 'item_id');
 
-// Composite primary key
+// Chave primária composta
 $tables->addPrimaryKey('mymodule_item_tags', 'item_id, tag_id');
 $tables->executeQueue();
 ```
 
-#### Add Index
+#### Adicionar Índice
 
 ```php
 $tables->useTable('mymodule_items');
 
-// Simple index
+// Índice simples
 $tables->addIndex('idx_category', 'mymodule_items', 'category_id');
 
-// Unique index
+// Índice único
 $tables->addIndex('idx_slug', 'mymodule_items', 'slug', true);
 
-// Composite index
+// Índice composto
 $tables->addIndex('idx_cat_status', 'mymodule_items', 'category_id, status');
 
 $tables->executeQueue();
 ```
 
-#### Drop Index
+#### Dropar Índice
 
 ```php
 $tables->useTable('mymodule_items');
@@ -184,24 +184,24 @@ $tables->dropIndex('idx_old_index', 'mymodule_items');
 $tables->executeQueue();
 ```
 
-#### Drop All Non-Primary Indexes
+#### Dropar Todos os Índices Não-Primários
 
 ```php
-// Useful for cleaning up auto-generated index names
+// Útil para limpeza de nomes de índice auto-gerados
 $tables->dropIndexes('mymodule_items');
 $tables->executeQueue();
 ```
 
-#### Drop Primary Key
+#### Dropar Chave Primária
 
 ```php
 $tables->dropPrimaryKey('mymodule_items');
 $tables->executeQueue();
 ```
 
-### Data Operations
+### Operações de Dados
 
-#### Insert Data
+#### Inserir Dados
 
 ```php
 $tables->useTable('mymodule_categories');
@@ -212,7 +212,7 @@ $tables->insert('mymodule_categories', [
     'weight' => 0
 ]);
 
-// Without automatic quoting (for expressions)
+// Sem citação automática (para expressões)
 $tables->insert('mymodule_logs', [
     'created' => 'NOW()',
     'message' => "'Test message'"
@@ -221,37 +221,37 @@ $tables->insert('mymodule_logs', [
 $tables->executeQueue();
 ```
 
-#### Update Data
+#### Atualizar Dados
 
 ```php
 $tables->useTable('mymodule_items');
 
-// Update with criteria object
+// Atualizar com objeto criteria
 $criteria = new Criteria('status', 0);
 $tables->update('mymodule_items', ['status' => 1], $criteria);
 
-// Update with string criteria
+// Atualizar com string criteria
 $tables->update('mymodule_items', ['hits' => 0], 'hits IS NULL');
 
 $tables->executeQueue();
 ```
 
-#### Delete Data
+#### Deletar Dados
 
 ```php
 $tables->useTable('mymodule_items');
 
-// Delete with criteria
+// Deletar com criteria
 $criteria = new Criteria('status', -1);
 $tables->delete('mymodule_items', $criteria);
 
-// Delete with string criteria
+// Deletar com string criteria
 $tables->delete('mymodule_items', 'created < DATE_SUB(NOW(), INTERVAL 1 YEAR)');
 
 $tables->executeQueue();
 ```
 
-#### Truncate Table
+#### Truncar Tabela
 
 ```php
 $tables->useTable('mymodule_cache');
@@ -259,38 +259,38 @@ $tables->truncate('mymodule_cache');
 $tables->executeQueue();
 ```
 
-### Work Queue Management
+### Gerenciamento da Fila de Trabalho
 
-#### Execute Queue
+#### Executar Fila
 
 ```php
-// Normal execution (respects HTTP method safety)
+// Execução normal (respeita segurança de método HTTP)
 $result = $tables->executeQueue();
 
-// Force execution even on GET requests
+// Forçar execução mesmo em requisições GET
 $result = $tables->executeQueue(true);
 
 if (!$result) {
-    echo 'Error: ' . $tables->getLastError();
+    echo 'Erro: ' . $tables->getLastError();
 }
 ```
 
-#### Reset Queue
+#### Resetar Fila
 
 ```php
-// Clear queue without executing
+// Limpar fila sem executar
 $tables->resetQueue();
 ```
 
-#### Add Raw SQL
+#### Adicionar SQL Bruto
 
 ```php
-// Add custom SQL to the queue
+// Adicionar SQL customizado à fila
 $tables->addToQueue('ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix('mymodule_items') . ' CONVERT TO CHARACTER SET utf8mb4');
 $tables->executeQueue();
 ```
 
-### Error Handling
+### Manipulação de Erro
 
 ```php
 $tables = new Tables();
@@ -298,72 +298,72 @@ $tables = new Tables();
 if (!$tables->addTable('mymodule_items')) {
     $error = $tables->getLastError();
     $errno = $tables->getLastErrNo();
-    // Handle error
+    // Manipular erro
 }
 ```
 
 ## Xmf\Database\Migrate
 
-The `Migrate` class simplifies synchronizing database changes between module versions. It extends `Tables` with schema comparison and automatic synchronization.
+A classe `Migrate` simplifica sincronizar mudanças de banco de dados entre versões de módulo. Ela estende `Tables` com comparação de schema e sincronização automática.
 
-### Basic Usage
+### Uso Básico
 
 ```php
 use Xmf\Database\Migrate;
 
-// Create migrate instance for a module
+// Criar instância migrate para um módulo
 $migrate = new Migrate('mymodule');
 
-// Synchronize database with target schema
+// Sincronizar banco de dados com schema alvo
 $migrate->synchronizeSchema();
 ```
 
-### In Module Update
+### Em Atualização de Módulo
 
-Typically called in the module's `xoops_module_pre_update_*` function:
+Tipicamente chamado na função `xoops_module_pre_update_*` do módulo:
 
 ```php
 function xoops_module_pre_update_mymodule($module, $previousVersion)
 {
     $migrate = new \Xmf\Database\Migrate('mymodule');
 
-    // Perform any pre-sync actions (renames, etc.)
+    // Realizar qualquer ação pré-sync (renomear, etc.)
     // ...
 
-    // Synchronize schema
+    // Sincronizar schema
     return $migrate->synchronizeSchema();
 }
 ```
 
-### Getting DDL Statements
+### Obtendo Declarações DDL
 
-For large databases or command-line migrations:
+Para bancos de dados grandes ou migrações de linha de comando:
 
 ```php
 $migrate = new Migrate('mymodule');
 $statements = $migrate->getSynchronizeDDL();
 
-// Execute statements in batches or from CLI
+// Executar declarações em lotes ou de CLI
 foreach ($statements as $sql) {
-    // Process each statement
+    // Processar cada declaração
 }
 ```
 
-### Pre-Sync Actions
+### Ações Pré-Sync
 
-Some changes require explicit handling before synchronization. Extend `Migrate` for complex migrations:
+Algumas mudanças requerem manipulação explícita antes de sincronização. Estenda `Migrate` para migrações complexas:
 
 ```php
 class MyModuleMigrate extends \Xmf\Database\Migrate
 {
     public function preSyncActions()
     {
-        // Rename a table before sync
+        // Renomear tabela antes de sync
         $this->useTable('mymodule_old_name');
         $this->renameTable('mymodule_old_name', 'mymodule_new_name');
         $this->executeQueue();
 
-        // Rename a column
+        // Renomear coluna
         $this->useTable('mymodule_items');
         $this->alterColumn(
             'mymodule_items',
@@ -375,44 +375,44 @@ class MyModuleMigrate extends \Xmf\Database\Migrate
     }
 }
 
-// Usage
+// Uso
 $migrate = new MyModuleMigrate('mymodule');
 $migrate->preSyncActions();
 $migrate->synchronizeSchema();
 ```
 
-### Schema Management
+### Gerenciamento de Schema
 
-#### Get Current Schema
+#### Obter Schema Atual
 
 ```php
 $migrate = new Migrate('mymodule');
 $currentSchema = $migrate->getCurrentSchema();
 ```
 
-#### Get Target Schema
+#### Obter Schema Alvo
 
 ```php
 $targetSchema = $migrate->getTargetDefinitions();
 ```
 
-#### Save Current Schema
+#### Salvar Schema Atual
 
-For module developers to capture schema after database changes:
+Para desenvolvedores de módulo capturem schema após mudanças de banco de dados:
 
 ```php
 $migrate = new Migrate('mymodule');
 $migrate->saveCurrentSchema();
-// Saves schema to module's sql/migrate.yml
+// Salva schema para sql/migrate.yml do módulo
 ```
 
-> **Developer Note:** Always make changes to the database first, then run `saveCurrentSchema()`. Do not manually edit the generated schema file.
+> **Nota de Desenvolvedor:** Sempre faça mudanças ao banco de dados primeiro, depois execute `saveCurrentSchema()`. Não edite manualmente o arquivo schema gerado.
 
 ## Xmf\Database\TableLoad
 
-The `TableLoad` class simplifies loading initial data into tables. Useful for seeding tables with default data during module installation.
+A classe `TableLoad` simplifica carregamento de dados inicial em tabelas. Útil para semear tabelas com dados padrão durante instalação de módulo.
 
-### Loading Data from Arrays
+### Carregando Dados de Arrays
 
 ```php
 use Xmf\Database\TableLoad;
@@ -427,17 +427,17 @@ $count = TableLoad::loadTableFromArray('mymodule_categories', $data);
 echo "Inserted {$count} rows";
 ```
 
-### Loading Data from YAML
+### Carregando Dados de YAML
 
 ```php
-// Load from YAML file
+// Carregar de arquivo YAML
 $count = TableLoad::loadTableFromYamlFile(
     'mymodule_categories',
     XOOPS_ROOT_PATH . '/modules/mymodule/sql/categories.yml'
 );
 ```
 
-YAML format:
+Formato YAML:
 
 ```yaml
 -
@@ -450,43 +450,43 @@ YAML format:
   weight: 10
 ```
 
-### Extracting Data
+### Extraindo Dados
 
-#### Count Rows
+#### Contar Linhas
 
 ```php
-// Count all rows
+// Contar todas as linhas
 $total = TableLoad::countRows('mymodule_items');
 
-// Count with criteria
+// Contar com criteria
 $criteria = new Criteria('status', 1);
 $activeCount = TableLoad::countRows('mymodule_items', $criteria);
 ```
 
-#### Extract Rows
+#### Extrair Linhas
 
 ```php
-// Extract all rows
+// Extrair todas as linhas
 $rows = TableLoad::extractRows('mymodule_items');
 
-// Extract with criteria
+// Extrair com criteria
 $criteria = new Criteria('category_id', 5);
 $rows = TableLoad::extractRows('mymodule_items', $criteria);
 
-// Skip certain columns
+// Pular certas colunas
 $rows = TableLoad::extractRows('mymodule_items', null, ['password', 'token']);
 ```
 
-### Saving Data to YAML
+### Salvando Dados para YAML
 
 ```php
-// Save all data
+// Salvar todos os dados
 TableLoad::saveTableToYamlFile(
     'mymodule_categories',
     '/path/to/categories.yml'
 );
 
-// Save filtered data
+// Salvar dados filtrados
 $criteria = new Criteria('is_default', 1);
 TableLoad::saveTableToYamlFile(
     'mymodule_settings',
@@ -494,7 +494,7 @@ TableLoad::saveTableToYamlFile(
     $criteria
 );
 
-// Save without certain columns
+// Salvar sem certas colunas
 TableLoad::saveTableToYamlFile(
     'mymodule_items',
     '/path/to/items.yml',
@@ -503,14 +503,14 @@ TableLoad::saveTableToYamlFile(
 );
 ```
 
-### Truncate Table
+### Truncar Tabela
 
 ```php
-// Empty a table
+// Esvaziar tabela
 $affectedRows = TableLoad::truncateTable('mymodule_cache');
 ```
 
-## Complete Migration Example
+## Exemplo Completo de Migração
 
 ### xoops_version.php
 
@@ -533,29 +533,29 @@ use Xmf\Database\TableLoad;
 
 function xoops_module_pre_update_mymodule($module, $previousVersion)
 {
-    // Create custom migrate class
+    // Criar classe migrate customizada
     $migrate = new MyModuleMigrate('mymodule');
 
-    // Handle version-specific migrations
+    // Manipular migrações específicas de versão
     if ($previousVersion < 120) {
-        // Version 1.2.0 renamed a table
+        // Versão 1.2.0 renomeou uma tabela
         $migrate->renameOldTable();
     }
 
     if ($previousVersion < 130) {
-        // Version 1.3.0 renamed a column
+        // Versão 1.3.0 renomeou uma coluna
         $migrate->renameOldColumn();
     }
 
-    // Synchronize schema
+    // Sincronizar schema
     return $migrate->synchronizeSchema();
 }
 
 function xoops_module_update_mymodule($module, $previousVersion)
 {
-    // Post-update data migrations
+    // Migrações de dados pós-atualização
     if ($previousVersion < 130) {
-        // Load new default settings
+        // Carregar novas configurações padrão
         TableLoad::loadTableFromYamlFile(
             'mymodule_settings',
             XOOPS_ROOT_PATH . '/modules/mymodule/sql/new_settings.yml'
@@ -590,66 +590,66 @@ class MyModuleMigrate extends Migrate
 }
 ```
 
-## API Reference
+## Referência da API
 
 ### Xmf\Database\Tables
 
-| Method | Description |
-|--------|-------------|
-| `addTable($table)` | Load or create table schema |
-| `useTable($table)` | Load existing table only |
-| `renameTable($table, $newName)` | Queue table rename |
-| `setTableOptions($table, $options)` | Queue table options change |
-| `dropTable($table)` | Queue table drop |
-| `copyTable($table, $newTable, $withData)` | Queue table copy |
-| `addColumn($table, $column, $attributes)` | Queue column addition |
-| `alterColumn($table, $column, $attributes, $newName)` | Queue column change |
-| `getColumnAttributes($table, $column)` | Get column definition |
-| `dropColumn($table, $column)` | Queue column drop |
-| `getTableIndexes($table)` | Get index definitions |
-| `addPrimaryKey($table, $column)` | Queue primary key |
-| `addIndex($name, $table, $column, $unique)` | Queue index |
-| `dropIndex($name, $table)` | Queue index drop |
-| `dropIndexes($table)` | Queue all index drops |
-| `dropPrimaryKey($table)` | Queue primary key drop |
-| `insert($table, $columns, $quote)` | Queue insert |
-| `update($table, $columns, $criteria, $quote)` | Queue update |
-| `delete($table, $criteria)` | Queue delete |
-| `truncate($table)` | Queue truncate |
-| `executeQueue($force)` | Execute queued operations |
-| `resetQueue()` | Clear queue |
-| `addToQueue($sql)` | Add raw SQL |
-| `getLastError()` | Get last error message |
-| `getLastErrNo()` | Get last error code |
+| Método | Descrição |
+|--------|-----------|
+| `addTable($table)` | Carregar ou criar schema de tabela |
+| `useTable($table)` | Carregar apenas tabela existente |
+| `renameTable($table, $newName)` | Enfileirar renomeação de tabela |
+| `setTableOptions($table, $options)` | Enfileirar mudança de opções de tabela |
+| `dropTable($table)` | Enfileirar dropar tabela |
+| `copyTable($table, $newTable, $withData)` | Enfileirar cópia de tabela |
+| `addColumn($table, $column, $attributes)` | Enfileirar adição de coluna |
+| `alterColumn($table, $column, $attributes, $newName)` | Enfileirar mudança de coluna |
+| `getColumnAttributes($table, $column)` | Obter definição de coluna |
+| `dropColumn($table, $column)` | Enfileirar dropar coluna |
+| `getTableIndexes($table)` | Obter definições de índice |
+| `addPrimaryKey($table, $column)` | Enfileirar chave primária |
+| `addIndex($name, $table, $column, $unique)` | Enfileirar índice |
+| `dropIndex($name, $table)` | Enfileirar dropar índice |
+| `dropIndexes($table)` | Enfileirar dropar todos os índices |
+| `dropPrimaryKey($table)` | Enfileirar dropar chave primária |
+| `insert($table, $columns, $quote)` | Enfileirar insert |
+| `update($table, $columns, $criteria, $quote)` | Enfileirar update |
+| `delete($table, $criteria)` | Enfileirar delete |
+| `truncate($table)` | Enfileirar truncate |
+| `executeQueue($force)` | Executar operações enfileiradas |
+| `resetQueue()` | Limpar fila |
+| `addToQueue($sql)` | Adicionar SQL bruto |
+| `getLastError()` | Obter mensagem de último erro |
+| `getLastErrNo()` | Obter código de último erro |
 
 ### Xmf\Database\Migrate
 
-| Method | Description |
-|--------|-------------|
-| `__construct($dirname)` | Create for module |
-| `synchronizeSchema()` | Sync database to target |
-| `getSynchronizeDDL()` | Get DDL statements |
-| `preSyncActions()` | Override for custom actions |
-| `getCurrentSchema()` | Get current database schema |
-| `getTargetDefinitions()` | Get target schema |
-| `saveCurrentSchema()` | Save schema for developers |
+| Método | Descrição |
+|--------|-----------|
+| `__construct($dirname)` | Criar para módulo |
+| `synchronizeSchema()` | Sincronizar banco de dados para alvo |
+| `getSynchronizeDDL()` | Obter declarações DDL |
+| `preSyncActions()` | Sobrescrever para ações customizadas |
+| `getCurrentSchema()` | Obter schema de banco de dados atual |
+| `getTargetDefinitions()` | Obter schema alvo |
+| `saveCurrentSchema()` | Salvar schema para desenvolvedores |
 
 ### Xmf\Database\TableLoad
 
-| Method | Description |
-|--------|-------------|
-| `loadTableFromArray($table, $data)` | Load from array |
-| `loadTableFromYamlFile($table, $file)` | Load from YAML |
-| `truncateTable($table)` | Empty table |
-| `countRows($table, $criteria)` | Count rows |
-| `extractRows($table, $criteria, $skip)` | Extract rows |
-| `saveTableToYamlFile($table, $file, $criteria, $skip)` | Save to YAML |
+| Método | Descrição |
+|--------|-----------|
+| `loadTableFromArray($table, $data)` | Carregar de array |
+| `loadTableFromYamlFile($table, $file)` | Carregar de YAML |
+| `truncateTable($table)` | Esvaziar tabela |
+| `countRows($table, $criteria)` | Contar linhas |
+| `extractRows($table, $criteria, $skip)` | Extrair linhas |
+| `saveTableToYamlFile($table, $file, $criteria, $skip)` | Salvar para YAML |
 
-## See Also
+## Veja Também
 
-- ../XMF-Framework - Framework overview
-- ../Basics/XMF-Module-Helper - Module helper class
-- Metagen - Metadata utilities
+- ../XMF-Framework - Visão geral do framework
+- ../Basics/XMF-Module-Helper - Classe module helper
+- Metagen - Utilitários de metadados
 
 ---
 

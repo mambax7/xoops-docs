@@ -1,48 +1,48 @@
 ---
-title: "Save Configuration"
+title: "Salvar Configuração"
 ---
 
-This page displays the results of saving the configuration information you have entered up to this point.
+Esta página exibe os resultados de salvar as informações de configuração que você inseriu até este ponto.
 
-After reviewing and correcting any issues, select the "Continue" button to proceed.
+Após revisar e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-## On Success
+## No Sucesso
 
-The _Saving your system configuration_ section shows the information that was saved. The settings are saved in one of two files. One file is _mainfile.php_ in the web root. The other is _data/secure.php_ in the _xoops_data_ directory.
+A seção _Salvando sua configuração de sistema_ mostra as informações que foram salvas. As configurações são salvas em um de dois arquivos. Um arquivo é _mainfile.php_ na raiz da web. O outro é _data/secure.php_ no diretório _xoops_data_.
 
-![XOOPS Installer Save Configuration](/xoops-docs/2.7/img/installation/installer-07.png)
+![Salvar Configuração do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-07.png)
 
-Both files are generated from template files shipped with XOOPS 2.7.0:
+Ambos os arquivos são gerados a partir de arquivos de template fornecidos com XOOPS 2.7.0:
 
-* `mainfile.php` is generated from `mainfile.dist.php` in the web root.
-* `xoops_data/data/secure.php` is generated from `xoops_data/data/secure.dist.php`.
+* `mainfile.php` é gerado a partir de `mainfile.dist.php` na raiz da web.
+* `xoops_data/data/secure.php` é gerado a partir de `xoops_data/data/secure.dist.php`.
 
-In addition to the paths and URL you entered, `mainfile.php` now includes several constants that are new in XOOPS 2.7.0:
+Além dos caminhos e URL que você digitou, `mainfile.php` agora inclui várias constantes que são novas no XOOPS 2.7.0:
 
-* `XOOPS_TRUST_PATH` — kept as a backwards-compatible alias of `XOOPS_PATH`; you do not need to configure it separately.
-* `XOOPS_COOKIE_DOMAIN_USE_PSL` — defaults to `true`; uses the Public Suffix List to derive the correct cookie domain.
-* `XOOPS_DB_LEGACY_LOG` — defaults to `false`; set to `true` in development to log use of legacy database APIs.
-* `XOOPS_DEBUG` — defaults to `false`; set to `true` in development to enable additional error reporting.
+* `XOOPS_TRUST_PATH` — mantido como alias compatível com versão anterior de `XOOPS_PATH`; você não precisa configurá-lo separadamente.
+* `XOOPS_COOKIE_DOMAIN_USE_PSL` — assume como padrão `true`; usa a Lista de Sufixo Público para derivar o domínio de cookie correto.
+* `XOOPS_DB_LEGACY_LOG` — assume como padrão `false`; defina como `true` em desenvolvimento para registrar o uso de APIs de banco de dados herdadas.
+* `XOOPS_DEBUG` — assume como padrão `false`; defina como `true` em desenvolvimento para habilitar relatório de erro adicional.
 
-You do not need to edit these by hand during installation — the defaults are appropriate for a production site. They are mentioned here so you know what to look for if you open `mainfile.php` later.
+Você não precisa editar esses manualmente durante a instalação — os padrões são apropriados para um site de produção. Eles são mencionados aqui para que você saiba o que procurar se abrir `mainfile.php` mais tarde.
 
-## Errors
+## Erros
 
-If XOOPS detects errors in writing the configuration files, it will display messages, detailing what is wrong.
+Se XOOPS detectar erros ao escrever os arquivos de configuração, ele exibirá mensagens detalhando o que está errado.
 
-![XOOPS Installer Save Configuration Errors](/xoops-docs/2.7/img/installation/installer-07-errors.png)
+![Erros de Salvar Configuração do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-07-errors.png)
 
-In many cases, a default install of a Debian-derived system using mod_php in Apache is the source of errors. Most hosting providers have configurations that do not have these issues.
+Em muitos casos, uma instalação padrão de um sistema derivado de Debian usando mod_php no Apache é a fonte de erros. A maioria dos provedores de hospedagem têm configurações que não têm esses problemas.
 
-### Group permission issues
+### Problemas de permissão de grupo
 
-The PHP process is run using the permissions of some user. Files are also owned by some user. If these two are not the same user, group permissions can be used to allow the PHP process to share files with your user account. This usually mean you need to change the group of the files and directories XOOPS needs to write to.
+O processo PHP é executado usando as permissões de algum usuário. Os arquivos também são de propriedade de algum usuário. Se esses dois não forem o mesmo usuário, as permissões de grupo podem ser usadas para permitir que o processo PHP compartilhe arquivos com sua conta de usuário. Isto geralmente significa que você precisa alterar o grupo dos arquivos e diretórios dos quais XOOPS precisa escrever.
 
-For the default configuration mentioned above this means the _www-data_ group needs to be specified as the group for the files and directories, and those files and directories need to be writable by group.
+Para a configuração padrão mencionada acima, isto significa que o grupo _www-data_ precisa ser especificado como o grupo para os arquivos e diretórios, e esses arquivos e diretórios precisam ser graváveis por grupo.
 
-You should review you configuration carefully, and carefully choose how to resolve these issues for a box available on the open internet.
+Você deve revisar sua configuração cuidadosamente e escolher cuidadosamente como resolver esses problemas para uma caixa disponível na internet aberta.
 
-Example commands could be:
+Comandos de exemplo podem ser:
 
 ```text
 chgrp -R www-data xoops_data
@@ -51,17 +51,17 @@ chgrp -R www-data uploads
 chmod -R g+w uploads
 ```
 
-### Cannot create mainfile.php
+### Não é possível criar mainfile.php
 
-In Unix-like systems, the permission to create a new file depends on permissions granted on the parent folder. In some cases that permission is not available, and granting it may be a security concern.
+Em sistemas similares ao Unix, a permissão para criar um novo arquivo depende das permissões concedidas na pasta pai. Em alguns casos, essa permissão não está disponível e concedê-la pode ser uma preocupação de segurança.
 
-If you have a problem configuration, you can find a dummy _mainfile.php_ in the _extras_ directory in the XOOPS distribution. Copy that file into the web root and set the permissions on the file:
+Se você tem um problema de configuração, você pode encontrar um _mainfile.php_ fictício no diretório _extras_ na distribuição XOOPS. Copie esse arquivo para a raiz da web e defina as permissões no arquivo:
 
 ```text
 chgrp www-data mainfile.php
 chmod g+w mainfile.php
 ```
 
-### SELinux Environments
+### Ambientes SELinux
 
-SELinux security contexts can be a source of problems. If this might apply, please refer to [Special Topics](../specialtopics.md) for more information.
+Os contextos de segurança do SELinux podem ser uma fonte de problemas. Se isto pode se aplicar, consulte [Tópicos Especiais](../specialtopics.md) para mais informações.

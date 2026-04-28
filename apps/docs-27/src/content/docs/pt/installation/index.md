@@ -1,251 +1,251 @@
 ---
-title: "Complete Installation Guide"
-description: "Step-by-step guide to installing XOOPS with the installation wizard, security hardening, and troubleshooting"
+title: "Guia Completo de Instalação"
+description: "Guia passo a passo para instalar XOOPS com o assistente de instalação, endurecimento de segurança e solução de problemas"
 ---
 
-# Complete XOOPS Installation Guide
+# Guia Completo de Instalação do XOOPS
 
-This guide provides a comprehensive walkthrough for installing XOOPS from scratch using the installation wizard.
+Este guia fornece uma visão geral abrangente para instalar XOOPS do zero usando o assistente de instalação.
 
-## Prerequisites
+## Pré-requisitos
 
-Before starting the installation, ensure you have:
+Antes de iniciar a instalação, certifique-se de ter:
 
-- Access to your web server via FTP or SSH
-- Administrator access to your database server
-- A registered domain name
-- Server requirements verified
-- Backup tools available
+- Acesso ao seu servidor web via FTP ou SSH
+- Acesso de administrador ao seu servidor de banco de dados
+- Um nome de domínio registrado
+- Requisitos do servidor verificados
+- Ferramentas de backup disponíveis
 
-## Installation Process
+## Processo de Instalação
 
 ```mermaid
 flowchart TD
-    A[Download XOOPS] --> B[Extract Files]
-    B --> C[Set File Permissions]
-    C --> D[Create Database]
-    D --> E[Visit Installation Wizard]
-    E --> F{License Accepted?}
-    F -->|No| G[Review License]
+    A[Baixar XOOPS] --> B[Extrair Arquivos]
+    B --> C[Definir Permissões de Arquivo]
+    C --> D[Criar Banco de Dados]
+    D --> E[Visitar Assistente de Instalação]
+    E --> F{Licença Aceita?}
+    F -->|Não| G[Revisar Licença]
     G --> F
-    F -->|Yes| H[System Check]
-    H --> I{All Checks Pass?}
-    I -->|No| J[Fix Issues]
+    F -->|Sim| H[Verificação de Sistema]
+    H --> I{Todas as Verificações Passam?}
+    I -->|Não| J[Corrigir Problemas]
     J --> I
-    I -->|Yes| K[Database Configuration]
-    K --> L[Admin Account Setup]
-    L --> M[Module Installation]
-    M --> N[Installation Complete]
-    N --> O[Remove install Folder]
-    O --> P[Secure Installation]
-    P --> Q[Begin Using XOOPS]
+    I -->|Sim| K[Configuração de Banco de Dados]
+    K --> L[Configuração de Conta de Administrador]
+    L --> M[Instalação de Módulo]
+    M --> N[Instalação Concluída]
+    N --> O[Remover Pasta de Instalação]
+    O --> P[Garantir Segurança da Instalação]
+    P --> Q[Começar a Usar XOOPS]
 ```
 
-## Step-by-Step Installation
+## Instalação Passo a Passo
 
-### Step 1: Download XOOPS
+### Passo 1: Baixar XOOPS
 
-Download the latest version from [https://xoops.org/](https://xoops.org/):
+Baixe a versão mais recente de [https://xoops.org/](https://xoops.org/):
 
 ```bash
-# Using wget
+# Usando wget
 wget https://xoops.org/download/xoops-2.5.8.zip
 
-# Using curl
+# Usando curl
 curl -O https://xoops.org/download/xoops-2.5.8.zip
 ```
 
-### Step 2: Extract Files
+### Passo 2: Extrair Arquivos
 
-Extract the XOOPS archive to your web root:
+Extraia o arquivo do XOOPS para sua raiz web:
 
 ```bash
-# Navigate to web root
+# Navegue até a raiz web
 cd /var/www/html
 
-# Extract XOOPS
+# Extraia XOOPS
 unzip xoops-2.5.8.zip
 
-# Rename folder (optional, but recommended)
+# Renomeie a pasta (opcional, mas recomendado)
 mv xoops-2.5.8 xoops
 cd xoops
 ```
 
-### Step 3: Set File Permissions
+### Passo 3: Definir Permissões de Arquivo
 
-Set proper permissions for XOOPS directories:
+Defina as permissões apropriadas para os diretórios do XOOPS:
 
 ```bash
-# Make directories writable (755 for dirs, 644 for files)
+# Tornar diretórios graváveis (755 para dirs, 644 para arquivos)
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
 
-# Make specific directories writable by web server
+# Tornar diretórios específicos graváveis pelo servidor web
 chmod 777 uploads/
 chmod 777 templates_c/
 chmod 777 var/
 chmod 777 cache/
 
-# Secure mainfile.php after installation
+# Proteger mainfile.php após a instalação
 chmod 644 mainfile.php
 ```
 
-### Step 4: Create Database
+### Passo 4: Criar Banco de Dados
 
-Create a new database for XOOPS using MySQL:
+Crie um novo banco de dados para XOOPS usando MySQL:
 
 ```sql
--- Create database
+-- Criar banco de dados
 CREATE DATABASE xoops_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Create user
-CREATE USER 'xoops_user'@'localhost' IDENTIFIED BY 'secure_password_here';
+-- Criar usuário
+CREATE USER 'xoops_user'@'localhost' IDENTIFIED BY 'senha_segura_aqui';
 
--- Grant privileges
+-- Conceder privilégios
 GRANT ALL PRIVILEGES ON xoops_db.* TO 'xoops_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-Or using phpMyAdmin:
+Ou usando phpMyAdmin:
 
-1. Log in to phpMyAdmin
-2. Click "Databases" tab
-3. Enter database name: `xoops_db`
-4. Select "utf8mb4_unicode_ci" collation
-5. Click "Create"
-6. Create a user with the same name as database
-7. Grant all privileges
+1. Faça login no phpMyAdmin
+2. Clique na aba "Bancos de dados"
+3. Digite o nome do banco de dados: `xoops_db`
+4. Selecione a ordenação "utf8mb4_unicode_ci"
+5. Clique em "Criar"
+6. Crie um usuário com o mesmo nome do banco de dados
+7. Conceda todos os privilégios
 
-### Step 5: Run Installation Wizard
+### Passo 5: Executar Assistente de Instalação
 
-Open your browser and navigate to:
-
-```
-http://your-domain.com/xoops/install/
-```
-
-#### System Check Phase
-
-The wizard checks your server configuration:
-
-- PHP version >= 5.6.0
-- MySQL/MariaDB available
-- Required PHP extensions (GD, PDO, etc.)
-- Directory permissions
-- Database connectivity
-
-**If checks fail:**
-
-See #Common-Installation-Issues section for solutions.
-
-#### Database Configuration
-
-Enter your database credentials:
+Abra seu navegador e navegue até:
 
 ```
-Database Host: localhost
-Database Name: xoops_db
-Database User: xoops_user
-Database Password: [your_secure_password]
-Table Prefix: xoops_
+http://seu-dominio.com/xoops/install/
 ```
 
-**Important Notes:**
-- If your database host differs from localhost (e.g., remote server), enter the correct hostname
-- The table prefix helps if running multiple XOOPS instances in one database
-- Use a strong password with mixed case, numbers, and symbols
+#### Fase de Verificação do Sistema
 
-#### Admin Account Setup
+O assistente verifica sua configuração do servidor:
 
-Create your administrator account:
+- Versão do PHP >= 5.6.0
+- MySQL/MariaDB disponível
+- Extensões PHP necessárias (GD, PDO, etc.)
+- Permissões de diretório
+- Conectividade do banco de dados
 
-```
-Admin Username: admin (or choose custom)
-Admin Email: admin@your-domain.com
-Admin Password: [strong_unique_password]
-Confirm Password: [repeat_password]
-```
+**Se as verificações falharem:**
 
-**Best Practices:**
-- Use a unique username, not "admin"
-- Use a password with 16+ characters
-- Store credentials in a secure password manager
-- Never share admin credentials
+Veja a seção #Problemas-Comuns-de-Instalação para soluções.
 
-#### Module Installation
+#### Configuração de Banco de Dados
 
-Choose default modules to install:
-
-- **System Module** (required) - Core XOOPS functionality
-- **User Module** (required) - User management
-- **Profile Module** (recommended) - User profiles
-- **PM (Private Message) Module** (recommended) - Internal messaging
-- **WF-Channel Module** (optional) - Content management
-
-Select all recommended modules for a complete installation.
-
-### Step 6: Complete Installation
-
-After all steps, you'll see a confirmation screen:
+Digite suas credenciais de banco de dados:
 
 ```
-Installation Complete!
-
-Your XOOPS installation is ready to use.
-Admin Panel: http://your-domain.com/xoops/admin/
-User Panel: http://your-domain.com/xoops/
+Host do Banco de Dados: localhost
+Nome do Banco de Dados: xoops_db
+Usuário do Banco de Dados: xoops_user
+Senha do Banco de Dados: [sua_senha_segura]
+Prefixo de Tabela: xoops_
 ```
 
-### Step 7: Secure Your Installation
+**Notas Importantes:**
+- Se seu host de banco de dados diferir de localhost (por exemplo, servidor remoto), digite o nome de host correto
+- O prefixo de tabela ajuda se estiver executando várias instâncias do XOOPS em um banco de dados
+- Use uma senha forte com letras maiúsculas e minúsculas, números e símbolos
 
-#### Remove Installation Folder
+#### Configuração de Conta de Administrador
+
+Crie sua conta de administrador:
+
+```
+Nome de Usuário de Administrador: admin (ou escolha um personalizado)
+E-mail de Administrador: admin@seu-dominio.com
+Senha de Administrador: [senha_única_forte]
+Confirmar Senha: [repetir_senha]
+```
+
+**Melhores Práticas:**
+- Use um nome de usuário único, não "admin"
+- Use uma senha com 16+ caracteres
+- Armazene as credenciais em um gerenciador de senhas seguro
+- Nunca compartilhe as credenciais de administrador
+
+#### Instalação de Módulo
+
+Escolha módulos padrão para instalar:
+
+- **Módulo de Sistema** (obrigatório) - Funcionalidade principal do XOOPS
+- **Módulo de Usuário** (obrigatório) - Gerenciamento de usuários
+- **Módulo de Perfil** (recomendado) - Perfis de usuário
+- **Módulo PM (Mensagem Privada)** (recomendado) - Mensagens internas
+- **Módulo WF-Channel** (opcional) - Gerenciamento de conteúdo
+
+Selecione todos os módulos recomendados para uma instalação completa.
+
+### Passo 6: Concluir Instalação
+
+Após todas as etapas, você verá uma tela de confirmação:
+
+```
+Instalação Concluída!
+
+Sua instalação do XOOPS está pronta para usar.
+Painel de Administração: http://seu-dominio.com/xoops/admin/
+Painel do Usuário: http://seu-dominio.com/xoops/
+```
+
+### Passo 7: Garantir Segurança da Instalação
+
+#### Remover Pasta de Instalação
 
 ```bash
-# Remove the install directory (CRITICAL for security)
+# Remova o diretório de instalação (CRÍTICO para segurança)
 rm -rf /var/www/html/xoops/install/
 
-# Or rename it
+# Ou renomeie-o
 mv /var/www/html/xoops/install/ /var/www/html/xoops/install.bak
 ```
 
-**WARNING:** Never leave the install folder accessible in production!
+**AVISO:** Nunca deixe a pasta de instalação acessível em produção!
 
-#### Secure mainfile.php
+#### Proteger mainfile.php
 
 ```bash
-# Make mainfile.php read-only
+# Tornar mainfile.php somente leitura
 chmod 644 /var/www/html/xoops/mainfile.php
 
-# Set ownership
+# Definir propriedade
 chown www-data:www-data /var/www/html/xoops/mainfile.php
 ```
 
-#### Set Proper File Permissions
+#### Definir Permissões de Arquivo Apropriadas
 
 ```bash
-# Recommended production permissions
+# Permissões de produção recomendadas
 find . -type f -name "*.php" -exec chmod 644 {} \;
 find . -type d -exec chmod 755 {} \;
 
-# Writable directories for web server
+# Diretórios graváveis para servidor web
 chmod 777 uploads/ var/ cache/ templates_c/
 ```
 
-#### Enable HTTPS/SSL
+#### Habilitar HTTPS/SSL
 
-Configure SSL in your web server (nginx or Apache).
+Configure SSL em seu servidor web (nginx ou Apache).
 
-**For Apache:**
+**Para Apache:**
 ```apache
 <VirtualHost *:443>
-    ServerName your-domain.com
+    ServerName seu-dominio.com
     DocumentRoot /var/www/html/xoops
 
     SSLEngine on
-    SSLCertificateFile /etc/ssl/certs/your-cert.crt
-    SSLCertificateKeyFile /etc/ssl/private/your-key.key
+    SSLCertificateFile /etc/ssl/certs/seu-cert.crt
+    SSLCertificateKeyFile /etc/ssl/private/sua-chave.key
 
-    # Force HTTPS redirect
+    # Forçar redirecionamento HTTPS
     <IfModule mod_rewrite.c>
         RewriteEngine On
         RewriteCond %{HTTPS} off
@@ -254,223 +254,223 @@ Configure SSL in your web server (nginx or Apache).
 </VirtualHost>
 ```
 
-## Post-Installation Configuration
+## Configuração Pós-Instalação
 
-### 1. Access Admin Panel
+### 1. Acessar Painel de Administração
 
-Navigate to:
+Navegue até:
 ```
-http://your-domain.com/xoops/admin/
+http://seu-dominio.com/xoops/admin/
 ```
 
-Login with your admin credentials.
+Faça login com suas credenciais de administrador.
 
-### 2. Configure Basic Settings
+### 2. Configurar Definições Básicas
 
-Configure the following:
+Configure o seguinte:
 
-- Site name and description
-- Admin email address
-- Timezone and date format
-- Search engine optimization
+- Nome e descrição do site
+- Endereço de e-mail do administrador
+- Fuso horário e formato de data
+- Otimização para mecanismos de busca
 
-### 3. Test Installation
+### 3. Testar Instalação
 
-- [ ] Visit homepage
-- [ ] Check modules load
-- [ ] Verify user registration works
-- [ ] Test admin panel functions
-- [ ] Confirm SSL/HTTPS works
+- [ ] Visitar página inicial
+- [ ] Verificar se os módulos carregam
+- [ ] Verificar se o registro de usuário funciona
+- [ ] Testar funções do painel de administração
+- [ ] Confirmar se HTTPS/SSL funciona
 
-### 4. Schedule Backups
+### 4. Agendar Backups
 
-Set up automatic backups:
+Configure backups automáticos:
 
 ```bash
-# Create backup script (backup.sh)
+# Criar script de backup (backup.sh)
 #!/bin/bash
 DATE=$(date +%Y%m%d_%H%M%S)
 BACKUP_DIR="/backups/xoops"
 XOOPS_DIR="/var/www/html/xoops"
 
-# Backup database
-mysqldump -u xoops_user -p[password] xoops_db > $BACKUP_DIR/db_$DATE.sql
+# Backup do banco de dados
+mysqldump -u xoops_user -p[senha] xoops_db > $BACKUP_DIR/db_$DATE.sql
 
-# Backup files
+# Backup de arquivos
 tar -czf $BACKUP_DIR/files_$DATE.tar.gz $XOOPS_DIR
 
-echo "Backup completed: $DATE"
+echo "Backup concluído: $DATE"
 ```
 
-Schedule with cron:
+Agende com cron:
 ```bash
-# Daily backup at 2 AM
+# Backup diário às 2 AM
 0 2 * * * /usr/local/bin/backup.sh
 ```
 
-## Common Installation Issues
+## Problemas Comuns de Instalação
 
-### Issue: Permission Denied Errors
+### Problema: Erros de Permissão Negada
 
-**Symptom:** "Permission denied" when uploading or creating files
+**Sintoma:** "Permissão negada" ao fazer upload ou criar arquivos
 
-**Solution:**
+**Solução:**
 ```bash
-# Check web server user
-ps aux | grep apache  # For Apache
-ps aux | grep nginx   # For Nginx
+# Verificar usuário do servidor web
+ps aux | grep apache  # Para Apache
+ps aux | grep nginx   # Para Nginx
 
-# Fix permissions (replace www-data with your web server user)
+# Corrigir permissões (substitua www-data pelo seu usuário do servidor web)
 chown -R www-data:www-data /var/www/html/xoops
 chmod -R 755 /var/www/html/xoops
 chmod 777 uploads/ var/ cache/ templates_c/
 ```
 
-### Issue: Database Connection Failed
+### Problema: Falha na Conexão do Banco de Dados
 
-**Symptom:** "Cannot connect to database server"
+**Sintoma:** "Não é possível conectar ao servidor de banco de dados"
 
-**Solution:**
-1. Verify database credentials in the installation wizard
-2. Check MySQL/MariaDB is running:
+**Solução:**
+1. Verifique as credenciais do banco de dados no assistente de instalação
+2. Verifique se MySQL/MariaDB está em execução:
    ```bash
-   service mysql status  # or mariadb
+   service mysql status  # ou mariadb
    ```
-3. Verify database exists:
+3. Verifique se o banco de dados existe:
    ```sql
    SHOW DATABASES;
    ```
-4. Test connection from command line:
+4. Teste a conexão a partir da linha de comando:
    ```bash
    mysql -h localhost -u xoops_user -p xoops_db
    ```
 
-### Issue: Blank White Screen
+### Problema: Tela Branca em Branco
 
-**Symptom:** Visiting XOOPS shows blank page
+**Sintoma:** Visitar XOOPS mostra página em branco
 
-**Solution:**
-1. Check PHP error logs:
+**Solução:**
+1. Verifique os registros de erro do PHP:
    ```bash
    tail -f /var/log/apache2/error.log
    ```
-2. Enable debug mode in mainfile.php:
+2. Habilite o modo de depuração em mainfile.php:
    ```php
    define('XOOPS_DEBUG', 1);
    ```
-3. Check file permissions on mainfile.php and config files
-4. Verify PHP-MySQL extension is installed
+3. Verifique as permissões de arquivo em mainfile.php e arquivos de configuração
+4. Verifique se a extensão PHP-MySQL está instalada
 
-### Issue: Cannot Write to Uploads Directory
+### Problema: Não é Possível Escrever no Diretório de Uploads
 
-**Symptom:** Upload feature fails, "Cannot write to uploads/"
+**Sintoma:** Falha no recurso de upload, "Não é possível escrever em uploads/"
 
-**Solution:**
+**Solução:**
 ```bash
-# Check current permissions
+# Verificar permissões atuais
 ls -la uploads/
 
-# Fix permissions
+# Corrigir permissões
 chmod 777 uploads/
 chown www-data:www-data uploads/
 
-# For specific files
+# Para arquivos específicos
 chmod 644 uploads/*
 ```
 
-### Issue: PHP Extensions Missing
+### Problema: Extensões PHP Ausentes
 
-**Symptom:** System check fails with missing extensions (GD, MySQL, etc.)
+**Sintoma:** Falha na verificação do sistema com extensões ausentes (GD, MySQL, etc.)
 
-**Solution (Ubuntu/Debian):**
+**Solução (Ubuntu/Debian):**
 ```bash
-# Install PHP GD library
+# Instalar biblioteca PHP GD
 apt-get install php-gd
 
-# Install PHP MySQL support
+# Instalar suporte PHP MySQL
 apt-get install php-mysql
 
-# Restart web server
-systemctl restart apache2  # or nginx
+# Reiniciar servidor web
+systemctl restart apache2  # ou nginx
 ```
 
-**Solution (CentOS/RHEL):**
+**Solução (CentOS/RHEL):**
 ```bash
-# Install PHP GD library
+# Instalar biblioteca PHP GD
 yum install php-gd
 
-# Install PHP MySQL support
+# Instalar suporte PHP MySQL
 yum install php-mysql
 
-# Restart web server
+# Reiniciar servidor web
 systemctl restart httpd
 ```
 
-### Issue: Slow Installation Process
+### Problema: Processo de Instalação Lento
 
-**Symptom:** Installation wizard times out or runs very slowly
+**Sintoma:** Assistente de instalação atinge tempo limite ou executa muito lentamente
 
-**Solution:**
-1. Increase PHP timeout in php.ini:
+**Solução:**
+1. Aumentar tempo limite do PHP em php.ini:
    ```ini
-   max_execution_time = 300  # 5 minutes
+   max_execution_time = 300  # 5 minutos
    ```
-2. Increase MySQL max_allowed_packet:
+2. Aumentar max_allowed_packet do MySQL:
    ```sql
    SET GLOBAL max_allowed_packet = 256M;
    ```
-3. Check server resources:
+3. Verificar recursos do servidor:
    ```bash
-   free -h  # Check RAM
-   df -h    # Check disk space
+   free -h  # Verificar RAM
+   df -h    # Verificar espaço em disco
    ```
 
-### Issue: Admin Panel Not Accessible
+### Problema: Painel de Administração Não Acessível
 
-**Symptom:** Cannot access admin panel after installation
+**Sintoma:** Não é possível acessar o painel de administração após a instalação
 
-**Solution:**
-1. Verify admin user exists in database:
+**Solução:**
+1. Verifique se o usuário administrador existe no banco de dados:
    ```sql
    SELECT * FROM xoops_users WHERE uid = 1;
    ```
-2. Clear browser cache and cookies
-3. Check if sessions folder is writable:
+2. Limpe o cache do navegador e os cookies
+3. Verifique se a pasta de sessões é gravável:
    ```bash
    chmod 777 var/
    ```
-4. Verify htaccess rules don't block admin access
+4. Verifique se as regras htaccess não bloqueiam o acesso ao administrador
 
-## Verification Checklist
+## Lista de Verificação de Verificação
 
-After installation, verify:
+Após a instalação, verifique:
 
-- [x] XOOPS homepage loads correctly
-- [x] Admin panel is accessible at /xoops/admin/
-- [x] SSL/HTTPS is working
-- [x] Install folder is removed or inaccessible
-- [x] File permissions are secure (644 for files, 755 for dirs)
-- [x] Database backups are scheduled
-- [x] Modules load without errors
-- [x] User registration system works
-- [x] File upload functionality works
-- [x] Email notifications send properly
+- [x] Página inicial do XOOPS carrega corretamente
+- [x] Painel de administração está acessível em /xoops/admin/
+- [x] SSL/HTTPS está funcionando
+- [x] Pasta de instalação foi removida ou está inacessível
+- [x] Permissões de arquivo são seguras (644 para arquivos, 755 para dirs)
+- [x] Backups de banco de dados são agendados
+- [x] Módulos carregam sem erros
+- [x] Sistema de registro de usuário funciona
+- [x] Funcionalidade de upload de arquivo funciona
+- [x] Notificações por e-mail são enviadas corretamente
 
-## Next Steps
+## Próximos Passos
 
-Once installation is complete:
+Após a conclusão da instalação:
 
-1. Read Basic Configuration guide
-2. Secure your installation
-3. Explore the admin panel
-4. Install additional modules
-5. Set up user groups and permissions
+1. Leia o guia de Configuração Básica
+2. Proteja sua instalação
+3. Explore o painel de administração
+4. Instale módulos adicionais
+5. Configure grupos de usuários e permissões
 
 ---
 
-**Tags:** #installation #setup #getting-started #troubleshooting
+**Tags:** #instalação #configuração #início-rápido #solução-de-problemas
 
-**Related Articles:**
-- Server-Requirements
-- Upgrading-XOOPS
-- ../Configuration/Security-Configuration
+**Artigos Relacionados:**
+- Requisitos-do-Servidor
+- Atualizando-XOOPS
+- ../Configuração/Configuração-de-Segurança

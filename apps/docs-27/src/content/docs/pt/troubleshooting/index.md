@@ -1,72 +1,72 @@
 ---
-title: "Troubleshooting"
-description: "Solutions for common XOOPS issues, debugging techniques, and FAQ"
+title: "Solução de Problemas"
+description: "Soluções para problemas comuns do XOOPS, técnicas de depuração e FAQ"
 ---
 
-> Solutions to common problems and debugging techniques for XOOPS CMS.
-
----
-
-## 📋 Quick Diagnosis
-
-Before diving into specific issues, check these common causes:
-
-1. **File Permissions** - Directories need 755, files need 644
-2. **PHP Version** - Ensure PHP 7.4+ (8.x recommended)
-3. **Error Logs** - Check `xoops_data/logs/` and PHP error logs
-4. **Cache** - Clear cache in Admin → System → Maintenance
+> Soluções para problemas comuns e técnicas de depuração do XOOPS CMS.
 
 ---
 
-## 🗂️ Section Contents
+## Diagnóstico Rápido
 
-### Common Issues
-- White Screen of Death (WSOD)
-- Database Connection Errors
-- Permission Denied Errors
-- Module Installation Failures
-- Template Compilation Errors
+Antes de mergulhar em problemas específicos, verifique estas causas comuns:
+
+1. **Permissões de Arquivo** - Diretórios precisam de 755, arquivos precisam de 644
+2. **Versão PHP** - Garantir PHP 7.4+ (8.x recomendado)
+3. **Logs de Erro** - Verificar `xoops_data/logs/` e logs de erro PHP
+4. **Cache** - Limpar cache em Admin → Sistema → Manutenção
+
+---
+
+## Conteúdo da Seção
+
+### Problemas Comuns
+- Tela Branca da Morte (WSOD)
+- Erros de Conexão com Banco de Dados
+- Erros de Permissão Negada
+- Falhas de Instalação de Módulo
+- Erros de Compilação de Template
 
 ### FAQ
-- Installation FAQ
-- Module FAQ
-- Theme FAQ
-- Performance FAQ
+- FAQ de Instalação
+- FAQ de Módulos
+- FAQ de Temas
+- FAQ de Performance
 
-### Debugging
-- Enabling Debug Mode
-- Using Ray Debugger
-- Database Query Debugging
-- Smarty Template Debugging
+### Depuração
+- Ativando Modo Debug
+- Usando Ray Debugger
+- Depuração de Query de Banco de Dados
+- Depuração de Template Smarty
 
 ---
 
-## 🚨 Common Issues & Solutions
+## Problemas Comuns e Soluções
 
-### White Screen of Death (WSOD)
+### Tela Branca da Morte (WSOD)
 
-**Symptoms:** Blank white page, no error message
+**Sintomas:** Página branca em branco, sem mensagem de erro
 
-**Solutions:**
+**Soluções:**
 
-1. **Enable PHP error display temporarily:**
+1. **Ativar exibição de erro PHP temporariamente:**
    ```php
    // Add to mainfile.php temporarily
    error_reporting(E_ALL);
    ini_set('display_errors', 1);
    ```
 
-2. **Check PHP error log:**
+2. **Verificar log de erro PHP:**
    ```bash
    tail -f /var/log/php/error.log
    ```
 
-3. **Common causes:**
-   - Memory limit exceeded
-   - Fatal PHP syntax error
-   - Missing required extension
+3. **Causas comuns:**
+   - Limite de memória excedido
+   - Erro fatal de sintaxe PHP
+   - Extensão necessária ausente
 
-4. **Fix memory issues:**
+4. **Corrigir problemas de memória:**
    ```php
    // In mainfile.php or php.ini
    ini_set('memory_limit', '256M');
@@ -74,13 +74,13 @@ Before diving into specific issues, check these common causes:
 
 ---
 
-### Database Connection Errors
+### Erros de Conexão com Banco de Dados
 
-**Symptoms:** "Unable to connect to database" or similar
+**Sintomas:** "Unable to connect to database" ou similar
 
-**Solutions:**
+**Soluções:**
 
-1. **Verify credentials in mainfile.php:**
+1. **Verificar credenciais em mainfile.php:**
    ```php
    define('XOOPS_DB_HOST', 'localhost');
    define('XOOPS_DB_USER', 'your_username');
@@ -88,7 +88,7 @@ Before diving into specific issues, check these common causes:
    define('XOOPS_DB_NAME', 'your_database');
    ```
 
-2. **Test connection manually:**
+2. **Testar conexão manualmente:**
    ```php
    <?php
    $conn = new mysqli('localhost', 'user', 'pass', 'database');
@@ -98,13 +98,13 @@ Before diving into specific issues, check these common causes:
    echo "Connected successfully";
    ```
 
-3. **Check MySQL service:**
+3. **Verificar serviço MySQL:**
    ```bash
    sudo systemctl status mysql
    sudo systemctl restart mysql
    ```
 
-4. **Verify user permissions:**
+4. **Verificar permissões do usuário:**
    ```sql
    GRANT ALL PRIVILEGES ON xoops.* TO 'user'@'localhost';
    FLUSH PRIVILEGES;
@@ -112,13 +112,13 @@ Before diving into specific issues, check these common causes:
 
 ---
 
-### Permission Denied Errors
+### Erros de Permissão Negada
 
-**Symptoms:** Cannot upload files, cannot save settings
+**Sintomas:** Não consegue fazer upload de arquivos, não consegue salvar configurações
 
-**Solutions:**
+**Soluções:**
 
-1. **Set correct permissions:**
+1. **Definir permissões corretas:**
    ```bash
    # Directories
    find /path/to/xoops -type d -exec chmod 755 {} \;
@@ -131,12 +131,12 @@ Before diving into specific issues, check these common causes:
    chmod -R 777 uploads/
    ```
 
-2. **Set correct ownership:**
+2. **Definir propriedade correta:**
    ```bash
    chown -R www-data:www-data /path/to/xoops
    ```
 
-3. **Check SELinux (CentOS/RHEL):**
+3. **Verificar SELinux (CentOS/RHEL):**
    ```bash
    # Check status
    sestatus
@@ -147,23 +147,23 @@ Before diving into specific issues, check these common causes:
 
 ---
 
-### Module Installation Failures
+### Falhas de Instalação de Módulo
 
-**Symptoms:** Module won't install, SQL errors
+**Sintomas:** Módulo não instala, erros SQL
 
-**Solutions:**
+**Soluções:**
 
-1. **Check module requirements:**
-   - PHP version compatibility
-   - Required PHP extensions
-   - XOOPS version compatibility
+1. **Verificar requisitos do módulo:**
+   - Compatibilidade de versão PHP
+   - Extensões PHP necessárias
+   - Compatibilidade de versão XOOPS
 
-2. **Manual SQL installation:**
+2. **Instalação SQL manual:**
    ```bash
    mysql -u user -p database < modules/mymodule/sql/mysql.sql
    ```
 
-3. **Clear module cache:**
+3. **Limpar cache do módulo:**
    ```php
    // In xoops_data/caches/
    rm -rf xoops_cache/*
@@ -171,26 +171,26 @@ Before diving into specific issues, check these common causes:
    rm -rf smarty_compile/*
    ```
 
-4. **Check xoops_version.php syntax:**
+4. **Verificar sintaxe xoopsversion.php:**
    ```bash
-   php -l modules/mymodule/xoops_version.php
+   php -l modules/mymodule/xoopsversion.php
    ```
 
 ---
 
-### Template Compilation Errors
+### Erros de Compilação de Template
 
-**Symptoms:** Smarty errors, template not found
+**Sintomas:** Erros Smarty, template não encontrado
 
-**Solutions:**
+**Soluções:**
 
-1. **Clear Smarty cache:**
+1. **Limpar cache Smarty:**
    ```bash
    rm -rf xoops_data/caches/smarty_cache/*
    rm -rf xoops_data/caches/smarty_compile/*
    ```
 
-2. **Check template syntax:**
+2. **Verificar sintaxe de template:**
    ```smarty
    {* Correct *}
    {$variable}
@@ -199,167 +199,16 @@ Before diving into specific issues, check these common causes:
    {variable}
    ```
 
-3. **Verify template exists:**
-   ```bash
-   ls modules/mymodule/templates/
-   ```
+---
 
-4. **Regenerate templates:**
-   - Admin → System → Maintenance → Templates → Regenerate
+## Documentação Relacionada
+
+- Tela Branca da Morte
+- Erros de Conexão com Banco de Dados
+- Erros de Permissão Negada
+- Falhas de Instalação de Módulo
+- Erros de Template
 
 ---
 
-## 🐛 Debugging Techniques
-
-### Enable XOOPS Debug Mode
-
-```php
-// In mainfile.php
-define('XOOPS_DEBUG_LEVEL', 2);
-
-// Levels:
-// 0 = Off
-// 1 = PHP debug
-// 2 = PHP + SQL debug
-// 3 = PHP + SQL + Smarty templates
-```
-
-### Using Ray Debugger
-
-Ray is an excellent debugging tool for PHP:
-
-```php
-// Install via Composer
-composer require spatie/ray --dev
-
-// Usage in your code
-ray($variable);
-ray($object)->expand();
-ray()->measure();
-
-// Database queries
-ray($sql)->label('Query');
-```
-
-### Smarty Debug Console
-
-```smarty
-{* Enable in template *}
-{debug}
-
-{* Or in PHP *}
-$xoopsTpl->debugging = true;
-```
-
-### Database Query Logging
-
-```php
-// Enable query logging
-$GLOBALS['xoopsDB']->setLogger(new XoopsLogger());
-
-// Get all queries
-$queries = $GLOBALS['xoopsLogger']->queries;
-foreach ($queries as $query) {
-    echo $query['sql'] . " - " . $query['time'] . "s\n";
-}
-```
-
----
-
-## ❓ Frequently Asked Questions
-
-### Installation
-
-**Q: Installation wizard shows blank page**
-A: Check PHP error logs, ensure PHP has enough memory, verify file permissions.
-
-**Q: Cannot write to mainfile.php during installation**
-A: Set permissions: `chmod 666 mainfile.php` during installation, then `chmod 444` after.
-
-**Q: Database tables not created**
-A: Check MySQL user has CREATE TABLE privileges, verify database exists.
-
-### Modules
-
-**Q: Module admin page is blank**
-A: Clear cache, check module's admin/menu.php for syntax errors.
-
-**Q: Module blocks not showing**
-A: Check block permissions in Admin → Blocks, verify block is assigned to pages.
-
-**Q: Module update fails**
-A: Backup database, try manual SQL updates, check version requirements.
-
-### Themes
-
-**Q: Theme not applying correctly**
-A: Clear Smarty cache, check theme.html exists, verify theme permissions.
-
-**Q: Custom CSS not loading**
-A: Check file path, clear browser cache, verify CSS syntax.
-
-**Q: Images not displaying**
-A: Check image paths, verify uploads folder permissions.
-
-### Performance
-
-**Q: Site is very slow**
-A: Enable caching, optimize database, check for slow queries, enable OpCache.
-
-**Q: High memory usage**
-A: Increase memory_limit, optimize large queries, implement pagination.
-
----
-
-## 🔧 Maintenance Commands
-
-### Clear All Caches
-
-```bash
-#!/bin/bash
-# clear_cache.sh
-rm -rf xoops_data/caches/xoops_cache/*
-rm -rf xoops_data/caches/smarty_cache/*
-rm -rf xoops_data/caches/smarty_compile/*
-echo "Cache cleared!"
-```
-
-### Database Optimization
-
-```sql
--- Optimize all tables
-OPTIMIZE TABLE xoops_config;
-OPTIMIZE TABLE xoops_users;
-OPTIMIZE TABLE xoops_session;
--- Repeat for other tables
-
--- Or optimize all at once
-mysqlcheck -o -u user -p database
-```
-
-### Check File Integrity
-
-```bash
-# Compare against fresh install
-diff -r /path/to/xoops /path/to/fresh-xoops
-```
-
----
-
-## 🔗 Related Documentation
-
-- Getting Started
-- Security Best Practices
-- XOOPS 4.0 Roadmap
-
----
-
-## 📚 External Resources
-
-- [XOOPS Forums](https://xoops.org/modules/newbb/)
-- [GitHub Issues](https://github.com/XOOPS/XoopsCore27/issues)
-- [PHP Error Reference](https://www.php.net/manual/en/errorfunc.constants.php)
-
----
-
-#xoops #troubleshooting #debugging #faq #errors #solutions
+#xoops #troubleshooting #debugging #solutions

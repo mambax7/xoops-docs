@@ -1,58 +1,58 @@
 ---
-title: "Appendix 2: Uploading XOOPS via FTP"
+title: "Apêndice 2: Envio de XOOPS via FTP"
 ---
 
-This appendix walks through deploying XOOPS 2.7.0 to a remote host using FTP or SFTP. Any control panel (cPanel, Plesk, DirectAdmin, etc.) will expose the same underlying steps.
+Este apêndice apresenta o processo de implantação do XOOPS 2.7.0 em um servidor remoto usando FTP ou SFTP. Qualquer painel de controle (cPanel, Plesk, DirectAdmin, etc.) exposará os mesmos passos subjacentes.
 
-## 1. Prepare the database
+## 1. Prepare o banco de dados
 
-Through your host's control panel:
+Através do painel de controle do seu host:
 
-1. Create a new MySQL database for XOOPS.
-2. Create a database user with a strong password.
-3. Grant the user full privileges on the newly created database.
-4. Record the database name, username, password, and host — you will enter them into the XOOPS installer.
+1. Crie um novo banco de dados MySQL para XOOPS.
+2. Crie um usuário de banco de dados com uma senha forte.
+3. Conceda ao usuário privilégios totais no banco de dados recém-criado.
+4. Registre o nome do banco de dados, nome de usuário, senha e host — você os inserirá no instalador do XOOPS.
 
-> **Tip**
+> **Dica**
 >
-> Modern control panels generate strong passwords for you. Since the application stores the password in `xoops_data/data/secure.php`, you do not need to type it often — prefer a long, randomly generated value.
+> Painéis de controle modernos geram senhas fortes para você. Como a aplicação armazena a senha em `xoops_data/data/secure.php`, você não precisa digitá-la frequentemente — prefira um valor longo e gerado aleatoriamente.
 
-## 2. Create an administrator mailbox
+## 2. Crie uma caixa de correio de administrador
 
-Create an email mailbox that will receive site administration notifications. The XOOPS installer asks for this address during the webmaster account setup and validates it with `FILTER_VALIDATE_EMAIL`.
+Crie uma caixa de correio de e-mail que receberá notificações de administração do site. O instalador do XOOPS solicita este endereço durante a configuração da conta de webmaster e o valida com `FILTER_VALIDATE_EMAIL`.
 
-## 3. Upload the files
+## 3. Envie os arquivos
 
-XOOPS 2.7.0 ships with its third-party dependencies pre-installed in `xoops_lib/vendor/` (Composer packages, Smarty 4, HTMLPurifier, PHPMailer, Monolog, TCPDF, and more). This makes `xoops_lib/` significantly larger than in 2.5.x — expect tens of megabytes.
+O XOOPS 2.7.0 é fornecido com suas dependências de terceiros pré-instaladas em `xoops_lib/vendor/` (pacotes Composer, Smarty 4, HTMLPurifier, PHPMailer, Monolog, TCPDF e muito mais). Isso torna `xoops_lib/` significativamente maior do que na versão 2.5.x — espere dezenas de megabytes.
 
-**Do not selectively skip files inside `xoops_lib/vendor/`.** Skipping files in the Composer vendor tree will break autoloading and the install will fail.
+**Não pule seletivamente arquivos dentro de `xoops_lib/vendor/`.** Pular arquivos na árvore do fornecedor Composer quebrará o carregamento automático e a instalação falhará.
 
-Upload structure (assuming `public_html` is the document root):
+Estrutura de envio (assumindo que `public_html` é a raiz de documentos):
 
-1. Upload `xoops_data/` and `xoops_lib/` **next to** `public_html`, not inside it. Placing them outside the web root is the recommended security posture for 2.7.0.
+1. Envie `xoops_data/` e `xoops_lib/` **ao lado de** `public_html`, não dentro dele. Colocá-los fora da raiz da web é a posição de segurança recomendada para a versão 2.7.0.
 
    ```
-   /home/your-user/
+   /home/seu-usuario/
    ├── public_html/
-   ├── xoops_data/     ← upload here
-   └── xoops_lib/      ← upload here
+   ├── xoops_data/     ← envie aqui
+   └── xoops_lib/      ← envie aqui
    ```
 
    ![](/xoops-docs/2.7/img/installation/img_66.jpg)
    ![](/xoops-docs/2.7/img/installation/img_67.jpg)
 
-2. Upload the remaining contents of the distribution `htdocs/` directory into `public_html/`.
+2. Envie o conteúdo restante do diretório `htdocs/` da distribuição para `public_html/`.
 
    ![](/xoops-docs/2.7/img/installation/img_68.jpg)
 
-> **If your host does not allow directories outside the document root**
+> **Se seu host não permitir diretórios fora da raiz de documentos**
 >
-> Upload `xoops_data/` and `xoops_lib/` **inside** `public_html/` and **rename them to non-obvious names** (for example `xdata_8f3k2/` and `xlib_7h2m1/`). You will enter the renamed paths into the installer when it asks for the XOOPS Data Path and XOOPS Library Path.
+> Envie `xoops_data/` e `xoops_lib/` **dentro de** `public_html/` e **renomeie-os para nomes não óbvios** (por exemplo `xdata_8f3k2/` e `xlib_7h2m1/`). Você inserirá os caminhos renomeados no instalador quando ele solicitar o Caminho de Dados do XOOPS e o Caminho de Biblioteca do XOOPS.
 
-## 4. Make writable directories writable
+## 4. Tornar os diretórios graváveis graváveis
 
-Through the FTP client's CHMOD dialog (or SSH), make the directories listed in Chapter 2 writable by the web server. On most shared hosts, `0775` on directories and `0664` on `mainfile.php` are sufficient. `0777` is acceptable during installation if your host runs PHP under a user other than the FTP user, but tighten the permissions after the install completes.
+Através do diálogo CHMOD do cliente FTP (ou SSH), torne os diretórios listados no Capítulo 2 graváveis pelo servidor web. Na maioria dos hosts compartilhados, `0775` em diretórios e `0664` em `mainfile.php` são suficientes. `0777` é aceitável durante a instalação se seu host executar PHP sob um usuário diferente do usuário FTP, mas aperte as permissões após a conclusão da instalação.
 
-## 5. Launch the installer
+## 5. Inicie o instalador
 
-Point your browser at the public URL of the site. If all files are in place, the XOOPS Installation Wizard starts and you can follow the rest of this guide from [Chapter 2](chapter-2-introduction.md) onwards.
+Aponte seu navegador para a URL pública do site. Se todos os arquivos estiverem no lugar, o Assistente de Instalação do XOOPS inicia e você pode seguir o resto deste guia a partir do [Capítulo 2](chapter-2-introduction.md) em diante.

@@ -1,28 +1,28 @@
 ---
-title: "Security Configuration"
-description: "Complete security hardening guide for XOOPS including file permissions, SSL/HTTPS, sensitive directories, and security best practices"
+title: "Configuração de Segurança"
+description: "Guia completo de endurecimento de segurança para XOOPS incluindo permissões de arquivo, SSL/HTTPS, diretórios sensíveis e melhores práticas de segurança"
 ---
 
-# XOOPS Security Configuration
+# Configuração de Segurança do XOOPS
 
-Comprehensive guide to securing your XOOPS installation against common web vulnerabilities.
+Guia abrangente para proteger sua instalação do XOOPS contra vulnerabilidades web comuns.
 
-## Security Checklist
+## Checklist de Segurança
 
-Before launching your site, implement these security measures:
+Antes de lançar seu site, implemente estas medidas de segurança:
 
-- [ ] File permissions set correctly (644/755)
-- [ ] Install folder removed or protected
-- [ ] mainfile.php protected from modification
-- [ ] SSL/HTTPS enabled on all pages
-- [ ] Admin folder renamed or protected
-- [ ] Sensitive files not web-accessible
-- [ ] .htaccess restrictions in place
-- [ ] Regular backups automated
-- [ ] Security headers configured
-- [ ] CSRF protection enabled
-- [ ] SQL injection protections active
-- [ ] Modules/extensions updated
+- [ ] Permissões de arquivo definidas corretamente (644/755)
+- [ ] Pasta de instalação removida ou protegida
+- [ ] mainfile.php protegido contra modificação
+- [ ] SSL/HTTPS habilitado em todas as páginas
+- [ ] Pasta de administração renomeada ou protegida
+- [ ] Arquivos sensíveis não acessíveis na web
+- [ ] Restrições de .htaccess em vigor
+- [ ] Backups regulares automatizados
+- [ ] Headers de segurança configurados
+- [ ] Proteção CSRF habilitada
+- [ ] Proteções contra injeção SQL ativas
+- [ ] Módulos/extensões atualizados
 
 ## File System Security
 
@@ -668,18 +668,18 @@ Actions Taken:
 2. ___________
 ```
 
-## Security Resources
+## Recursos de Segurança
 
-- Server Requirements
-- Basic Configuration
-- Performance Optimization
+- Requisitos de Servidor
+- Configuração Básica
+- Otimização de Desempenho
 - OWASP Top 10: https://owasp.org/www-project-top-ten/
 
 ---
 
 **Tags:** #security #ssl #https #hardening #best-practices
 
-**Related Articles:**
+**Artigos Relacionados:**
 - ../Installation/Installation
 - ../../06-Publisher-Module/User-Guide/Basic-Configuration
 - System-Settings

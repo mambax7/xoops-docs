@@ -1,777 +1,777 @@
 ---
-title: "Publisher - Creating Articles"
-description: "Complete guide to creating, editing, and formatting articles in Publisher"
+title: "Publisher - Criando Artigos"
+description: "Guia completo para criar, editar e formatar artigos no Publisher"
 ---
 
-# Creating Articles in Publisher
+# Criando Artigos no Publisher
 
-> Step-by-step guide to creating, editing, formatting, and publishing articles in the Publisher module.
+> Guia passo a passo para criar, editar, formatar e publicar artigos no módulo Publisher.
 
 ---
 
-## Access Article Management
+## Acessar Gerenciamento de Artigos
 
-### Admin Panel Navigation
+### Navegação do Painel Admin
 
 ```
-Admin Panel
-└── Modules
+Painel Admin
+└── Módulos
     └── Publisher
-        └── Articles
-            ├── Create New
-            ├── Edit
-            ├── Delete
-            └── Publish
+        └── Artigos
+            ├── Criar Novo
+            ├── Editar
+            ├── Deletar
+            └── Publicar
 ```
 
-### Quickest Path
+### Caminho Mais Rápido
 
-1. Log in as **Administrator**
-2. Click **Modules** in admin bar
-3. Find **Publisher**
-4. Click **Admin** link
-5. Click **Articles** in left menu
-6. Click **Add Article** button
+1. Faça login como **Administrador**
+2. Clique **Módulos** na barra de admin
+3. Encontre **Publisher**
+4. Clique link **Admin**
+5. Clique **Artigos** no menu esquerdo
+6. Clique botão **Adicionar Artigo**
 
 ---
 
-## Article Creation Form
+## Formulário de Criação de Artigo
 
-### Basic Information
+### Informações Básicas
 
-When creating a new article, fill in the following sections:
+Ao criar um novo artigo, preencha as seguintes seções:
 
 ```mermaid
 graph TD
-    A[Article Creation Form] -->|Step 1| B[Basic Info]
-    A -->|Step 2| C[Content]
-    A -->|Step 3| D[Images]
-    A -->|Step 4| E[Files]
-    A -->|Step 5| F[Publishing]
-    A -->|Step 6| G[Save]
+    A[Formulário de Criação de Artigo] -->|Passo 1| B[Informações Básicas]
+    A -->|Passo 2| C[Conteúdo]
+    A -->|Passo 3| D[Imagens]
+    A -->|Passo 4| E[Arquivos]
+    A -->|Passo 5| F[Publicação]
+    A -->|Passo 6| G[Salvar]
 ```
 
 ---
 
-## Step 1: Basic Information
+## Passo 1: Informações Básicas
 
-### Required Fields
+### Campos Obrigatórios
 
-#### Article Title
-
-```
-Field: Title
-Type: Text input (required)
-Max length: 255 characters
-Example: "Top 5 Tips for Better Photography"
-```
-
-**Guidelines:**
-- Descriptive and specific
-- Include keywords for SEO
-- Avoid ALL CAPS
-- Keep under 60 characters for best display
-
-#### Select Category
+#### Título do Artigo
 
 ```
-Field: Category
-Type: Dropdown (required)
-Options: List of created categories
-Example: Photography > Tutorials
+Campo: Título
+Tipo: Entrada de texto (obrigatório)
+Comprimento máx: 255 caracteres
+Exemplo: "5 Dicas Principais para Fotografia Melhor"
 ```
 
-**Tips:**
-- Parent and subcategories available
-- Pick most relevant category
-- Only one category per article
-- Can be changed later
+**Diretrizes:**
+- Descritivo e específico
+- Incluir palavras-chave para SEO
+- Evitar TUDO EM MAIÚSCULAS
+- Manter menos de 60 caracteres para melhor exibição
 
-#### Article Subtitle (Optional)
-
-```
-Field: Subtitle
-Type: Text input (optional)
-Max length: 255 characters
-Example: "Learn photography fundamentals in 5 easy steps"
-```
-
-**Use for:**
-- Summary headline
-- Teaser text
-- Extended title
-
-### Article Description
-
-#### Short Description
+#### Selecionar Categoria
 
 ```
-Field: Short Description
-Type: Textarea (optional)
-Max length: 500 characters
+Campo: Categoria
+Tipo: Dropdown (obrigatório)
+Opções: Lista de categorias criadas
+Exemplo: Fotografia > Tutoriais
 ```
 
-**Purpose:**
-- Article preview text
-- Displays in category listing
-- Used in search results
-- Meta description for SEO
+**Dicas:**
+- Categorias pai e subcategorias disponíveis
+- Escolher categoria mais relevante
+- Apenas uma categoria por artigo
+- Pode ser alterada depois
 
-**Example:**
-```
-"Discover essential photography techniques that will transform your photos
-from ordinary to extraordinary. This comprehensive guide covers composition,
-lighting, and exposure settings."
-```
-
-#### Full Content
+#### Subtítulo do Artigo (Opcional)
 
 ```
-Field: Article Body
-Type: WYSIWYG Editor (required)
-Max length: Unlimited
-Format: HTML
+Campo: Subtítulo
+Tipo: Entrada de texto (opcional)
+Comprimento máx: 255 caracteres
+Exemplo: "Aprenda fundamentos de fotografia em 5 passos fáceis"
 ```
 
-The main article content area with rich text editing.
+**Usar para:**
+- Título de resumo
+- Texto de teaser
+- Título estendido
+
+### Descrição do Artigo
+
+#### Descrição Breve
+
+```
+Campo: Descrição Breve
+Tipo: Textarea (opcional)
+Comprimento máx: 500 caracteres
+```
+
+**Propósito:**
+- Texto de pré-visualização do artigo
+- Exibe em listagem de categoria
+- Usado em resultados de busca
+- Descrição de meta para SEO
+
+**Exemplo:**
+```
+"Descubra técnicas essenciais de fotografia que transformarão suas fotos
+de ordinárias para extraordinárias. Este guia abrangente abrange composição,
+iluminação e configurações de exposição."
+```
+
+#### Conteúdo Completo
+
+```
+Campo: Corpo do Artigo
+Tipo: Editor WYSIWYG (obrigatório)
+Comprimento máx: Ilimitado
+Formato: HTML
+```
+
+A área principal de conteúdo do artigo com edição de texto rico.
 
 ---
 
-## Step 2: Formatting Content
+## Passo 2: Formatando Conteúdo
 
-### Using the WYSIWYG Editor
+### Usando o Editor WYSIWYG
 
-#### Text Formatting
+#### Formatação de Texto
 
 ```
-Bold:           Ctrl+B or click [B] button
-Italic:         Ctrl+I or click [I] button
-Underline:      Ctrl+U or click [U] button
-Strikethrough:  Alt+Shift+D or click [S] button
-Subscript:      Ctrl+, (comma)
-Superscript:    Ctrl+. (period)
+Negrito:           Ctrl+B ou clique botão [B]
+Itálico:           Ctrl+I ou clique botão [I]
+Sublinhado:        Ctrl+U ou clique botão [U]
+Tachado:           Alt+Shift+D ou clique botão [S]
+Subscrito:         Ctrl+, (vírgula)
+Sobrescrito:       Ctrl+. (ponto)
 ```
 
-#### Heading Structure
+#### Estrutura de Cabeçalho
 
-Create proper document hierarchy:
+Crie hierarquia adequada de documento:
 
 ```html
-<h1>Article Title</h1>      <!-- Use once at top -->
-<h2>Main Section</h2>        <!-- For major sections -->
-<h3>Subsection</h3>          <!-- For subtopics -->
-<h4>Sub-subsection</h4>      <!-- For details -->
+<h1>Título do Artigo</h1>      <!-- Use uma vez no topo -->
+<h2>Seção Principal</h2>        <!-- Para seções principais -->
+<h3>Subseção</h3>              <!-- Para subtópicos -->
+<h4>Sub-subseção</h4>          <!-- Para detalhes -->
 ```
 
-**In Editor:**
-- Click **Format** dropdown
-- Select heading level (H1-H6)
-- Type your heading
+**No Editor:**
+- Clique dropdown **Formato**
+- Selecione nível de cabeçalho (H1-H6)
+- Digite seu cabeçalho
 
-#### Lists
+#### Listas
 
-**Unordered List (Bullets):**
+**Lista Não Ordenada (Marcadores):**
 
 ```markdown
-• Point one
-• Point two
-• Point three
+• Ponto um
+• Ponto dois
+• Ponto três
 ```
 
-Steps in editor:
-1. Click [≡] Bullet list button
-2. Type each point
-3. Press Enter for next item
-4. Press Backspace twice to end list
+Passos no editor:
+1. Clique botão [≡] Lista com marcadores
+2. Digite cada ponto
+3. Pressione Enter para próximo item
+4. Pressione Backspace duas vezes para sair da lista
 
-**Ordered List (Numbered):**
+**Lista Ordenada (Numerada):**
 
 ```markdown
-1. First step
-2. Second step
-3. Third step
+1. Primeiro passo
+2. Segundo passo
+3. Terceiro passo
 ```
 
-Steps in editor:
-1. Click [1.] Numbered list button
-2. Type each item
-3. Press Enter for next
-4. Press Backspace twice to end
+Passos no editor:
+1. Clique botão [1.] Lista numerada
+2. Digite cada item
+3. Pressione Enter para próximo
+4. Pressione Backspace duas vezes para sair
 
-**Nested Lists:**
+**Listas Aninhadas:**
 
 ```markdown
-1. Main point
-   a. Sub-point
-   b. Sub-point
-2. Next point
+1. Ponto principal
+   a. Sub-ponto
+   b. Sub-ponto
+2. Próximo ponto
 ```
 
-Steps:
-1. Create first list
-2. Press Tab to indent
-3. Create nested items
-4. Press Shift+Tab to outdent
+Passos:
+1. Criar primeira lista
+2. Pressionar Tab para indentar
+3. Criar itens aninhados
+4. Pressionar Shift+Tab para desindent
 
 #### Links
 
-**Add Hyperlink:**
+**Adicionar Hiperlink:**
 
-1. Select text to link
-2. Click **[🔗] Link** button
+1. Selecione texto para linkar
+2. Clique botão **[🔗] Link**
 3. Enter URL: `https://example.com`
-4. Optional: Add title/target
-5. Click **Insert Link**
+4. Opcional: Adicionar título/target
+5. Clique **Inserir Link**
 
-**Remove Link:**
+**Remover Link:**
 
-1. Click within linked text
-2. Click **[🔗] Remove Link** button
+1. Clique dentro do texto linkerizado
+2. Clique botão **[🔗] Remover Link**
 
-#### Code & Quotes
+#### Código e Citações
 
 **Blockquote:**
 
 ```
-"This is an important quote from an expert"
-- Attribution
+"Esta é uma citação importante de um especialista"
+- Atribuição
 ```
 
-Steps:
-1. Type quote text
-2. Click **[❝] Blockquote** button
-3. Text is indented and styled
+Passos:
+1. Digite texto de citação
+2. Clique botão **[❝] Blockquote**
+3. Texto é indentado e estilizado
 
-**Code Block:**
+**Bloco de Código:**
 
 ```python
 def hello_world():
-    print("Hello, World!")
+    print("Olá, Mundo!")
 ```
 
-Steps:
-1. Click **Format → Code**
-2. Paste code
-3. Select language (optional)
-4. Code displays with syntax highlight
+Passos:
+1. Clique **Formato → Código**
+2. Cole código
+3. Selecione linguagem (opcional)
+4. Código é exibido com destaque de sintaxe
 
 ---
 
-## Step 3: Adding Images
+## Passo 3: Adicionando Imagens
 
-### Featured Image (Hero Image)
+### Imagem em Destaque (Imagem Hero)
 
 ```
-Field: Featured Image / Main Image
-Type: Image upload
-Format: JPG, PNG, GIF, WebP
-Max size: 5 MB
-Recommended: 600x400 px
+Campo: Imagem em Destaque / Imagem Principal
+Tipo: Carregamento de imagem
+Formato: JPG, PNG, GIF, WebP
+Tamanho máx: 5 MB
+Recomendado: 600x400 px
 ```
 
-**To Upload:**
+**Para Carregar:**
 
-1. Click **Upload Image** button
-2. Select image from computer
-3. Crop/resize if needed
-4. Click **Use This Image**
+1. Clique botão **Carregar Imagem**
+2. Selecione imagem do computador
+3. Corte/redimensione se necessário
+4. Clique **Usar Esta Imagem**
 
-**Image Placement:**
-- Displays at top of article
-- Used in category listings
-- Shown in archive
-- Used for social sharing
+**Posicionamento de Imagem:**
+- Exibe no topo do artigo
+- Usada em listagens de categoria
+- Mostrada em arquivo
+- Usada para compartilhamento social
 
-### Inline Images
+### Imagens Inline
 
-Insert images within article text:
+Inserir imagens dentro do texto do artigo:
 
-1. Position cursor in editor where image should go
-2. Click **[🖼️] Image** button in toolbar
-3. Choose upload option:
-   - Upload new image
-   - Select from gallery
-   - Enter image URL
+1. Posicione cursor no editor onde a imagem deve ir
+2. Clique botão **[🖼️] Imagem** na barra de ferramentas
+3. Escolha opção de carregamento:
+   - Carregar nova imagem
+   - Selecionar da galeria
+   - Enter URL da imagem
 4. Configure:
    ```
-   Image Size:
-   - Width: 300-600 px
-   - Height: Auto (maintains ratio)
-   - Alignment: Left/Center/Right
+   Tamanho de Imagem:
+   - Largura: 300-600 px
+   - Altura: Auto (mantém proporção)
+   - Alinhamento: Esquerda/Centro/Direita
    ```
-5. Click **Insert Image**
+5. Clique **Inserir Imagem**
 
-**Wrap Text Around Image:**
+**Envolver Texto Ao Redor de Imagem:**
 
-In editor after inserting:
+No editor após inserir:
 
 ```html
-<!-- Image floats left, text wraps around -->
+<!-- Imagem flutua esquerda, texto envolve ao redor -->
 <img src="image.jpg" style="float: left; margin: 10px;">
 ```
 
-### Image Gallery
+### Galeria de Imagens
 
-Create multi-image gallery:
+Criar galeria multi-imagem:
 
-1. Click **Gallery** button (if available)
-2. Upload multiple images:
-   - Single click: Add one
-   - Drag & drop: Add multiple
-3. Arrange order by dragging
-4. Set captions for each image
-5. Click **Create Gallery**
-
----
-
-## Step 4: Attaching Files
-
-### Add File Attachments
-
-```
-Field: File Attachments
-Type: File upload (multiple allowed)
-Supported: PDF, DOC, XLS, ZIP, etc.
-Max per file: 10 MB
-Max per article: 5 files
-```
-
-**To Attach:**
-
-1. Click **Add File** button
-2. Select file from computer
-3. Optional: Add file description
-4. Click **Attach File**
-5. Repeat for multiple files
-
-**File Examples:**
-- PDF guides
-- Excel spreadsheets
-- Word documents
-- ZIP archives
-- Source code
-
-### Manage Attached Files
-
-**Edit File:**
-
-1. Click file name
-2. Edit description
-3. Click **Save**
-
-**Delete File:**
-
-1. Find file in list
-2. Click **[×] Delete** icon
-3. Confirm deletion
+1. Clique botão **Galeria** (se disponível)
+2. Carregue múltiplas imagens:
+   - Clique único: Adicionar um
+   - Arrastar e soltar: Adicionar múltiplas
+3. Organize ordem arrastando
+4. Definir legendas para cada imagem
+5. Clique **Criar Galeria**
 
 ---
 
-## Step 5: Publishing & Status
+## Passo 4: Anexando Arquivos
 
-### Article Status
+### Adicionar Anexos de Arquivo
 
 ```
-Field: Status
-Type: Dropdown
-Options:
-  - Draft: Not published, only author sees
-  - Pending: Waiting for approval
-  - Published: Live on site
-  - Archived: Old content
-  - Unpublished: Was published, now hidden
+Campo: Anexos de Arquivo
+Tipo: Carregamento de arquivo (múltiplos permitidos)
+Suportados: PDF, DOC, XLS, ZIP, etc.
+Máx por arquivo: 10 MB
+Máx por artigo: 5 arquivos
 ```
 
-**Status Workflow:**
+**Para Anexar:**
+
+1. Clique botão **Adicionar Arquivo**
+2. Selecione arquivo do computador
+3. Opcional: Adicionar descrição de arquivo
+4. Clique **Anexar Arquivo**
+5. Repita para múltiplos arquivos
+
+**Exemplos de Arquivo:**
+- Guias em PDF
+- Planilhas do Excel
+- Documentos do Word
+- Arquivos ZIP
+- Código-fonte
+
+### Gerenciar Arquivos Anexados
+
+**Editar Arquivo:**
+
+1. Clique no nome do arquivo
+2. Edite descrição
+3. Clique **Salvar**
+
+**Deletar Arquivo:**
+
+1. Encontre arquivo na lista
+2. Clique ícone **[×] Deletar**
+3. Confirme exclusão
+
+---
+
+## Passo 5: Publicação e Status
+
+### Status do Artigo
+
+```
+Campo: Status
+Tipo: Dropdown
+Opções:
+  - Rascunho: Não publicado, apenas autor vê
+  - Pendente: Aguardando aprovação
+  - Publicado: Live no site
+  - Arquivado: Conteúdo antigo
+  - Não Publicado: Era publicado, agora oculto
+```
+
+**Fluxo de Status de Artigo:**
 
 ```mermaid
 graph LR
-    A[Draft] -->|Author saves| B[Draft]
-    B -->|Submit| C[Pending Review]
-    C -->|Editor approves| D[Published]
-    D -->|Author unpublishes| E[Unpublished]
-    C -->|Editor rejects| F[Draft]
+    A[Rascunho] -->|Autor salva| B[Rascunho]
+    B -->|Submeter| C[Pendente Review]
+    C -->|Editor aprova| D[Publicado]
+    D -->|Autor despublica| E[Não Publicado]
+    C -->|Editor rejeita| F[Rascunho]
 ```
 
-### Publishing Options
+### Opções de Publicação
 
-#### Publish Immediately
-
-```
-Status: Published
-Start Date: Today (auto-filled)
-End Date: (leave blank for no expiration)
-```
-
-#### Schedule for Later
+#### Publicar Imediatamente
 
 ```
-Status: Scheduled
-Start Date: Future date/time
-Example: February 15, 2024 at 9:00 AM
+Status: Publicado
+Data de Início: Hoje (auto-preenchida)
+Data de Término: (deixe em branco para sem expiração)
 ```
 
-The article will automatically publish at specified time.
-
-#### Set Expiration
+#### Agendar para Depois
 
 ```
-Enable Expiration: Yes
-Expiration Date: Future date
-Action: Archive/Hide/Delete
-Example: April 1, 2024 (article auto-archives)
+Status: Agendado
+Data de Início: Data futura/hora
+Exemplo: 15 de fevereiro de 2024 às 9:00 AM
 ```
 
-### Visibility Options
+O artigo será publicado automaticamente na hora especificada.
+
+#### Definir Expiração
+
+```
+Habilitar Expiração: Sim
+Data de Expiração: Data futura
+Ação: Arquivo/Ocultar/Deletar
+Exemplo: 1º de abril de 2024 (artigo auto-arquiva)
+```
+
+### Opções de Visibilidade
 
 ```yaml
-Show Article:
-  - Display on front page: Yes/No
-  - Show in category: Yes/No
-  - Include in search: Yes/No
-  - Include in recent articles: Yes/No
+Mostrar Artigo:
+  - Exibir na página inicial: Sim/Não
+  - Mostrar em categoria: Sim/Não
+  - Incluir em busca: Sim/Não
+  - Incluir em artigos recentes: Sim/Não
 
-Featured Article:
-  - Mark as featured: Yes/No
-  - Featured section position: (number)
+Artigo em Destaque:
+  - Marcar como destaque: Sim/Não
+  - Posição de seção destaque: (número)
 ```
 
 ---
 
-## Step 6: SEO & Metadata
+## Passo 6: SEO e Metadados
 
-### SEO Settings
-
-```
-Field: SEO Settings (Expand section)
-```
-
-#### Meta Description
+### Configurações de SEO
 
 ```
-Field: Meta Description
-Type: Text (160 characters recommended)
-Used by: Search engines, social media
-
-Example:
-"Learn photography fundamentals in 5 easy steps.
-Discover composition, lighting, and exposure techniques."
+Campo: Configurações de SEO (Expandir seção)
 ```
 
-#### Meta Keywords
+#### Meta Descrição
 
 ```
-Field: Meta Keywords
-Type: Comma-separated list
-Max: 5-10 keywords
+Campo: Meta Descrição
+Tipo: Texto (160 caracteres recomendados)
+Usado por: Mecanismos de busca, mídia social
 
-Example: Photography, Tutorial, Composition, Lighting, Exposure
+Exemplo:
+"Aprenda fundamentos de fotografia em 5 passos fáceis.
+Descubra técnicas de composição, iluminação e exposição."
+```
+
+#### Palavras-chave de Meta
+
+```
+Campo: Palavras-chave de Meta
+Tipo: Lista separada por vírgulas
+Máx: 5-10 palavras-chave
+
+Exemplo: Fotografia, Tutorial, Composição, Iluminação, Exposição
 ```
 
 #### URL Slug
 
 ```
-Field: URL Slug (auto-generated from title)
-Type: Text
-Format: lowercase, hyphens, no spaces
+Campo: URL Slug (auto-gerado a partir do título)
+Tipo: Texto
+Formato: minúsculas, hífens, sem espaços
 
 Auto: "top-5-tips-for-better-photography"
-Edit: Change before publishing
+Editar: Alterar antes de publicar
 ```
 
-#### Open Graph Tags
+#### Tags Open Graph
 
-Auto-generated from article info:
-- Title
-- Description
-- Featured image
-- Article URL
-- Publication date
+Auto-gerado a partir de informações do artigo:
+- Título
+- Descrição
+- Imagem em destaque
+- URL do artigo
+- Data de publicação
 
-Used by Facebook, LinkedIn, WhatsApp, etc.
+Usado pelo Facebook, LinkedIn, WhatsApp, etc.
 
 ---
 
-## Step 7: Comments & Interaction
+## Passo 7: Comentários e Interação
 
-### Comment Settings
+### Configurações de Comentário
 
 ```yaml
-Allow Comments:
-  - Enable: Yes/No
-  - Default: Inherit from preferences
-  - Override: Specific to this article
+Permitir Comentários:
+  - Habilitar: Sim/Não
+  - Padrão: Herdar de preferências
+  - Sobrescrita: Específico a este artigo
 
-Moderate Comments:
-  - Require approval: Yes/No
-  - Default: Inherit from preferences
+Moderar Comentários:
+  - Requer aprovação: Sim/Não
+  - Padrão: Herdar de preferências
 ```
 
-### Rating Settings
+### Configurações de Classificação
 
 ```yaml
-Allow Ratings:
-  - Enable: Yes/No
-  - Scale: 5 stars (default)
-  - Show average: Yes/No
-  - Show count: Yes/No
+Permitir Classificações:
+  - Habilitar: Sim/Não
+  - Escala: 5 estrelas (padrão)
+  - Mostrar média: Sim/Não
+  - Mostrar contagem: Sim/Não
 ```
 
 ---
 
-## Step 8: Advanced Options
+## Passo 8: Opções Avançadas
 
-### Author & Byline
-
-```
-Field: Author
-Type: Dropdown
-Default: Current user
-Options: All users with author permission
-
-Display:
-  - Show author name: Yes/No
-  - Show author bio: Yes/No
-  - Show author avatar: Yes/No
-```
-
-### Edit Lock
+### Autor e Byline
 
 ```
-Field: Edit Lock
-Purpose: Prevent accidental changes
+Campo: Autor
+Tipo: Dropdown
+Padrão: Usuário atual
+Opções: Todos os usuários com permissão de autor
 
-Lock Article:
-  - Locked: Yes/No
-  - Lock reason: "Final version"
-  - Unlock date: (optional)
+Exibição:
+  - Mostrar nome do autor: Sim/Não
+  - Mostrar bio do autor: Sim/Não
+  - Mostrar avatar do autor: Sim/Não
 ```
 
-### Revision History
-
-Auto-saved versions of article:
+### Bloqueio de Edição
 
 ```
-View Revisions:
-  - Click "Revision History"
-  - Shows all saved versions
-  - Compare versions
-  - Restore previous version
+Campo: Bloqueio de Edição
+Propósito: Evitar alterações acidentais
+
+Bloquear Artigo:
+  - Bloqueado: Sim/Não
+  - Motivo de bloqueio: "Versão final"
+  - Data de desbloqueio: (opcional)
+```
+
+### Histórico de Revisão
+
+Versões auto-salvas do artigo:
+
+```
+Visualizar Revisões:
+  - Clique "Histórico de Revisão"
+  - Mostra todas as versões salvas
+  - Compare versões
+  - Restaure versão anterior
 ```
 
 ---
 
-## Saving & Publishing
+## Salvando e Publicando
 
-### Save Workflow
+### Fluxo de Salvamento
 
 ```mermaid
 graph TD
-    A[Start Article] -->|Save as Draft| B[Draft Saved]
-    B -->|Continue editing| C[Save again]
-    C -->|Ready to publish| D[Change Status to Published]
-    D -->|Click Save| E[Live on Site]
+    A[Iniciar Artigo] -->|Salvar como Rascunho| B[Rascunho Salvo]
+    B -->|Continuar editando| C[Salvar novamente]
+    C -->|Pronto para publicar| D[Mudar Status para Publicado]
+    D -->|Clique Salvar| E[Live no Site]
 ```
 
-### Save Article
+### Salvar Artigo
 
-**Auto-save:**
-- Triggered every 60 seconds
-- Saves as draft automatically
-- Shows "Last saved: 2 minutes ago"
+**Auto-salvamento:**
+- Acionado a cada 60 segundos
+- Salva como rascunho automaticamente
+- Mostra "Última vez salvo: há 2 minutos"
 
-**Manual Save:**
-- Click **Save & Continue** to keep editing
-- Click **Save & View** to see published version
-- Click **Save** to save and close
+**Salvamento Manual:**
+- Clique **Salvar e Continuar** para manter editando
+- Clique **Salvar e Visualizar** para ver versão publicada
+- Clique **Salvar** para salvar e fechar
 
-### Publish Article
+### Publicar Artigo
 
-1. Set **Status**: Published
-2. Set **Start Date**: Now (or future date)
-3. Click **Save** or **Publish**
-4. Confirmation message appears
-5. Article is live (or scheduled)
+1. Definir **Status**: Publicado
+2. Definir **Data de Início**: Agora (ou data futura)
+3. Clique **Salvar** ou **Publicar**
+4. Mensagem de confirmação aparece
+5. Artigo está live (ou agendado)
 
 ---
 
-## Editing Existing Articles
+## Editando Artigos Existentes
 
-### Access Article Editor
+### Acessar Editor de Artigo
 
-1. Go to **Admin → Publisher → Articles**
-2. Find article in list
-3. Click **Edit** icon/button
-4. Make changes
-5. Click **Save**
+1. Vá para **Admin → Publisher → Artigos**
+2. Encontre artigo na lista
+3. Clique ícone **Editar**
+4. Faça alterações
+5. Clique **Salvar**
 
-### Bulk Edit
+### Edição em Lote
 
-Edit multiple articles at once:
+Editar múltiplos artigos de uma vez:
 
 ```
-1. Go to Articles list
-2. Select articles (checkboxes)
-3. Choose "Bulk Edit" from dropdown
-4. Change selected field
-5. Click "Update All"
+1. Vá para lista de Artigos
+2. Selecione artigos (checkboxes)
+3. Escolha "Edição em Lote" do dropdown
+4. Altere campo selecionado
+5. Clique "Atualizar Todos"
 
-Available for:
+Disponível para:
   - Status
-  - Category
-  - Featured (Yes/No)
-  - Author
+  - Categoria
+  - Em Destaque (Sim/Não)
+  - Autor
 ```
 
-### Preview Article
+### Pré-visualizar Artigo
 
-Before publishing:
+Antes de publicar:
 
-1. Click **Preview** button
-2. View as readers will see
-3. Check formatting
-4. Test links
-5. Return to editor to adjust
+1. Clique botão **Pré-visualizar**
+2. Veja como leitores verão
+3. Verifique formatação
+4. Teste links
+5. Retorne ao editor para ajustes
 
 ---
 
-## Article Management
+## Gerenciamento de Artigo
 
-### View All Articles
+### Ver Todos os Artigos
 
-**Articles List View:**
+**Visualização de Lista de Artigos:**
 
 ```
-Admin → Publisher → Articles
+Admin → Publisher → Artigos
 
-Columns:
-  - Title
-  - Category
-  - Author
+Colunas:
+  - Título
+  - Categoria
+  - Autor
   - Status
-  - Created date
-  - Modified date
-  - Actions (Edit, Delete, Preview)
+  - Data criada
+  - Data modificada
+  - Ações (Editar, Deletar, Pré-visualizar)
 
-Sorting:
-  - By title (A-Z)
-  - By date (newest/oldest)
-  - By status (Published/Draft)
-  - By category
+Ordenação:
+  - Por título (A-Z)
+  - Por data (novo/antigo)
+  - Por status (Publicado/Rascunho)
+  - Por categoria
 ```
 
-### Filter Articles
+### Filtrar Artigos
 
 ```
-Filter Options:
-  - By category
-  - By status
-  - By author
-  - By date range
-  - Search by title
+Opções de Filtro:
+  - Por categoria
+  - Por status
+  - Por autor
+  - Por intervalo de data
+  - Buscar por título
 
-Example: Show all "Draft" articles by "John" in "News" category
+Exemplo: Mostrar todos artigos "Rascunho" de "João" em "Notícias"
 ```
 
-### Delete Article
+### Deletar Artigo
 
-**Soft Delete (Recommended):**
+**Soft Delete (Recomendado):**
 
-1. Change **Status**: Unpublished
-2. Click **Save**
-3. Article hidden but not deleted
-4. Can be restored later
+1. Alterar **Status**: Não Publicado
+2. Clique **Salvar**
+3. Artigo oculto mas não deletado
+4. Pode ser restaurado depois
 
 **Hard Delete:**
 
-1. Select article in list
-2. Click **Delete** button
-3. Confirm deletion
-4. Article removed permanently
+1. Selecione artigo na lista
+2. Clique botão **Deletar**
+3. Confirme exclusão
+4. Artigo removido permanentemente
 
 ---
 
-## Content Best Practices
+## Melhores Práticas de Conteúdo
 
-### Writing Quality Articles
+### Escrevendo Artigos de Qualidade
 
 ```
-Structure:
-  ✓ Compelling title
-  ✓ Clear subtitle/description
-  ✓ Engaging opening paragraph
-  ✓ Logical sections with headers
-  ✓ Supporting visuals
-  ✓ Conclusion/summary
+Estrutura:
+  ✓ Título atraente
+  ✓ Subtítulo/descrição clara
+  ✓ Parágrafo de abertura envolvente
+  ✓ Seções lógicas com cabeçalhos
+  ✓ Visuais de suporte
+  ✓ Conclusão/sumário
   ✓ Call-to-action
 
-Length:
-  - Blog posts: 500-2000 words
-  - News: 300-800 words
-  - Guides: 2000-5000 words
-  - Minimum: 300 words
+Comprimento:
+  - Posts de blog: 500-2000 palavras
+  - Notícias: 300-800 palavras
+  - Guias: 2000-5000 palavras
+  - Mínimo: 300 palavras
 ```
 
-### SEO Optimization
+### Otimização de SEO
 
 ```
-Title Optimization:
-  ✓ Include primary keyword
-  ✓ Keep under 60 characters
-  ✓ Put keyword near beginning
-  ✓ Be descriptive and specific
+Otimização de Título:
+  ✓ Incluir palavra-chave primária
+  ✓ Manter menos de 60 caracteres
+  ✓ Colocar palavra-chave no início
+  ✓ Ser descritivo e específico
 
-Content Optimization:
-  ✓ Use headings (H1, H2, H3)
-  ✓ Include keyword in heading
-  ✓ Use bold for important terms
-  ✓ Add descriptive links
-  ✓ Include images with alt text
+Otimização de Conteúdo:
+  ✓ Usar cabeçalhos (H1, H2, H3)
+  ✓ Incluir palavra-chave em cabeçalho
+  ✓ Usar negrito para termos importantes
+  ✓ Adicionar links descritivos
+  ✓ Incluir imagens com texto alt
 
-Meta Description:
-  ✓ Include primary keyword
-  ✓ 155-160 characters
+Meta Descrição:
+  ✓ Incluir palavra-chave primária
+  ✓ 155-160 caracteres
   ✓ Action-oriented
-  ✓ Unique per article
+  ✓ Único por artigo
 ```
 
-### Formatting Tips
+### Dicas de Formatação
 
 ```
-Readability:
-  ✓ Short paragraphs (2-4 sentences)
-  ✓ Bullet points for lists
-  ✓ Subheadings every 300 words
-  ✓ Generous whitespace
-  ✓ Line breaks between sections
+Legibilidade:
+  ✓ Parágrafos curtos (2-4 frases)
+  ✓ Pontos com marcadores para listas
+  ✓ Subseções a cada 300 palavras
+  ✓ Espaço em branco generoso
+  ✓ Quebras de linha entre seções
 
-Visual Appeal:
-  ✓ Featured image at top
-  ✓ Inline images in content
-  ✓ Alt text on all images
-  ✓ Code blocks for technical
-  ✓ Blockquotes for emphasis
+Apelo Visual:
+  ✓ Imagem em destaque no topo
+  ✓ Imagens inline no conteúdo
+  ✓ Texto alt em todas as imagens
+  ✓ Blocos de código para técnico
+  ✓ Blockquotes para ênfase
 ```
 
 ---
 
-## Keyboard Shortcuts
+## Atalhos de Teclado
 
-### Editor Shortcuts
-
-```
-Bold:               Ctrl+B
-Italic:             Ctrl+I
-Underline:          Ctrl+U
-Link:               Ctrl+K
-Save Draft:         Ctrl+S
-```
-
-### Text Shortcuts
+### Atalhos do Editor
 
 ```
--- →  (dash to em dash)
-... → … (three dots to ellipsis)
+Negrito:               Ctrl+B
+Itálico:              Ctrl+I
+Sublinhado:           Ctrl+U
+Link:                 Ctrl+K
+Salvar Rascunho:      Ctrl+S
+```
+
+### Atalhos de Texto
+
+```
+-- →  (travessão para travessão em)
+... → … (três pontos para reticências)
 (c) → © (copyright)
 (r) → ® (registered)
 (tm) → ™ (trademark)
@@ -779,104 +779,104 @@ Save Draft:         Ctrl+S
 
 ---
 
-## Common Tasks
+## Tarefas Comuns
 
-### Copy Article
+### Copiar Artigo
 
-1. Open article
-2. Click **Duplicate** or **Clone** button
-3. Article copied as draft
-4. Edit title and content
-5. Publish
+1. Abrir artigo
+2. Clique botão **Duplicar** ou **Clonar**
+3. Artigo copiado como rascunho
+4. Editar título e conteúdo
+5. Publicar
 
-### Schedule Article
+### Agendar Artigo
 
-1. Create article
-2. Set **Start Date**: Future date/time
-3. Set **Status**: Published
-4. Click **Save**
-5. Article publishes automatically
+1. Criar artigo
+2. Definir **Data de Início**: Data futura/hora
+3. Definir **Status**: Publicado
+4. Clique **Salvar**
+5. Artigo publica automaticamente
 
-### Batch Publishing
+### Publicação em Lote
 
-1. Create articles as drafts
-2. Set publish dates
-3. Articles auto-publish at scheduled times
-4. Monitor from "Scheduled" view
+1. Criar artigos como rascunhos
+2. Definir datas de publicação
+3. Artigos auto-publicam em horários agendados
+4. Monitor a partir de visualização "Agendado"
 
-### Move Between Categories
+### Mover Entre Categorias
 
-1. Edit article
-2. Change **Category** dropdown
-3. Click **Save**
-4. Article appears in new category
-
----
-
-## Troubleshooting
-
-### Problem: Can't save article
-
-**Solution:**
-```
-1. Check form for required fields
-2. Verify category is selected
-3. Check PHP memory limit
-4. Try saving as draft first
-5. Clear browser cache
-```
-
-### Problem: Images not displaying
-
-**Solution:**
-```
-1. Verify image upload succeeded
-2. Check image file format (JPG, PNG)
-3. Verify image path in database
-4. Check upload directory permissions
-5. Try re-uploading image
-```
-
-### Problem: Editor toolbar not showing
-
-**Solution:**
-```
-1. Clear browser cache
-2. Try different browser
-3. Disable browser extensions
-4. Check JavaScript console for errors
-5. Verify editor plugin installed
-```
-
-### Problem: Article not publishing
-
-**Solution:**
-```
-1. Verify Status = "Published"
-2. Check Start Date is today or earlier
-3. Verify permissions allow publishing
-4. Check category is published
-5. Clear module cache
-```
+1. Editar artigo
+2. Alterar dropdown **Categoria**
+3. Clique **Salvar**
+4. Artigo aparece em nova categoria
 
 ---
 
-## Related Guides
+## Solução de Problemas
 
-- Configuration Guide
-- Category Management
-- Permission Setup
-- Custom Templates
+### Problema: Não pode salvar artigo
+
+**Solução:**
+```
+1. Verificar formulário para campos obrigatórios
+2. Verificar se categoria está selecionada
+3. Verificar limite de memória PHP
+4. Tentar salvar como rascunho primeiro
+5. Limpar cache do navegador
+```
+
+### Problema: Imagens não exibindo
+
+**Solução:**
+```
+1. Verificar se carregamento foi bem-sucedido
+2. Verificar formato de arquivo (JPG, PNG)
+3. Verificar caminho de imagem no banco de dados
+4. Verificar permissões de diretório de carregamento
+5. Tentar re-carregar imagem
+```
+
+### Problema: Barra de ferramentas do editor não mostrando
+
+**Solução:**
+```
+1. Limpar cache do navegador
+2. Tentar navegador diferente
+3. Desabilitar extensões do navegador
+4. Verificar console de JavaScript para erros
+5. Verificar se plugin do editor está instalado
+```
+
+### Problema: Artigo não publicando
+
+**Solução:**
+```
+1. Verificar Status = "Publicado"
+2. Verificar Data de Início é hoje ou anterior
+3. Verificar permissões permitem publicação
+4. Verificar categoria está publicada
+5. Limpar cache do módulo
+```
 
 ---
 
-## Next Steps
+## Guias Relacionadas
 
-- Create your first Article
-- Set up Categories
-- Configure Permissions
-- Review Template Customization
+- Guia de Configuração
+- Gerenciamento de Categoria
+- Configuração de Permissão
+- Templates Personalizados
 
 ---
 
-#publisher #articles #content #creation #formatting #editing #xoops
+## Próximas Etapas
+
+- Criar seu primeiro Artigo
+- Configurar Categorias
+- Configurar Permissões
+- Revisar Personalização de Template
+
+---
+
+#publisher #artigos #conteúdo #criação #formatação #edição #xoops

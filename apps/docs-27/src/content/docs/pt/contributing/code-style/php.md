@@ -1,31 +1,31 @@
 ---
-title: "PHP Coding Standards"
-description: "XOOPS PHP coding standards based on PSR-1, PSR-4, and PSR-12"
+title: "Padrões de Codificação PHP"
+description: "Padrões de codificação PHP do XOOPS baseado em PSR-1, PSR-4 e PSR-12"
 ---
 
-# PHP-Standards
+# Padrões PHP
 
-> XOOPS follows PSR-1, PSR-4, and PSR-12 coding standards with XOOPS-specific conventions.
+> XOOPS segue padrões de codificação PSR-1, PSR-4 e PSR-12 com convenções específicas do XOOPS.
 
 ---
 
-## Standards Overview
+## Visão Geral de Padrões
 
 ```mermaid
 graph TB
-    subgraph "PSR Standards"
-        A[PSR-1: Basic Coding]
-        B[PSR-4: Autoloading]
-        C[PSR-12: Extended Style]
+    subgraph "Padrões PSR"
+        A[PSR-1: Codificação Básica]
+        B[PSR-4: Autocarregamento]
+        C[PSR-12: Estilo Estendido]
     end
 
-    subgraph "XOOPS Conventions"
-        D[Naming Patterns]
-        E[File Organization]
-        F[Documentation]
+    subgraph "Convenções XOOPS"
+        D[Padrões de Nomenclatura]
+        E[Organização de Arquivo]
+        F[Documentação]
     end
 
-    A --> G[Clean Code]
+    A --> G[Código Limpo]
     B --> G
     C --> G
     D --> G
@@ -35,23 +35,23 @@ graph TB
 
 ---
 
-## File Structure
+## Estrutura de Arquivo
 
-### PHP Tags
+### Tags PHP
 
 ```php
 <?php
-// Always use full PHP tags, never short tags
-// Omit closing ?> tag in pure PHP files
+// Sempre use tags PHP completas, nunca tags curtas
+// Omita tag de fechamento ?> em arquivos PHP puros
 
 declare(strict_types=1);
 
 namespace XoopsModules\MyModule;
 
-// Code here...
+// Código aqui...
 ```
 
-### File Header
+### Cabeçalho de Arquivo
 
 ```php
 <?php
@@ -63,8 +63,8 @@ declare(strict_types=1);
  *
  * @package    XoopsModules\MyModule
  * @subpackage Class
- * @author     Your Name <email@example.com>
- * @copyright  2026 XOOPS Project
+ * @author     Seu Nome <email@example.com>
+ * @copyright  2026 Projeto XOOPS
  * @license    GPL-2.0-or-later
  * @link       https://xoops.org
  */
@@ -77,24 +77,24 @@ use XoopsPersistableObjectHandler;
 
 ---
 
-## Naming Conventions
+## Convenções de Nomenclatura
 
 ### Classes
 
 ```php
-// PascalCase for class names
+// PascalCase para nomes de classe
 class ItemHandler extends XoopsPersistableObjectHandler
 {
     // ...
 }
 
-// Interfaces end with "Interface"
+// Interfaces terminam com "Interface"
 interface RepositoryInterface
 {
     public function find(int $id): ?object;
 }
 
-// Traits end with "Trait"
+// Traits terminam com "Trait"
 trait TimestampTrait
 {
     public function getCreatedAt(): \DateTimeInterface
@@ -103,23 +103,23 @@ trait TimestampTrait
     }
 }
 
-// Abstract classes prefix with "Abstract"
+// Classes abstratas prefixam com "Abstract"
 abstract class AbstractEntity
 {
     // ...
 }
 ```
 
-### Methods and Functions
+### Métodos e Funções
 
 ```php
-// camelCase for methods
+// camelCase para métodos
 public function getActiveItems(): array
 {
     // ...
 }
 
-// Verbs for action methods
+// Verbos para métodos de ação
 public function createItem(array $data): Item
 public function updateItem(int $id, array $data): bool
 public function deleteItem(int $id): bool
@@ -129,18 +129,18 @@ public function isActive(): bool
 public function canEdit(): bool
 ```
 
-### Variables and Properties
+### Variáveis e Propriedades
 
 ```php
 class Item
 {
-    // camelCase for properties
+    // camelCase para propriedades
     private int $itemId;
     private string $itemTitle;
     private bool $isPublished;
     private array $categoryIds;
 
-    // camelCase for variables
+    // camelCase para variáveis
     public function process(): void
     {
         $itemCount = 0;
@@ -150,10 +150,10 @@ class Item
 }
 ```
 
-### Constants
+### Constantes
 
 ```php
-// UPPER_SNAKE_CASE for constants
+// UPPER_SNAKE_CASE para constantes
 class Config
 {
     public const DEFAULT_ITEMS_PER_PAGE = 10;
@@ -161,14 +161,14 @@ class Config
     public const CACHE_LIFETIME = 3600;
 }
 
-// Or in define() calls
+// Ou em chamadas define()
 define('XOOPS_ROOT_PATH', '/path/to/xoops');
 define('MYMODULE_VERSION', '1.0.0');
 ```
 
 ---
 
-## Class Structure
+## Estrutura de Classe
 
 ```php
 <?php
@@ -181,30 +181,30 @@ use XoopsDatabase;
 use XoopsPersistableObjectHandler;
 
 /**
- * Handler for Item objects
+ * Manipulador para objetos Item
  *
  * @package XoopsModules\MyModule
  */
 class ItemHandler extends XoopsPersistableObjectHandler
 {
-    // 1. Constants
+    // 1. Constantes
     public const TABLE_NAME = 'mymodule_items';
 
-    // 2. Properties (visibility order: public, protected, private)
+    // 2. Propriedades (ordem de visibilidade: public, protected, private)
     public int $defaultLimit = 10;
 
     protected string $table;
 
     private XoopsDatabase $db;
 
-    // 3. Constructor
+    // 3. Construtor
     public function __construct(?XoopsDatabase $db = null)
     {
         $this->db = $db ?? \XoopsDatabaseFactory::getDatabaseConnection();
         parent::__construct($this->db, self::TABLE_NAME, Item::class, 'id', 'title');
     }
 
-    // 4. Public methods
+    // 4. Métodos públicos
     public function getPublishedItems(int $limit = 10): array
     {
         $criteria = new \CriteriaCompo();
@@ -222,14 +222,14 @@ class ItemHandler extends XoopsPersistableObjectHandler
         return $items[0] ?? null;
     }
 
-    // 5. Protected methods
+    // 5. Métodos protegidos
     protected function validateItem(Item $item): bool
     {
-        // Validation logic
+        // Lógica de validação
         return true;
     }
 
-    // 6. Private methods
+    // 6. Métodos privados
     private function sanitizeInput(string $input): string
     {
         return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
@@ -239,27 +239,27 @@ class ItemHandler extends XoopsPersistableObjectHandler
 
 ---
 
-## Formatting Rules
+## Regras de Formatação
 
-### Indentation and Spacing
+### Indentação e Espaçamento
 
 ```php
-// Use 4 spaces for indentation (not tabs)
+// Use 4 espaços para indentação (não tabs)
 class Example
 {
     public function method(): void
     {
         if ($condition) {
-            // 4 spaces
+            // 4 espaços
             foreach ($items as $item) {
-                // 8 spaces
+                // 8 espaços
                 $this->process($item);
             }
         }
     }
 }
 
-// One blank line between methods
+// Uma linha em branco entre métodos
 public function methodOne(): void
 {
     // ...
@@ -270,17 +270,17 @@ public function methodTwo(): void
     // ...
 }
 
-// No trailing whitespace
-// Files end with single newline
+// Sem espaço em branco no final
+// Arquivos terminam com uma nova linha única
 ```
 
-### Line Length
+### Comprimento de Linha
 
 ```php
-// Maximum 120 characters per line
-// Break long lines logically
+// Máximo 120 caracteres por linha
+// Quebre linhas logicamente
 
-// Long method calls
+// Chamadas de método longas
 $result = $this->someHandler->processComplexOperation(
     $parameter1,
     $parameter2,
@@ -288,14 +288,14 @@ $result = $this->someHandler->processComplexOperation(
     $parameter4
 );
 
-// Long arrays
+// Arrays longas
 $config = [
     'option1' => 'value1',
     'option2' => 'value2',
     'option3' => 'value3',
 ];
 
-// Long conditions
+// Condições longas
 if ($condition1
     && $condition2
     && $condition3
@@ -304,16 +304,16 @@ if ($condition1
 }
 ```
 
-### Control Structures
+### Estruturas de Controle
 
 ```php
 // if/elseif/else
 if ($condition) {
-    // code
+    // código
 } elseif ($otherCondition) {
-    // code
+    // código
 } else {
-    // code
+    // código
 }
 
 // switch
@@ -344,18 +344,18 @@ try {
 
 // foreach
 foreach ($items as $key => $value) {
-    // code
+    // código
 }
 
 // for
 for ($i = 0; $i < $count; $i++) {
-    // code
+    // código
 }
 ```
 
 ---
 
-## Type Declarations
+## Declarações de Tipo
 
 ```php
 <?php
@@ -364,14 +364,14 @@ declare(strict_types=1);
 
 class TypeExample
 {
-    // Property types (PHP 7.4+)
+    // Tipos de propriedade (PHP 7.4+)
     private int $id;
     private string $title;
     private ?string $description = null;
     private array $tags = [];
     private bool $isActive = false;
 
-    // Constructor with typed parameters
+    // Construtor com parâmetros tipados
     public function __construct(
         int $id,
         string $title,
@@ -382,7 +382,7 @@ class TypeExample
         $this->description = $description;
     }
 
-    // Return type declarations
+    // Declarações de tipo de retorno
     public function getId(): int
     {
         return $this->id;
@@ -393,25 +393,25 @@ class TypeExample
         return $this->title;
     }
 
-    // Nullable return type
+    // Tipo de retorno anulável
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    // Union types (PHP 8.0+)
+    // Tipos union (PHP 8.0+)
     public function getValue(): int|string
     {
         return $this->value;
     }
 
-    // Void return type
+    // Tipo de retorno void
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    // Array return with docblock for contents
+    // Array de retorno com docblock para conteúdo
     /**
      * @return Item[]
      */
@@ -424,43 +424,43 @@ class TypeExample
 
 ---
 
-## Documentation
+## Documentação
 
-### Class DocBlock
+### DocBlock de Classe
 
 ```php
 /**
- * Handles CRUD operations for Article entities
+ * Manipula operações CRUD para entidades Article
  *
- * This handler provides methods for creating, reading, updating,
- * and deleting articles in the database.
+ * Este manipulador fornece métodos para criar, ler, atualizar,
+ * e deletar artigos no banco de dados.
  *
  * @package    XoopsModules\Publisher
  * @subpackage Handler
- * @author     XOOPS Development Team
+ * @author     Equipe de Desenvolvimento XOOPS
  * @since      1.0.0
  */
 class ArticleHandler extends XoopsPersistableObjectHandler
 {
 ```
 
-### Method DocBlock
+### DocBlock de Método
 
 ```php
 /**
- * Retrieve articles by category
+ * Recuperar artigos por categoria
  *
- * Fetches published articles belonging to a specific category,
- * ordered by creation date descending.
+ * Obtém artigos publicados pertencentes a uma categoria específica,
+ * ordenados por data de criação descendente.
  *
- * @param int  $categoryId Category identifier
- * @param int  $limit      Maximum articles to return
- * @param int  $offset     Starting offset for pagination
- * @param bool $published  Only return published articles
+ * @param int  $categoryId ID de categoria
+ * @param int  $limit      Máximo de artigos para retornar
+ * @param int  $offset     Offset inicial para paginação
+ * @param bool $published  Apenas retornar artigos publicados
  *
- * @return Article[] Array of Article objects
+ * @return Article[] Array de objetos Article
  *
- * @throws \InvalidArgumentException If category ID is invalid
+ * @throws \InvalidArgumentException Se ID de categoria for inválido
  *
  * @since 1.0.0
  */
@@ -474,7 +474,7 @@ public function getByCategory(
 
 ---
 
-## Tools Configuration
+## Configuração de Ferramentas
 
 ### PHP CS Fixer
 
@@ -512,11 +512,11 @@ parameters:
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- JavaScript Standards
-- Code Organization
-- Pull Request Guidelines
+- Padrões JavaScript
+- Organização de Código
+- Diretrizes de Pull Request
 
 ---
 

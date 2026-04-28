@@ -1,51 +1,51 @@
 ---
-title: "Publisher - Hooks and Events"
-description: "Guide to extending Publisher using hooks, events, and plugin system"
+title: "Publisher - Ganchos e Eventos"
+description: "Guia para estender o Publisher usando ganchos, eventos e sistema de plugin"
 ---
 
-# Publisher Hooks and Events
+# Ganchos e Eventos do Publisher
 
-> Complete guide to extending Publisher functionality using events, hooks, and plugins.
+> Guia completo para estender a funcionalidade do Publisher usando eventos, ganchos e plugins.
 
 ---
 
-## Events System Overview
+## Visão Geral do Sistema de Eventos
 
-### What Are Events?
+### O que São Eventos?
 
-Events allow other modules to react to Publisher actions:
+Os eventos permitem que outros módulos reajam às ações do Publisher:
 
 ```
-Publisher Action → Trigger Event → Other modules listen/react
+Ação do Publisher → Dispara Evento → Outros módulos escutam/reagem
 
-Examples:
-  - Article created → Send notification email
-  - Article published → Update social media
-  - Comment posted → Notify author
-  - Category created → Update search index
+Exemplos:
+  - Artigo criado → Enviar email de notificação
+  - Artigo publicado → Atualizar mídia social
+  - Comentário postado → Notificar autor
+  - Categoria criada → Atualizar índice de busca
 ```
 
-### Event Flow
+### Fluxo de Evento
 
 ```mermaid
 graph LR
-    A[Action in Publisher] -->|Trigger| B[Event fired]
-    B -->|Listeners notified| C[Other modules react]
-    C -->|Execute callbacks| D[Plugins/Hooks run]
+    A[Ação no Publisher] -->|Dispara| B[Evento acionado]
+    B -->|Ouvintes notificados| C[Outros módulos reagem]
+    C -->|Executar callbacks| D[Plugins/Ganchos executam]
 ```
 
 ---
 
-## Available Events
+## Eventos Disponíveis
 
-### Item (Article) Events
+### Eventos de Item (Artigo)
 
 #### publisher.item.created
 
-Fired when a new article is created.
+Acionado quando um novo artigo é criado.
 
 ```php
-// Trigger point in Publisher
+// Ponto de disparo no Publisher
 xoops_events()->trigger('publisher.item.created', array(
     'item' => $item,
     'itemid' => $item->getVar('itemid'),
@@ -54,10 +54,10 @@ xoops_events()->trigger('publisher.item.created', array(
 ));
 ```
 
-**Example Listener:**
+**Exemplo de Ouvinte:**
 
 ```php
-// Listen for article creation
+// Escutar criação de artigo
 xoops_events()->attach('publisher.item.created', 'onArticleCreated');
 
 function onArticleCreated($item) {
@@ -65,20 +65,20 @@ function onArticleCreated($item) {
     $title = $item['title'];
     $uid = $item['uid'];
 
-    // Send email notification
-    sendEmailNotification($uid, "New article: $title");
+    // Enviar notificação por email
+    sendEmailNotification($uid, "Novo artigo: $title");
 
-    // Log activity
-    logActivity('Article created', $itemId);
+    // Registrar atividade
+    logActivity('Artigo criado', $itemId);
 
-    // Update search index
+    // Atualizar índice de busca
     updateSearchIndex($itemId);
 }
 ```
 
 #### publisher.item.updated
 
-Fired when an article is updated.
+Acionado quando um artigo é atualizado.
 
 ```php
 xoops_events()->trigger('publisher.item.updated', array(
@@ -90,7 +90,7 @@ xoops_events()->trigger('publisher.item.updated', array(
 
 #### publisher.item.deleted
 
-Fired when an article is deleted.
+Acionado quando um artigo é deletado.
 
 ```php
 xoops_events()->trigger('publisher.item.deleted', array(
@@ -102,7 +102,7 @@ xoops_events()->trigger('publisher.item.deleted', array(
 
 #### publisher.item.published
 
-Fired when article status changes to published.
+Acionado quando o status do artigo muda para publicado.
 
 ```php
 xoops_events()->trigger('publisher.item.published', array(
@@ -113,7 +113,7 @@ xoops_events()->trigger('publisher.item.published', array(
 
 #### publisher.item.approved
 
-Fired when pending article is approved.
+Acionado quando artigo pendente é aprovado.
 
 ```php
 xoops_events()->trigger('publisher.item.approved', array(
@@ -125,7 +125,7 @@ xoops_events()->trigger('publisher.item.approved', array(
 
 #### publisher.item.rejected
 
-Fired when article is rejected.
+Acionado quando artigo é rejeitado.
 
 ```php
 xoops_events()->trigger('publisher.item.rejected', array(
@@ -135,11 +135,11 @@ xoops_events()->trigger('publisher.item.rejected', array(
 ));
 ```
 
-### Category Events
+### Eventos de Categoria
 
 #### publisher.category.created
 
-Fired when category is created.
+Acionado quando categoria é criada.
 
 ```php
 xoops_events()->trigger('publisher.category.created', array(
@@ -151,7 +151,7 @@ xoops_events()->trigger('publisher.category.created', array(
 
 #### publisher.category.updated
 
-Fired when category is updated.
+Acionado quando categoria é atualizada.
 
 ```php
 xoops_events()->trigger('publisher.category.updated', array(
@@ -162,7 +162,7 @@ xoops_events()->trigger('publisher.category.updated', array(
 
 #### publisher.category.deleted
 
-Fired when category is deleted.
+Acionado quando categoria é deletada.
 
 ```php
 xoops_events()->trigger('publisher.category.deleted', array(
@@ -172,11 +172,11 @@ xoops_events()->trigger('publisher.category.deleted', array(
 ));
 ```
 
-### Comment Events
+### Eventos de Comentário
 
 #### publisher.comment.created
 
-Fired when comment is posted.
+Acionado quando comentário é postado.
 
 ```php
 xoops_events()->trigger('publisher.comment.created', array(
@@ -188,7 +188,7 @@ xoops_events()->trigger('publisher.comment.created', array(
 
 #### publisher.comment.approved
 
-Fired when comment is approved.
+Acionado quando comentário é aprovado.
 
 ```php
 xoops_events()->trigger('publisher.comment.approved', array(
@@ -199,7 +199,7 @@ xoops_events()->trigger('publisher.comment.approved', array(
 
 #### publisher.comment.deleted
 
-Fired when comment is deleted.
+Acionado quando comentário é deletado.
 
 ```php
 xoops_events()->trigger('publisher.comment.deleted', array(
@@ -210,21 +210,21 @@ xoops_events()->trigger('publisher.comment.deleted', array(
 
 ---
 
-## Listening to Events
+## Escutando Eventos
 
-### Register Event Listener
+### Registrar Ouvinte de Evento
 
-In your module or plugin:
+Em seu módulo ou plugin:
 
 ```php
 <?php
-// Register listener in xoops_version.php or initialization file
+// Registrar ouvinte em xoops_version.php ou arquivo de inicialização
 xoops_events()->attach(
     'publisher.item.created',
     array('MyModuleListener', 'onPublisherItemCreated')
 );
 
-// Or use function name
+// Ou usar nome de função
 xoops_events()->attach(
     'publisher.item.created',
     'my_module_on_item_created'
@@ -232,7 +232,7 @@ xoops_events()->attach(
 ?>
 ```
 
-### Listener Class Method
+### Método de Classe de Ouvinte
 
 ```php
 <?php
@@ -241,18 +241,18 @@ class MyModuleListener {
         $itemId = $data['itemid'];
         $title = $data['title'];
 
-        // Perform action
+        // Executar ação
         self::notifySubscribers($itemId, $title);
     }
 
     protected static function notifySubscribers($itemId, $title) {
-        // Implementation
+        // Implementação
     }
 }
 ?>
 ```
 
-### Listener Function
+### Função de Ouvinte
 
 ```php
 <?php
@@ -261,21 +261,21 @@ function my_module_on_item_created($data) {
     $title = $data['title'];
     $uid = $data['uid'];
 
-    // Send notification
-    notifyUser($uid, "Article created: $title");
+    // Enviar notificação
+    notifyUser($uid, "Artigo criado: $title");
 }
 ?>
 ```
 
 ---
 
-## Event Examples
+## Exemplos de Evento
 
-### Example 1: Send Email on Article Creation
+### Exemplo 1: Enviar Email na Criação de Artigo
 
 ```php
 <?php
-// Listen for article creation
+// Escutar criação de artigo
 xoops_events()->attach(
     'publisher.item.created',
     'send_article_notification_email'
@@ -286,7 +286,7 @@ function send_article_notification_email($data) {
     $title = $data['title'];
     $uid = $data['uid'];
 
-    // Get user object
+    // Obter objeto do usuário
     $userHandler = xoops_getHandler('user');
     $user = $userHandler->get($uid);
 
@@ -294,20 +294,20 @@ function send_article_notification_email($data) {
         return;
     }
 
-    // Get admin emails
+    // Obter emails de admin
     $config = xoops_getModuleConfig();
     $adminEmails = $config['admin_emails'];
 
-    // Prepare email
-    $subject = "New Article: $title";
-    $message = "A new article has been created:\n\n";
-    $message .= "Title: $title\n";
-    $message .= "Author: " . $user->getVar('uname') . "\n";
-    $message .= "Date: " . date('Y-m-d H:i:s') . "\n";
+    // Preparar email
+    $subject = "Novo Artigo: $title";
+    $message = "Um novo artigo foi criado:\n\n";
+    $message .= "Título: $title\n";
+    $message .= "Autor: " . $user->getVar('uname') . "\n";
+    $message .= "Data: " . date('Y-m-d H:i:s') . "\n";
     $message .= "ID: $itemId\n\n";
     $message .= "Link: " . XOOPS_URL . "/modules/publisher/?op=showitem&itemid=$itemId\n";
 
-    // Send to admins
+    // Enviar para admins
     foreach (explode(',', $adminEmails) as $email) {
         xoops_mail($email, $subject, $message);
     }
@@ -315,11 +315,11 @@ function send_article_notification_email($data) {
 ?>
 ```
 
-### Example 2: Update Search Index
+### Exemplo 2: Atualizar Índice de Busca
 
 ```php
 <?php
-// Listen for article published event
+// Escutar evento de artigo publicado
 xoops_events()->attach(
     'publisher.item.published',
     'update_search_index'
@@ -329,7 +329,7 @@ function update_search_index($data) {
     $itemId = $data['itemid'];
     $item = $data['item'];
 
-    // Update search index
+    // Atualizar índice de busca
     $searchHandler = xoops_getModuleHandler('Search');
     $searchHandler->indexArticle($itemId, array(
         'title' => $item->getVar('title'),
@@ -341,11 +341,11 @@ function update_search_index($data) {
 ?>
 ```
 
-### Example 3: Auto-Post to Social Media
+### Exemplo 3: Auto-Postar em Mídia Social
 
 ```php
 <?php
-// Listen for article publication
+// Escutar publicação de artigo
 xoops_events()->attach(
     'publisher.item.published',
     'post_to_social_media'
@@ -355,7 +355,7 @@ function post_to_social_media($data) {
     $item = $data['item'];
     $itemId = $data['itemid'];
 
-    // Get config
+    // Obter configuração
     $config = xoops_getModuleConfig();
 
     if ($config['post_to_twitter']) {
@@ -374,21 +374,21 @@ function post_to_social_media($data) {
 }
 
 function postToTwitter($text, $url) {
-    // Twitter API integration
-    // Use Twitter OAuth library
+    // Integração com API do Twitter
+    // Usar biblioteca OAuth do Twitter
 }
 
 function postToFacebook($title, $description) {
-    // Facebook API integration
+    // Integração com API do Facebook
 }
 ?>
 ```
 
-### Example 4: Sync with External System
+### Exemplo 4: Sincronizar com Sistema Externo
 
 ```php
 <?php
-// Listen for article creation and update
+// Escutar criação e atualização de artigo
 xoops_events()->attach(
     'publisher.item.created',
     'sync_external_system'
@@ -403,12 +403,12 @@ function sync_external_system($data) {
     $item = $data['item'];
     $itemId = $data['itemid'];
 
-    // Get external API config
+    // Obter configuração de API externa
     $config = xoops_getModuleConfig();
     $apiUrl = $config['external_api_url'];
     $apiKey = $config['external_api_key'];
 
-    // Prepare payload
+    // Preparar carga útil
     $payload = json_encode(array(
         'id' => $itemId,
         'title' => $item->getVar('title'),
@@ -416,7 +416,7 @@ function sync_external_system($data) {
         'date' => date('c', $item->getVar('datesub'))
     ));
 
-    // Send to external system
+    // Enviar para sistema externo
     $ch = curl_init($apiUrl);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -432,15 +432,15 @@ function sync_external_system($data) {
 
 ---
 
-## Hooks System
+## Sistema de Ganchos
 
-### Publisher Hooks
+### Ganchos do Publisher
 
-Hooks allow modifications to Publisher behavior:
+Os ganchos permitem modificações no comportamento do Publisher:
 
 #### publisher.view.article.start
 
-Called before article is rendered.
+Chamado antes do artigo ser renderizado.
 
 ```php
 xoops_events()->attach(
@@ -449,15 +449,15 @@ xoops_events()->attach(
 );
 
 function modify_article_before_display(&$item) {
-    // Modify item before display
+    // Modificar item antes de exibição
     $title = $item->getVar('title');
-    $item->setVar('title', '[FEATURED] ' . $title);
+    $item->setVar('title', '[DESTAQUE] ' . $title);
 }
 ```
 
 #### publisher.view.article.end
 
-Called after article is rendered.
+Chamado após o artigo ser renderizado.
 
 ```php
 xoops_events()->attach(
@@ -466,16 +466,16 @@ xoops_events()->attach(
 );
 
 function append_to_article(&$article) {
-    // Add content after article
+    // Adicionar conteúdo após artigo
     $article .= '<div class="related-articles">';
-    $article .= '<!-- Related articles content -->';
+    $article .= '<!-- Conteúdo de artigos relacionados -->';
     $article .= '</div>';
 }
 ```
 
 #### publisher.permission.check
 
-Called when checking permissions.
+Chamado ao verificar permissões.
 
 ```php
 xoops_events()->attach(
@@ -484,7 +484,7 @@ xoops_events()->attach(
 );
 
 function custom_permission_logic(&$allowed, $permission, $itemId) {
-    // Custom permission logic
+    // Lógica de permissão personalizada
     if (custom_rule_applies($itemId)) {
         $allowed = true;
     }
@@ -493,18 +493,18 @@ function custom_permission_logic(&$allowed, $permission, $itemId) {
 
 ---
 
-## Plugin System
+## Sistema de Plugin
 
-### Create a Plugin
+### Criar um Plugin
 
-Plugins extend Publisher functionality:
+Os plugins estendem a funcionalidade do Publisher:
 
-**File Structure:**
+**Estrutura de Arquivo:**
 
 ```
 modules/publisher/plugins/
 ├── myplugin/
-│   ├── plugin.php (main file)
+│   ├── plugin.php (arquivo principal)
 │   ├── language/
 │   │   └── english.php
 │   ├── templates/
@@ -515,12 +515,12 @@ modules/publisher/plugins/
 
 ```php
 <?php
-// Plugin information
-define('MYPLUGIN_NAME', 'My Publisher Plugin');
+// Informações do plugin
+define('MYPLUGIN_NAME', 'Meu Plugin do Publisher');
 define('MYPLUGIN_VERSION', '1.0.0');
-define('MYPLUGIN_DESCRIPTION', 'Extends Publisher with custom features');
+define('MYPLUGIN_DESCRIPTION', 'Estende Publisher com recursos personalizados');
 
-// Register hooks/events
+// Registrar ganchos/eventos
 xoops_events()->attach(
     'publisher.item.created',
     'myplugin_on_item_created'
@@ -531,17 +531,17 @@ xoops_events()->attach(
     'myplugin_append_content'
 );
 
-// Plugin functions
+// Funções do plugin
 function myplugin_on_item_created($data) {
-    // Handle item creation
+    // Manipular criação de item
 }
 
 function myplugin_append_content(&$content) {
-    // Append content to article
-    $content .= '<div class="myplugin-content">Custom content</div>';
+    // Adicionar conteúdo ao artigo
+    $content .= '<div class="myplugin-content">Conteúdo personalizado</div>';
 }
 
-// Plugin API
+// API do Plugin
 class MyPublisherPlugin {
     public static function getArticles($limit = 10) {
         $itemHandler = xoops_getModuleHandler('Item', 'publisher');
@@ -556,13 +556,13 @@ class MyPublisherPlugin {
 ?>
 ```
 
-### Load Plugin
+### Carregar Plugin
 
-In Publisher initialization:
+Na inicialização do Publisher:
 
 ```php
 <?php
-// Load plugin
+// Carregar plugin
 $pluginPath = XOOPS_ROOT_PATH . '/modules/publisher/plugins/myplugin/plugin.php';
 if (file_exists($pluginPath)) {
     include_once $pluginPath;
@@ -572,47 +572,47 @@ if (file_exists($pluginPath)) {
 
 ---
 
-## Filters
+## Filtros
 
-### Content Filters
+### Filtros de Conteúdo
 
-Filters modify data before/after processing:
+Os filtros modificam dados antes/depois do processamento:
 
 ```php
 <?php
-// Filter article title
+// Filtrar título do artigo
 $title = apply_filters('publisher_item_title', $title, $itemId);
 
-// Filter article body
+// Filtrar corpo do artigo
 $body = apply_filters('publisher_item_body', $body, $itemId);
 
-// Filter article display
+// Filtrar exibição do artigo
 $display = apply_filters('publisher_item_display', $display, $item);
 ?>
 ```
 
-### Register Filter
+### Registrar Filtro
 
 ```php
 <?php
-// Add filter
+// Adicionar filtro
 add_filter('publisher_item_title', 'my_title_filter');
 
 function my_title_filter($title, $itemId) {
-    // Modify title
+    // Modificar título
     return strtoupper($title);
 }
 
-// Add filter with priority
+// Adicionar filtro com prioridade
 add_filter(
     'publisher_item_body',
     'my_body_filter',
-    10,  // priority (lower = earlier)
-    2    // number of arguments
+    10,  // prioridade (menor = mais cedo)
+    2    // número de argumentos
 );
 
 function my_body_filter($body, $itemId) {
-    // Add watermark to body
+    // Adicionar marca d'água ao corpo
     return $body . '<p class="watermark">© ' . date('Y') . '</p>';
 }
 ?>
@@ -620,25 +620,25 @@ function my_body_filter($body, $itemId) {
 
 ---
 
-## Action Hooks
+## Ganchos de Ação
 
-### Custom Actions
+### Ações Personalizadas
 
-Execute code at specific points:
+Execute código em pontos específicos:
 
 ```php
 <?php
-// Do action
+// Executar ação
 do_action('publisher_article_saved', $itemId, $item);
 
-// Do action with arguments
+// Executar ação com argumentos
 do_action('publisher_comment_approved', $commentId, $comment);
 
-// Listen to action
+// Escutar ação
 add_action('publisher_article_saved', 'my_action_handler');
 
 function my_action_handler($itemId, $item) {
-    // Execute code
+    // Executar código
     log_article_save($itemId);
     update_statistics();
 }
@@ -647,13 +647,13 @@ function my_action_handler($itemId, $item) {
 
 ---
 
-## Extending with Plugins
+## Estendendo com Plugins
 
-### Example Plugin: Related Articles
+### Exemplo de Plugin: Artigos Relacionados
 
 ```php
 <?php
-// File: modules/publisher/plugins/related-articles/plugin.php
+// Arquivo: modules/publisher/plugins/related-articles/plugin.php
 
 class RelatedArticlesPlugin {
     public static function init() {
@@ -664,12 +664,12 @@ class RelatedArticlesPlugin {
     }
 
     public static function displayRelated(&$content) {
-        // Get related articles
+        // Obter artigos relacionados
         $related = self::getRelatedArticles();
 
         if (count($related) > 0) {
             $html = '<div class="related-articles">';
-            $html .= '<h3>Related Articles</h3>';
+            $html .= '<h3>Artigos Relacionados</h3>';
             $html .= '<ul>';
 
             foreach ($related as $article) {
@@ -688,7 +688,7 @@ class RelatedArticlesPlugin {
     }
 
     protected static function getRelatedArticles() {
-        // Get current article
+        // Obter artigo atual
         global $itemId;
 
         $itemHandler = xoops_getModuleHandler('Item', 'publisher');
@@ -698,13 +698,13 @@ class RelatedArticlesPlugin {
             return array();
         }
 
-        // Get articles in same category
+        // Obter artigos na mesma categoria
         $related = $itemHandler->getByCategory(
             $item->getVar('categoryid'),
             $limit = 5
         );
 
-        // Remove current article
+        // Remover artigo atual
         $related = array_filter($related, function($article) {
             global $itemId;
             return $article->getVar('itemid') != $itemId;
@@ -714,63 +714,63 @@ class RelatedArticlesPlugin {
     }
 }
 
-// Initialize plugin
+// Inicializar plugin
 RelatedArticlesPlugin::init();
 ?>
 ```
 
 ---
 
-## Best Practices
+## Melhores Práticas
 
-### Event Listener Guidelines
+### Diretrizes para Ouvinte de Evento
 
 ```php
-✓ Keep listeners performant
-  - Don't do heavy processing in events
-  - Cache results when possible
+✓ Manter ouvintes performáticos
+  - Não fazer processamento pesado em eventos
+  - Cachear resultados quando possível
 
-✓ Handle errors gracefully
-  - Use try/catch
-  - Log errors
-  - Don't break main flow
+✓ Manipular erros com graça
+  - Usar try/catch
+  - Registrar erros
+  - Não quebrar fluxo principal
 
-✓ Use meaningful names
+✓ Usar nomes significativos
   - my_module_on_publisher_item_created
-  - Instead of: process_event_1
+  - Em vez de: process_event_1
 
-✓ Document your events
-  - Comment what trigger point is
-  - List expected data
-  - Show usage examples
+✓ Documentar seus eventos
+  - Comentar qual é o ponto de disparo
+  - Listar dados esperados
+  - Mostrar exemplos de uso
 
-✓ Unload listeners properly
-  - Clean up on module uninstall
-  - Remove hooks when no longer needed
+✓ Descarregar ouvintes corretamente
+  - Limpar na desinstalação do módulo
+  - Remover ganchos quando não mais necessários
 ```
 
-### Performance Tips
+### Dicas de Desempenho
 
 ```
-✗ Avoid database queries in listeners
-✗ Don't block execution with slow operations
-✗ Avoid modifying data unnecessarily
+✗ Evitar consultas ao banco de dados em ouvintes
+✗ Não bloquear execução com operações lentas
+✗ Evitar modificar dados desnecessariamente
 
-✓ Queue long-running tasks
-✓ Cache external API calls
-✓ Use lazy loading for dependencies
-✓ Batch database operations
+✓ Colocar tarefas de longa duração em fila
+✓ Cachear chamadas a API externas
+✓ Usar carregamento preguiçoso para dependências
+✓ Operações de banco de dados em lote
 ```
 
 ---
 
-## Debugging Events
+## Depurando Eventos
 
-### Enable Debug Mode
+### Habilitar Modo de Depuração
 
 ```php
 <?php
-// In module initialization
+// Na inicialização do módulo
 if (defined('XOOPS_DEBUG')) {
     xoops_events()->attach(
         'publisher.item.created',
@@ -779,16 +779,16 @@ if (defined('XOOPS_DEBUG')) {
 }
 
 function publisher_debug_event($data) {
-    error_log('Publisher Event: ' . print_r($data, true));
+    error_log('Evento do Publisher: ' . print_r($data, true));
 }
 ?>
 ```
 
-### Log Events
+### Registrar Eventos
 
 ```php
 <?php
-// Log event data
+// Registrar dados de evento
 xoops_events()->attach(
     'publisher.item.created',
     'log_publisher_events'
@@ -797,8 +797,8 @@ xoops_events()->attach(
 function log_publisher_events($data) {
     $log = XOOPS_ROOT_PATH . '/var/log/publisher.log';
     $entry = date('Y-m-d H:i:s') . ' - ';
-    $entry .= 'Event: publisher.item.created' . "\n";
-    $entry .= 'Data: ' . json_encode($data) . "\n\n";
+    $entry .= 'Evento: publisher.item.created' . "\n";
+    $entry .= 'Dados: ' . json_encode($data) . "\n\n";
     file_put_contents($log, $entry, FILE_APPEND);
 }
 ?>
@@ -806,20 +806,20 @@ function log_publisher_events($data) {
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- API Reference
-- Custom Templates
-- Article Creation
-
----
-
-## Resources
-
-- [Publisher GitHub](https://github.com/XoopsModules25x/publisher)
-- [XOOPS Events System](../../03-Module-Development/Module-Development.md)
-- [Plugin Development](../../03-Module-Development/Module-Development.md)
+- Referência da API
+- Templates Personalizados
+- Criação de Artigos
 
 ---
 
-#publisher #hooks #events #plugins #extensions #customization #xoops
+## Recursos
+
+- [GitHub do Publisher](https://github.com/XoopsModules25x/publisher)
+- [Sistema de Eventos XOOPS](../../03-Module-Development/Module-Development.md)
+- [Desenvolvimento de Plugin](../../03-Module-Development/Module-Development.md)
+
+---
+
+#publisher #ganchos #eventos #plugins #extensões #personalização #xoops

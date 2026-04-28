@@ -1,26 +1,26 @@
 ---
-title: "XOOPS Glossary"
-description: "Definitions of XOOPS-specific terms and concepts"
+title: "Glossário XOOPS"
+description: "Definições de termos e conceitos específicos do XOOPS"
 ---
 
-> Comprehensive glossary of XOOPS-specific terminology and concepts.
+> Glossário abrangente de terminologia e conceitos específicos do XOOPS.
 
 ---
 
 ## A
 
 ### Admin Framework
-The standardized administrative interface framework introduced in XOOPS 2.3, providing consistent admin pages across modules.
+A interface administrativo padronizada introduzida no XOOPS 2.3, fornecendo páginas de admin consistentes entre módulos.
 
 ### Autoloading
-The automatic loading of PHP classes when they are needed, using PSR-4 standard in modern XOOPS.
+O carregamento automático de classes PHP quando elas são necessárias, usando padrão PSR-4 no XOOPS moderno.
 
 ---
 
 ## B
 
-### Block
-A self-contained content unit that can be positioned in theme regions. Blocks can display module content, custom HTML, or dynamic data.
+### Block (Bloco)
+Uma unidade de conteúdo auto-contida que pode ser posicionada em regiões de tema. Blocos podem exibir conteúdo de módulo, HTML customizado ou dados dinâmicos.
 
 ```php
 // Block definition
@@ -32,14 +32,14 @@ $modversion['blocks'][] = [
 ```
 
 ### Bootstrap
-The process of initializing XOOPS core before executing module code, typically through `mainfile.php` and `header.php`.
+O processo de inicializar o núcleo do XOOPS antes de executar código do módulo, tipicamente através de `mainfile.php` e `header.php`.
 
 ---
 
 ## C
 
 ### Criteria / CriteriaCompo
-Classes for building database query conditions in an object-oriented manner.
+Classes para construir condições de query de banco de dados de maneira orientada a objetos.
 
 ```php
 $criteria = new CriteriaCompo();
@@ -47,55 +47,55 @@ $criteria->add(new Criteria('status', 1));
 ```
 
 ### CSRF (Cross-Site Request Forgery)
-A security attack prevented in XOOPS using security tokens via `XoopsFormHiddenToken`.
+Um ataque de segurança prevenido no XOOPS usando tokens de segurança via `XoopsFormHiddenToken`.
 
 ---
 
 ## D
 
-### DI (Dependency Injection)
-A design pattern planned for XOOPS 4.0 where dependencies are injected rather than created internally.
+### DI (Injeção de Dependência)
+Um padrão de design planejado para XOOPS 4.0 onde dependências são injetadas em vez de criadas internamente.
 
 ### Dirname
-The directory name of a module, used as a unique identifier throughout the system.
+O nome do diretório de um módulo, usado como identificador único em todo o sistema.
 
-### DTYPE (Data Type)
-Constants defining how XoopsObject variables are stored and sanitized:
-- `XOBJ_DTYPE_INT` - Integer
-- `XOBJ_DTYPE_TXTBOX` - Text (single line)
-- `XOBJ_DTYPE_TXTAREA` - Text (multi-line)
-- `XOBJ_DTYPE_EMAIL` - Email address
+### DTYPE (Tipo de Dados)
+Constantes definindo como variáveis XoopsObject são armazenadas e sanitizadas:
+- `XOBJ_DTYPE_INT` - Inteiro
+- `XOBJ_DTYPE_TXTBOX` - Texto (linha única)
+- `XOBJ_DTYPE_TXTAREA` - Texto (multi-linha)
+- `XOBJ_DTYPE_EMAIL` - Endereço de email
 
 ---
 
 ## E
 
-### Event
-An occurrence in the XOOPS lifecycle that can trigger custom code through preloads or hooks.
+### Event (Evento)
+Uma ocorrência no ciclo de vida do XOOPS que pode disparar código customizado através de preloads ou hooks.
 
 ---
 
 ## F
 
 ### Framework
-See XMF (XOOPS Module Framework).
+Ver XMF (XOOPS Module Framework).
 
-### Form Element
-A component of the XOOPS form system representing an HTML form field.
+### Form Element (Elemento de Formulário)
+Um componente do sistema de formulário do XOOPS representando um campo de formulário HTML.
 
 ---
 
 ## G
 
-### Group
-A collection of users with shared permissions. Core groups include: Webmasters, Registered Users, Anonymous.
+### Group (Grupo)
+Uma coleção de usuários com permissões compartilhadas. Grupos principais incluem: Webmasters, Usuários Registrados, Anônimo.
 
 ---
 
 ## H
 
 ### Handler
-A class that manages CRUD operations for XoopsObject instances.
+Uma classe que gerencia operações CRUD para instâncias XoopsObject.
 
 ```php
 $handler = xoops_getModuleHandler('item', 'mymodule');
@@ -103,7 +103,7 @@ $item = $handler->get($id);
 ```
 
 ### Helper
-A utility class providing easy access to module handlers, configurations, and services.
+Uma classe utilitária fornecendo acesso fácil aos handlers de módulo, configurações e serviços.
 
 ```php
 $helper = \XoopsModules\MyModule\Helper::getInstance();
@@ -114,171 +114,38 @@ $helper = \XoopsModules\MyModule\Helper::getInstance();
 ## K
 
 ### Kernel
-The core XOOPS classes providing fundamental functionality: database access, user management, security, etc.
+As classes principais do XOOPS fornecendo funcionalidade fundamental: acesso a banco de dados, gerenciamento de usuário, segurança, etc.
 
 ---
 
 ## L
 
-### Language File
-PHP files containing constants for internationalization, stored in `language/[code]/` directories.
+### Language File (Arquivo de Idioma)
+Arquivos PHP contendo constantes para internacionalização, armazenados em diretórios `language/[code]/`.
 
 ---
 
 ## M
 
 ### mainfile.php
-The primary configuration file for XOOPS containing database credentials and path definitions.
+O arquivo de configuração primário para XOOPS contendo credenciais de banco de dados e definições de caminho.
 
 ### MCP (Model-Controller-Presenter)
-An architectural pattern similar to MVC, often used in XOOPS module development.
+Um padrão arquitetural similar a MVC, frequentemente usado em desenvolvimento de módulo XOOPS.
 
 ### Middleware
-Software that sits between the request and response, planned for XOOPS 4.0 using PSR-15.
+Software que fica entre a requisição e resposta, planejado para XOOPS 4.0 usando PSR-15.
 
-### Module
-A self-contained package that extends XOOPS functionality, installed in the `modules/` directory.
-
-### MOC (Map of Content)
-An Obsidian concept for overview notes that link to related content.
+### Module (Módulo)
+Um pacote auto-contido que estende funcionalidade do XOOPS, instalado no diretório `modules/`.
 
 ---
 
 ## N
 
 ### Namespace
-PHP feature for organizing classes, used in XOOPS 2.5+:
-```php
-namespace XoopsModules\MyModule;
-```
-
-### Notification
-The XOOPS system for alerting users about events via email or PM.
+Recurso PHP para organizar classes, usado no XOOPS 2.5+
 
 ---
 
-## O
-
-### Object
-See XoopsObject.
-
----
-
-## P
-
-### Permission
-Access control managed through groups and permission handlers.
-
-### Preload
-A class that hooks into XOOPS events, loaded automatically from `preloads/` directory.
-
-### PSR (PHP Standards Recommendation)
-Standards from PHP-FIG that XOOPS 4.0 will fully implement.
-
----
-
-## R
-
-### Renderer
-A class that outputs form elements or other UI components in specific formats (Bootstrap, etc.).
-
----
-
-## S
-
-### Smarty
-The template engine used by XOOPS for separating presentation from logic.
-
-```smarty
-<{$variable}>
-<{foreach item=item from=$items}>
-    <{$item.title}>
-<{/foreach}>
-```
-
-### Service
-A class providing reusable business logic, typically accessed via the Helper.
-
----
-
-## T
-
-### Template
-A Smarty file (`.tpl` or `.html`) defining the presentation layer for modules.
-
-### Theme
-A collection of templates and assets defining the site's visual appearance.
-
-### Token
-A security mechanism (CSRF protection) ensuring form submissions originate from legitimate sources.
-
----
-
-## U
-
-### uid
-User ID - the unique identifier for each user in the system.
-
----
-
-## V
-
-### Variable (Var)
-A field defined on an XoopsObject using `initVar()`.
-
----
-
-## W
-
-### Widget
-A small, self-contained UI component, similar to blocks.
-
----
-
-## X
-
-### XMF (XOOPS Module Framework)
-A collection of utilities and classes for modern XOOPS module development.
-
-### XOBJ_DTYPE
-Constants for defining variable data types in XoopsObject.
-
-### XoopsDatabase
-The database abstraction layer providing query execution and escaping.
-
-### XoopsForm
-The form generation system for creating HTML forms programmatically.
-
-### XoopsObject
-The base class for all data objects in XOOPS, providing variable management and sanitization.
-
-### xoops_version.php
-The module manifest file defining module properties, tables, blocks, templates, and configuration.
-
----
-
-## Common Acronyms
-
-| Acronym | Meaning |
-|---------|---------|
-| XOOPS | eXtensible Object-Oriented Portal System |
-| XMF | XOOPS Module Framework |
-| CSRF | Cross-Site Request Forgery |
-| XSS | Cross-Site Scripting |
-| ORM | Object-Relational Mapping |
-| PSR | PHP Standards Recommendation |
-| DI | Dependency Injection |
-| MVC | Model-View-Controller |
-| CRUD | Create, Read, Update, Delete |
-
----
-
-## 🔗 Related Documentation
-
-- Core Concepts
-- API Reference
-- External Resources
-
----
-
-#xoops #glossary #reference #terminology #definitions
+#xoops #glossary #reference #terminology

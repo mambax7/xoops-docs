@@ -1,164 +1,164 @@
 ---
-title: "Pull Request Guidelines"
-description: "Guidelines for submitting pull requests to XOOPS projects"
+title: "Diretrizes de Pull Request"
+description: "Diretrizes para submeter pull requests para projetos XOOPS"
 ---
 
-This document provides comprehensive guidelines for submitting pull requests to XOOPS projects. Following these guidelines ensures smooth code reviews and faster merge times.
+Este documento fornece diretrizes abrangentes para submeter pull requests para projetos XOOPS. Seguir estas diretrizes garante revisões de código suaves e tempos de merge mais rápidos.
 
-## Before Creating a Pull Request
+## Antes de Criar uma Pull Request
 
-### Step 1: Check for Existing Issues
+### Passo 1: Verificar Problemas Existentes
 
 ```
-1. Visit the GitHub repository
-2. Go to Issues tab
-3. Search for existing issues related to your change
-4. Check both open and closed issues
+1. Visite o repositório GitHub
+2. Vá para a aba Issues
+3. Procure por problemas existentes relacionados à sua mudança
+4. Verifique problemas abertos e fechados
 ```
 
-### Step 2: Fork and Clone the Repository
+### Passo 2: Fork e Clonar o Repositório
 
 ```bash
-# Fork the repository on GitHub
-# Click "Fork" button on the repository page
+# Faça fork do repositório no GitHub
+# Clique no botão "Fork" na página do repositório
 
-# Clone your fork
-git clone https://github.com/YOUR_USERNAME/XOOPS.git
+# Clone seu fork
+git clone https://github.com/SEU_USUARIO/XOOPS.git
 cd XOOPS
 
-# Add upstream remote
+# Adicionar remote upstream
 git remote add upstream https://github.com/XOOPS/XOOPS.git
 
-# Verify remotes
+# Verificar remotes
 git remote -v
-# Should show: origin (your fork) and upstream (official)
+# Deve mostrar: origin (seu fork) e upstream (oficial)
 ```
 
-### Step 3: Create a Feature Branch
+### Passo 3: Criar uma Branch de Recurso
 
 ```bash
-# Update main branch
+# Atualizar branch principal
 git fetch upstream
 git checkout main
 git merge upstream/main
 
-# Create feature branch
-# Use descriptive names: bugfix/issue-number or feature/description
+# Criar branch de recurso
+# Use nomes descritivos: bugfix/numero-problema ou feature/descricao
 git checkout -b bugfix/123-fix-database-connection
 git checkout -b feature/add-psr-7-support
 ```
 
-### Step 4: Make Your Changes
+### Passo 4: Fazer Suas Mudanças
 
 ```bash
-# Make changes to your files
-# Follow code style guidelines
+# Fazer mudanças em seus arquivos
+# Seguir diretrizes de estilo de código
 
-# Stage changes
+# Preparar mudanças
 git add .
 
-# Commit with clear message
-git commit -m "Fix database connection timeout issue"
+# Fazer commit com mensagem clara
+git commit -m "Corrigir problema de timeout de conexão com banco de dados"
 
-# Create multiple commits for logical changes
-git commit -m "Add connection retry logic"
-git commit -m "Improve error messages for debugging"
+# Criar múltiplos commits para mudanças lógicas
+git commit -m "Adicionar lógica de retry de conexão"
+git commit -m "Melhorar mensagens de erro para debugging"
 ```
 
-## Commit Message Standards
+## Padrões de Mensagem de Commit
 
-### Good Commit Messages
+### Boas Mensagens de Commit
 
-Use clear, descriptive messages following these patterns:
+Use mensagens claras e descritivas seguindo estes padrões:
 
 ```
-# Format
-<type>: <subject>
+# Formato
+<tipo>: <assunto>
 
-<body>
+<corpo>
 
-<footer>
+<rodapé>
 
-# Example 1: Bug fix
-fix: resolve database connection timeout
+# Exemplo 1: Correção de bug
+fix: resolver timeout de conexão com banco de dados
 
-Add exponential backoff retry mechanism to database connection.
-Connections now retry up to 3 times with increasing delays.
+Adicionar mecanismo de retry com backoff exponencial à conexão com banco de dados.
+Conexões agora tentam novamente até 3 vezes com atrasos crescentes.
 
 Fixes #123
 ```
 
 ```
-# Example 2: Feature
-feat: implement PSR-7 HTTP message interfaces
+# Exemplo 2: Recurso
+feat: implementar interfaces de mensagem HTTP PSR-7
 
-Implement Psr\Http\Message interfaces for request/response handling.
-Provides type-safe HTTP message handling across the framework.
+Implementar interfaces Psr\Http\Message para manipulação de request/response.
+Fornece manipulação de mensagem HTTP segura em tipo em todo o framework.
 
-BREAKING CHANGE: Updated RequestHandler signature
+BREAKING CHANGE: Assinatura de RequestHandler foi atualizada
 ```
 
-### Commit Type Categories
+### Categorias de Tipo de Commit
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `feat` | New feature | `feat: add user dashboard widget` |
-| `fix` | Bug fix | `fix: resolve cache invalidation bug` |
-| `docs` | Documentation | `docs: update API reference` |
-| `style` | Code style (no logic change) | `style: format imports` |
-| `refactor` | Code refactoring | `refactor: simplify service layer` |
-| `perf` | Performance improvement | `perf: optimize database queries` |
-| `test` | Test changes | `test: add integration tests` |
-| `chore` | Build/tooling changes | `chore: update dependencies` |
+| Tipo | Descrição | Exemplo |
+|------|-----------|---------|
+| `feat` | Novo recurso | `feat: adicionar widget de dashboard do usuário` |
+| `fix` | Correção de bug | `fix: resolver bug de invalidação de cache` |
+| `docs` | Documentação | `docs: atualizar referência de API` |
+| `style` | Estilo de código (sem mudança de lógica) | `style: formatar imports` |
+| `refactor` | Refatoração de código | `refactor: simplificar camada de serviço` |
+| `perf` | Melhoria de performance | `perf: otimizar consultas de banco de dados` |
+| `test` | Mudanças de teste | `test: adicionar testes de integração` |
+| `chore` | Mudanças de build/tooling | `chore: atualizar dependências` |
 
-## Pull Request Description
+## Descrição de Pull Request
 
-### PR Template
+### Modelo de PR
 
 ```markdown
-## Description
-Clear description of changes made and why.
+## Descrição
+Descrição clara das mudanças feitas e por quê.
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
+## Tipo de Mudança
+- [ ] Correção de bug
+- [ ] Novo recurso
+- [ ] Mudança quebra-compatibilidade
+- [ ] Atualização de documentação
 
-## Related Issues
-Closes #123
-Related to #456
+## Problemas Relacionados
+Fecha #123
+Relacionado a #456
 
-## Changes Made
-- Change 1
-- Change 2
-- Change 3
+## Mudanças Feitas
+- Mudança 1
+- Mudança 2
+- Mudança 3
 
-## Testing
-- [ ] Tested locally
-- [ ] All tests pass
-- [ ] Added new tests
-- [ ] Manual testing steps included
+## Testes
+- [ ] Testado localmente
+- [ ] Todos os testes passam
+- [ ] Adicionados novos testes
+- [ ] Passos de teste manual inclusos
 
-## Checklist
-- [ ] Code follows style guidelines
-- [ ] Self-review completed
-- [ ] Comments added for complex logic
-- [ ] Documentation updated
-- [ ] No new warnings generated
-- [ ] Added tests for new functionality
-- [ ] All tests passing
+## Lista de Verificação
+- [ ] Código segue diretrizes de estilo
+- [ ] Autorrevisão concluída
+- [ ] Comentários adicionados para lógica complexa
+- [ ] Documentação atualizada
+- [ ] Nenhum novo aviso gerado
+- [ ] Adicionados testes para nova funcionalidade
+- [ ] Todos os testes passando
 ```
 
-## Code Quality Requirements
+## Requisitos de Qualidade de Código
 
-### Code Style
+### Estilo de Código
 
-Follow Code-Style guidelines:
+Siga diretrizes de Estilo-de-Código:
 
 ```php
 <?php
-// Good: PSR-12 style
+// Bom: estilo PSR-12
 namespace MyModule\Controller;
 
 use MyModule\Model\Item;
@@ -181,9 +181,9 @@ class ItemController
 }
 ```
 
-## Testing Requirements
+## Requisitos de Testes
 
-### Unit Tests
+### Testes Unitários
 
 ```php
 // tests/Feature/DatabaseConnectionTest.php
@@ -216,167 +216,167 @@ class DatabaseConnectionTest extends TestCase
 }
 ```
 
-### Running Tests
+### Executando Testes
 
 ```bash
-# Run all tests
+# Executar todos os testes
 vendor/bin/phpunit
 
-# Run specific test file
+# Executar arquivo de teste específico
 vendor/bin/phpunit tests/Feature/DatabaseConnectionTest.php
 
-# Run with coverage
+# Executar com cobertura
 vendor/bin/phpunit --coverage-html coverage/
 ```
 
-## Working with Branches
+## Trabalhando com Branches
 
-### Keep Branch Updated
+### Manter Branch Atualizada
 
 ```bash
-# Fetch latest from upstream
+# Buscar último do upstream
 git fetch upstream
 
-# Rebase on latest main
+# Fazer rebase na main mais recente
 git rebase upstream/main
 
-# Or merge if you prefer
+# Ou fazer merge se preferir
 git merge upstream/main
 
-# Force push if rebased (warning: only on your branch!)
+# Force push se fez rebase (aviso: apenas na sua branch!)
 git push -f origin bugfix/123-fix-database-connection
 ```
 
-## Creating the Pull Request
+## Criando a Pull Request
 
-### PR Title Format
+### Formato de Título de PR
 
 ```
-[Type] Short description (fix/feature/docs)
+[Tipo] Descrição curta (fix/feature/docs)
 
-Examples:
-- [FIX] Resolve database connection timeout issue (#123)
-- [FEATURE] Implement PSR-7 HTTP message interfaces
-- [DOCS] Update API reference for Criteria class
+Exemplos:
+- [FIX] Resolver problema de timeout de conexão com banco de dados (#123)
+- [FEATURE] Implementar interfaces de mensagem HTTP PSR-7
+- [DOCS] Atualizar referência de API para classe Criteria
 ```
 
-## Code Review Process
+## Processo de Revisão de Código
 
-### What Reviewers Look For
+### O Que Revisores Procuram
 
-1. **Correctness**
-   - Does the code solve the stated problem?
-   - Are edge cases handled?
-   - Is error handling appropriate?
+1. **Correção**
+   - O código resolve o problema declarado?
+   - Casos extremos são manipulados?
+   - Manipulação de erro é apropriada?
 
-2. **Quality**
-   - Does it follow coding standards?
-   - Is it maintainable?
-   - Is it well-tested?
+2. **Qualidade**
+   - Segue padrões de codificação?
+   - É mantível?
+   - Está bem testado?
 
 3. **Performance**
-   - Any performance regressions?
-   - Are queries optimized?
-   - Is memory usage reasonable?
+   - Alguma regressão de performance?
+   - As consultas são otimizadas?
+   - O uso de memória é razoável?
 
-4. **Security**
-   - Input validation?
-   - SQL injection prevention?
-   - Authentication/authorization?
+4. **Segurança**
+   - Validação de entrada?
+   - Prevenção de injeção SQL?
+   - Autenticação/autorização?
 
-### Responding to Feedback
+### Respondendo ao Feedback
 
 ```bash
-# Address feedback
-# Edit files based on review comments
+# Endereçar feedback
+# Editar arquivos baseado em comentários de revisão
 
-# Commit changes
-git commit -m "Address code review feedback
+# Fazer commit das mudanças
+git commit -m "Endereçar feedback de revisão de código
 
-- Add additional error handling
-- Improve test coverage for edge cases
-- Update documentation"
+- Adicionar manipulação de erro adicional
+- Melhorar cobertura de teste para casos extremos
+- Atualizar documentação"
 
-# Push changes
+# Fazer push das mudanças
 git push origin bugfix/123-fix-database-connection
 ```
 
-## Common PR Issues and Solutions
+## Problemas Comuns de PR e Soluções
 
-### Issue 1: PR is Too Large
+### Problema 1: PR Muito Grande
 
-**Problem:** Reviewers can't review massive PRs effectively
+**Problema:** Revisores não conseguem revisar PRs massivos efetivamente
 
-**Solution:** Break into smaller PRs
-- First PR: Core changes
-- Second PR: Tests
-- Third PR: Documentation
+**Solução:** Quebrar em PRs menores
+- Primeiro PR: Mudanças principais
+- Segundo PR: Testes
+- Terceiro PR: Documentação
 
-### Issue 2: No Tests Included
+### Problema 2: Nenhum Teste Incluído
 
-**Problem:** Reviewers can't verify functionality
+**Problema:** Revisores não conseguem verificar funcionalidade
 
-**Solution:** Add comprehensive tests before submitting
+**Solução:** Adicionar testes abrangentes antes de submeter
 
-### Issue 3: Conflicts with Main
+### Problema 3: Conflitos com Main
 
-**Problem:** Your branch is out of sync with main
+**Problema:** Sua branch está fora de sincronização com main
 
-**Solution:** Rebase on latest main
+**Solução:** Fazer rebase na main mais recente
 
 ```bash
 git fetch upstream
 git rebase upstream/main
-git push -f origin your-branch
+git push -f origin sua-branch
 ```
 
-## After Merge
+## Depois do Merge
 
-### Cleanup
+### Limpeza
 
 ```bash
-# Switch to main
+# Mudar para main
 git checkout main
 
-# Update main
+# Atualizar main
 git pull upstream main
 
-# Delete local branch
+# Deletar branch local
 git branch -d bugfix/123-fix-database-connection
 
-# Delete remote branch
+# Deletar branch remota
 git push origin --delete bugfix/123-fix-database-connection
 ```
 
-## Best Practices Summary
+## Resumo de Melhores Práticas
 
-### Do's
+### Faça
 
-- Create descriptive commit messages
-- Make focused, single-purpose PRs
-- Include tests for new functionality
-- Update documentation
-- Reference related issues
-- Keep PR descriptions clear
-- Respond promptly to reviews
+- Criar mensagens de commit descritivas
+- Fazer PRs focadas e com propósito único
+- Incluir testes para nova funcionalidade
+- Atualizar documentação
+- Referenciar problemas relacionados
+- Manter descrições de PR claras
+- Responder prontamente a revisões
 
-### Don'ts
+### Não Faça
 
-- Include unrelated changes
-- Merge main into your branch (use rebase)
-- Force push after review starts
-- Skip tests
-- Submit work in progress
-- Ignore code review feedback
+- Incluir mudanças não relacionadas
+- Fazer merge de main em sua branch (use rebase)
+- Force push depois que revisão começa
+- Pular testes
+- Submeter work in progress
+- Ignorar feedback de revisão de código
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../Contributing - Contributing overview
-- Code-Style - Code style guidelines
-- ../../03-Module-Development/Best-Practices/Testing - Testing best practices
-- ../Architecture-Decisions/ADR-Index - Architectural guidelines
+- ../Contributing - Visão geral de contribuição
+- Code-Style - Diretrizes de estilo de código
+- ../../03-Module-Development/Best-Practices/Testing - Melhores práticas de testes
+- ../Architecture-Decisions/ADR-Index - Diretrizes arquiteturais
 
-## Resources
+## Recursos
 
 - [Git Documentation](https://git-scm.com/doc)
 - [GitHub Pull Request Help](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests)
@@ -385,6 +385,6 @@ git push origin --delete bugfix/123-fix-database-connection
 
 ---
 
-**Last Updated:** 2026-01-31
-**Applies To:** All XOOPS projects
-**Repository:** https://github.com/XOOPS/XOOPS
+**Última Atualização:** 2026-01-31
+**Aplica a:** Todos os projetos XOOPS
+**Repositório:** https://github.com/XOOPS/XOOPS

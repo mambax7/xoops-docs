@@ -1,36 +1,36 @@
 ---
-title: "JavaScript Coding Standards"
-description: "XOOPS JavaScript coding standards and best practices"
+title: "Padrões de Codificação JavaScript"
+description: "Padrões de codificação JavaScript do XOOPS e melhores práticas"
 ---
 
-# JavaScript Standards
+# Padrões JavaScript
 
-> XOOPS follows modern JavaScript standards (ES6+) with emphasis on readability and maintainability.
-
----
-
-## Overview
-
-XOOPS JavaScript standards are based on:
-
-- **ECMAScript 2015+** (ES6 and modern features)
-- **Airbnb JavaScript Style Guide** (adapted)
-- **XOOPS conventions** for consistency
-- **Accessibility standards** (WCAG)
+> XOOPS segue padrões JavaScript modernos (ES6+) com ênfase em legibilidade e manutenibilidade.
 
 ---
 
-## File Structure
+## Visão Geral
 
-### File Organization
+Padrões JavaScript do XOOPS baseiam-se em:
+
+- **ECMAScript 2015+** (ES6 e recursos modernos)
+- **Guia de Estilo JavaScript Airbnb** (adaptado)
+- **Convenções XOOPS** para consistência
+- **Padrões de acessibilidade** (WCAG)
+
+---
+
+## Estrutura de Arquivo
+
+### Organização de Arquivo
 
 ```javascript
-// 1. File header comment
+// 1. Comentário de cabeçalho de arquivo
 /**
- * XOOPS Module - Feature Name
- * @file Handles user interactions on the dashboard
- * @author Your Name <email@example.com>
- * @copyright 2026 XOOPS Project
+ * XOOPS Módulo - Nome de Recurso
+ * @file Manipula interações de usuário no dashboard
+ * @author Seu Nome <email@example.com>
+ * @copyright 2026 Projeto XOOPS
  * @license GPL-2.0-or-later
  */
 
@@ -38,19 +38,19 @@ XOOPS JavaScript standards are based on:
 import { Helper } from './helpers.js';
 import { API } from './api.js';
 
-// 3. Constants
+// 3. Constantes
 const DEFAULT_TIMEOUT = 5000;
 const API_ENDPOINT = '/api/v1';
 
-// 4. Module setup
+// 4. Configuração de módulo
 const Dashboard = {};
 
-// 5. Private functions
+// 5. Funções privadas
 function initializeUI() {
   // ...
 }
 
-// 6. Public methods
+// 6. Métodos públicos
 Dashboard.init = function () {
   // ...
 };
@@ -59,16 +59,16 @@ Dashboard.init = function () {
 export default Dashboard;
 ```
 
-### File Naming
+### Nomenclatura de Arquivo
 
 ```javascript
-// Use lowercase with hyphens
+// Use minúsculas com hífens
 dashboard.js
 user-profile.js
 form-validator.js
 api-client.js
 
-// React components (PascalCase)
+// Componentes React (PascalCase)
 UserProfile.jsx
 FormValidator.jsx
 Dashboard.jsx
@@ -76,59 +76,59 @@ Dashboard.jsx
 
 ---
 
-## Variables and Constants
+## Variáveis e Constantes
 
-### Variable Declaration
+### Declaração de Variável
 
 ```javascript
-// Use const by default
+// Use const por padrão
 const maxRetries = 3;
 const userName = 'John';
 
-// Use let for variables that change
+// Use let para variáveis que mudam
 let currentIndex = 0;
 
-// Avoid var (legacy)
+// Evite var (legado)
 // ❌ var oldStyle = true;
 
-// Const objects and arrays can have contents modified
+// Const objetos e arrays podem ter conteúdo modificado
 const user = { name: 'John' };
 user.name = 'Jane'; // ✅ OK
-user = {}; // ❌ Error
+user = {}; // ❌ Erro
 
 const numbers = [1, 2, 3];
 numbers.push(4); // ✅ OK
-numbers = []; // ❌ Error
+numbers = []; // ❌ Erro
 ```
 
-### Variable Naming
+### Nomenclatura de Variável
 
 ```javascript
-// Use descriptive names
+// Use nomes descritivos
 const userName = 'John'; // ✅
 const un = 'John'; // ❌
 
-// Boolean variables should indicate state
+// Variáveis booleanas devem indicar estado
 const isActive = true; // ✅
 const hasPermission = false; // ✅
 const canEdit = true; // ✅
-const active = true; // ❌ Unclear
+const active = true; // ❌ Pouco claro
 
-// Arrays should use plural names
+// Arrays devem usar nomes plurais
 const users = ['John', 'Jane'];
 const userList = ['John', 'Jane'];
 const items = [];
 ```
 
-### Constants
+### Constantes
 
 ```javascript
-// UPPER_SNAKE_CASE for module-level constants
+// UPPER_SNAKE_CASE para constantes de nível de módulo
 const API_TIMEOUT = 5000;
 const MAX_RETRIES = 3;
 const DEFAULT_PAGE_SIZE = 10;
 
-// camelCase for object properties (even constants)
+// camelCase para propriedades de objeto (até constantes)
 const config = {
   apiTimeout: 5000,
   maxRetries: 3,
@@ -138,62 +138,62 @@ const config = {
 
 ---
 
-## Functions
+## Funções
 
-### Function Declaration
+### Declaração de Função
 
 ```javascript
-// Named functions (preferred for reusability)
+// Funções nomeadas (preferidas para reutilização)
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Arrow functions (preferred for callbacks)
+// Funções arrow (preferidas para callbacks)
 const validateEmail = (email) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-// Short arrow functions
+// Funções arrow curtas
 const isPositive = (num) => num > 0;
 const double = (x) => x * 2;
 
-// Avoid anonymous function expressions
+// Evite expressões de função anônima
 // ❌ const fn = function() {};
 ```
 
-### Function Naming
+### Nomenclatura de Função
 
 ```javascript
-// Use descriptive verb-based names
-function getUserById(id) { }       // ✅ Describes what it gets
-function validateUserInput(data) { } // ✅ Describes action
-function formatDate(date) { }      // ✅ Describes transformation
+// Use nomes descritivos baseados em verbo
+function getUserById(id) { }       // ✅ Descreve o que pega
+function validateUserInput(data) { } // ✅ Descreve ação
+function formatDate(date) { }      // ✅ Descreve transformação
 
-// Avoid single letters except in obvious cases (loops)
+// Evite letras únicas exceto em casos óbvios (loops)
 function f(x) { }    // ❌
-function fetch() { } // ❌ Conflicts with global
+function fetch() { } // ❌ Conflita com global
 ```
 
-### Function Parameters
+### Parâmetros de Função
 
 ```javascript
-// Use clear parameter names
+// Use nomes de parâmetro claros
 function addUser(name, email, role = 'user') {
   // ...
 }
 
-// Use destructuring for objects
+// Use desestruturação para objetos
 function createPost({ title, content, author, published = false }) {
   // ...
 }
 
-// Document complex functions
+// Documente funções complexas
 /**
- * Fetch user data from the API
- * @param {number} userId - The user ID to fetch
- * @param {Object} options - Optional settings
- * @param {boolean} options.includeProfile - Include profile data
- * @returns {Promise<Object>} User data object
+ * Buscar dados de usuário da API
+ * @param {number} userId - O ID de usuário para buscar
+ * @param {Object} options - Configurações opcionais
+ * @param {boolean} options.includeProfile - Incluir dados de perfil
+ * @returns {Promise<Object>} Objeto de dados de usuário
  */
 async function fetchUser(userId, options = {}) {
   const { includeProfile = false } = options;
@@ -203,13 +203,13 @@ async function fetchUser(userId, options = {}) {
 
 ---
 
-## Classes and Objects
+## Classes e Objetos
 
-### Class Definition
+### Definição de Classe
 
 ```javascript
 /**
- * Represents a user in the system
+ * Representa um usuário no sistema
  */
 class User {
   constructor(name, email) {
@@ -219,7 +219,7 @@ class User {
   }
 
   /**
-   * Get user's display name
+   * Obter nome de exibição do usuário
    * @returns {string}
    */
   getDisplayName() {
@@ -227,7 +227,7 @@ class User {
   }
 
   /**
-   * Validate user email
+   * Validar email do usuário
    * @returns {boolean}
    */
   isValidEmail() {
@@ -235,28 +235,28 @@ class User {
   }
 }
 
-// Usage
+// Uso
 const user = new User('John Doe', 'john@example.com');
 console.log(user.getDisplayName());
 ```
 
-### Object Literals
+### Literais de Objeto
 
 ```javascript
-// Use object shorthand
+// Use shorthand de objeto
 const name = 'John';
 const age = 30;
 
-// Shorthand properties (ES6)
+// Propriedades shorthand (ES6)
 const person = {
   name,
   age,
   getInfo() {
-    return `${this.name} is ${this.age} years old`;
+    return `${this.name} tem ${this.age} anos`;
   },
 };
 
-// Without shorthand (avoid)
+// Sem shorthand (evitar)
 // const person = {
 //   name: name,
 //   age: age,
@@ -266,50 +266,50 @@ const person = {
 
 ---
 
-## Formatting
+## Formatação
 
-### Spacing and Indentation
+### Espaçamento e Indentação
 
 ```javascript
-// Use 2 spaces for indentation (or 4, be consistent)
+// Use 2 espaços para indentação (ou 4, seja consistente)
 function example() {
   if (true) {
-    console.log('Indented');
+    console.log('Indentado');
   }
 }
 
-// Spaces around operators
+// Espaços ao redor de operadores
 const x = 5 + 3;        // ✅
 const y = 5+3;          // ❌
 const z = isDone ? 'yes' : 'no'; // ✅
 
-// No space inside parentheses
+// Sem espaço dentro de parênteses
 if (condition) { }       // ✅
 if ( condition ) { }     // ❌
 
-// Space before function braces
+// Espaço antes de braces de função
 function test() { }      // ✅
 function test(){ }       // ❌
 ```
 
-### Line Length
+### Comprimento de Linha
 
 ```javascript
-// Maximum 100 characters per line (or 120)
-// Break long lines logically
+// Máximo 100 caracteres por linha (ou 120)
+// Quebre linhas logicamente
 
-// Long strings
-const message = 'This is a very long message that ' +
-  'continues on the next line';
+// Strings longas
+const message = 'Esta é uma mensagem muito longa que ' +
+  'continua na próxima linha';
 
-// Long function calls
+// Chamadas de função longas
 const result = myFunction(
   parameter1,
   parameter2,
   parameter3
 );
 
-// Long conditionals
+// Condicionais longas
 if (condition1 &&
     condition2 &&
     condition3) {
@@ -317,38 +317,38 @@ if (condition1 &&
 }
 ```
 
-### Semicolons
+### Pontos e Vírgulas
 
 ```javascript
-// Use semicolons
+// Use pontos e vírgulas
 const x = 5; // ✅
 const y = 10;
 
-// Not using semicolons (ASI - Automatic Semicolon Insertion)
-const x = 5  // ❌ Avoid relying on this
+// Não confie em inserção automática de ponto e vírgula
+const x = 5  // ❌ Evite confiar nisso
 ```
 
 ---
 
 ## Strings
 
-### String Literals
+### Literais de String
 
 ```javascript
-// Use single quotes for consistency
+// Use aspas simples para consistência
 const name = 'John'; // ✅
 
-// Or double quotes - just be consistent
+// Ou aspas duplas - apenas seja consistente
 const name = "John";
 
-// Use backticks for template literals (interpolation)
-const greeting = `Hello, ${name}!`; // ✅
+// Use template literals para interpolação
+const greeting = `Olá, ${name}!`; // ✅
 
-// Avoid concatenation
-const message = 'Hello ' + name; // ❌
-const message = `Hello ${name}`; // ✅
+// Evite concatenação
+const message = 'Olá ' + name; // ❌
+const message = `Olá ${name}`; // ✅
 
-// Multi-line strings
+// Strings multi-linha
 const html = `
   <div>
     <h1>${title}</h1>
@@ -361,10 +361,10 @@ const html = `
 
 ## Arrays
 
-### Array Methods
+### Métodos de Array
 
 ```javascript
-// Prefer modern array methods
+// Prefira métodos de array modernos
 const numbers = [1, 2, 3, 4, 5];
 
 // Map
@@ -385,18 +385,18 @@ const hasEven = numbers.some(n => n % 2 === 0); // ✅
 const allPositive = numbers.every(n => n > 0); // ✅
 ```
 
-### Array Destructuring
+### Desestruturação de Array
 
 ```javascript
-// Extract array elements
+// Extrair elementos de array
 const [first, second, ...rest] = [1, 2, 3, 4, 5];
 // first = 1, second = 2, rest = [3, 4, 5]
 
-// Skip elements
+// Pular elementos
 const [,, third] = [1, 2, 3];
 // third = 3
 
-// Use in function parameters
+// Usar em parâmetros de função
 function processItems([first, second]) {
   console.log(first, second);
 }
@@ -404,59 +404,59 @@ function processItems([first, second]) {
 
 ---
 
-## Objects
+## Objetos
 
-### Object Destructuring
+### Desestruturação de Objeto
 
 ```javascript
-// Extract object properties
+// Extrair propriedades de objeto
 const user = { name: 'John', email: 'john@example.com' };
 const { name, email } = user;
 
-// Rename properties
+// Renomear propriedades
 const { name: userName, email: userEmail } = user;
 
-// Default values
+// Valores padrão
 const { role = 'user' } = user;
 
-// Nested destructuring
+// Desestruturação aninhada
 const { user: { name, email } } = response;
 
-// Function parameters
+// Parâmetros de função
 function displayUser({ name, email, role = 'user' }) {
   console.log(`${name} (${role})`);
 }
 ```
 
-### Spread Operator
+### Operador Spread
 
 ```javascript
-// Copy arrays
+// Copiar arrays
 const original = [1, 2, 3];
 const copy = [...original];
 
-// Merge arrays
+// Mesclar arrays
 const merged = [...arr1, ...arr2];
 
-// Copy objects
+// Copiar objetos
 const user = { name: 'John', email: 'john@example.com' };
 const userCopy = { ...user };
 
-// Merge objects
+// Mesclar objetos
 const merged = { ...defaults, ...options };
 
-// Update properties
+// Atualizar propriedades
 const updated = { ...user, email: 'newemail@example.com' };
 ```
 
 ---
 
-## Async Programming
+## Programação Assíncrona
 
 ### Promises
 
 ```javascript
-// Basic promise
+// Promise básica
 const promise = new Promise((resolve, reject) => {
   if (success) {
     resolve(result);
@@ -465,7 +465,7 @@ const promise = new Promise((resolve, reject) => {
   }
 });
 
-// Promise methods
+// Métodos de Promise
 Promise.all([p1, p2, p3])
   .then(results => console.log(results))
   .catch(error => console.error(error));
@@ -477,23 +477,23 @@ Promise.race([p1, p2])
 ### Async/Await
 
 ```javascript
-// Preferred for readability
+// Preferido para legibilidade
 async function fetchUser(userId) {
   try {
     const response = await fetch(`/api/users/${userId}`);
-    if (!response.ok) throw new Error('User not found');
+    if (!response.ok) throw new Error('Usuário não encontrado');
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Failed to fetch user:', error);
+    console.error('Falha ao buscar usuário:', error);
     throw error;
   }
 }
 
-// Usage
+// Uso
 const user = await fetchUser(123);
 
-// Multiple operations
+// Múltiplas operações
 async function loadDashboard() {
   const users = await fetchUsers();
   const posts = await fetchPosts();
@@ -505,29 +505,29 @@ async function loadDashboard() {
 
 ---
 
-## Comments and Documentation
+## Comentários e Documentação
 
-### Inline Comments
+### Comentários Inline
 
 ```javascript
-// Explain WHY, not WHAT
-const result = calculateTotal(items, taxRate); // ✅ Why
+// Explique POR QUE, não O QUE
+const result = calculateTotal(items, taxRate); // ✅ Por quê
 
-// ❌ Don't explain obvious code
-const x = 5; // Set x to 5
-const sum = a + b; // Add a and b
+// ❌ Não explique código óbvio
+const x = 5; // Definir x para 5
+const sum = a + b; // Adicionar a e b
 ```
 
-### JSDoc Comments
+### Comentários JSDoc
 
 ```javascript
 /**
- * Calculate the total price of items including tax
+ * Calcular o preço total de itens incluindo imposto
  *
- * @param {Array<Object>} items - Array of items with price property
- * @param {number} taxRate - Tax rate as decimal (0.1 = 10%)
- * @returns {number} Total price including tax
- * @throws {Error} If items is not an array
+ * @param {Array<Object>} items - Array de itens com propriedade price
+ * @param {number} taxRate - Taxa de imposto como decimal (0.1 = 10%)
+ * @returns {number} Preço total incluindo imposto
+ * @throws {Error} Se items não for um array
  * @example
  * const total = calculateTotal(
  *   [{ price: 100 }, { price: 50 }],
@@ -537,7 +537,7 @@ const sum = a + b; // Add a and b
  */
 function calculateTotal(items, taxRate = 0) {
   if (!Array.isArray(items)) {
-    throw new Error('Items must be an array');
+    throw new Error('Items deve ser um array');
   }
 
   const subtotal = items.reduce((sum, item) => sum + item.price, 0);
@@ -547,33 +547,33 @@ function calculateTotal(items, taxRate = 0) {
 
 ---
 
-## Error Handling
+## Manipulação de Erros
 
 ### Try/Catch
 
 ```javascript
-// Always handle errors
+// Sempre manipule erros
 try {
   const result = riskyOperation();
 } catch (error) {
-  console.error('Operation failed:', error);
+  console.error('Operação falhou:', error);
 } finally {
   cleanup();
 }
 
-// Be specific with errors
+// Seja específico com erros
 try {
   const data = JSON.parse(jsonString);
 } catch (error) {
   if (error instanceof SyntaxError) {
-    console.error('Invalid JSON');
+    console.error('JSON inválido');
   } else {
-    console.error('Unknown error');
+    console.error('Erro desconhecido');
   }
 }
 ```
 
-### Custom Errors
+### Erros Customizados
 
 ```javascript
 class ValidationError extends Error {
@@ -583,122 +583,45 @@ class ValidationError extends Error {
   }
 }
 
-// Usage
+// Uso
 if (!isValidEmail(email)) {
-  throw new ValidationError(`Invalid email: ${email}`);
+  throw new ValidationError(`Email inválido: ${email}`);
 }
 ```
 
 ---
 
-## DOM Manipulation
+## Melhores Práticas Resumidas
 
-### Selecting Elements
+### Faça
 
-```javascript
-// Modern methods (preferred)
-const element = document.querySelector('#my-id');
-const elements = document.querySelectorAll('.my-class');
+- Use const por padrão
+- Use nomes descritivos
+- Use funções arrow para callbacks
+- Use async/await para promises
+- Documente funções complexas
+- Cache elementos DOM
+- Use delegação de evento
+- Escreva funções puras
+- Mantenha funções focadas
 
-// Avoid older methods
-// const el = document.getElementById('my-id'); // ❌
-// const els = document.getElementsByClassName('my-class'); // ❌
+### Não Faça
 
-// Cache elements
-const button = document.querySelector('button');
-button.addEventListener('click', handler);
-```
-
-### Event Handling
-
-```javascript
-// Use addEventListener
-element.addEventListener('click', (event) => {
-  event.preventDefault();
-  handleClick();
-});
-
-// Remove listeners
-element.removeEventListener('click', handler);
-
-// Event delegation
-container.addEventListener('click', (event) => {
-  if (event.target.matches('.item')) {
-    handleItemClick(event.target);
-  }
-});
-```
-
-### DOM Updates
-
-```javascript
-// Use textContent (safer than innerHTML)
-element.textContent = 'Safe text'; // ✅
-
-// Use innerHTML only for trusted content
-element.innerHTML = `<b>${escapeHtml(text)}</b>`;
-
-// Class manipulation
-element.classList.add('active');
-element.classList.remove('inactive');
-element.classList.toggle('disabled');
-
-// Attribute manipulation
-element.setAttribute('data-id', userId);
-const id = element.getAttribute('data-id');
-element.removeAttribute('disabled');
-```
-
----
-
-## Module Pattern
-
-### ES6 Modules
-
-```javascript
-// Export
-export const helper = () => { };
-export default Dashboard;
-
-// Import
-import Dashboard from './dashboard.js';
-import { helper } from './helper.js';
-import * as utils from './utils.js';
-```
-
----
-
-## Best Practices Summary
-
-### Do
-
-- Use const by default
-- Use descriptive names
-- Use arrow functions for callbacks
-- Use async/await for promises
-- Document complex functions
-- Cache DOM elements
-- Use event delegation
-- Write pure functions
-- Keep functions focused
-
-### Don't
-
-- Use var (legacy)
-- Use global variables
-- Create long functions (over 50 lines)
-- Deeply nest code
+- Use var (legado)
+- Use variáveis globais
+- Crie funções longas (mais de 50 linhas)
+- Aninha código profundamente
 - Use eval()
-- Use inline event handlers
-- Leave console.log() in production
-- Create memory leaks
-- Mutate function parameters
+- Use manipuladores de evento inline
+- Deixe console.log() em produção
+- Crie vazamentos de memória
+- Mute parâmetros de função
 
 ---
 
-## Tools and Linting
+## Ferramentas e Linting
 
-### ESLint Configuration
+### Configuração ESLint
 
 ```javascript
 // .eslintrc.json
@@ -719,7 +642,7 @@ import * as utils from './utils.js';
 }
 ```
 
-### Prettier Configuration
+### Configuração Prettier
 
 ```javascript
 // .prettierrc
@@ -734,12 +657,12 @@ import * as utils from './utils.js';
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- CSS Guidelines
-- Code of Conduct
-- Contribution Workflow
-- PHP Standards
+- Diretrizes CSS
+- Código de Conduta
+- Fluxo de Contribuição
+- Padrões PHP
 
 ---
 

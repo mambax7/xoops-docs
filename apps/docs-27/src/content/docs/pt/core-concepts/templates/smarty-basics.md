@@ -1,68 +1,68 @@
 ---
-title: "Smarty Basics"
-description: "Fundamentals of Smarty templating in XOOPS"
+title: "Fundamentos do Smarty"
+description: "Fundamentos da criação de templates Smarty no XOOPS"
 ---
 
 <span class="version-badge version-25x">2.5.x: Smarty 3</span> <span class="version-badge version-40x">4.0.x: Smarty 4</span>
 
-:::note[Smarty Version by XOOPS Release]
-| XOOPS Version | Smarty Version | Key Differences |
+:::note[Versão Smarty por Release XOOPS]
+| Versão XOOPS | Versão Smarty | Diferenças Principais |
 |---------------|----------------|-----------------|
-| 2.5.11 | Smarty 3.x | `{php}` blocks allowed (but discouraged) |
-| 2.7.0+ | Smarty 3.x/4.x | Preparing for Smarty 4 compatibility |
-| 4.0 | Smarty 4.x | `{php}` blocks removed, stricter syntax |
+| 2.5.11 | Smarty 3.x | Blocos `{php}` permitidos (mas desencorajados) |
+| 2.7.0+ | Smarty 3.x/4.x | Preparando compatibilidade com Smarty 4 |
+| 4.0 | Smarty 4.x | Blocos `{php}` removidos, sintaxe mais rigorosa |
 
-See Smarty-4-Migration for migration guidance.
+Veja Smarty-4-Migration para orientação de migração.
 :::
 
-Smarty is a template engine for PHP that allows developers to separate presentation (HTML/CSS) from application logic. XOOPS uses Smarty for all its templating needs, enabling clean separation between PHP code and HTML output.
+Smarty é um mecanismo de template para PHP que permite aos desenvolvedores separar apresentação (HTML/CSS) da lógica da aplicação. XOOPS usa Smarty para todas as suas necessidades de template, permitindo separação clara entre código PHP e saída HTML.
 
-## Related Documentation
+## Documentação Relacionada
 
-- Theme-Development - Creating XOOPS themes
-- Template-Variables - Available variables in templates
-- Smarty-4-Migration - Upgrading from Smarty 3 to 4
+- Theme-Development - Criando temas XOOPS
+- Template-Variables - Variáveis disponíveis em templates
+- Smarty-4-Migration - Atualizando de Smarty 3 para 4
 
-## What is Smarty?
+## O que é Smarty?
 
-Smarty provides:
+Smarty oferece:
 
-- **Separation of Concerns**: Keep HTML in templates, PHP logic in classes
-- **Template Inheritance**: Build complex layouts from simple blocks
-- **Caching**: Improve performance with compiled templates
-- **Modifiers**: Transform output with built-in or custom functions
-- **Security**: Control what PHP functions templates can access
+- **Separação de Responsabilidades**: Manter HTML em templates, lógica PHP em classes
+- **Herança de Template**: Construir layouts complexos a partir de blocos simples
+- **Cache**: Melhorar performance com templates compilados
+- **Modificadores**: Transformar saída com funções integradas ou personalizadas
+- **Segurança**: Controlar quais funções PHP os templates podem acessar
 
-## XOOPS Smarty Configuration
+## Configuração de Smarty do XOOPS
 
-XOOPS configures Smarty with custom delimiters:
+XOOPS configura Smarty com delimitadores personalizados:
 
 ```
-Default Smarty: { and }
-XOOPS Smarty:   <{ and }>
+Smarty Padrão: { e }
+Smarty XOOPS:  <{ e }>
 ```
 
-This prevents conflicts with JavaScript code in templates.
+Isto previne conflitos com código JavaScript em templates.
 
-## Basic Syntax
+## Sintaxe Básica
 
-### Variables
+### Variáveis
 
-Variables are passed from PHP to templates:
+Variáveis são passadas de PHP para templates:
 
 ```php
-// In PHP
+// Em PHP
 $GLOBALS['xoopsTpl']->assign('title', 'My Page Title');
 $GLOBALS['xoopsTpl']->assign('count', 42);
 ```
 
 ```smarty
-{* In template *}
+{* Em template *}
 <h1><{$title}></h1>
 <p>Total items: <{$count}></p>
 ```
 
-### Array Access
+### Acesso a Array
 
 ```php
 // PHP
@@ -80,7 +80,7 @@ $GLOBALS['xoopsTpl']->assign('item', $item);
 <p>By: <{$item.author}></p>
 ```
 
-### Object Properties
+### Propriedades de Objeto
 
 ```php
 // PHP
@@ -92,22 +92,22 @@ $GLOBALS['xoopsTpl']->assign('user', $xoopsUser);
 <p>Welcome, <{$user->getVar('uname')}>!</p>
 ```
 
-## Comments
+## Comentários
 
-Comments in Smarty are not rendered to HTML:
+Comentários em Smarty não são renderizados para HTML:
 
 ```smarty
-{* This is a comment - it will not appear in the HTML output *}
+{* Este é um comentário - não aparecerá na saída HTML *}
 
 {*
-   Multi-line comments
-   are also supported
+   Comentários multilinhas
+   também são suportados
 *}
 ```
 
-## Control Structures
+## Estruturas de Controle
 
-### If/Else Statements
+### Instruções If/Else
 
 ```smarty
 <{if $user_logged_in}>
@@ -119,30 +119,30 @@ Comments in Smarty are not rendered to HTML:
 <{/if}>
 ```
 
-### Comparison Operators
+### Operadores de Comparação
 
 ```smarty
-{* Equality *}
+{* Igualdade *}
 <{if $status == 'published'}>Published<{/if}>
 <{if $status eq 'published'}>Published<{/if}>
 
-{* Inequality *}
+{* Desigualdade *}
 <{if $count != 0}>Has items<{/if}>
 <{if $count neq 0}>Has items<{/if}>
 
-{* Greater/Less than *}
+{* Maior/Menor que *}
 <{if $count > 10}>Many items<{/if}>
 <{if $count gt 10}>Many items<{/if}>
 <{if $count < 5}>Few items<{/if}>
 <{if $count lt 5}>Few items<{/if}>
 
-{* Greater/Less than or equal *}
+{* Maior/Menor que ou igual *}
 <{if $count >= 10}>Ten or more<{/if}>
 <{if $count gte 10}>Ten or more<{/if}>
 <{if $count <= 5}>Five or less<{/if}>
 <{if $count lte 5}>Five or less<{/if}>
 
-{* Logical operators *}
+{* Operadores lógicos *}
 <{if $logged_in && $is_admin}>Admin Panel<{/if}>
 <{if $logged_in and $is_admin}>Admin Panel<{/if}>
 <{if $option1 || $option2}>One option selected<{/if}>
@@ -151,15 +151,15 @@ Comments in Smarty are not rendered to HTML:
 <{if not $is_banned}>Access granted<{/if}>
 ```
 
-### Checking for Empty/Isset
+### Verificando Vazio/Isset
 
 ```smarty
-{* Check if variable exists and has value *}
+{* Verificar se a variável existe e tem valor *}
 <{if $title}>
     <h1><{$title}></h1>
 <{/if}>
 
-{* Check if array is not empty *}
+{* Verificar se array não está vazio *}
 <{if $items|@count > 0}>
     <ul>
         <{foreach $items as $item}>
@@ -168,42 +168,42 @@ Comments in Smarty are not rendered to HTML:
     </ul>
 <{/if}>
 
-{* Using isset *}
+{* Usando isset *}
 <{if isset($description)}>
     <p><{$description}></p>
 <{/if}>
 ```
 
-### Foreach Loops
+### Loops Foreach
 
 ```smarty
-{* Basic foreach *}
+{* Foreach básico *}
 <ul>
 <{foreach $items as $item}>
     <li><{$item.name}></li>
 <{/foreach}>
 </ul>
 
-{* With key *}
+{* Com chave *}
 <{foreach $options as $key => $value}>
     <option value="<{$key}>"><{$value}></option>
 <{/foreach}>
 
-{* With @index, @first, @last *}
+{* Com @index, @first, @last *}
 <{foreach $items as $item}>
     <{if $item@first}><ul><{/if}>
     <li class="item-<{$item@index}>"><{$item.name}></li>
     <{if $item@last}></ul><{/if}>
 <{/foreach}>
 
-{* Alternate row colors *}
+{* Cores de linha alternadas *}
 <{foreach $rows as $row}>
     <tr class="<{if $row@iteration is odd}>odd<{else}>even<{/if}>">
         <td><{$row.name}></td>
     </tr>
 <{/foreach}>
 
-{* Foreachelse for empty arrays *}
+{* Foreachelse para arrays vazios *}
 <{foreach $items as $item}>
     <li><{$item.name}></li>
 <{foreachelse}>
@@ -211,7 +211,7 @@ Comments in Smarty are not rendered to HTML:
 <{/foreach}>
 ```
 
-### For Loops
+### Loops For
 
 ```smarty
 <{for $i=1 to 10}>
@@ -223,7 +223,7 @@ Comments in Smarty are not rendered to HTML:
 <{/for}>
 ```
 
-### While Loops
+### Loops While
 
 ```smarty
 <{while $count > 0}>
@@ -232,106 +232,106 @@ Comments in Smarty are not rendered to HTML:
 <{/while}>
 ```
 
-## Variable Modifiers
+## Modificadores de Variável
 
-Modifiers transform variable output:
+Modificadores transformam saída de variável:
 
-### String Modifiers
+### Modificadores de String
 
 ```smarty
-{* HTML escape (always use for user input!) *}
+{* Escape HTML (sempre usar para entrada do usuário!) *}
 <{$title|escape}>
 <{$title|escape:'html'}>
 
-{* URL encoding *}
+{* Codificação de URL *}
 <{$url|escape:'url'}>
 
-{* Uppercase/Lowercase *}
+{* Maiúscula/Minúscula *}
 <{$name|upper}>
 <{$name|lower}>
 <{$name|capitalize}>
 
-{* Truncate text *}
+{* Truncar texto *}
 <{$content|truncate:100:'...'}>
 
-{* Strip HTML tags *}
+{* Remover tags HTML *}
 <{$html|strip_tags}>
 
-{* Replace *}
+{* Substituir *}
 <{$text|replace:'old':'new'}>
 
 {* Word wrap *}
 <{$text|wordwrap:80:"\n"}>
 
-{* Default value *}
+{* Valor padrão *}
 <{$optional_var|default:'No value'}>
 ```
 
-### Numeric Modifiers
+### Modificadores Numéricos
 
 ```smarty
-{* Number formatting *}
+{* Formatação de número *}
 <{$price|string_format:"%.2f"}>
 <{$count|number_format}>
 
-{* Date formatting *}
+{* Formatação de data *}
 <{$timestamp|date_format:"%B %e, %Y"}>
 <{$timestamp|date_format:"%Y-%m-%d %H:%M"}>
 ```
 
-### Array Modifiers
+### Modificadores de Array
 
 ```smarty
-{* Count items *}
+{* Contar items *}
 <{$items|@count}> items
 
-{* Join array *}
+{* Unir array *}
 <{$tags|@implode:', '}>
 
 {* JSON encode *}
 <{$data|@json_encode}>
 ```
 
-### Chaining Modifiers
+### Encadeamento de Modificadores
 
 ```smarty
 <{$content|strip_tags|truncate:200:'...'|escape}>
 ```
 
-## Include and Insert
+## Include e Insert
 
-### Including Other Templates
+### Incluindo Outros Templates
 
 ```smarty
-{* Include a template file *}
+{* Incluir um arquivo de template *}
 <{include file="db:mymodule_header.tpl"}>
 
-{* Include with variables *}
+{* Incluir com variáveis *}
 <{include file="db:mymodule_item.tpl" item=$currentItem}>
 
-{* Include with assigned variables *}
+{* Incluir com variáveis atribuídas *}
 <{include file="db:sidebar.tpl" assign="sidebar_content"}>
 <div class="sidebar"><{$sidebar_content}></div>
 ```
 
-### Inserting Dynamic Content
+### Inserindo Conteúdo Dinâmico
 
 ```smarty
-{* Insert calls a PHP function for dynamic content *}
+{* Insert chama uma função PHP para conteúdo dinâmico *}
 <{insert name="getBanner"}>
 ```
 
-## Assign Variables in Templates
+## Atribuir Variáveis em Templates
 
 ```smarty
-{* Simple assignment *}
+{* Atribuição simples *}
 <{assign var="page_title" value="Welcome"}>
 <{$page_title = "Welcome"}>
 
-{* Assignment from expression *}
+{* Atribuição de expressão *}
 <{assign var="full_name" value="`$first_name` `$last_name`"}>
 
-{* Capture block content *}
+{* Capturar conteúdo de bloco *}
 <{capture name="sidebar"}>
     <h3>Sidebar</h3>
     <ul>
@@ -342,44 +342,44 @@ Modifiers transform variable output:
 <div class="sidebar"><{$smarty.capture.sidebar}></div>
 ```
 
-## Built-in Smarty Variables
+## Variáveis Smarty Integradas
 
-### $smarty Variable
+### Variável $smarty
 
 ```smarty
-{* Current timestamp *}
+{* Timestamp atual *}
 <{$smarty.now|date_format:"%Y-%m-%d"}>
 
-{* Request variables *}
+{* Variáveis de requisição *}
 <{$smarty.get.page}>
 <{$smarty.post.username}>
 <{$smarty.request.id}>
 <{$smarty.cookies.session_id}>
 <{$smarty.server.HTTP_HOST}>
 
-{* Constants *}
+{* Constantes *}
 <{$smarty.const.XOOPS_URL}>
 
-{* Configuration variables *}
+{* Variáveis de configuração *}
 <{$smarty.config.var_name}>
 
-{* Template info *}
+{* Informações de template *}
 <{$smarty.template}>
 <{$smarty.current_dir}>
 
-{* Smarty version *}
+{* Versão Smarty *}
 <{$smarty.version}>
 
-{* Section/Foreach properties *}
+{* Propriedades de Section/Foreach *}
 <{$smarty.foreach.items.index}>
 <{$smarty.foreach.items.iteration}>
 <{$smarty.foreach.items.first}>
 <{$smarty.foreach.items.last}>
 ```
 
-## Literal Blocks
+## Blocos Literal
 
-For JavaScript with curly braces:
+Para JavaScript com chaves:
 
 ```smarty
 <{literal}>
@@ -395,7 +395,7 @@ For JavaScript with curly braces:
 <{/literal}>
 ```
 
-Or use Smarty variables within JavaScript:
+Ou use variáveis Smarty dentro de JavaScript:
 
 ```smarty
 <script>
@@ -404,85 +404,85 @@ var items = <{$items_json}>;
 </script>
 ```
 
-## Custom Functions
+## Funções Personalizadas
 
-XOOPS provides custom Smarty functions:
+XOOPS fornece funções Smarty personalizadas:
 
 ```smarty
-{* XOOPS Image URL *}
+{* URL de Imagem XOOPS *}
 <img src="<{xoImgUrl}>images/logo.png" alt="Logo">
 
-{* XOOPS Module URL *}
+{* URL de Módulo XOOPS *}
 <a href="<{xoModuleUrl}>">Module Home</a>
 
-{* App URL *}
+{* URL de Aplicação *}
 <a href="<{xoAppUrl 'item.php'}>?id=<{$item.id}>">View Item</a>
 ```
 
-## Best Practices
+## Boas Práticas
 
-### Always Escape Output
+### Sempre Escapar Saída
 
 ```smarty
-{* For user-generated content, always escape *}
+{* Para conteúdo gerado pelo usuário, sempre escapar *}
 <p><{$user_comment|escape}></p>
 
-{* For HTML content, use appropriate method *}
-<div><{$content}></div> {* Only if content is pre-sanitized *}
+{* Para conteúdo HTML, usar método apropriado *}
+<div><{$content}></div> {* Apenas se conteúdo foi pré-sanitizado *}
 ```
 
-### Use Meaningful Variable Names
+### Usar Nomes de Variável Significativos
 
 ```php
-// Good
+// Bom
 $GLOBALS['xoopsTpl']->assign('article_title', $title);
 $GLOBALS['xoopsTpl']->assign('article_items', $items);
 
-// Avoid
+// Evitar
 $GLOBALS['xoopsTpl']->assign('t', $title);
 $GLOBALS['xoopsTpl']->assign('arr', $items);
 ```
 
-### Keep Logic Minimal
+### Manter Lógica Minimal
 
-Templates should focus on presentation. Move complex logic to PHP:
+Templates devem focar em apresentação. Mover lógica complexa para PHP:
 
 ```smarty
-{* Avoid complex logic in templates *}
-{* Bad *}
+{* Evitar lógica complexa em templates *}
+{* Ruim *}
 <{if $user && $user->getVar('level') > 5 && $user->getVar('status') == 'active' && $permissions|in_array:'edit'}>
 
-{* Good - calculate in PHP and pass a simple flag *}
+{* Bom - calcular em PHP e passar uma flag simples *}
 <{if $can_edit}>
 ```
 
-### Use Template Inheritance
+### Usar Herança de Template
 
-For consistent layouts, use template inheritance (see Theme-Development).
+Para layouts consistentes, usar herança de template (veja Theme-Development).
 
-## Debugging Templates
+## Depurando Templates
 
-### Debug Console
+### Console de Debug
 
 ```smarty
-{* Show all assigned variables *}
+{* Mostrar todas as variáveis atribuídas *}
 <{debug}>
 ```
 
-### Temporary Output
+### Saída Temporária
 
 ```smarty
-{* Debug specific variable *}
+{* Depurar variável específica *}
 <pre><{$variable|@print_r}></pre>
 <pre><{$variable|@var_export}></pre>
 ```
 
-## Common XOOPS Template Patterns
+## Padrões de Template Comuns do XOOPS
 
-### Module Template Structure
+### Estrutura de Template do Módulo
 
 ```smarty
-{* Module header *}
+{* Cabeçalho do módulo *}
 <div class="mymodule">
     <h2><{$module_name}></h2>
 
@@ -499,14 +499,14 @@ For consistent layouts, use template inheritance (see Theme-Development).
     </nav>
     <{/if}>
 
-    {* Content *}
+    {* Conteúdo *}
     <div class="content">
         <{$content}>
     </div>
 </div>
 ```
 
-### Pagination
+### Paginação
 
 ```smarty
 <{if $page_nav}>
@@ -516,7 +516,7 @@ For consistent layouts, use template inheritance (see Theme-Development).
 <{/if}>
 ```
 
-### Form Display
+### Exibição de Formulário
 
 ```smarty
 <{if $form}>

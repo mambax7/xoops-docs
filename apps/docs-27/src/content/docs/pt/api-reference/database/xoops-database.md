@@ -1,11 +1,11 @@
 ---
-title: "XoopsDatabase Class"
-description: "Database abstraction layer providing connection management, query execution, and result handling"
+title: "Classe XoopsDatabase"
+description: "Camada de abstração de banco de dados fornecendo gerenciamento de conexão, execução de consultas e tratamento de resultados"
 ---
 
-The `XoopsDatabase` class provides a database abstraction layer for XOOPS, handling connection management, query execution, result processing, and error handling. It supports multiple database drivers through a driver architecture.
+A classe `XoopsDatabase` fornece uma camada de abstração de banco de dados para XOOPS, manipulando gerenciamento de conexão, execução de consultas, processamento de resultados e tratamento de erros. Suporta múltiplos drivers de banco de dados através de uma arquitetura de driver.
 
-## Class Overview
+## Visão Geral da Classe
 
 ```php
 namespace Xoops\Database;
@@ -27,65 +27,65 @@ abstract class XoopsDatabase
 }
 ```
 
-## Class Hierarchy
+## Hierarquia de Classe
 
 ```
-XoopsDatabase (Abstract Base)
-├── XoopsMySQLDatabase (MySQL Extension)
-│   └── XoopsMySQLDatabaseProxy (Security Proxy)
-└── XoopsMySQLiDatabase (MySQLi Extension)
-    └── XoopsMySQLiDatabaseProxy (Security Proxy)
+XoopsDatabase (Classe Base Abstrata)
+├── XoopsMySQLDatabase (Extensão MySQL)
+│   └── XoopsMySQLDatabaseProxy (Proxy de Segurança)
+└── XoopsMySQLiDatabase (Extensão MySQLi)
+    └── XoopsMySQLiDatabaseProxy (Proxy de Segurança)
 
 XoopsDatabaseFactory
-└── Creates appropriate driver instances
+└── Cria instâncias de driver apropriadas
 ```
 
-## Getting a Database Instance
+## Obtendo uma Instância de Banco de Dados
 
-### Using the Factory
+### Usando a Factory
 
 ```php
-// Recommended: Use the factory
+// Recomendado: Use a factory
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 ```
 
-### Using getInstance
+### Usando getInstance
 
 ```php
-// Alternative: Direct singleton access
+// Alternativa: Acesso singleton direto
 $db = XoopsDatabase::getInstance();
 ```
 
-### Global Variable
+### Variável Global
 
 ```php
-// Legacy: Use global variable
+// Legado: Use variável global
 global $xoopsDB;
 ```
 
-## Core Methods
+## Métodos Principais
 
 ### connect
 
-Establishes a database connection.
+Estabelece uma conexão com banco de dados.
 
 ```php
 abstract public function connect(bool $selectdb = true): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$selectdb` | bool | Whether to select the database |
+| `$selectdb` | bool | Se deve selecionar o banco de dados |
 
-**Returns:** `bool` - True on successful connection
+**Retorna:** `bool` - Verdadeiro em conexão bem-sucedida
 
-**Example:**
+**Exemplo:**
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 if ($db->connect()) {
-    echo "Connected successfully";
+    echo "Conectado com sucesso";
 }
 ```
 
@@ -93,7 +93,7 @@ if ($db->connect()) {
 
 ### query
 
-Executes an SQL query.
+Executa uma consulta SQL.
 
 ```php
 abstract public function query(
@@ -103,47 +103,47 @@ abstract public function query(
 ): mixed
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$sql` | string | SQL query string |
-| `$limit` | int | Maximum rows to return (0 = no limit) |
-| `$start` | int | Starting offset |
+| `$sql` | string | String de consulta SQL |
+| `$limit` | int | Máximo de linhas a retornar (0 = sem limite) |
+| `$start` | int | Offset de inicialização |
 
-**Returns:** `resource|bool` - Result resource or false on failure
+**Retorna:** `resource|bool` - Recurso de resultado ou falso em caso de falha
 
-**Example:**
+**Exemplo:**
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 
-// Simple query
+// Consulta simples
 $sql = "SELECT * FROM " . $db->prefix('users') . " WHERE uid > 0";
 $result = $db->query($sql);
 
-// Query with limit
+// Consulta com limite
 $sql = "SELECT * FROM " . $db->prefix('users');
-$result = $db->query($sql, 10, 0); // First 10 rows
+$result = $db->query($sql, 10, 0); // Primeiras 10 linhas
 
-// Query with offset
-$result = $db->query($sql, 10, 20); // 10 rows starting at row 20
+// Consulta com offset
+$result = $db->query($sql, 10, 20); // 10 linhas começando na linha 20
 ```
 
 ---
 
 ### queryF
 
-Executes a query forcing the operation (bypasses security checks).
+Executa uma consulta forçando a operação (ignora verificações de segurança).
 
 ```php
 public function queryF(string $sql, int $limit = 0, int $start = 0): mixed
 ```
 
-**Use Cases:**
-- INSERT, UPDATE, DELETE operations
-- When you need to bypass read-only restrictions
+**Casos de Uso:**
+- Operações INSERT, UPDATE, DELETE
+- Quando precisa contornar restrições de leitura apenas
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = sprintf(
     "UPDATE %s SET views = views + 1 WHERE article_id = %d",
@@ -157,54 +157,54 @@ $db->queryF($sql);
 
 ### prefix
 
-Prepends the database table prefix.
+Prepara o prefixo de tabela de banco de dados.
 
 ```php
 public function prefix(string $table = ''): string
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$table` | string | Table name without prefix |
+| `$table` | string | Nome da tabela sem prefixo |
 
-**Returns:** `string` - Table name with prefix
+**Retorna:** `string` - Nome da tabela com prefixo
 
-**Example:**
+**Exemplo:**
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 
-echo $db->prefix('users');       // "xoops_users" (if prefix is "xoops_")
+echo $db->prefix('users');       // "xoops_users" (se prefixo é "xoops_")
 echo $db->prefix('modules');     // "xoops_modules"
-echo $db->prefix();              // "xoops_" (just the prefix)
+echo $db->prefix();              // "xoops_" (apenas o prefixo)
 ```
 
 ---
 
 ### fetchArray
 
-Fetches a result row as an associative array.
+Busca uma linha de resultado como um array associativo.
 
 ```php
 abstract public function fetchArray($result): ?array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$result` | resource | Query result resource |
+| `$result` | resource | Recurso de resultado da consulta |
 
-**Returns:** `array|null` - Associative array or null if no more rows
+**Retorna:** `array|null` - Array associativo ou null se não há mais linhas
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = "SELECT * FROM " . $db->prefix('users') . " WHERE level > 0";
 $result = $db->query($sql);
 
 while ($row = $db->fetchArray($result)) {
-    echo "User: " . $row['uname'] . "\n";
+    echo "Usuário: " . $row['uname'] . "\n";
     echo "Email: " . $row['email'] . "\n";
 }
 ```
@@ -213,27 +213,27 @@ while ($row = $db->fetchArray($result)) {
 
 ### fetchObject
 
-Fetches a result row as an object.
+Busca uma linha de resultado como um objeto.
 
 ```php
 abstract public function fetchObject($result): ?object
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$result` | resource | Query result resource |
+| `$result` | resource | Recurso de resultado da consulta |
 
-**Returns:** `object|null` - Object with properties for each column
+**Retorna:** `object|null` - Objeto com propriedades para cada coluna
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = "SELECT * FROM " . $db->prefix('users') . " WHERE uid = 1";
 $result = $db->query($sql);
 
 if ($user = $db->fetchObject($result)) {
-    echo "Username: " . $user->uname;
+    echo "Nome de usuário: " . $user->uname;
     echo "Email: " . $user->email;
 }
 ```
@@ -242,19 +242,19 @@ if ($user = $db->fetchObject($result)) {
 
 ### fetchRow
 
-Fetches a result row as a numeric array.
+Busca uma linha de resultado como um array numérico.
 
 ```php
 abstract public function fetchRow($result): ?array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = "SELECT uname, email FROM " . $db->prefix('users');
 $result = $db->query($sql);
 
 while ($row = $db->fetchRow($result)) {
-    echo "Username: " . $row[0] . ", Email: " . $row[1];
+    echo "Nome de usuário: " . $row[0] . ", Email: " . $row[1];
 }
 ```
 
@@ -262,79 +262,79 @@ while ($row = $db->fetchRow($result)) {
 
 ### fetchBoth
 
-Fetches a result row as both associative and numeric array.
+Busca uma linha de resultado como array associativo e numérico.
 
 ```php
 abstract public function fetchBoth($result): ?array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $result = $db->query($sql);
 $row = $db->fetchBoth($result);
-echo $row['uname'];  // By name
-echo $row[0];        // By index
+echo $row['uname'];  // Por nome
+echo $row[0];        // Por índice
 ```
 
 ---
 
 ### getRowsNum
 
-Gets the number of rows in a result set.
+Obtém o número de linhas em um conjunto de resultados.
 
 ```php
 abstract public function getRowsNum($result): int
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$result` | resource | Query result resource |
+| `$result` | resource | Recurso de resultado da consulta |
 
-**Returns:** `int` - Number of rows
+**Retorna:** `int` - Número de linhas
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = "SELECT * FROM " . $db->prefix('users') . " WHERE level > 0";
 $result = $db->query($sql);
 $count = $db->getRowsNum($result);
-echo "Found $count active users";
+echo "Encontrados $count usuários ativos";
 ```
 
 ---
 
 ### getAffectedRows
 
-Gets the number of affected rows from last query.
+Obtém o número de linhas afetadas pela última consulta.
 
 ```php
 abstract public function getAffectedRows(): int
 ```
 
-**Returns:** `int` - Number of affected rows
+**Retorna:** `int` - Número de linhas afetadas
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = "UPDATE " . $db->prefix('users') . " SET last_login = " . time() . " WHERE uid = 1";
 $db->queryF($sql);
 $affected = $db->getAffectedRows();
-echo "Updated $affected rows";
+echo "Atualizadas $affected linhas";
 ```
 
 ---
 
 ### getInsertId
 
-Gets the auto-generated ID from the last INSERT.
+Obtém o ID gerado automaticamente do último INSERT.
 
 ```php
 abstract public function getInsertId(): int
 ```
 
-**Returns:** `int` - Last insert ID
+**Retorna:** `int` - Último ID inserido
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = sprintf(
     "INSERT INTO %s (title, content) VALUES (%s, %s)",
@@ -344,28 +344,28 @@ $sql = sprintf(
 );
 $db->queryF($sql);
 $newId = $db->getInsertId();
-echo "Created article with ID: $newId";
+echo "Artigo criado com ID: $newId";
 ```
 
 ---
 
 ### escape
 
-Escapes a string for safe use in SQL queries.
+Escapa uma string para uso seguro em consultas SQL.
 
 ```php
 abstract public function escape(string $string): string
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$string` | string | String to escape |
+| `$string` | string | String a escapar |
 
-**Returns:** `string` - Escaped string (without quotes)
+**Retorna:** `string` - String escapada (sem aspas)
 
-**Example:**
+**Exemplo:**
 ```php
 $unsafeInput = "O'Reilly";
 $safe = $db->escape($unsafeInput);  // "O\'Reilly"
@@ -377,21 +377,21 @@ $sql = "SELECT * FROM " . $db->prefix('users') . " WHERE uname = '" . $safe . "'
 
 ### quoteString
 
-Escapes and quotes a string for SQL.
+Escapa e cita uma string para SQL.
 
 ```php
 public function quoteString(string $string): string
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$string` | string | String to quote |
+| `$string` | string | String a citar |
 
-**Returns:** `string` - Escaped and quoted string
+**Retorna:** `string` - String escapada e citada
 
-**Example:**
+**Exemplo:**
 ```php
 $name = "John O'Connor";
 $quoted = $db->quoteString($name);  // "'John O\'Connor'"
@@ -403,36 +403,36 @@ $sql = "INSERT INTO users (name) VALUES (" . $quoted . ")";
 
 ### freeRecordSet
 
-Frees memory associated with a result.
+Libera a memória associada a um resultado.
 
 ```php
 abstract public function freeRecordSet($result): void
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $result = $db->query($sql);
-// Process results...
-$db->freeRecordSet($result);  // Free memory
+// Processar resultados...
+$db->freeRecordSet($result);  // Liberar memória
 ```
 
 ---
 
-## Error Handling
+## Tratamento de Erros
 
 ### error
 
-Gets the last error message.
+Obtém a última mensagem de erro.
 
 ```php
 abstract public function error(): string
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $result = $db->query($sql);
 if (!$result) {
-    echo "Database error: " . $db->error();
+    echo "Erro de banco de dados: " . $db->error();
 }
 ```
 
@@ -440,35 +440,35 @@ if (!$result) {
 
 ### errno
 
-Gets the last error number.
+Obtém o último número de erro.
 
 ```php
 abstract public function errno(): int
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $result = $db->query($sql);
 if (!$result) {
-    echo "Error #" . $db->errno() . ": " . $db->error();
+    echo "Erro #" . $db->errno() . ": " . $db->error();
 }
 ```
 
 ---
 
-## Prepared Statements (MySQLi)
+## Consultas Preparadas (MySQLi)
 
-The MySQLi driver supports prepared statements for enhanced security.
+O driver MySQLi suporta consultas preparadas para segurança aprimorada.
 
 ### prepare
 
-Creates a prepared statement.
+Cria uma consulta preparada.
 
 ```php
 public function prepare(string $sql): mysqli_stmt|false
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 
@@ -486,7 +486,7 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 ```
 
-### Prepared Statement with Multiple Parameters
+### Consulta Preparada com Múltiplos Parâmetros
 
 ```php
 $sql = "INSERT INTO " . $db->prefix('articles') . " (title, content, author_id) VALUES (?, ?, ?)";
@@ -499,7 +499,7 @@ $content = "Article content here";
 $authorId = 1;
 
 if ($stmt->execute()) {
-    echo "Article created with ID: " . $stmt->insert_id;
+    echo "Artigo criado com ID: " . $stmt->insert_id;
 }
 
 $stmt->close();
@@ -507,11 +507,11 @@ $stmt->close();
 
 ---
 
-## Transaction Support
+## Suporte de Transações
 
 ### beginTransaction
 
-Starts a transaction.
+Inicia uma transação.
 
 ```php
 public function beginTransaction(): bool
@@ -519,7 +519,7 @@ public function beginTransaction(): bool
 
 ### commit
 
-Commits the current transaction.
+Confirma a transação atual.
 
 ```php
 public function commit(): bool
@@ -527,45 +527,45 @@ public function commit(): bool
 
 ### rollback
 
-Rolls back the current transaction.
+Reverte a transação atual.
 
 ```php
 public function rollback(): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 
 try {
     $db->beginTransaction();
 
-    // Multiple operations
+    // Múltiplas operações
     $sql1 = "UPDATE " . $db->prefix('accounts') . " SET balance = balance - 100 WHERE id = 1";
     $db->queryF($sql1);
 
     $sql2 = "UPDATE " . $db->prefix('accounts') . " SET balance = balance + 100 WHERE id = 2";
     $db->queryF($sql2);
 
-    // Check for errors
+    // Verificar erros
     if ($db->errno()) {
         throw new Exception($db->error());
     }
 
     $db->commit();
-    echo "Transaction completed";
+    echo "Transação concluída";
 
 } catch (Exception $e) {
     $db->rollback();
-    echo "Transaction failed: " . $e->getMessage();
+    echo "Transação falhou: " . $e->getMessage();
 }
 ```
 
 ---
 
-## Complete Usage Examples
+## Exemplos Completos de Uso
 
-### Basic CRUD Operations
+### Operações CRUD Básicas
 
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
@@ -601,7 +601,7 @@ $sql = "DELETE FROM " . $db->prefix('articles') . " WHERE id = " . (int)$article
 $db->queryF($sql);
 ```
 
-### Pagination Query
+### Consulta de Paginação
 
 ```php
 function getArticles(int $page = 1, int $perPage = 10): array
@@ -609,13 +609,13 @@ function getArticles(int $page = 1, int $perPage = 10): array
     $db = XoopsDatabaseFactory::getDatabaseConnection();
     $start = ($page - 1) * $perPage;
 
-    // Get total count
+    // Obter contagem total
     $sql = "SELECT COUNT(*) as total FROM " . $db->prefix('articles') . " WHERE published = 1";
     $result = $db->query($sql);
     $row = $db->fetchArray($result);
     $total = $row['total'];
 
-    // Get page of results
+    // Obter página de resultados
     $sql = "SELECT * FROM " . $db->prefix('articles') .
            " WHERE published = 1 ORDER BY created DESC";
     $result = $db->query($sql, $perPage, $start);
@@ -634,7 +634,7 @@ function getArticles(int $page = 1, int $perPage = 10): array
 }
 ```
 
-### Search Query with LIKE
+### Consulta de Busca com LIKE
 
 ```php
 function searchArticles(string $keyword): array
@@ -647,7 +647,7 @@ function searchArticles(string $keyword): array
            " OR content LIKE '%" . $keyword . "%'" .
            " ORDER BY created DESC";
 
-    $result = $db->query($sql, 50);  // Limit to 50 results
+    $result = $db->query($sql, 50);  // Limite a 50 resultados
 
     $articles = [];
     while ($row = $db->fetchArray($result)) {
@@ -658,7 +658,7 @@ function searchArticles(string $keyword): array
 }
 ```
 
-### Join Query
+### Consulta de Join
 
 ```php
 function getArticlesWithAuthors(): array
@@ -684,19 +684,19 @@ function getArticlesWithAuthors(): array
 
 ---
 
-## SqlUtility Class
+## Classe SqlUtility
 
-Helper class for SQL file operations.
+Classe auxiliar para operações de arquivo SQL.
 
 ### splitMySqlFile
 
-Splits a SQL file into individual queries.
+Divide um arquivo SQL em consultas individuais.
 
 ```php
 public static function splitMySqlFile(string $content): array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $sqlContent = file_get_contents('install.sql');
 $queries = SqlUtility::splitMySqlFile($sqlContent);
@@ -704,21 +704,21 @@ $queries = SqlUtility::splitMySqlFile($sqlContent);
 foreach ($queries as $query) {
     $db->queryF($query);
     if ($db->errno()) {
-        echo "Error executing: " . $query . "\n";
-        echo "Error: " . $db->error() . "\n";
+        echo "Erro ao executar: " . $query . "\n";
+        echo "Erro: " . $db->error() . "\n";
     }
 }
 ```
 
 ### prefixQuery
 
-Replaces table placeholders with prefixed table names.
+Substitui placeholders de tabela por nomes de tabela com prefixo.
 
 ```php
 public static function prefixQuery(string $sql, string $prefix): string
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = "CREATE TABLE {PREFIX}_articles (id INT PRIMARY KEY)";
 $prefixedSql = SqlUtility::prefixQuery($sql, $db->prefix());
@@ -727,45 +727,45 @@ $prefixedSql = SqlUtility::prefixQuery($sql, $db->prefix());
 
 ---
 
-## Best Practices
+## Melhores Práticas
 
-### Security
+### Segurança
 
-1. **Always escape user input**:
+1. **Sempre escape da entrada do usuário**:
 ```php
 $safe = $db->escape($_POST['input']);
 ```
 
-2. **Use prepared statements when available**:
+2. **Use consultas preparadas quando disponível**:
 ```php
 $stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->bind_param('i', $id);
 ```
 
-3. **Use quoteString for values**:
+3. **Use quoteString para valores**:
 ```php
 $sql = "INSERT INTO table (name) VALUES (" . $db->quoteString($name) . ")";
 ```
 
-### Performance
+### Desempenho
 
-1. **Always use LIMIT for large tables**:
+1. **Sempre use LIMIT para tabelas grandes**:
 ```php
-$result = $db->query($sql, 100);  // Limit results
+$result = $db->query($sql, 100);  // Limitar resultados
 ```
 
-2. **Free result sets when done**:
+2. **Libere conjuntos de resultados quando feito**:
 ```php
 $db->freeRecordSet($result);
 ```
 
-3. **Use appropriate indexes** in your table definitions
+3. **Use índices apropriados** em suas definições de tabela
 
-4. **Prefer handlers over raw SQL** when possible
+4. **Prefira handlers sobre SQL bruto** quando possível
 
-### Error Handling
+### Tratamento de Erros
 
-1. **Always check for errors**:
+1. **Sempre verifique se há erros**:
 ```php
 $result = $db->query($sql);
 if (!$result) {
@@ -773,19 +773,19 @@ if (!$result) {
 }
 ```
 
-2. **Use transactions for multiple related operations**:
+2. **Use transações para múltiplas operações relacionadas**:
 ```php
 $db->beginTransaction();
-// ... operations ...
-$db->commit();  // or $db->rollback();
+// ... operações ...
+$db->commit();  // ou $db->rollback();
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- Criteria - Query criteria system
-- QueryBuilder - Fluent query building
-- ../Core/XoopsObjectHandler - Object persistence
+- Criteria - Sistema de criteria de consulta
+- QueryBuilder - Construção de consulta fluente
+- ../Core/XoopsObjectHandler - Persistência de objeto
 
 ---
 
-*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class/database)*
+*Veja também: [Código-Fonte do XOOPS](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class/database)*

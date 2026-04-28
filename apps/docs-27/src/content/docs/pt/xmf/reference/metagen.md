@@ -1,21 +1,21 @@
 ---
-title: "XMF Metagen Class"
-description: "Meta tag generation and SEO helpers in the XMF Framework"
+title: "Classe XMF Metagen"
+description: "Geração de meta tags e helpers de SEO no XMF Framework"
 ---
 
-The `Metagen` class in the XMF Framework provides a comprehensive toolkit for generating and managing HTML meta tags, Open Graph tags, and other SEO-related metadata.
+A classe `Metagen` no XMF Framework fornece um kit de ferramentas abrangente para geração e gerenciamento de tags HTML meta, tags Open Graph e outro metadado relacionado a SEO.
 
-## Class Overview
+## Visão Geral da Classe
 
-The `Metagen` class handles:
-- Standard HTML meta tags (description, keywords, etc.)
-- Open Graph meta tags for social sharing
-- Twitter Card meta tags
-- Structured data and JSON-LD
-- Canonical URLs
-- Language and locale specifications
+A classe `Metagen` manipula:
+- Tags meta HTML padrão (description, keywords, etc.)
+- Tags meta Open Graph para compartilhamento social
+- Tags Twitter Card
+- Dados estruturados e JSON-LD
+- URLs canônicas
+- Especificações de linguagem e localidade
 
-### Basic Class Structure
+### Estrutura Básica da Classe
 
 ```php
 namespace Xmf;
@@ -39,38 +39,38 @@ class Metagen
 }
 ```
 
-## Basic Usage
+## Uso Básico
 
-### Simple Meta Tags
+### Tags Meta Simples
 
 ```php
 use Xmf\Metagen;
 
 $metagen = new Metagen();
 
-// Set basic meta tags
-$metagen->setDescription('This is my awesome website');
-$metagen->setKeywords('php, xoops, web development');
+// Definir tags meta básicas
+$metagen->setDescription('Este é meu site incrível');
+$metagen->setKeywords('php, xoops, desenvolvimento web');
 
-// Render to HTML
+// Renderizar para HTML
 echo $metagen->renderAll();
 
-// Output:
-// <meta name="description" content="This is my awesome website" />
-// <meta name="keywords" content="php, xoops, web development" />
+// Saída:
+// <meta name="description" content="Este é meu site incrível" />
+// <meta name="keywords" content="php, xoops, desenvolvimento web" />
 ```
 
-## Open Graph Meta Tags
+## Tags Meta Open Graph
 
-Open Graph tags help control how content appears when shared on social media.
+Tags Open Graph ajudam controlar como conteúdo aparece quando compartilhado em redes sociais.
 
-### Basic Open Graph Setup
+### Configuração Básica Open Graph
 
 ```php
 $metagen = new Metagen();
 
-$metagen->setOpenGraphProperty('og:title', 'My Awesome Article');
-$metagen->setOpenGraphProperty('og:description', 'Learn how to use Metagen for SEO');
+$metagen->setOpenGraphProperty('og:title', 'Meu Artigo Incrível');
+$metagen->setOpenGraphProperty('og:description', 'Aprenda como usar Metagen para SEO');
 $metagen->setOpenGraphProperty('og:image', 'https://example.com/image.jpg');
 $metagen->setOpenGraphProperty('og:url', 'https://example.com/article');
 $metagen->setOpenGraphProperty('og:type', 'article');
@@ -78,11 +78,11 @@ $metagen->setOpenGraphProperty('og:type', 'article');
 echo $metagen->renderAll();
 ```
 
-## Structured Data and JSON-LD
+## Dados Estruturados e JSON-LD
 
-JSON-LD provides structured data that search engines can better understand.
+JSON-LD fornece dados estruturados que mecanismos de busca podem entender melhor.
 
-### Article Structured Data
+### Dados Estruturados de Artigo
 
 ```php
 $metagen = new Metagen();
@@ -90,14 +90,14 @@ $metagen = new Metagen();
 $articleData = [
     '@context' => 'https://schema.org',
     '@type' => 'Article',
-    'headline' => 'Understanding XOOPS 4.0',
-    'description' => 'A comprehensive guide to XOOPS modernization',
+    'headline' => 'Entendendo XOOPS 4.0',
+    'description' => 'Um guia abrangente para modernização XOOPS',
     'image' => 'https://example.com/article.jpg',
     'datePublished' => '2026-01-31T10:00:00Z',
     'dateModified' => '2026-01-31T15:00:00Z',
     'author' => [
         '@type' => 'Person',
-        'name' => 'John Developer',
+        'name' => 'João Desenvolvedor',
         'url' => 'https://example.com/author'
     ]
 ];
@@ -107,9 +107,9 @@ $metagen->setJsonLd($articleData);
 echo $metagen->renderAll();
 ```
 
-## Module Integration Examples
+## Exemplos de Integração com Módulo
 
-### Blog/Article Module
+### Módulo Blog/Artigo
 
 ```php
 namespace MyModule\Controller;
@@ -128,10 +128,10 @@ class ArticleController
             return $this->notFound();
         }
 
-        // Initialize Metagen
+        // Inicializar Metagen
         $metagen = new Metagen();
 
-        // Set article metadata
+        // Definir metadados de artigo
         $metagen->setTitle($article->getTitle());
         $metagen->setDescription(
             substr($article->getBody(), 0, 160)
@@ -148,10 +148,10 @@ class ArticleController
         $metagen->setOpenGraphProperty('og:image', $article->getFeaturedImage());
         $metagen->setOpenGraphProperty('og:url', $article->getUrl());
 
-        // Canonical URL
+        // URL Canônica
         $metagen->setCanonicalUrl($article->getUrl());
 
-        // Store in template
+        // Armazenar em template
         $this->template['metagen'] = $metagen;
 
         return $this->render('article/view.php');
@@ -159,17 +159,17 @@ class ArticleController
 }
 ```
 
-## Template Integration
+## Integração com Template
 
-### Template Implementation
+### Implementação de Template
 
 ```php
-<!-- In your template header -->
+<!-- No cabeçalho do seu template -->
 <?php if (isset($metagen)): ?>
     <?php echo $metagen->renderAll(); ?>
 <?php endif; ?>
 
-<!-- Standard HTML structure -->
+<!-- Estrutura HTML padrão -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -178,40 +178,40 @@ class ArticleController
     <title><?php echo $metagen->getTitle(); ?></title>
 </head>
 <body>
-    <!-- Content -->
+    <!-- Conteúdo -->
 </body>
 </html>
 ```
 
-## Best Practices
+## Melhores Práticas
 
-### SEO Optimization
+### Otimização de SEO
 
-1. **Unique descriptions** for each page (150-160 characters)
-2. **Relevant keywords** (5-10 primary keywords per page)
-3. **Canonical URLs** for preventing duplicate content
-4. **Open Graph tags** for social media optimization
-5. **Structured data** for enhanced search results
-6. **Mobile viewport** meta tag for responsive design
+1. **Descrições únicas** para cada página (150-160 caracteres)
+2. **Palavras-chave relevantes** (5-10 palavras-chave primárias por página)
+3. **URLs canônicas** para prevenção de conteúdo duplicado
+4. **Tags Open Graph** para otimização de mídia social
+5. **Dados estruturados** para resultados de busca aprimorados
+6. **Meta tag de viewport móvel** para design responsivo
 
-### Complete SEO Implementation
+### Implementação Completa de SEO
 
 ```php
 $metagen = new Metagen();
 
-// Basic meta tags
-$metagen->setTitle('My Website - Web Development Services');
-$metagen->setDescription('Professional web development services');
-$metagen->setKeywords('web development, php, xoops');
-$metagen->setAuthor('John Developer');
+// Tags meta básicas
+$metagen->setTitle('Meu Website - Serviços de Desenvolvimento Web');
+$metagen->setDescription('Serviços profissionais de desenvolvimento web');
+$metagen->setKeywords('desenvolvimento web, php, xoops');
+$metagen->setAuthor('João Desenvolvedor');
 $metagen->setLanguage('en');
 
-// Canonical URL
+// URL Canônica
 $metagen->setCanonicalUrl('https://example.com/services/web-development');
 
-// Open Graph for social sharing
-$metagen->setOpenGraphProperty('og:title', 'Web Development Services');
-$metagen->setOpenGraphProperty('og:description', 'Professional services');
+// Open Graph para compartilhamento social
+$metagen->setOpenGraphProperty('og:title', 'Serviços de Desenvolvimento Web');
+$metagen->setOpenGraphProperty('og:description', 'Serviços profissionais');
 $metagen->setOpenGraphProperty('og:image', 'https://example.com/og-image.jpg');
 $metagen->setOpenGraphProperty('og:url', 'https://example.com/services/web-development');
 $metagen->setOpenGraphProperty('og:type', 'website');
@@ -219,45 +219,45 @@ $metagen->setOpenGraphProperty('og:type', 'website');
 // Twitter Card
 $metagen->setTwitterCard('summary_large_image');
 $metagen->setTwitterProperty('twitter:site', '@mycompany');
-$metagen->setTwitterProperty('twitter:title', 'Web Development Services');
+$metagen->setTwitterProperty('twitter:title', 'Serviços de Desenvolvimento Web');
 $metagen->setTwitterProperty('twitter:image', 'https://example.com/twitter-image.jpg');
 
 echo $metagen->renderAll();
 ```
 
-## API Reference
+## Referência da API
 
-### Core Methods
+### Métodos Principais
 
-| Method | Parameters | Returns | Description |
-|--------|-----------|---------|-------------|
-| `setTitle()` | string | self | Set page title |
-| `setDescription()` | string | self | Set meta description |
-| `setKeywords()` | string | self | Set meta keywords |
-| `setAuthor()` | string | self | Set author name |
-| `setCanonicalUrl()` | string | self | Set canonical URL |
-| `setLanguage()` | string | self | Set page language |
-| `setViewport()` | string | self | Set viewport settings |
-| `setOpenGraphProperty()` | string, string | self | Add OG tag |
-| `setTwitterCard()` | string | self | Set Twitter card type |
-| `setJsonLd()` | array | self | Set structured data |
-| `renderAll()` | - | string | Render all meta tags |
+| Método | Parâmetros | Retorna | Descrição |
+|--------|-----------|---------|-----------|
+| `setTitle()` | string | self | Definir título da página |
+| `setDescription()` | string | self | Definir meta description |
+| `setKeywords()` | string | self | Definir meta keywords |
+| `setAuthor()` | string | self | Definir nome do autor |
+| `setCanonicalUrl()` | string | self | Definir URL canônica |
+| `setLanguage()` | string | self | Definir linguagem da página |
+| `setViewport()` | string | self | Definir configurações de viewport |
+| `setOpenGraphProperty()` | string, string | self | Adicionar tag OG |
+| `setTwitterCard()` | string | self | Definir tipo de Twitter card |
+| `setJsonLd()` | array | self | Definir dados estruturados |
+| `renderAll()` | - | string | Renderizar todas as meta tags |
 
-## Related Documentation
+## Documentação Relacionada
 
-- Database - XMF database reference
-- JWT - JWT authentication in XMF
-- ../../03-Module-Development/Best-Practices/Frontend-Integration - Frontend integration best practices
+- Database - Referência de banco de dados XMF
+- JWT - Autenticação JWT em XMF
+- ../../03-Module-Development/Best-Practices/Frontend-Integration - Melhores práticas de integração frontend
 
-## Resources
+## Recursos
 
 - [Open Graph Protocol](https://ogp.me/)
 - [Twitter Card Documentation](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
 - [Schema.org Structured Data](https://schema.org/)
 - [Google Search Central](https://developers.google.com/search)
 
-## Version Information
+## Informação de Versão
 
-- **Introduced:** XOOPS 2.5.8
-- **Last Updated:** XOOPS 4.0
-- **Compatibility:** PHP 7.4+
+- **Introduzido:** XOOPS 2.5.8
+- **Última Atualização:** XOOPS 4.0
+- **Compatibilidade:** PHP 7.4+

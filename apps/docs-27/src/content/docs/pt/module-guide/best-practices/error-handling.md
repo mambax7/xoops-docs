@@ -1,17 +1,17 @@
 ---
-title: "Error Handling Best Practices"
-description: "Exception management, logging, and user-friendly error messages"
+title: "Boas Práticas de Tratamento de Erros"
+description: "Gerenciamento de exceção, registro e mensagens de erro amigáveis ao usuário"
 ---
 
-# Error Handling Best Practices in XOOPS
+# Boas Práticas de Tratamento de Erros em XOOPS
 
-Proper error handling is critical for application reliability, debugging, and user experience.
+Tratamento apropriado de erros é crítico para confiabilidade da aplicação, depuração e experiência do usuário.
 
-## Exception Hierarchy
+## Hierarquia de Exceção
 
 ```php
 <?php
-// Base exception
+// Exceção base
 class ModuleException extends \Exception
 {
     protected $statusCode = 500;
@@ -28,7 +28,7 @@ class ModuleException extends \Exception
     }
 }
 
-// Specific exceptions
+// Exceções específicas
 class ValidationException extends ModuleException
 {
     protected $statusCode = 400;
@@ -58,7 +58,7 @@ class UnauthorizedException extends ModuleException
 ?>
 ```
 
-## Try-Catch Patterns
+## Padrões Try-Catch
 
 ```php
 <?php
@@ -67,16 +67,16 @@ class UserService
     public function createUser($username, $email, $password)
     {
         try {
-            // Validate
+            // Validar
             $this->validate($username, $email, $password);
             
-            // Create user
+            // Criar usuário
             $user = new User();
             $user->setUsername($username);
             $user->setEmail($email);
             $user->setPassword($password);
             
-            // Save
+            // Salvar
             $userId = $this->userRepository->save($user);
             
             return $userId;
@@ -87,14 +87,14 @@ class UserService
             
         } catch (\Exception $e) {
             \xoops_logger()->critical($e->getMessage());
-            throw new \RuntimeException('Failed to create user');
+            throw new \RuntimeException('Falha ao criar usuário');
         }
     }
 }
 ?>
 ```
 
-## Logging Errors
+## Registro de Erros
 
 ```php
 <?php
@@ -120,7 +120,7 @@ class ErrorHandler
 ?>
 ```
 
-## User-Friendly Error Messages
+## Mensagens de Erro Amigáveis ao Usuário
 
 ```php
 <?php
@@ -133,13 +133,13 @@ class ErrorHandler
                 return $e->getMessage();
                 
             case $e instanceof NotFoundException:
-                return 'The requested resource was not found.';
+                return 'O recurso solicitado não foi encontrado.';
                 
             case $e instanceof UnauthorizedException:
-                return 'You do not have permission.';
+                return 'Você não tem permissão.';
                 
             default:
-                return 'An unexpected error occurred.';
+                return 'Ocorreu um erro inesperado.';
         }
     }
     
@@ -154,7 +154,7 @@ class ErrorHandler
 ?>
 ```
 
-## Controller Error Handling
+## Tratamento de Erros do Controller
 
 ```php
 <?php
@@ -189,23 +189,23 @@ class UserController
 ?>
 ```
 
-## Best Practices
+## Boas Práticas
 
-- Create specific exception types
-- Throw early, catch late
-- Log all exceptions with context
-- Provide user-friendly messages
-- Use consistent error response format
-- Test error handling paths
-- Don't expose sensitive information to users
+- Criar tipos de exceção específicos
+- Lançar cedo, capturar tarde
+- Registrar todas as exceções com contexto
+- Fornecer mensagens amigáveis ao usuário
+- Usar formato de resposta de erro consistente
+- Testar caminhos de tratamento de erro
+- Não expor informações sensíveis aos usuários
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- Code-Organization for project structure
-- Testing for error testing strategies
-- ../Patterns/Service-Layer for service exceptions
+Veja também:
+- Organização-de-Código para estrutura do projeto
+- Testes para estratégias de teste de erro
+- ../Padrões/Camada-de-Serviço para exceções de serviço
 
 ---
 
-Tags: #best-practices #error-handling #exceptions #logging #module-development
+Tags: #boas-práticas #tratamento-de-erros #exceções #registro #desenvolvimento-de-módulo

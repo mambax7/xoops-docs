@@ -1,16 +1,16 @@
 ---
-title: "Domain Model Pattern"
+title: "Padrão Modelo de Domínio"
 ---
 
-## Overview
+## Visão Geral
 
-The Domain Model pattern represents the business concepts, rules, and logic of your application. In XOOPS module development, domain models encapsulate the core business entities and their behaviors.
+O padrão Modelo de Domínio representa os conceitos de negócio, regras e lógica de sua aplicação. No desenvolvimento de módulo XOOPS, modelos de domínio encapsulam as entidades de negócio centrais e seus comportamentos.
 
-## Entity vs Value Object
+## Entidade vs Objeto de Valor
 
-### Entities
+### Entidades
 
-Entities have identity and a lifecycle:
+Entidades possuem identidade e um ciclo de vida:
 
 ```php
 <?php
@@ -84,9 +84,9 @@ final class Article
 }
 ```
 
-### Value Objects
+### Objetos de Valor
 
-Value Objects are immutable and compared by value:
+Objetos de valor são imutáveis e comparados por valor:
 
 ```php
 <?php
@@ -126,9 +126,9 @@ final class ArticleId
 }
 ```
 
-## Aggregates
+## Agregados
 
-Aggregates are clusters of domain objects treated as a single unit:
+Agregados são aglomerados de objetos de domínio tratados como uma unidade única:
 
 ```php
 final class Category
@@ -156,9 +156,9 @@ final class Category
 }
 ```
 
-## Domain Events
+## Eventos de Domínio
 
-Capture important domain occurrences:
+Capturem ocorrências importantes de domínio:
 
 ```php
 final class ArticlePublishedEvent
@@ -171,9 +171,9 @@ final class ArticlePublishedEvent
 }
 ```
 
-## Enums for Status
+## Enums para Status
 
-Use PHP 8.2+ enums for type-safe status values:
+Use enums PHP 8.2+ para valores de status seguros de tipo:
 
 ```php
 enum ArticleStatus: string
@@ -195,9 +195,9 @@ enum ArticleStatus: string
 }
 ```
 
-## Invariants
+## Invariantes
 
-Protect domain rules within entities:
+Proteja regras de domínio dentro de entidades:
 
 ```php
 final class Article
@@ -223,18 +223,18 @@ final class Article
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Rich Domain Model** - Put behavior in entities, not services
-2. **Immutable Value Objects** - Value objects should never change
-3. **Factory Methods** - Use static factory methods for complex construction
-4. **Guard Clauses** - Validate inputs at entity boundaries
-5. **Domain Events** - Capture significant state changes
-6. **Ubiquitous Language** - Use business terminology in code
+1. **Modelo de Domínio Rico** - Coloque comportamento em entidades, não em serviços
+2. **Objetos de Valor Imutáveis** - Objetos de valor nunca devem mudar
+3. **Métodos de Fábrica** - Use métodos de fábrica estática para construção complexa
+4. **Cláusulas Guard** - Valide entradas nos limites de entidade
+5. **Eventos de Domínio** - Capture mudanças de estado significativas
+6. **Linguagem Ubíqua** - Use terminologia comercial em código
 
-## Related Documentation
+## Documentação Relacionada
 
-- Service-Layer - Application services
-- Repository-Layer - Persistence
-- DTO-Pattern - Data transfer
-- Event-System - Domain events
+- Service-Layer - Serviços de aplicação
+- Repository-Layer - Persistência
+- DTO-Pattern - Transferência de dados
+- Event-System - Eventos de domínio

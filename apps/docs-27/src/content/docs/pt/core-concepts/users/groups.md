@@ -1,31 +1,31 @@
 ---
-title: "Group System"
-description: "Comprehensive guide to XOOPS group management, default groups, custom groups, and group hierarchy"
+title: "Sistema de Grupo"
+description: "Guia abrangente de gerenciamento de grupo XOOPS, grupos padrão, grupos personalizados e hierarquia de grupo"
 ---
 
-# Group System in XOOPS
+# Sistema de Grupo no XOOPS
 
-The XOOPS Group System provides a hierarchical framework for organizing users and managing collective permissions. This document covers default groups, custom group creation, hierarchy, and practical implementation.
+O Sistema de Grupo XOOPS fornece uma estrutura hierárquica para organizar usuários e gerenciar permissões coletivas. Este documento cobre grupos padrão, criação de grupos personalizados, hierarquia e implementação prática.
 
-## Default Groups
+## Grupos Padrão
 
-XOOPS includes three fundamental groups that are created during system installation:
+XOOPS inclui três grupos fundamentais que são criados durante a instalação do sistema:
 
-### Webmasters Group (ID: 1)
+### Grupo de Webmasters (ID: 1)
 
-The Webmasters group represents site administrators with full system access.
+O grupo de Webmasters representa administradores de site com acesso completo ao sistema.
 
-**Characteristics:**
-- Group ID: 1
-- Highest privilege level
-- Cannot be deleted
-- Full access to all modules and functions
-- Access to administration panel
+**Características:**
+- ID do grupo: 1
+- Nível de privilégio mais alto
+- Não pode ser deletado
+- Acesso completo a todos os módulos e funções
+- Acesso ao painel de administração
 
 ```php
 <?php
 /**
- * Check if user is webmaster
+ * Verificar se o usuário é webmaster
  */
 $groupHandler = xoops_getHandler('group');
 $group = $groupHandler->getGroup(1);
@@ -34,20 +34,20 @@ $webmasterUsers = $groupHandler->getUsersByGroup(1);
 if ($xoopsUser instanceof XoopsUser) {
     $groups = $xoopsUser->getGroups();
     if (in_array(1, $groups)) {
-        // User is a webmaster
-        echo "Welcome, Site Administrator!";
+        // Usuário é um webmaster
+        echo "Bem-vindo, Administrador do Site!";
     }
 }
 ```
 
-### Registered Users Group (ID: 2)
+### Grupo de Usuários Registrados (ID: 2)
 
-The Registered Users group includes all authenticated users who are not anonymous.
+O grupo de Usuários Registrados inclui todos os usuários autenticados que não são anônimos.
 
-**Characteristics:**
-- Group ID: 2
-- Default group for new registrations
-- Can access user-specific features
+**Características:**
+- ID do grupo: 2
+- Grupo padrão para novos registros
+- Pode acessar recursos específicos do usuário
 - Subject to group-based permissions
 - Can be customized for standard user features
 

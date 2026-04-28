@@ -1,190 +1,190 @@
 ---
 title: "Permission Helper"
-description: "Managing XOOPS group permissions with the XMF Permission Helper"
+description: "Gerenciando permissões de grupo XOOPS com o XMF Permission Helper"
 ---
 
-XOOPS has a powerful and flexible permission system based on user group membership. The XMF Permission Helper simplifies working with these permissions, reducing complex permission checks to single method calls.
+XOOPS tem um poderoso e flexível sistema de permissões baseado em filiação em grupo do usuário. O XMF Permission Helper simplifica o trabalho com estas permissões, reduzindo verificações complexas de permissão para chamadas de método único.
 
-## Overview
+## Visão Geral
 
-The XOOPS permission system associates groups with:
-- Module ID
-- Permission name
-- Item ID
+O sistema de permissões XOOPS associa grupos com:
+- ID de Módulo
+- Nome de Permissão
+- ID de Item
 
-Checking permissions traditionally requires finding user groups, looking up module IDs, and querying the permission tables. The XMF Permission Helper handles all of this automatically.
+Verificar permissões tradicionalmente requer encontrar grupos de usuário, procurar IDs de módulo e consultar tabelas de permissão. O XMF Permission Helper manipula tudo isto automaticamente.
 
-## Getting Started
+## Começando
 
-### Creating a Permission Helper
+### Criando um Permission Helper
 
 ```php
-// For the current module
+// Para o módulo atual
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-// For a specific module
+// Para um módulo específico
 $permHelper = new \Xmf\Module\Helper\Permission('mymodule');
 ```
 
-The helper automatically uses the current user's groups and the specified module's ID.
+O helper automaticamente usa os grupos do usuário atual e o ID do módulo especificado.
 
-## Checking Permissions
+## Verificando Permissões
 
-### Does the User Have Permission?
+### O Usuário Tem Permissão?
 
-Check if the current user has a specific permission for an item:
+Verifique se o usuário atual tem uma permissão específica para um item:
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-// Check if user can view topic ID 42
+// Verificar se usuário pode visualizar tópico ID 42
 $canView = $permHelper->checkPermission('viewtopic', 42);
 
 if ($canView) {
-    // Display the topic
+    // Exibir o tópico
 } else {
-    // Show access denied message
+    // Mostrar mensagem de acesso negado
 }
 ```
 
-### Check with Redirect
+### Verificar com Redirecionamento
 
-Automatically redirect users who lack permission:
+Redirecione automaticamente usuários que carecem de permissão:
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 $topicId = 42;
 
-// Redirects to index.php after 3 seconds if no permission
+// Redireciona para index.php após 3 segundos se sem permissão
 $permHelper->checkPermissionRedirect(
     'viewtopic',
     $topicId,
     'index.php',
     3,
-    'You are not allowed to view that topic'
+    'Você não tem permissão para visualizar este tópico'
 );
 
-// Code here only runs if user has permission
+// Código aqui só executa se usuário tem permissão
 displayTopic($topicId);
 ```
 
-### Admin Override
+### Sobrescrita de Admin
 
-By default, admin users always have permission. To check even for admins:
+Por padrão, usuários admin sempre têm permissão. Para verificar mesmo para admins:
 
 ```php
-// Normal check - admins always have permission
+// Verificação normal - admins sempre têm permissão
 $hasPermission = $permHelper->checkPermission('viewtopic', $id);
 
-// Check even for admins (third parameter = false)
+// Verificar mesmo para admins (terceiro parâmetro = false)
 $hasPermission = $permHelper->checkPermission('viewtopic', $id, false);
 ```
 
-### Get Permitted Item IDs
+### Obter IDs de Item Permitidos
 
-Retrieve all item IDs that specific groups have permission for:
+Recupere todos os IDs de item que grupos específicos têm permissão para:
 
 ```php
-// Get items the current user's groups can view
+// Obter items que os grupos do usuário atual podem visualizar
 $viewableIds = $permHelper->getItemIds('viewtopic', $GLOBALS['xoopsUser']->getGroups());
 
-// Get items a specific group can view
+// Obter items que um grupo específico pode visualizar
 $viewableIds = $permHelper->getItemIds('viewtopic', [XOOPS_GROUP_USERS]);
 
-// Use in queries
+// Usar em queries
 $criteria = new Criteria('topic_id', '(' . implode(',', $viewableIds) . ')', 'IN');
 ```
 
-## Managing Permissions
+## Gerenciando Permissões
 
-### Get Groups for an Item
+### Obter Grupos para um Item
 
-Find which groups have a specific permission:
+Encontre quais grupos têm uma permissão específica:
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-// Get groups that can view topic 42
+// Obter grupos que podem visualizar tópico 42
 $groups = $permHelper->getGroupsForItem('viewtopic', 42);
-// Returns: [1, 2, 5] (array of group IDs)
+// Retorna: [1, 2, 5] (array de IDs de grupo)
 ```
 
-### Save Permissions
+### Salvar Permissões
 
-Grant permission to specific groups:
+Conceda permissão a grupos específicos:
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-// Allow groups 1, 2, and 3 to view topic 42
+// Permitir grupos 1, 2 e 3 visualizar tópico 42
 $groups = [1, 2, 3];
 $permHelper->savePermissionForItem('viewtopic', 42, $groups);
 ```
 
-### Delete Permissions
+### Deletar Permissões
 
-Remove all permissions for an item (typically when deleting the item):
+Remova todas as permissões para um item (tipicamente ao deletar o item):
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 $topicId = 42;
 
-// Delete view permission for this topic
+// Deletar permissão de view para este tópico
 $permHelper->deletePermissionForItem('viewtopic', $topicId);
 ```
 
-For multiple permission types:
+Para múltiplos tipos de permissão:
 
 ```php
-// Delete multiple permission types at once
+// Deletar múltiplos tipos de permissão ao mesmo tempo
 $permissionNames = ['viewtopic', 'posttopic', 'edittopic'];
 $permHelper->deletePermissionForItem($permissionNames, $topicId);
 ```
 
-## Form Integration
+## Integração com Formulário
 
-### Adding Permission Selection to Forms
+### Adicionando Seleção de Permissão a Formulários
 
-The helper can create a form element for selecting groups:
+O helper pode criar um elemento de formulário para seleção de grupos:
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-// Build your form
-$form = new XoopsThemeForm('Edit Topic', 'topicform', 'save.php');
+// Construir seu formulário
+$form = new XoopsThemeForm('Editar Tópico', 'topicform', 'save.php');
 
-// Add title field, etc.
+// Adicionar campo de título, etc.
 $form->addElement(new XoopsFormText('Title', 'title', 50, 255, $topic->getVar('title')));
 
-// Add permission selector
+// Adicionar seletor de permissão
 $form->addElement(
     $permHelper->getGroupSelectFormForItem(
-        'viewtopic',                           // Permission name
-        $topicId,                              // Item ID
-        'Groups with View Topic Permission'   // Caption
+        'viewtopic',                           // Nome de permissão
+        $topicId,                              // ID de item
+        'Grupos com Permissão de Visualizar Tópico'   // Legenda
     )
 );
 
-$form->addElement(new XoopsFormButton('', 'submit', 'Save', 'submit'));
+$form->addElement(new XoopsFormButton('', 'submit', 'Salvar', 'submit'));
 ```
 
-### Form Element Options
+### Opções de Elemento de Formulário
 
-The full method signature:
+A assinatura completa do método:
 
 ```php
 getGroupSelectFormForItem(
-    $gperm_name,      // Permission name
-    $gperm_itemid,    // Item ID
-    $caption,         // Form element caption
-    $name,            // Element name (auto-generated if empty)
-    $include_anon,    // Include anonymous group (default: false)
-    $size,            // Number of visible rows (default: 5)
-    $multiple         // Allow multiple selection (default: true)
+    $gperm_name,      // Nome de permissão
+    $gperm_itemid,    // ID de item
+    $caption,         // Legenda do elemento de formulário
+    $name,            // Nome do elemento (auto-gerado se vazio)
+    $include_anon,    // Incluir grupo anônimo (padrão: false)
+    $size,            // Número de linhas visíveis (padrão: 5)
+    $multiple         // Permitir múltipla seleção (padrão: true)
 )
 ```
 
-### Processing Form Submission
+### Processando Submissão de Formulário
 
 ```php
 use Xmf\Request;
@@ -192,28 +192,28 @@ use Xmf\Request;
 $permHelper = new \Xmf\Module\Helper\Permission();
 $topicId = Request::getInt('topic_id', 0);
 
-// Get the auto-generated field name
+// Obter nome do campo auto-gerado
 $fieldName = $permHelper->defaultFieldName('viewtopic', $topicId);
 
-// Get selected groups from form
+// Obter grupos selecionados do formulário
 $selectedGroups = Request::getArray($fieldName, [], 'POST');
 
-// Save the permissions
+// Salvar as permissões
 $permHelper->savePermissionForItem('viewtopic', $topicId, $selectedGroups);
 ```
 
-### Default Field Name
+### Nome de Campo Padrão
 
-The helper generates consistent field names:
+O helper gera nomes de campo consistentes:
 
 ```php
 $fieldName = $permHelper->defaultFieldName('viewtopic', 42);
-// Returns something like: 'mymodule_viewtopic_42'
+// Retorna algo como: 'mymodule_viewtopic_42'
 ```
 
-## Complete Example: Permission-Protected Items
+## Exemplo Completo: Items Protegidos por Permissão
 
-### Creating an Item with Permissions
+### Criando um Item com Permissões
 
 ```php
 <?php
@@ -232,7 +232,7 @@ $itemId = Request::getInt('id', 0);
 
 switch ($op) {
     case 'save':
-        // Save item data
+        // Salvar dados do item
         $handler = $helper->getHandler('items');
 
         if ($itemId > 0) {
@@ -247,17 +247,17 @@ switch ($op) {
         if ($handler->insert($item)) {
             $newId = $item->getVar('item_id');
 
-            // Save view permission
+            // Salvar permissão de view
             $viewFieldName = $permHelper->defaultFieldName('view', $newId);
             $viewGroups = Request::getArray($viewFieldName, [], 'POST');
             $permHelper->savePermissionForItem('view', $newId, $viewGroups);
 
-            // Save edit permission
+            // Salvar permissão de edit
             $editFieldName = $permHelper->defaultFieldName('edit', $newId);
             $editGroups = Request::getArray($editFieldName, [], 'POST');
             $permHelper->savePermissionForItem('edit', $newId, $editGroups);
 
-            redirect_header('index.php', 2, 'Item saved');
+            redirect_header('index.php', 2, 'Item salvo');
         }
         break;
 
@@ -272,24 +272,24 @@ switch ($op) {
             $itemId = 0;
         }
 
-        $form = new XoopsThemeForm('Edit Item', 'itemform', 'edit.php');
+        $form = new XoopsThemeForm('Editar Item', 'itemform', 'edit.php');
         $form->addElement(new XoopsFormHidden('op', 'save'));
         $form->addElement(new XoopsFormHidden('id', $itemId));
 
         $form->addElement(new XoopsFormText('Title', 'title', 50, 255, $item->getVar('title')));
         $form->addElement(new XoopsFormTextArea('Content', 'content', $item->getVar('content')));
 
-        // View permission selector
+        // Seletor de permissão de view
         $form->addElement(
-            $permHelper->getGroupSelectFormForItem('view', $itemId, 'Groups that can view')
+            $permHelper->getGroupSelectFormForItem('view', $itemId, 'Grupos que podem visualizar')
         );
 
-        // Edit permission selector
+        // Seletor de permissão de edit
         $form->addElement(
-            $permHelper->getGroupSelectFormForItem('edit', $itemId, 'Groups that can edit')
+            $permHelper->getGroupSelectFormForItem('edit', $itemId, 'Grupos que podem editar')
         );
 
-        $form->addElement(new XoopsFormButton('', 'submit', 'Save', 'submit'));
+        $form->addElement(new XoopsFormButton('', 'submit', 'Salvar', 'submit'));
 
         $form->display();
         break;
@@ -298,7 +298,7 @@ switch ($op) {
 require_once XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-### Viewing with Permission Check
+### Visualizando com Verificação de Permissão
 
 ```php
 <?php
@@ -313,24 +313,24 @@ $permHelper = new Permission('mymodule');
 
 $itemId = Request::getInt('id', 0);
 
-// Check view permission - redirects if denied
+// Verificar permissão de view - redireciona se negada
 $permHelper->checkPermissionRedirect(
     'view',
     $itemId,
     'index.php',
     3,
-    'You do not have permission to view this item'
+    'Você não tem permissão para visualizar este item'
 );
 
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-// User has permission, display the item
+// Usuário tem permissão, exibir o item
 $handler = $helper->getHandler('items');
 $item = $handler->get($itemId);
 
 $xoopsTpl->assign('item', $item->toArray());
 
-// Show edit button only if user has edit permission
+// Mostrar botão de edit apenas se usuário tem permissão de edit
 if ($permHelper->checkPermission('edit', $itemId)) {
     $xoopsTpl->assign('can_edit', true);
     $xoopsTpl->assign('edit_url', $helper->url('edit.php?id=' . $itemId));
@@ -339,7 +339,7 @@ if ($permHelper->checkPermission('edit', $itemId)) {
 require_once XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-### Deleting with Permission Cleanup
+### Deletando com Limpeza de Permissão
 
 ```php
 <?php
@@ -352,37 +352,37 @@ $permHelper = new Permission('mymodule');
 
 $itemId = Request::getInt('id', 0);
 
-// Delete the item
+// Deletar o item
 $handler = $helper->getHandler('items');
 $item = $handler->get($itemId);
 
 if ($item && $handler->delete($item)) {
-    // Clean up all permissions for this item
+    // Limpar todas as permissões para este item
     $permissionNames = ['view', 'edit', 'delete'];
     $permHelper->deletePermissionForItem($permissionNames, $itemId);
 
-    redirect_header('index.php', 2, 'Item deleted');
+    redirect_header('index.php', 2, 'Item deletado');
 }
 ```
 
-## API Reference
+## Referência da API
 
-| Method | Description |
-|--------|-------------|
-| `checkPermission($name, $itemId, $trueIfAdmin)` | Check if user has permission |
-| `checkPermissionRedirect($name, $itemId, $url, $time, $message, $trueIfAdmin)` | Check and redirect if denied |
-| `getItemIds($name, $groupIds)` | Get item IDs groups can access |
-| `getGroupsForItem($name, $itemId)` | Get groups with permission |
-| `savePermissionForItem($name, $itemId, $groups)` | Save permissions |
-| `deletePermissionForItem($name, $itemId)` | Delete permissions |
-| `getGroupSelectFormForItem(...)` | Create form select element |
-| `defaultFieldName($name, $itemId)` | Get default form field name |
+| Método | Descrição |
+|--------|-----------|
+| `checkPermission($name, $itemId, $trueIfAdmin)` | Verificar se usuário tem permissão |
+| `checkPermissionRedirect($name, $itemId, $url, $time, $message, $trueIfAdmin)` | Verificar e redirecionar se negada |
+| `getItemIds($name, $groupIds)` | Obter IDs de item que grupos podem acessar |
+| `getGroupsForItem($name, $itemId)` | Obter grupos com permissão |
+| `savePermissionForItem($name, $itemId, $groups)` | Salvar permissões |
+| `deletePermissionForItem($name, $itemId)` | Deletar permissões |
+| `getGroupSelectFormForItem(...)` | Criar elemento select de formulário |
+| `defaultFieldName($name, $itemId)` | Obter nome de campo de formulário padrão |
 
-## See Also
+## Veja Também
 
-- ../Basics/XMF-Module-Helper - Module helper documentation
-- Module-Admin-Pages - Admin interface creation
-- ../Basics/Getting-Started-with-XMF - XMF basics
+- ../Basics/XMF-Module-Helper - Documentação do module helper
+- Module-Admin-Pages - Criação de interface admin
+- ../Basics/Getting-Started-with-XMF - Básico de XMF
 
 ---
 

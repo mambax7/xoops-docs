@@ -1,60 +1,60 @@
 ---
-title: "XOOPS Event System"
+title: "Sistema de Eventos XOOPS"
 ---
 
 <span class="version-badge version-25x">2.5.x: Preloads</span> <span class="version-badge version-40x">4.0.x: PSR-14</span>
 
-:::note[Not sure which event system to use?]
-See [Choosing an Event System](Choosing-Event-System.md) for a decision tree with code examples for both approaches.
+:::note[Não tem certeza de qual sistema de eventos usar?]
+Veja [Escolhendo um Sistema de Eventos](Choosing-Event-System.md) para uma árvore de decisão com exemplos de código para ambas as abordagens.
 :::
 
-:::note[Two Event Systems in XOOPS]
-| System | Version | Use Case |
+:::note[Dois Sistemas de Eventos no XOOPS]
+| Sistema | Versão | Caso de Uso |
 |--------|---------|----------|
-| **Preload System** | ✅ XOOPS 2.5.x (current) | Hook into core events via `class/Preload.php` |
-| **PSR-14 Event Dispatcher** | 🚧 XOOPS 4.0 (future) | Modern event dispatching with typed events |
+| **Sistema de Preload** | ✅ XOOPS 2.5.x (atual) | Conectar a eventos principais via `class/Preload.php` |
+| **Despachador de Eventos PSR-14** | 🚧 XOOPS 4.0 (futuro) | Despacho de eventos moderno com eventos tipados |
 
-**For XOOPS 2.5.x modules**, use the [Preload System](#preload-system-legacy) section below. The PSR-14 section is for XOOPS 4.0 development.
+**Para módulos XOOPS 2.5.x**, use a seção [Sistema de Preload](#sistema-de-preload-legado) abaixo. A seção PSR-14 é para desenvolvimento do XOOPS 4.0.
 :::
 
-## Overview
+## Visão Geral
 
-The XOOPS event system enables loose coupling between modules through an observer pattern. Components can emit events that other parts of the system can listen to and respond to.
+O sistema de eventos XOOPS permite o acoplamento fraco entre módulos através de um padrão observer. Componentes podem emitir eventos que outras partes do sistema podem ouvir e responder.
 
-## Event Types
+## Tipos de Eventos
 
-### Core Events
+### Eventos do Core
 
-| Event | Trigger Point |
+| Evento | Ponto de Disparo |
 |-------|---------------|
-| `core.header.start` | Before header processing |
-| `core.header.end` | After header processing |
-| `core.footer.start` | Before footer rendering |
-| `core.footer.end` | After footer rendering |
-| `core.exception` | When exception occurs |
+| `core.header.start` | Antes do processamento do cabeçalho |
+| `core.header.end` | Depois do processamento do cabeçalho |
+| `core.footer.start` | Antes da renderização do rodapé |
+| `core.footer.end` | Depois da renderização do rodapé |
+| `core.exception` | Quando exceção ocorre |
 
-### Module Lifecycle Events
+### Eventos de Ciclo de Vida do Módulo
 
-| Event | Trigger Point |
+| Evento | Ponto de Disparo |
 |-------|---------------|
-| `module.install` | After module installation |
-| `module.update` | After module update |
-| `module.uninstall` | Before module removal |
-| `module.activate` | When module activated |
-| `module.deactivate` | When module deactivated |
+| `module.install` | Depois da instalação do módulo |
+| `module.update` | Depois da atualização do módulo |
+| `module.uninstall` | Antes da remoção do módulo |
+| `module.activate` | Quando o módulo é ativado |
+| `module.deactivate` | Quando o módulo é desativado |
 
-### User Events
+### Eventos de Usuário
 
-| Event | Trigger Point |
+| Evento | Ponto de Disparo |
 |-------|---------------|
-| `user.login` | After successful login |
-| `user.logout` | After logout |
-| `user.register` | After registration |
-| `user.delete` | Before user deletion |
+| `user.login` | Depois do login bem-sucedido |
+| `user.logout` | Depois do logout |
+| `user.register` | Depois do registro |
+| `user.delete` | Antes da exclusão do usuário |
 
-## Preload System (Legacy)
+## Sistema de Preload (Legado)
 
-### Creating a Preload
+### Criando um Preload
 
 ```php
 <?php
@@ -68,42 +68,42 @@ final class Preload extends AbstractHelper
 {
     public function eventCoreHeaderStart(array $args): void
     {
-        // Runs on every page before header
+        // Executa em cada página antes do cabeçalho
     }
 
     public function eventCoreFooterStart(array $args): void
     {
-        // Runs before footer renders
+        // Executa antes do rodapé renderizar
     }
 
     public function eventUserLogin(array $args): void
     {
         $userId = $args['userid'];
-        // Handle login event
+        // Lidar com evento de login
     }
 
     public function eventCoreException(array $args): void
     {
         $exception = $args['exception'];
-        // Log or handle exception
+        // Log ou lidar com exceção
     }
 }
 ```
 
-### Event Method Naming
+### Nomeação de Método de Evento
 
 ```
-event{Category}{Action}
+event{Categoria}{Ação}
 
-Examples:
+Exemplos:
 - eventCoreHeaderStart
 - eventUserLogin
 - eventModuleNewsArticleCreate
 ```
 
-## PSR-14 Event Dispatcher (XOOPS 4.0)
+## Despachador de Eventos PSR-14 (XOOPS 4.0)
 
-### Event Class
+### Classe de Evento
 
 ```php
 <?php
@@ -123,7 +123,7 @@ final class ArticleCreatedEvent
 }
 ```
 
-### Dispatching Events
+### Disparando Eventos
 
 ```php
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -140,7 +140,7 @@ final class ArticleService
         $article = Article::create($dto);
         $this->repository->save($article);
 
-        // Dispatch event
+        // Disparar evento
         $this->dispatcher->dispatch(new ArticleCreatedEvent(
             articleId: $article->getId(),
             authorId: $article->getAuthorId(),
@@ -153,7 +153,7 @@ final class ArticleService
 }
 ```
 
-### Event Listener
+### Ouvinte de Evento
 
 ```php
 <?php
@@ -183,7 +183,7 @@ final class SendNotificationOnArticleCreated
 }
 ```
 
-### Registering Listeners
+### Registrando Ouvintes
 
 ```php
 // config/events.php
@@ -207,7 +207,7 @@ return [
 ];
 ```
 
-## Stoppable Events
+## Eventos Paralizáveis
 
 ```php
 use Psr\EventDispatcher\StoppableEventInterface;
@@ -238,29 +238,29 @@ final class ArticlePublishingEvent implements StoppableEventInterface
     }
 }
 
-// Listener can stop propagation
+// Ouvinte pode parar propagação
 final class ContentModerationListener
 {
     public function __invoke(ArticlePublishingEvent $event): void
     {
         if ($this->containsProhibitedContent($event->article)) {
-            $event->reject('Content violates community guidelines');
+            $event->reject('Conteúdo viola diretrizes da comunidade');
         }
     }
 }
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Immutable Events** - Events should be read-only
-2. **Specific Events** - Create specific events, not generic ones
-3. **Async When Possible** - Use queues for slow operations
-4. **No Side Effects in Dispatch** - Dispatch should be quick
-5. **Document Events** - List available events for module users
+1. **Eventos Imutáveis** - Eventos devem ser somente leitura
+2. **Eventos Específicos** - Criar eventos específicos, não genéricos
+3. **Assíncrono Quando Possível** - Usar filas para operações lentas
+4. **Nenhum Efeito Colateral no Despacho** - Despacho deve ser rápido
+5. **Documente Eventos** - Listar eventos disponíveis para usuários do módulo
 
-## Related Documentation
+## Documentação Relacionada
 
-- [Module-Development](../03-Module-Development/Module-Development.md) - Module development
-- [Event-System-Guide](../07-XOOPS-4.0/Implementation-Guides/Event-System-Guide.md) - PSR-14 guide
-- [Hooks-Events](Hooks-Events.md) - Legacy hooks
-- [Events-and-Hooks](../10-Vision2026-Module/Developer-Guide/Events-and-Hooks.md) - Event examples
+- [Module-Development](../03-Module-Development/Module-Development.md) - Desenvolvimento de módulo
+- [Event-System-Guide](../07-XOOPS-4.0/Implementation-Guides/Event-System-Guide.md) - Guia PSR-14
+- [Hooks-Events](Hooks-Events.md) - Ganchos legados
+- [Events-and-Hooks](../10-Vision2026-Module/Developer-Guide/Events-and-Hooks.md) - Exemplos de eventos

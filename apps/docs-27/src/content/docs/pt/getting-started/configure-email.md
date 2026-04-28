@@ -1,43 +1,42 @@
 ---
-title: "Configure Email"
+title: "Configurar Email"
 ---
 
-![XOOPS Email Configuration](/xoops-docs/2.7/img/installation/xoops-04-email-setup.png)
+![Configuração de Email XOOPS](/xoops-docs/2.7/img/installation/xoops-04-email-setup.png)
 
-XOOPS relies on email for many critical user interactions, such as validating a registration, or resetting a password. So it is important that it be set up correctly.
+XOOPS depende de email para muitas interações críticas de usuários, como validar um registro ou redefinir uma senha. Portanto, é importante que seja configurado corretamente.
 
-Configuring site email can be very easy in some cases, and frustratingly difficult in others.
+Configurar email do site pode ser muito fácil em alguns casos e frustrante em outros.
 
-Here are some tips to help make your setup a success.
+Aqui estão algumas dicas para ajudar a tornar sua configuração um sucesso.
 
-## Email Delivery Method
+## Método de Entrega de Email
 
-This section of the configuration has 4 possible values
+Esta seção da configuração tem 4 valores possíveis
 
-* **PHP Mail()** - the easiest way, if it is available. Depends on the system _sendmail_ program.
-* **sendmail** - An industrial strength option, but often targeted for SPAM by exploiting weaknesses in other software.
-* **SMTP** - Simple Mail Transfer Protocol is not usually available in new hosting accounts due to security concerns and potential for abuse. It has largely been replaced with SMTP Auth.
-* **SMTP Auth** - SMTP with Authorization is usually prefered over plain SMTP. In this case XOOPS connects directly to the mail server in a more secure manner.
+* **PHP Mail()** - a maneira mais fácil, se disponível. Depende do programa _sendmail_ do sistema.
+* **sendmail** - Uma opção de força industrial, mas geralmente alvo de SPAM explorando fraquezas em outro software.
+* **SMTP** - Simple Mail Transfer Protocol geralmente não está disponível em novas contas de hospedagem devido a preocupações de segurança e potencial de abuso. Tem sido amplamente substituído por SMTP Auth.
+* **SMTP Auth** - SMTP com Autorização é geralmente preferido em relação ao SMTP simples. Neste caso, o XOOPS se conecta diretamente ao servidor de email de forma mais segura.
 
-## SMTP Hosts
+## Hosts SMTP
 
-If you need to use SMTP, with or without "Auth," you will need to specify a server name here. That name may be a simple host name or IP address, or it may include additional port and protocol information. The simplest case would be `localhost` for a SMTP (no auth) sever running on the same machine with the web server.
+Se você precisa usar SMTP, com ou sem "Auth", será necessário especificar um nome de servidor aqui. Esse nome pode ser um nome de host ou endereço IP simples, ou pode incluir informações adicionais de porta e protocolo. O caso mais simples seria `localhost` para um servidor SMTP (sem auth) rodando na mesma máquina com o servidor web.
 
-SMTP username and SMTP password are always required when using SMTP Auth. It is possible to specify TLS or SSL, as well as a port in the XOOPS configuration field SMTP Hosts.
+Nome de usuário SMTP e senha SMTP são sempre necessários ao usar SMTP Auth. É possível especificar TLS ou SSL, bem como uma porta no campo de configuração XOOPS Hosts SMTP.
 
-This could be used to connect to Gmail's SMTP: `tls://smtp.gmail.com:587`
+Isso pode ser usado para conectar ao SMTP do Gmail: `tls://smtp.gmail.com:587`
 
-Another example using SSL: `ssl://mail.example.com:465`
+Outro exemplo usando SSL: `ssl://mail.example.com:465`
 
-## Tips for Troubleshooting
+## Dicas para Solução de Problemas
 
-Sometimes, things don't go as smooth as we might hope. Here are some suggestions and resources that might help.
+Às vezes, as coisas não correm tão bem quanto esperamos. Aqui estão algumas sugestões e recursos que podem ajudar.
 
-### Check your hosting provider's documentation
+### Verifique a documentação do seu provedor de hospedagem
 
-When you establish hosting service with a provider, they should provide information about how to access email servers. You want to have this available when you configure the email for your XOOPS system.
+Quando você estabelece serviço de hospedagem com um provedor, ele deve fornecer informações sobre como acessar servidores de email. Você deseja ter isso disponível quando configurar o email para seu sistema XOOPS.
 
-### XOOPS Uses PHPMailer
+### XOOPS Usa PHPMailer
 
-XOOPS uses the [PHPMailer](https://github.com/PHPMailer/PHPMailer) library to send email. The [troubleshooting](https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting) section in the wiki offers some insights.
-
+XOOPS usa a biblioteca [PHPMailer](https://github.com/PHPMailer/PHPMailer) para enviar email. A seção [solução de problemas](https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting) no wiki oferece alguns insights.

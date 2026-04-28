@@ -1,753 +1,753 @@
 ---
-title: "Publisher - Managing Categories"
-description: "Guide to creating, organizing, and managing article categories in Publisher"
+title: "Publisher - Gerenciando Categorias"
+description: "Guia para criar, organizar e gerenciar categorias de artigos no Publisher"
 ---
 
-# Managing Categories in Publisher
+# Gerenciando Categorias no Publisher
 
-> Complete guide to creating, organizing hierarchies, and managing categories in the Publisher module.
-
----
-
-## Category Basics
-
-### What Are Categories?
-
-Categories organize articles into logical groups:
-
-```
-Example Structure:
-
-  News (Main Category)
-    ├── Technology
-    ├── Sports
-    └── Entertainment
-
-  Tutorials (Main Category)
-    ├── Photography
-    │   ├── Basics
-    │   └── Advanced
-    └── Writing
-        └── Blogging
-```
-
-### Benefits of Good Category Structure
-
-```
-✓ Better user navigation
-✓ Organized content
-✓ Improved SEO
-✓ Easier content management
-✓ Better editorial workflow
-```
+> Guia completo para criar, organizar hierarquias e gerenciar categorias no módulo Publisher.
 
 ---
 
-## Access Category Management
+## Fundamentos de Categorias
 
-### Admin Panel Navigation
+### O Que São Categorias?
+
+Categorias organizam artigos em grupos lógicos:
 
 ```
-Admin Panel
-└── Modules
+Estrutura de Exemplo:
+
+  Notícias (Categoria Principal)
+    ├── Tecnologia
+    ├── Esportes
+    └── Entretenimento
+
+  Tutoriais (Categoria Principal)
+    ├── Fotografia
+    │   ├── Básico
+    │   └── Avançado
+    └── Escrita
+        └── Blog
+```
+
+### Benefícios de uma Boa Estrutura de Categoria
+
+```
+✓ Melhor navegação do usuário
+✓ Conteúdo organizado
+✓ SEO melhorado
+✓ Gerenciamento de conteúdo mais fácil
+✓ Fluxo editorial melhor
+```
+
+---
+
+## Acessar Gerenciamento de Categorias
+
+### Navegação do Painel de Admin
+
+```
+Painel de Admin
+└── Módulos
     └── Publisher
-        └── Categories
-            ├── Create New
-            ├── Edit
-            ├── Delete
-            ├── Permissions
-            └── Organize
+        └── Categorias
+            ├── Criar Novo
+            ├── Editar
+            ├── Excluir
+            ├── Permissões
+            └── Organizar
 ```
 
-### Quick Access
+### Acesso Rápido
 
-1. Log in as **Administrator**
-2. Go to **Admin → Modules**
-3. Click **Publisher → Admin**
-4. Click **Categories** in left menu
+1. Faça login como **Administrador**
+2. Vá para **Admin → Módulos**
+3. Clique em **Publisher → Admin**
+4. Clique em **Categorias** no menu esquerdo
 
 ---
 
-## Creating Categories
+## Criando Categorias
 
-### Category Creation Form
+### Formulário de Criação de Categoria
 
 ```mermaid
 graph TD
-    A[Create Category] -->|Step 1| B[Basic Info]
-    A -->|Step 2| C[Details]
-    A -->|Step 3| D[Images]
-    A -->|Step 4| E[Settings]
-    A -->|Step 5| F[Save]
+    A[Criar Categoria] -->|Etapa 1| B[Informações Básicas]
+    A -->|Etapa 2| C[Detalhes]
+    A -->|Etapa 3| D[Imagens]
+    A -->|Etapa 4| E[Configurações]
+    A -->|Etapa 5| F[Salvar]
 ```
 
-### Step 1: Basic Information
+### Etapa 1: Informações Básicas
 
-#### Category Name
-
-```
-Field: Category Name
-Type: Text input (required)
-Max length: 100 characters
-Uniqueness: Should be unique
-Example: "Photography"
-```
-
-**Guidelines:**
-- Descriptive and singular or plural consistently
-- Capitalized properly
-- Avoid special characters
-- Keep reasonably short
-
-#### Category Description
+#### Nome da Categoria
 
 ```
-Field: Description
-Type: Textarea (optional)
-Max length: 500 characters
-Used in: Category listing pages, category blocks
+Campo: Nome da Categoria
+Tipo: Entrada de texto (obrigatório)
+Comprimento máximo: 100 caracteres
+Singularidade: Deve ser único
+Exemplo: "Fotografia"
 ```
 
-**Purpose:**
-- Explains category content
-- Appears above category articles
-- Helps users understand scope
-- Used for SEO meta description
+**Diretrizes:**
+- Descritivo e singular ou plural consistentemente
+- Capitalizado adequadamente
+- Evitar caracteres especiais
+- Manter razoavelmente curto
 
-**Example:**
-```
-"Photography tips, tutorials, and inspiration for
-all skill levels. From composition basics to advanced
-lighting techniques, master your craft."
-```
-
-### Step 2: Parent Category
-
-#### Create Hierarchy
+#### Descrição da Categoria
 
 ```
-Field: Parent Category
-Type: Dropdown
-Options: None (root), or existing categories
+Campo: Descrição
+Tipo: Área de texto (opcional)
+Comprimento máximo: 500 caracteres
+Usado em: Páginas de listagem de categorias, blocos de categoria
 ```
 
-**Hierarchy Examples:**
+**Propósito:**
+- Explica o conteúdo da categoria
+- Aparece acima dos artigos da categoria
+- Ajuda os usuários a entender o escopo
+- Usado para descrição meta de SEO
 
+**Exemplo:**
 ```
-Flat Structure:
-  News
-  Tutorials
-  Reviews
-
-Nested Structure:
-  News
-    Technology
-    Business
-    Sports
-  Tutorials
-    Photography
-      Basics
-      Advanced
-    Writing
+"Dicas de fotografia, tutoriais e inspiração para todos
+os níveis de habilidade. De fundamentos de composição a técnicas
+avançadas de iluminação, domine sua arte."
 ```
 
-**Create Subcategory:**
+### Etapa 2: Categoria Pai
 
-1. Click **Parent Category** dropdown
-2. Select parent (e.g., "News")
-3. Fill in category name
-4. Save
-5. New category appears as child
-
-### Step 3: Category Image
-
-#### Upload Category Image
+#### Criar Hierarquia
 
 ```
-Field: Category Image
-Type: Image upload (optional)
-Format: JPG, PNG, GIF, WebP
-Max size: 5 MB
-Recommended: 300x200 px (or your theme size)
+Campo: Categoria Pai
+Tipo: Dropdown
+Opções: Nenhuma (raiz), ou categorias existentes
 ```
 
-**To Upload:**
+**Exemplos de Hierarquia:**
 
-1. Click **Upload Image** button
-2. Select image from computer
-3. Crop/resize if needed
-4. Click **Use This Image**
+```
+Estrutura Plana:
+  Notícias
+  Tutoriais
+  Resenhas
 
-**Where Used:**
-- Category listing page
-- Category block header
-- Breadcrumb (some themes)
-- Social media sharing
+Estrutura Aninhada:
+  Notícias
+    Tecnologia
+    Negócios
+    Esportes
+  Tutoriais
+    Fotografia
+      Básico
+      Avançado
+    Escrita
+```
 
-### Step 4: Category Settings
+**Criar Subcategoria:**
 
-#### Display Settings
+1. Clique no dropdown **Categoria Pai**
+2. Selecione categoria pai (ex.: "Notícias")
+3. Preencha o nome da categoria
+4. Salve
+5. Nova categoria aparece como filha
+
+### Etapa 3: Imagem da Categoria
+
+#### Enviar Imagem da Categoria
+
+```
+Campo: Imagem da Categoria
+Tipo: Envio de imagem (opcional)
+Formato: JPG, PNG, GIF, WebP
+Tamanho máximo: 5 MB
+Recomendado: 300x200 px (ou tamanho do seu tema)
+```
+
+**Para Enviar:**
+
+1. Clique no botão **Enviar Imagem**
+2. Selecione imagem do computador
+3. Recorte/redimensione se necessário
+4. Clique em **Usar Esta Imagem**
+
+**Onde É Usada:**
+- Página de listagem de categorias
+- Cabeçalho de bloco de categoria
+- Breadcrumb (alguns temas)
+- Compartilhamento em redes sociais
+
+### Etapa 4: Configurações de Categoria
+
+#### Configurações de Exibição
 
 ```yaml
 Status:
-  - Enabled: Yes/No
-  - Hidden: Yes/No (hidden from menus, still accessible)
+  - Habilitado: Sim/Não
+  - Oculto: Sim/Não (oculto de menus, ainda acessível)
 
-Display Options:
-  - Show description: Yes/No
-  - Show image: Yes/No
-  - Show article count: Yes/No
-  - Show subcategories: Yes/No
+Opções de Exibição:
+  - Mostrar descrição: Sim/Não
+  - Mostrar imagem: Sim/Não
+  - Mostrar contagem de artigos: Sim/Não
+  - Mostrar subcategorias: Sim/Não
 
 Layout:
-  - Items per page: 10-50
-  - Display order: Date/Title/Author
-  - Display direction: Ascending/Descending
+  - Itens por página: 10-50
+  - Ordem de exibição: Data/Título/Autor
+  - Direção de exibição: Ascendente/Descendente
 ```
 
-#### Category Permissions
+#### Permissões de Categoria
 
 ```yaml
-Who Can View:
-  - Anonymous: Yes/No
-  - Registered: Yes/No
-  - Specific groups: Configure per group
+Quem Pode Ver:
+  - Anônimo: Sim/Não
+  - Registrado: Sim/Não
+  - Grupos específicos: Configurar por grupo
 
-Who Can Submit:
-  - Registered: Yes/No
-  - Specific groups: Configure per group
-  - Author must have: "submit articles" permission
+Quem Pode Enviar:
+  - Registrado: Sim/Não
+  - Grupos específicos: Configurar por grupo
+  - Autor deve ter: permissão "enviar artigos"
 ```
 
-### Step 5: SEO Settings
+### Etapa 5: Configurações de SEO
 
 #### Meta Tags
 
 ```
-Field: Meta Description
-Type: Text (160 characters)
-Purpose: Search engine description
+Campo: Meta Descrição
+Tipo: Texto (160 caracteres)
+Propósito: Descrição de mecanismo de busca
 
-Field: Meta Keywords
-Type: Comma-separated list
-Example: photography, tutorials, tips, techniques
+Campo: Meta Palavras-chave
+Tipo: Lista separada por vírgula
+Exemplo: fotografia, tutoriais, dicas, técnicas
 ```
 
-#### URL Configuration
+#### Configuração de URL
 
 ```
-Field: URL Slug
-Type: Text
-Auto-generated from category name
-Example: "photography" from "Photography"
-Can be customized before saving
+Campo: Slug de URL
+Tipo: Texto
+Gerado automaticamente a partir do nome da categoria
+Exemplo: "fotografia" de "Fotografia"
+Pode ser personalizado antes de salvar
 ```
 
-### Save Category
+### Salvar Categoria
 
-1. Fill all required fields:
-   - Category Name ✓
-   - Description (recommended)
-2. Optional: Upload image, set SEO
-3. Click **Save Category**
-4. Confirmation message appears
-5. Category is now available
+1. Preencha todos os campos obrigatórios:
+   - Nome da Categoria ✓
+   - Descrição (recomendado)
+2. Opcional: Enviar imagem, definir SEO
+3. Clique em **Salvar Categoria**
+4. Mensagem de confirmação aparece
+5. Categoria agora está disponível
 
 ---
 
-## Category Hierarchy
+## Hierarquia de Categorias
 
-### Create Nested Structure
-
-```
-Step-by-step example: Create News → Technology subcategory
-
-1. Go to Categories admin
-2. Click "Add Category"
-3. Name: "News"
-4. Parent: (leave blank - this is root)
-5. Save
-6. Click "Add Category" again
-7. Name: "Technology"
-8. Parent: "News" (select from dropdown)
-9. Save
-```
-
-### View Hierarchy Tree
+### Criar Estrutura Aninhada
 
 ```
-Categories view shows tree structure:
+Exemplo passo a passo: Criar Notícias → subcategoria Tecnologia
 
-📁 News
-  📄 Technology
-  📄 Sports
-  📄 Entertainment
-📁 Tutorials
-  📄 Photography
-    📄 Basics
-    📄 Advanced
-  📄 Writing
+1. Vá para admin de Categorias
+2. Clique em "Adicionar Categoria"
+3. Nome: "Notícias"
+4. Categoria Pai: (deixe em branco - esta é raiz)
+5. Salve
+6. Clique em "Adicionar Categoria" novamente
+7. Nome: "Tecnologia"
+8. Categoria Pai: "Notícias" (selecione do dropdown)
+9. Salve
 ```
 
-Click expand arrows to show/hide subcategories.
+### Ver Árvore de Hierarquia
 
-### Reorganize Categories
+```
+Visualização de categorias mostra estrutura em árvore:
 
-#### Move Category
+📁 Notícias
+  📄 Tecnologia
+  📄 Esportes
+  📄 Entretenimento
+📁 Tutoriais
+  📄 Fotografia
+    📄 Básico
+    📄 Avançado
+  📄 Escrita
+```
 
-1. Go to Categories list
-2. Click **Edit** on category
-3. Change **Parent Category**
-4. Click **Save**
-5. Category moved to new position
+Clique nas setas de expansão para mostrar/ocultar subcategorias.
 
-#### Reorder Categories
+### Reorganizar Categorias
 
-If available, use drag-and-drop:
+#### Mover Categoria
 
-1. Go to Categories list
-2. Click and drag category
-3. Drop in new position
-4. Order saves automatically
+1. Vá para lista de Categorias
+2. Clique em **Editar** na categoria
+3. Mude **Categoria Pai**
+4. Clique em **Salvar**
+5. Categoria movida para nova posição
 
-#### Delete Category
+#### Reordenar Categorias
 
-**Option 1: Soft Delete (Hide)**
+Se disponível, use arrastar e soltar:
 
-1. Edit category
-2. Set **Status**: Disabled
-3. Click **Save**
-4. Category hidden but not deleted
+1. Vá para lista de Categorias
+2. Clique e arraste categoria
+3. Solte na nova posição
+4. Ordem salva automaticamente
 
-**Option 2: Hard Delete**
+#### Excluir Categoria
 
-1. Go to Categories list
-2. Click **Delete** on category
-3. Choose action for articles:
+**Opção 1: Exclusão Suave (Ocultar)**
+
+1. Edite categoria
+2. Defina **Status**: Desabilitado
+3. Clique em **Salvar**
+4. Categoria oculta mas não excluída
+
+**Opção 2: Exclusão Dura**
+
+1. Vá para lista de Categorias
+2. Clique em **Excluir** na categoria
+3. Escolha ação para artigos:
    ```
-   ☐ Move articles to parent category
-   ☐ Move articles to root (News)
-   ☐ Delete all articles in category
+   ☐ Mover artigos para categoria pai
+   ☐ Mover artigos para raiz (Notícias)
+   ☐ Excluir todos os artigos na categoria
    ```
-4. Confirm deletion
+4. Confirme exclusão
 
 ---
 
-## Category Operations
+## Operações de Categoria
 
-### Edit Category
+### Editar Categoria
 
-1. Go to **Admin → Publisher → Categories**
-2. Click **Edit** on category
-3. Modify fields:
-   - Name
-   - Description
-   - Parent category
-   - Image
-   - Settings
-4. Click **Save**
+1. Vá para **Admin → Publisher → Categorias**
+2. Clique em **Editar** na categoria
+3. Modifique campos:
+   - Nome
+   - Descrição
+   - Categoria pai
+   - Imagem
+   - Configurações
+4. Clique em **Salvar**
 
-### Edit Category Permissions
+### Editar Permissões de Categoria
 
-1. Go to Categories
-2. Click **Permissions** on category (or click category then click Permissions)
-3. Configure groups:
+1. Vá para Categorias
+2. Clique em **Permissões** na categoria (ou clique na categoria e depois em Permissões)
+3. Configure grupos:
 
 ```
-For each group:
-  ☐ View articles in this category
-  ☐ Submit articles to this category
-  ☐ Edit own articles
-  ☐ Edit all articles
-  ☐ Approve/Moderate articles
-  ☐ Manage category
+Para cada grupo:
+  ☐ Ver artigos nesta categoria
+  ☐ Enviar artigos para esta categoria
+  ☐ Editar próprios artigos
+  ☐ Editar todos os artigos
+  ☐ Aprovar/Moderar artigos
+  ☐ Gerenciar categoria
 ```
 
-4. Click **Save Permissions**
+4. Clique em **Salvar Permissões**
 
-### Set Category Image
+### Definir Imagem de Categoria
 
-**Upload new image:**
+**Enviar nova imagem:**
 
-1. Edit category
-2. Click **Change Image**
-3. Upload or select image
-4. Crop/resize
-5. Click **Use Image**
-6. Click **Save Category**
+1. Edite categoria
+2. Clique em **Mudar Imagem**
+3. Envie ou selecione imagem
+4. Recorte/redimensione
+5. Clique em **Usar Imagem**
+6. Clique em **Salvar Categoria**
 
-**Remove image:**
+**Remover imagem:**
 
-1. Edit category
-2. Click **Remove Image** (if available)
-3. Click **Save Category**
+1. Edite categoria
+2. Clique em **Remover Imagem** (se disponível)
+3. Clique em **Salvar Categoria**
 
 ---
 
-## Category Permissions
+## Permissões de Categoria
 
-### Permission Matrix
-
-```
-                 Anonymous  Registered  Editor  Admin
-View category        ✓         ✓         ✓       ✓
-Submit article       ✗         ✓         ✓       ✓
-Edit own article     ✗         ✓         ✓       ✓
-Edit all articles    ✗         ✗         ✓       ✓
-Moderate articles    ✗         ✗         ✓       ✓
-Manage category      ✗         ✗         ✗       ✓
-```
-
-### Set Category-Level Permissions
-
-#### Per-Category Access Control
-
-1. Go to **Categories** list
-2. Select a category
-3. Click **Permissions**
-4. For each group, select permissions:
+### Matriz de Permissões
 
 ```
-Example: News category
-  Anonymous:   View only
-  Registered:  Submit articles
-  Editors:     Approve articles
-  Admins:      Full control
+                 Anônimo  Registrado  Editor  Admin
+Ver categoria       ✓         ✓         ✓       ✓
+Enviar artigo       ✗         ✓         ✓       ✓
+Editar próprio      ✗         ✓         ✓       ✓
+Editar todos        ✗         ✗         ✓       ✓
+Moderar artigos     ✗         ✗         ✓       ✓
+Gerenciar categoria ✗         ✗         ✗       ✓
 ```
 
-5. Click **Save**
+### Definir Permissões em Nível de Categoria
 
-#### Field-Level Permissions
+#### Controle de Acesso Por Categoria
 
-Control which form fields users can see/edit:
+1. Vá para lista de **Categorias**
+2. Selecione uma categoria
+3. Clique em **Permissões**
+4. Para cada grupo, selecione permissões:
 
 ```
-Example: Limit field visibility for Registered users
-
-Registered users can see/edit:
-  ✓ Title
-  ✓ Description
-  ✓ Content
-  ✗ Author (auto-set to current user)
-  ✗ Scheduled date (only editors)
-  ✗ Featured (only admins)
+Exemplo: categoria Notícias
+  Anônimo:   Apenas visualização
+  Registrado: Enviar artigos
+  Editores:   Aprovar artigos
+  Admins:     Controle total
 ```
 
-**Configure in:**
-- Category Permissions
-- Look for "Field Visibility" section
+5. Clique em **Salvar**
+
+#### Permissões em Nível de Campo
+
+Controle quais campos do formulário os usuários podem ver/editar:
+
+```
+Exemplo: Limitar visibilidade de campo para usuários Registrados
+
+Usuários registrados podem ver/editar:
+  ✓ Título
+  ✓ Descrição
+  ✓ Conteúdo
+  ✗ Autor (auto-definido para usuário atual)
+  ✗ Data agendada (apenas editores)
+  ✗ Destaque (apenas admins)
+```
+
+**Configure em:**
+- Permissões de Categoria
+- Procure por seção "Visibilidade de Campo"
 
 ---
 
-## Best Practices for Categories
+## Melhores Práticas para Categorias
 
-### Category Structure
-
-```
-✓ Keep hierarchy 2-3 levels deep
-✗ Don't create too many top-level categories
-✗ Don't create categories with one article
-
-✓ Use consistent naming (plural or singular)
-✗ Don't use vague names ("Stuff", "Other")
-
-✓ Create categories for articles that exist
-✗ Don't create empty categories in advance
-```
-
-### Naming Guidelines
+### Estrutura de Categoria
 
 ```
-Good names:
-  "Photography"
-  "Web Development"
-  "Travel Tips"
-  "Business News"
+✓ Manter hierarquia com 2-3 níveis de profundidade
+✗ Não criar muitas categorias de nível superior
+✗ Não criar categorias com um artigo
 
-Avoid:
-  "Articles" (too vague)
-  "Content" (redundant)
-  "News&Updates" (inconsistent)
-  "PHOTOGRAPHY STUFF" (formatting)
+✓ Usar nomenclatura consistente (plural ou singular)
+✗ Não usar nomes vagos ("Coisas", "Outro")
+
+✓ Criar categorias para artigos que existem
+✗ Não criar categorias vazias antecipadamente
 ```
 
-### Organization Tips
+### Diretrizes de Nomenclatura
 
 ```
-By Topic:
-  News
-    Technology
-    Sports
-    Entertainment
+Bons nomes:
+  "Fotografia"
+  "Desenvolvimento Web"
+  "Dicas de Viagem"
+  "Notícias de Negócios"
 
-By Type:
-  Tutorials
-    Video
-    Text
-    Interactive
+Evitar:
+  "Artigos" (muito vago)
+  "Conteúdo" (redundante)
+  "Notícias&Atualizações" (inconsistente)
+  "COISAS DE FOTOGRAFIA" (formatação)
+```
 
-By Audience:
-  For Beginners
-  For Experts
-  Case Studies
+### Dicas de Organização
 
-Geographic:
-  North America
-    United States
-    Canada
-  Europe
+```
+Por Tópico:
+  Notícias
+    Tecnologia
+    Esportes
+    Entretenimento
+
+Por Tipo:
+  Tutoriais
+    Vídeo
+    Texto
+    Interativo
+
+Por Público:
+  Para Iniciantes
+  Para Especialistas
+  Estudos de Caso
+
+Geográfico:
+  América do Norte
+    Estados Unidos
+    Canadá
+  Europa
 ```
 
 ---
 
-## Category Blocks
+## Blocos de Categoria
 
-### Publisher Category Block
+### Bloco de Categoria do Publisher
 
-Display category listings on your site:
+Exibir listagens de categorias em seu site:
 
-1. Go to **Admin → Blocks**
-2. Find **Publisher - Categories**
-3. Click **Edit**
+1. Vá para **Admin → Blocos**
+2. Encontre **Publisher - Categorias**
+3. Clique em **Editar**
 4. Configure:
 
 ```
-Block Title: "News Categories"
-Show subcategories: Yes/No
-Show article count: Yes/No
-Height: (pixels or auto)
+Título do Bloco: "Categorias de Notícias"
+Mostrar subcategorias: Sim/Não
+Mostrar contagem de artigos: Sim/Não
+Altura: (pixels ou automático)
 ```
 
-5. Click **Save**
+5. Clique em **Salvar**
 
-### Category Articles Block
+### Bloco de Artigos de Categoria
 
-Show latest articles from specific category:
+Mostrar artigos recentes de categoria específica:
 
-1. Go to **Admin → Blocks**
-2. Find **Publisher - Category Articles**
-3. Click **Edit**
-4. Select:
+1. Vá para **Admin → Blocos**
+2. Encontre **Publisher - Artigos de Categoria**
+3. Clique em **Editar**
+4. Selecione:
 
 ```
-Category: News (or specific category)
-Number of articles: 5
-Show images: Yes/No
-Show description: Yes/No
+Categoria: Notícias (ou categoria específica)
+Número de artigos: 5
+Mostrar imagens: Sim/Não
+Mostrar descrição: Sim/Não
 ```
 
-5. Click **Save**
+5. Clique em **Salvar**
 
 ---
 
-## Category Analytics
+## Análise de Categoria
 
-### View Category Statistics
+### Ver Estatísticas de Categoria
 
-From Categories admin:
+Do admin de Categorias:
 
 ```
-Each category shows:
-  - Total articles: 45
-  - Published: 42
-  - Draft: 2
-  - Pending approval: 1
-  - Total views: 5,234
-  - Latest article: 2 hours ago
+Cada categoria mostra:
+  - Total de artigos: 45
+  - Publicados: 42
+  - Rascunho: 2
+  - Aguardando aprovação: 1
+  - Total de visualizações: 5.234
+  - Artigo mais recente: 2 horas atrás
 ```
 
-### View Category Traffic
+### Ver Tráfego de Categoria
 
-If analytics enabled:
+Se análise ativada:
 
-1. Click category name
-2. Click **Statistics** tab
-3. View:
-   - Page views
-   - Popular articles
-   - Traffic trends
-   - Search terms used
+1. Clique no nome da categoria
+2. Clique na aba **Estatísticas**
+3. Veja:
+   - Visualizações de página
+   - Artigos populares
+   - Tendências de tráfego
+   - Termos de busca usados
 
 ---
 
-## Category Templates
+## Templates de Categoria
 
-### Customize Category Display
+### Personalizar Exibição de Categoria
 
-If using custom templates, each category can override:
+Se usar templates personalizados, cada categoria pode substituir:
 
 ```
 publisher_category.tpl
-  ├── Category header
-  ├── Category description
-  ├── Category image
-  ├── Article listing
-  └── Pagination
+  ├── Cabeçalho de categoria
+  ├── Descrição da categoria
+  ├── Imagem da categoria
+  ├── Listagem de artigos
+  └── Paginação
 ```
 
-**To customize:**
+**Para personalizar:**
 
-1. Copy template file
-2. Modify HTML/CSS
-3. Assign to category in admin
-4. Category uses custom template
+1. Copie arquivo de template
+2. Modifique HTML/CSS
+3. Atribua à categoria em admin
+4. Categoria usa template personalizado
 
 ---
 
-## Common Tasks
+## Tarefas Comuns
 
-### Create News Hierarchy
-
-```
-Admin → Publisher → Categories
-1. Create "News" (parent)
-2. Create "Technology" (parent: News)
-3. Create "Sports" (parent: News)
-4. Create "Entertainment" (parent: News)
-```
-
-### Move Articles Between Categories
-
-1. Go to **Articles** admin
-2. Select articles (checkboxes)
-3. Select **"Change Category"** from bulk actions dropdown
-4. Choose new category
-5. Click **Update All**
-
-### Hide Category Without Deleting
-
-1. Edit category
-2. Set **Status**: Disabled/Hidden
-3. Save
-4. Category not shown in menus (still accessible via URL)
-
-### Create Category for Drafts
+### Criar Hierarquia de Notícias
 
 ```
-Best Practice:
-
-Create "In Review" category
-  ├── Purpose: Articles awaiting approval
-  ├── Permissions: Hidden from public
-  ├── Only admins/editors can see
-  ├── Move articles here until approved
-  └── Move to "News" when published
+Admin → Publisher → Categorias
+1. Criar "Notícias" (pai)
+2. Criar "Tecnologia" (pai: Notícias)
+3. Criar "Esportes" (pai: Notícias)
+4. Criar "Entretenimento" (pai: Notícias)
 ```
 
----
+### Mover Artigos Entre Categorias
 
-## Import/Export Categories
+1. Vá para admin de **Artigos**
+2. Selecione artigos (checkboxes)
+3. Selecione **"Mudar Categoria"** do dropdown de ações em massa
+4. Escolha nova categoria
+5. Clique em **Atualizar Todos**
 
-### Export Categories
+### Ocultar Categoria Sem Excluir
 
-If available:
+1. Edite categoria
+2. Defina **Status**: Desabilitado/Oculto
+3. Salve
+4. Categoria não mostrada em menus (ainda acessível via URL)
 
-1. Go to **Categories** admin
-2. Click **Export**
-3. Select format: CSV/JSON/XML
-4. Download file
-5. Backup saved
+### Criar Categoria para Rascunhos
 
-### Import Categories
-
-If available:
-
-1. Prepare file with categories
-2. Go to **Categories** admin
-3. Click **Import**
-4. Upload file
-5. Choose update strategy:
-   - Create new only
-   - Update existing
-   - Replace all
-6. Click **Import**
-
----
-
-## Troubleshooting Categories
-
-### Problem: Subcategories not showing
-
-**Solution:**
 ```
-1. Verify parent category status is "Enabled"
-2. Check permissions allow viewing
-3. Verify subcategories have status "Enabled"
-4. Clear cache: Admin → Tools → Clear Cache
-5. Check theme shows subcategories
-```
+Melhor Prática:
 
-### Problem: Can't delete category
-
-**Solution:**
-```
-1. Category must have no articles
-2. Move or delete articles first:
-   Admin → Articles
-   Select articles in category
-   Change category to another
-3. Then delete empty category
-4. Or choose "move articles" option when deleting
-```
-
-### Problem: Category image not showing
-
-**Solution:**
-```
-1. Verify image uploaded successfully
-2. Check image file format (JPG, PNG)
-3. Verify upload directory permissions
-4. Check theme displays category images
-5. Try re-uploading image
-6. Clear browser cache
-```
-
-### Problem: Permissions not taking effect
-
-**Solution:**
-```
-1. Check group permissions in Category
-2. Check global Publisher permissions
-3. Check user belongs to configured group
-4. Clear session cache
-5. Log out and log back in
-6. Check permission modules installed
+Criar categoria "Em Revisão"
+  ├── Propósito: Artigos aguardando aprovação
+  ├── Permissões: Oculta do público
+  ├── Apenas admins/editores podem ver
+  ├── Mover artigos aqui até aprovação
+  └── Mover para "Notícias" quando publicado
 ```
 
 ---
 
-## Category Best Practices Checklist
+## Importar/Exportar Categorias
 
-Before deploying categories:
+### Exportar Categorias
 
-- [ ] Hierarchy is 2-3 levels deep
-- [ ] Each category has 5+ articles
-- [ ] Category names are consistent
-- [ ] Permissions are appropriate
-- [ ] Category images are optimized
-- [ ] Descriptions are complete
-- [ ] SEO metadata filled in
-- [ ] URLs are friendly
-- [ ] Categories tested on front-end
-- [ ] Documentation updated
+Se disponível:
 
----
+1. Vá para admin de **Categorias**
+2. Clique em **Exportar**
+3. Selecione formato: CSV/JSON/XML
+4. Baixe arquivo
+5. Backup salvo
 
-## Related Guides
+### Importar Categorias
 
-- Article Creation
-- Permission Management
-- Module Configuration
-- Installation Guide
+Se disponível:
 
----
-
-## Next Steps
-
-- Create Articles in categories
-- Configure Permissions
-- Customize with Custom Templates
+1. Prepare arquivo com categorias
+2. Vá para admin de **Categorias**
+3. Clique em **Importar**
+4. Envie arquivo
+5. Escolha estratégia de atualização:
+   - Criar apenas novo
+   - Atualizar existente
+   - Substituir tudo
+6. Clique em **Importar**
 
 ---
 
-#publisher #categories #organization #hierarchy #management #xoops
+## Solução de Problemas de Categorias
+
+### Problema: Subcategorias não aparecem
+
+**Solução:**
+```
+1. Verifique se status da categoria pai é "Habilitado"
+2. Verifique se permissões permitem visualização
+3. Verifique se subcategorias têm status "Habilitado"
+4. Limpar cache: Admin → Ferramentas → Limpar Cache
+5. Verificar se tema mostra subcategorias
+```
+
+### Problema: Não consigo excluir categoria
+
+**Solução:**
+```
+1. Categoria deve estar sem artigos
+2. Mova ou exclua artigos primeiro:
+   Admin → Artigos
+   Selecione artigos na categoria
+   Mude categoria para outra
+3. Então exclua categoria vazia
+4. Ou escolha opção "mover artigos" ao excluir
+```
+
+### Problema: Imagem de categoria não aparece
+
+**Solução:**
+```
+1. Verifique se imagem foi enviada com sucesso
+2. Verificar formato de arquivo de imagem (JPG, PNG)
+3. Verifique permissões do diretório de envio
+4. Verificar se tema exibe imagens de categoria
+5. Tente re-enviar imagem
+6. Limpar cache do navegador
+```
+
+### Problema: Permissões não têm efeito
+
+**Solução:**
+```
+1. Verificar permissões de grupo na Categoria
+2. Verificar permissões globais do Publisher
+3. Verificar se usuário pertence ao grupo configurado
+4. Limpar cache de sessão
+5. Fazer logout e fazer login novamente
+6. Verificar se módulos de permissão estão instalados
+```
+
+---
+
+## Lista de Verificação de Melhores Práticas de Categoria
+
+Antes de implantar categorias:
+
+- [ ] Hierarquia tem 2-3 níveis de profundidade
+- [ ] Cada categoria tem 5+ artigos
+- [ ] Nomes de categoria são consistentes
+- [ ] Permissões são apropriadas
+- [ ] Imagens de categoria são otimizadas
+- [ ] Descrições estão completas
+- [ ] Metadados de SEO preenchidos
+- [ ] URLs são amigáveis
+- [ ] Categorias testadas no front-end
+- [ ] Documentação atualizada
+
+---
+
+## Guias Relacionados
+
+- Criação de Artigos
+- Gerenciamento de Permissões
+- Configuração de Módulo
+- Guia de Instalação
+
+---
+
+## Próximas Etapas
+
+- Criar Artigos em categorias
+- Configurar Permissões
+- Personalizar com Templates Personalizados
+
+---
+
+#publisher #categorias #organização #hierarquia #gerenciamento #xoops

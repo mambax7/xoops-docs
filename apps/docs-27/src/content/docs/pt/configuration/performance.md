@@ -1,67 +1,67 @@
 ---
-title: "Performance Optimization"
-description: "Speed optimization guide for XOOPS including caching, database optimization, CDN integration, and performance monitoring"
+title: "Otimização de Desempenho"
+description: "Guia de otimização de velocidade para XOOPS incluindo cache, otimização de banco de dados, integração de CDN e monitoramento de desempenho"
 ---
 
-# XOOPS Performance Optimization
+# Otimização de Desempenho do XOOPS
 
-Comprehensive guide to optimizing XOOPS for maximum speed and efficiency.
+Guia abrangente para otimizar XOOPS para máxima velocidade e eficiência.
 
-## Performance Optimization Overview
+## Visão Geral da Otimização de Desempenho
 
 ```mermaid
 graph TD
-    A[Performance] --> B[Caching]
-    A --> C[Database]
-    A --> D[Web Server]
+    A[Desempenho] --> B[Cache]
+    A --> C[Banco de Dados]
+    A --> D[Servidor Web]
     A --> E[Frontend]
-    A --> F[Code]
-    B --> B1[Page Cache]
-    B --> B2[Query Cache]
-    B --> B3[Template Cache]
-    C --> C1[Indexes]
-    C --> C2[Queries]
-    C --> C3[Optimization]
-    D --> D1[Compression]
+    A --> F[Código]
+    B --> B1[Cache de Página]
+    B --> B2[Cache de Consulta]
+    B --> B3[Cache de Template]
+    C --> C1[Índices]
+    C --> C2[Consultas]
+    C --> C3[Otimização]
+    D --> D1[Compressão]
     D --> D2[Headers]
-    D --> D3[Connection]
-    E --> E1[Images]
+    D --> D3[Conexão]
+    E --> E1[Imagens]
     E --> E2[CSS/JS]
     E --> E3[Lazy Load]
-    F --> F1[Modules]
-    F --> F2[Queries]
+    F --> F1[Módulos]
+    F --> F2[Consultas]
 ```
 
-## Caching Configuration
+## Configuração de Cache
 
-Caching is the fastest way to improve performance.
+O cache é a forma mais rápida de melhorar o desempenho.
 
-### Page-Level Caching
+### Cache no Nível de Página
 
-Enable full page caching in XOOPS:
+Habilite cache de página completa em XOOPS:
 
-**Admin Panel > System > Preferences > Cache Settings**
+**Painel de Administração > Sistema > Preferências > Configurações de Cache**
 
 ```
-Enable Caching: Yes
-Cache Type: File Cache (or APCu/Memcache)
-Cache Lifetime: 3600 seconds (1 hour)
-Cache Module Lists: Yes
-Cache Configuration: Yes
-Cache Search Results: Yes
+Habilitar Cache: Sim
+Tipo de Cache: Cache de Arquivo (ou APCu/Memcache)
+Tempo de Vida do Cache: 3600 segundos (1 hora)
+Cache de Listas de Módulo: Sim
+Cache de Configuração: Sim
+Cache de Resultados de Busca: Sim
 ```
 
-### File-Based Caching
+### Cache Baseado em Arquivo
 
-Configure file cache location:
+Configure a localização do cache do arquivo:
 
 ```bash
-# Create cache directory outside web root (more secure)
+# Criar diretório de cache fora da raiz web (mais seguro)
 mkdir -p /var/cache/xoops
 chown www-data:www-data /var/cache/xoops
 chmod 755 /var/cache/xoops
 
-# Edit mainfile.php
+# Editar mainfile.php
 define('XOOPS_CACHE_PATH', '/var/cache/xoops/');
 ```
 
@@ -684,19 +684,19 @@ After Optimization:
 - Database Size: 120MB (optimized)
 ```
 
-## Next Steps
+## Próximos Passos
 
-1. Review basic configuration
-2. Ensure security measures
-3. Implement caching
-4. Monitor performance with tools
-5. Adjust based on metrics
+1. Revisar configuração básica
+2. Garantir medidas de segurança
+3. Implementar cache
+4. Monitorar desempenho com ferramentas
+5. Ajustar com base em métricas
 
 ---
 
 **Tags:** #performance #optimization #caching #database #cdn
 
-**Related Articles:**
+**Artigos Relacionados:**
 - ../../06-Publisher-Module/User-Guide/Basic-Configuration
 - System-Settings
 - Security-Configuration

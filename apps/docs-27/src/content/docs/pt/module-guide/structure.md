@@ -1,109 +1,109 @@
 ---
-title: "Module Structure"
+title: "Estrutura do Módulo"
 ---
 
-## Overview
+## Visão Geral
 
-A well-organized module structure is fundamental to maintainable XOOPS development. This guide covers both legacy and modern (PSR-4) module layouts.
+Uma estrutura de módulo bem organizada é fundamental para o desenvolvimento sustentável de XOOPS. Este guia cobre layouts de módulo legados e modernos (PSR-4).
 
-## Standard Module Layout
+## Layout Padrão de Módulo
 
-### Legacy Structure
+### Estrutura Legada
 
 ```
 modules/mymodule/
-├── admin/                      # Admin panel files
-│   ├── index.php              # Admin dashboard
-│   ├── menu.php               # Admin menu definition
-│   ├── permissions.php        # Permission management
-│   └── templates/             # Admin templates
-├── assets/                     # Frontend resources
+├── admin/                      # Arquivos do painel de admin
+│   ├── index.php              # Dashboard de admin
+│   ├── menu.php               # Definição de menu de admin
+│   ├── permissions.php        # Gerenciamento de permissão
+│   └── templates/             # Templates de admin
+├── assets/                     # Recursos de frontend
 │   ├── css/
 │   ├── js/
 │   └── images/
-├── class/                      # PHP classes
-│   ├── Common/                # Shared utilities
+├── class/                      # Classes PHP
+│   ├── Common/                # Utilitários compartilhados
 │   │   ├── Breadcrumb.php
 │   │   └── Configurator.php
-│   ├── Form/                  # Custom form elements
-│   └── Handler/               # Object handlers
-├── include/                    # Include files
-│   ├── common.php             # Common initialization
-│   ├── functions.php          # Utility functions
-│   ├── oninstall.php          # Installation hooks
-│   ├── onupdate.php           # Update hooks
-│   └── onuninstall.php        # Uninstallation hooks
-├── language/                   # Translations
+│   ├── Form/                  # Elementos de formulário customizado
+│   └── Handler/               # Handlers de objeto
+├── include/                    # Arquivos de include
+│   ├── common.php             # Inicialização comum
+│   ├── functions.php          # Funções utilitárias
+│   ├── oninstall.php          # Hooks de instalação
+│   ├── onupdate.php           # Hooks de atualização
+│   └── onuninstall.php        # Hooks de desinstalação
+├── language/                   # Traduções
 │   ├── english/
-│   │   ├── admin.php          # Admin strings
-│   │   ├── main.php           # Frontend strings
-│   │   ├── modinfo.php        # Module info strings
-│   │   └── help/              # Help files
+│   │   ├── admin.php          # Cadeias de admin
+│   │   ├── main.php           # Cadeias de frontend
+│   │   ├── modinfo.php        # Cadeias de informações de módulo
+│   │   └── help/              # Arquivos de ajuda
 │   └── other_language/
-├── sql/                        # Database schemas
-│   └── mysql.sql              # MySQL schema
-├── templates/                  # Smarty templates
+├── sql/                        # Esquemas de banco de dados
+│   └── mysql.sql              # Esquema MySQL
+├── templates/                  # Templates Smarty
 │   ├── admin/
 │   └── blocks/
-├── blocks/                     # Block functions
-├── preloads/                   # Preload classes
-├── xoops_version.php          # Module manifest
-├── header.php                 # Module header
-├── footer.php                 # Module footer
-└── index.php                  # Main entry point
+├── blocks/                     # Funções de bloco
+├── preloads/                   # Classes de preload
+├── xoops_version.php          # Manifesto do módulo
+├── header.php                 # Cabeçalho do módulo
+├── footer.php                 # Rodapé do módulo
+└── index.php                  # Ponto de entrada principal
 ```
 
-### Modern PSR-4 Structure
+### Estrutura PSR-4 Moderna
 
 ```
 modules/mymodule/
-├── src/                        # PSR-4 autoloaded source
-│   ├── Controller/            # Request handlers
+├── src/                        # Fonte autocarregada PSR-4
+│   ├── Controller/            # Manipuladores de solicitação
 │   │   ├── ArticleController.php
 │   │   └── CategoryController.php
-│   ├── Service/               # Business logic
+│   ├── Service/               # Lógica de negócio
 │   │   ├── ArticleService.php
 │   │   └── CategoryService.php
-│   ├── Repository/            # Data access
+│   ├── Repository/            # Acesso de dados
 │   │   ├── ArticleRepository.php
 │   │   └── ArticleRepositoryInterface.php
-│   ├── Entity/                # Domain objects
+│   ├── Entity/                # Objetos de domínio
 │   │   ├── Article.php
 │   │   └── Category.php
 │   ├── DTO/                   # Data transfer objects
 │   │   ├── CreateArticleDTO.php
 │   │   └── UpdateArticleDTO.php
-│   ├── Event/                 # Domain events
+│   ├── Event/                 # Eventos de domínio
 │   │   └── ArticleCreatedEvent.php
-│   ├── Exception/             # Custom exceptions
+│   ├── Exception/             # Exceções customizadas
 │   │   └── ArticleNotFoundException.php
-│   ├── ValueObject/           # Value types
+│   ├── ValueObject/           # Tipos de valor
 │   │   └── ArticleId.php
-│   └── Middleware/            # HTTP middleware
+│   └── Middleware/            # Middleware HTTP
 │       └── AuthenticationMiddleware.php
-├── config/                     # Configuration
-│   ├── routes.php             # Route definitions
-│   ├── services.php           # DI container config
-│   └── events.php             # Event listeners
-├── migrations/                 # Database migrations
+├── config/                     # Configuração
+│   ├── routes.php             # Definições de rota
+│   ├── services.php           # Configuração de DI container
+│   └── events.php             # Listeners de evento
+├── migrations/                 # Migrações de banco de dados
 │   ├── 001_create_articles.php
 │   └── 002_add_indexes.php
-├── tests/                      # Test files
+├── tests/                      # Arquivos de teste
 │   ├── Unit/
 │   └── Integration/
-├── templates/                  # Smarty templates
-├── language/                   # Translations (JSON)
+├── templates/                  # Templates Smarty
+├── language/                   # Traduções (JSON)
 │   ├── en/
 │   │   └── main.json
 │   └── de/
-├── assets/                     # Frontend resources
-├── module.json                 # Module manifest (XOOPS 4.0)
-└── composer.json              # Composer config
+├── assets/                     # Recursos de frontend
+├── module.json                 # Manifesto do módulo (XOOPS 4.0)
+└── composer.json              # Configuração Composer
 ```
 
-## Key Files Explained
+## Arquivos Principais Explicados
 
-### xoops_version.php (Legacy Manifest)
+### xoops_version.php (Manifesto Legado)
 
 ```php
 <?php
@@ -163,7 +163,7 @@ $modversion = [
 ];
 ```
 
-### module.json (XOOPS 4.0 Manifest)
+### module.json (Manifesto XOOPS 4.0)
 
 ```json
 {
@@ -200,34 +200,34 @@ $modversion = [
 }
 ```
 
-## Directory Purposes
+## Propósitos de Diretório
 
-| Directory | Purpose |
+| Diretório | Objetivo |
 |-----------|---------|
-| `admin/` | Administration interface |
-| `assets/` | CSS, JavaScript, images |
-| `blocks/` | Block rendering functions |
-| `class/` | PHP classes (legacy) |
-| `config/` | Configuration files (modern) |
-| `include/` | Shared include files |
-| `language/` | Translation files |
-| `migrations/` | Database migrations |
-| `sql/` | Initial database schema |
-| `src/` | PSR-4 source code |
-| `templates/` | Smarty templates |
-| `tests/` | Test files |
+| `admin/` | Interface de administração |
+| `assets/` | CSS, JavaScript, imagens |
+| `blocks/` | Funções de renderização de bloco |
+| `class/` | Classes PHP (legado) |
+| `config/` | Arquivos de configuração (moderno) |
+| `include/` | Arquivos de include compartilhados |
+| `language/` | Arquivos de tradução |
+| `migrations/` | Migrações de banco de dados |
+| `sql/` | Esquema inicial de banco de dados |
+| `src/` | Código fonte PSR-4 |
+| `templates/` | Templates Smarty |
+| `tests/` | Arquivos de teste |
 
-## Best Practices
+## Melhores Práticas
 
-1. **Separate Concerns** - Keep business logic out of templates
-2. **Use Namespaces** - Organize code with proper namespacing
-3. **Follow PSR-4** - Use standard autoloading conventions
-4. **Externalize Config** - Keep configuration separate from code
-5. **Document Structure** - Include README explaining organization
+1. **Separar Responsabilidades** - Manter lógica de negócio fora de templates
+2. **Use Namespaces** - Organizar código com namespacing apropriado
+3. **Siga PSR-4** - Usar convenções de autoload padrão
+4. **Externalizar Configuração** - Manter configuração separada do código
+5. **Documentar Estrutura** - Incluir README explicando organização
 
-## Related Documentation
+## Documentação Relacionada
 
-- Module-Development - Complete development guide
-- Best-Practices/Code-Organization - Code organization patterns
-- Module Manifest - Manifest configuration
-- Database/Database-Schema - Database design
+- Module-Development - Guia completo de desenvolvimento
+- Best-Practices/Code-Organization - Padrões de organização de código
+- Module Manifest - Configuração de manifesto
+- Database/Database-Schema - Design de banco de dados

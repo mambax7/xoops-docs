@@ -1,24 +1,24 @@
 ---
-title: "Dependency Injection in XOOPS"
+title: "Injeção de Dependência no XOOPS"
 ---
 
-:::note[Version Compatibility]
-| Feature | XOOPS 2.5.x | XOOPS 4.0 |
+:::note[Compatibilidade de Versão]
+| Recurso | XOOPS 2.5.x | XOOPS 4.0 |
 |---------|-------------|------------|
-| Manual DI (constructor injection) | ✅ Available | ✅ Available |
-| PSR-11 Container | ❌ Not built-in | ✅ Native support |
-| `\Xmf\Module\Helper::getContainer()` | ❌ 4.0 only | ✅ Available |
+| DI Manual (injeção de construtor) | ✅ Disponível | ✅ Disponível |
+| Container PSR-11 | ❌ Não built-in | ✅ Suporte nativo |
+| `\Xmf\Module\Helper::getContainer()` | ❌ Apenas 4.0 | ✅ Disponível |
 
-In **XOOPS 2.5.x**, use manual constructor injection (passing dependencies explicitly). The PSR-11 container examples below are for **XOOPS 4.0**.
+No **XOOPS 2.5.x**, use injeção de construtor manual (passando dependências explicitamente). Os exemplos de container PSR-11 abaixo são para **XOOPS 4.0**.
 :::
 
-## Overview
+## Visão Geral
 
-Dependency Injection (DI) is a design pattern that allows components to receive their dependencies from external sources rather than creating them internally. XOOPS 4.0 introduces PSR-11 compatible DI container support.
+Injeção de Dependência (DI) é um padrão de design que permite aos componentes receber suas dependências de fontes externas em vez de criá-las internamente. O XOOPS 4.0 introduz suporte nativo de container compatível com PSR-11.
 
-## Why Dependency Injection?
+## Por que Injeção de Dependência?
 
-### Without DI (Tight Coupling)
+### Sem DI (Acoplamento Forte)
 
 ```php
 class ArticleService
@@ -28,14 +28,14 @@ class ArticleService
 
     public function __construct()
     {
-        // Hard dependencies - difficult to test and modify
+        // Dependências hard - difíceis de testar e modificar
         $this->repository = new ArticleRepository(new XoopsDatabase());
         $this->dispatcher = new EventDispatcher();
     }
 }
 ```
 
-### With DI (Loose Coupling)
+### Com DI (Acoplamento Fraco)
 
 ```php
 class ArticleService
@@ -47,39 +47,39 @@ class ArticleService
 }
 ```
 
-## PSR-11 Container
+## Container PSR-11
 
-### Basic Usage
+### Uso Básico
 
 ```php
 use Psr\Container\ContainerInterface;
 
-// Get the container
+// Obter o container
 $container = \Xmf\Module\Helper::getHelper('mymodule')->getContainer();
 
-// Retrieve a service
+// Recuperar um serviço
 $articleService = $container->get(ArticleService::class);
 
-// Check if service exists
+// Verificar se serviço existe
 if ($container->has(ArticleService::class)) {
-    // Use the service
+    // Usar o serviço
 }
 ```
 
-### Container Configuration
+### Configuração do Container
 
 ```php
 // config/services.php
 use Psr\Container\ContainerInterface;
 
 return [
-    // Simple class instantiation
+    // Instanciação de classe simples
     ArticleRepository::class => ArticleRepository::class,
 
-    // Interface to implementation binding
+    // Vinculação de interface para implementação
     ArticleRepositoryInterface::class => ArticleRepository::class,
 
-    // Factory function
+    // Função factory
     ArticleService::class => function (ContainerInterface $c): ArticleService {
         return new ArticleService(
             $c->get(ArticleRepositoryInterface::class),
@@ -87,20 +87,20 @@ return [
         );
     },
 
-    // Shared instance (singleton)
+    // Instância compartilhada (singleton)
     'database' => function (): XoopsDatabase {
         return XoopsDatabaseFactory::getDatabaseConnection();
     },
 ];
 ```
 
-## Service Registration
+## Registro de Serviço
 
 ### Auto-wiring
 
 ```php
-// The container automatically resolves dependencies
-// when type hints are available
+// O container resolve automaticamente as dependências
+// quando type hints estão disponíveis
 
 class ArticleController
 {
@@ -110,11 +110,11 @@ class ArticleController
     ) {}
 }
 
-// Container creates ArticleController with its dependencies
+// Container cria ArticleController com suas dependências
 $controller = $container->get(ArticleController::class);
 ```
 
-### Manual Registration
+### Registro Manual
 
 ```php
 // config/services.php
@@ -130,14 +130,14 @@ return [
 
     'article.handler' => [
         'factory' => [ArticleHandlerFactory::class, 'create'],
-        'arguments' => ['@database'],  // Reference other service
+        'arguments' => ['@database'],  // Referência a outro serviço
     ],
 ];
 ```
 
-## Constructor Injection
+## Injeção de Construtor
 
-### Preferred Approach
+### Abordagem Preferida
 
 ```php
 final class ArticleService
@@ -150,7 +150,7 @@ final class ArticleService
 
     public function create(CreateArticleDTO $dto): Article
     {
-        $this->logger->info('Creating article', ['title' => $dto->title]);
+        $this->logger->info('Criando artigo', ['title' => $dto->title]);
 
         $article = Article::create($dto);
         $this->repository->save($article);
@@ -161,9 +161,9 @@ final class ArticleService
 }
 ```
 
-## Method Injection
+## Injeção de Método
 
-### For Optional Dependencies
+### Para Dependências Opcionais
 
 ```php
 class ArticleController
@@ -189,9 +189,9 @@ class ArticleController
 }
 ```
 
-## Interface Binding
+## Vinculação de Interface
 
-### Define Interfaces
+### Definir Interfaces
 
 ```php
 interface ArticleRepositoryInterface
@@ -202,14 +202,14 @@ interface ArticleRepositoryInterface
 }
 ```
 
-### Bind Implementation
+### Vincular Implementação
 
 ```php
 // config/services.php
 return [
     ArticleRepositoryInterface::class => XoopsArticleRepository::class,
 
-    // Or with factory
+    // Ou com factory
     ArticleRepositoryInterface::class => function (ContainerInterface $c) {
         return new XoopsArticleRepository(
             $c->get('database')
@@ -218,29 +218,29 @@ return [
 ];
 ```
 
-## Testing with DI
+## Testando com DI
 
-### Easy Mocking
+### Mockagem Fácil
 
 ```php
 class ArticleServiceTest extends TestCase
 {
     public function testCreateArticle(): void
     {
-        // Create mocks
+        // Criar mocks
         $repository = $this->createMock(ArticleRepositoryInterface::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $logger = $this->createMock(LoggerInterface::class);
 
-        // Inject mocks
+        // Injetar mocks
         $service = new ArticleService($repository, $dispatcher, $logger);
 
-        // Set expectations
+        // Definir expectativas
         $repository->expects($this->once())->method('save');
         $dispatcher->expects($this->once())->method('dispatch');
 
-        // Test
-        $dto = new CreateArticleDTO('Title', 'Content');
+        // Testar
+        $dto = new CreateArticleDTO('Título', 'Conteúdo');
         $article = $service->create($dto);
 
         $this->assertInstanceOf(Article::class, $article);
@@ -248,12 +248,12 @@ class ArticleServiceTest extends TestCase
 }
 ```
 
-## XOOPS Legacy Integration
+## Integração Legada XOOPS
 
-### Bridging Old and New
+### Conectando Antigo e Novo
 
 ```php
-// Get service from container in legacy code
+// Obter serviço do container em código legado
 function mymodule_get_articles(int $limit): array
 {
     $container = \Xmf\Module\Helper::getHelper('mymodule')->getContainer();
@@ -263,7 +263,7 @@ function mymodule_get_articles(int $limit): array
 }
 ```
 
-### Wrapping Legacy Handlers
+### Envolvendo Manipuladores Legados
 
 ```php
 // config/services.php
@@ -280,17 +280,17 @@ return [
 ];
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Inject Interfaces** - Depend on abstractions, not implementations
-2. **Constructor Injection** - Prefer constructor over setter injection
-3. **Single Responsibility** - Each class should have few dependencies
-4. **Avoid Container Awareness** - Services shouldn't know about the container
-5. **Configure, Don't Code** - Use configuration files for wiring
+1. **Injetar Interfaces** - Depender de abstrações, não implementações
+2. **Injeção de Construtor** - Preferir construtor sobre injeção por setter
+3. **Responsabilidade Única** - Cada classe deve ter poucas dependências
+4. **Evitar Consciência de Container** - Serviços não devem saber sobre o container
+5. **Configurar, Não Codificar** - Usar arquivos de configuração para wiring
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../07-XOOPS-4.0/Implementation-Guides/PSR-11-Dependency-Injection-Guide - PSR-11 implementation
-- ../03-Module-Development/Patterns/Service-Layer - Service pattern
-- ../03-Module-Development/Best-Practices/Testing - Testing with DI
-- ../07-XOOPS-4.0/XOOPS-4.0-Architecture - Architecture overview
+- ../07-XOOPS-4.0/Implementation-Guides/PSR-11-Dependency-Injection-Guide - Implementação PSR-11
+- ../03-Module-Development/Patterns/Service-Layer - Padrão de serviço
+- ../03-Module-Development/Best-Practices/Testing - Testando com DI
+- ../07-XOOPS-4.0/XOOPS-4.0-Architecture - Visão geral de arquitetura

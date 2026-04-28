@@ -1,33 +1,32 @@
 ---
-title: "Modules Installation"
+title: "Instalação de Módulos"
 ---
 
-This page collects your choice for the modules to install in your new site. Modules may be added or removed at any time, if desired.
+Esta página coleta sua escolha para os módulos a instalar em seu novo site. Os módulos podem ser adicionados ou removidos a qualquer momento, se desejado.
 
-After entering the requested information and correcting any issues, select the "Continue" button to proceed.
+Após digitar as informações solicitadas e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Modules Installation](/xoops-docs/2.7/img/installation/installer-13.png)
+![Instalação de Módulos do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-13.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### Available Modules
+### Módulos Disponíveis
 
-Select "Yes" to install a module. You may select none, any or all modules.
+Selecione "Sim" para instalar um módulo. Você pode selecionar nenhum, qualquer ou todos os módulos.
 
-These are the modules included with a standard XOOPS 2.7.0 install.
+Estes são os módulos incluídos em uma instalação padrão do XOOPS 2.7.0.
 
-* Private Messaging - _enhanced private messaging between users_
-* User Profile - _enhanced/custom user profiles_
-* Protector - _enhanced site security, spam controls and attack mitigation_
-* DebugBar - _a development and staging debug toolbar based on Symfony VarDumper; useful for module developers and for diagnosing production issues, but usually not needed on a public-facing live site_
+* Mensagem Privada - _mensagem privada aprimorada entre usuários_
+* Perfil de Usuário - _perfis de usuário aprimorados/personalizados_
+* Protetor - _segurança de site aprimorada, controles de spam e mitigação de ataque_
+* DebugBar - _uma barra de ferramentas de depuração de desenvolvimento e staging baseada em Symfony VarDumper; útil para desenvolvedores de módulos e para diagnosticar problemas de produção, mas geralmente não necessário em um site ao vivo voltado para o público_
 
-The _System_ module is always installed and is not listed here as an option.
+O módulo _Sistema_ é sempre instalado e não está listado aqui como opção.
 
-#### Note
+#### Nota
 
-You can add modules to the modules directory when uploading the XOOPS files before starting the install, and they will also be available in this step.
+Você pode adicionar módulos ao diretório de módulos ao fazer upload dos arquivos XOOPS antes de iniciar a instalação, e eles também estarão disponíveis nesta etapa.
 
-#### Strong Recommendation
+#### Forte Recomendação
 
-**All XOOPS sites** should install the _Protector_ module.
-
+**Todos os sites XOOPS** devem instalar o módulo _Protetor_.

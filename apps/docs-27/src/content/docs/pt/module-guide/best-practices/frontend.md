@@ -1,51 +1,51 @@
 ---
-title: "Frontend Integration Best Practices"
-description: "Bootstrap 5, Tailwind CSS, JavaScript, and AJAX patterns"
+title: "Boas Práticas de Integração de Frontend"
+description: "Bootstrap 5, Tailwind CSS, JavaScript e padrões AJAX"
 ---
 
-# Frontend Integration Best Practices in XOOPS
+# Boas Práticas de Integração de Frontend em XOOPS
 
-Modern XOOPS modules require clean frontend integration with responsive design, proper JavaScript patterns, and AJAX functionality.
+Módulos XOOPS modernos requerem integração de frontend limpa com design responsivo, padrões JavaScript adequados e funcionalidade AJAX.
 
-## Bootstrap 5 Integration
+## Integração do Bootstrap 5
 
 ```smarty
-{* Include Bootstrap CSS *}
+{* Incluir CSS do Bootstrap *}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet">
 
-{* Your content *}
+{* Seu conteúdo *}
 <div class="container mt-4">
-    <h1>My Module</h1>
+    <h1>Meu Módulo</h1>
 </div>
 
-{* Include Bootstrap JS *}
+{* Incluir JS do Bootstrap *}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 ```
 
-### Bootstrap Form Example
+### Exemplo de Formulário Bootstrap
 
 ```smarty
 <div class="card">
     <div class="card-body">
         <form method="POST" class="needs-validation">
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Nome de Usuário</label>
                 <input type="text" class="form-control" id="username" name="username">
             </div>
             
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email">
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
 </div>
 ```
 
-### Bootstrap Table Example
+### Exemplo de Tabela Bootstrap
 
 ```smarty
 <div class="table-responsive">
@@ -53,9 +53,9 @@ Modern XOOPS modules require clean frontend integration with responsive design, 
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Actions</th>
+                <th>Nome de Usuário</th>
+                <th>E-mail</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -65,8 +65,8 @@ Modern XOOPS modules require clean frontend integration with responsive design, 
                     <td>{$user.username|escape}</td>
                     <td>{$user.email|escape}</td>
                     <td>
-                        <a href="?op=edit&id={$user.id}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="?op=delete&id={$user.id}" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="?op=edit&id={$user.id}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="?op=delete&id={$user.id}" class="btn btn-sm btn-danger">Deletar</a>
                     </td>
                 </tr>
             {/foreach}
@@ -75,10 +75,10 @@ Modern XOOPS modules require clean frontend integration with responsive design, 
 </div>
 ```
 
-## JavaScript Best Practices
+## Boas Práticas de JavaScript
 
 ```javascript
-// Module pattern
+// Padrão de módulo
 const MyModule = {
     init: function() {
         this.initTooltips();
@@ -86,14 +86,14 @@ const MyModule = {
     },
     
     initTooltips: function() {
-        // Initialize Bootstrap tooltips
+        // Inicializar tooltips Bootstrap
     },
     
     initEventListeners: function() {
-        // Attach event handlers
+        // Anexar manipuladores de evento
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('btn-delete')) {
-                return confirm('Delete this item?');
+                return confirm('Deletar este item?');
             }
         });
     },
@@ -110,11 +110,11 @@ const MyModule = {
     }
 };
 
-// Initialize when DOM ready
+// Inicializar quando DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => MyModule.init());
 ```
 
-## AJAX Implementation
+## Implementação de AJAX
 
 ```javascript
 const AjaxHelper = {
@@ -132,7 +132,7 @@ const AjaxHelper = {
             body: config.body ? JSON.stringify(config.body) : null
         })
         .then(response => response.json())
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Erro:', error));
     },
     
     get: function(url) {
@@ -144,16 +144,16 @@ const AjaxHelper = {
     }
 };
 
-// Usage
+// Uso
 AjaxHelper.get('/modules/mymodule/api/users')
     .then(response => {
         if (response.success) {
-            MyModule.notify('Loaded successfully', 'success');
+            MyModule.notify('Carregado com sucesso', 'success');
         }
     });
 ```
 
-## AJAX API Controller
+## Controller de API AJAX
 
 ```php
 <?php
@@ -195,25 +195,25 @@ class ApiController
 ?>
 ```
 
-## Best Practices
+## Boas Práticas
 
-- Use Bootstrap for consistent responsive design
-- Use modern JavaScript (ES6+), not jQuery
-- Use Fetch API instead of XMLHttpRequest
-- Always validate server-side
-- Show loading states in AJAX requests
-- Provide clear error messages
-- Use semantic HTML
-- Optimize images and assets
-- Use HTTPS for all requests
+- Usar Bootstrap para design responsivo consistente
+- Usar JavaScript moderno (ES6+), não jQuery
+- Usar API Fetch em vez de XMLHttpRequest
+- Sempre validar no lado do servidor
+- Mostrar estados de carregamento em requisições AJAX
+- Fornecer mensagens de erro claras
+- Usar HTML semântico
+- Otimizar imagens e assets
+- Usar HTTPS para todas as requisições
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- Code-Organization for asset organization
-- Error-Handling for error display
-- ../Patterns/MVC-Pattern for controller integration
+Veja também:
+- Organização-de-Código para organização de asset
+- Tratamento-de-Erros para exibição de erro
+- ../Padrões/Padrão-MVC para integração de controller
 
 ---
 
-Tags: #best-practices #frontend #bootstrap #javascript #ajax #module-development
+Tags: #boas-práticas #frontend #bootstrap #javascript #ajax #desenvolvimento-de-módulo

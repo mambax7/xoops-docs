@@ -1,48 +1,48 @@
 ---
-title: "CSRF Protection"
-description: "Understanding and implementing CSRF protection in XOOPS using XoopsSecurity class"
+title: "Proteção CSRF"
+description: "Entendendo e implementando proteção CSRF no XOOPS usando a classe XoopsSecurity"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-Cross-Site Request Forgery (CSRF) attacks trick users into performing unwanted actions on a site where they are authenticated. XOOPS provides built-in CSRF protection through the `XoopsSecurity` class.
+Ataques de Falsificação de Requisição Entre Sites (CSRF) enganam usuários para executar ações indesejadas em um site onde estão autenticados. XOOPS fornece proteção CSRF integrada através da classe `XoopsSecurity`.
 
-## Related Documentation
+## Documentação Relacionada
 
-- Security-Best-Practices - Comprehensive security guide
-- Input-Sanitization - MyTextSanitizer and validation
-- SQL-Injection-Prevention - Database security practices
+- Security-Best-Practices - Guia abrangente de segurança
+- Input-Sanitization - MyTextSanitizer e validação
+- SQL-Injection-Prevention - Práticas de segurança de banco de dados
 
-## Understanding CSRF Attacks
+## Entendendo Ataques CSRF
 
-A CSRF attack occurs when:
+Um ataque CSRF ocorre quando:
 
-1. A user is authenticated on your XOOPS site
-2. The user visits a malicious website
-3. The malicious site submits a request to your XOOPS site using the user's session
-4. Your site processes the request as if it came from the legitimate user
+1. Um usuário está autenticado em seu site XOOPS
+2. O usuário visita um site malicioso
+3. O site malicioso envia uma requisição para seu site XOOPS usando a sessão do usuário
+4. Seu site processa a requisição como se viesse do usuário legítimo
 
-## The XoopsSecurity Class
+## A Classe XoopsSecurity
 
-XOOPS provides the `XoopsSecurity` class to protect against CSRF attacks. This class manages security tokens that must be included in forms and verified when processing requests.
+XOOPS fornece a classe `XoopsSecurity` para proteger contra ataques CSRF. Esta classe gerencia tokens de segurança que devem ser incluídos em formulários e verificados ao processar requisições.
 
-### Token Generation
+### Geração de Token
 
-The security class generates unique tokens that are stored in the user's session and must be included in forms:
+A classe de segurança gera tokens únicos que são armazenados na sessão do usuário e devem ser incluídos em formulários:
 
 ```php
 $security = new XoopsSecurity();
 
-// Get token HTML input field
+// Obter campo de entrada HTML de token
 $tokenHTML = $security->getTokenHTML();
 
-// Get just the token value
+// Obter apenas o valor do token
 $tokenValue = $security->createToken();
 ```
 
-### Token Verification
+### Verificação de Token
 
-When processing form submissions, verify that the token is valid:
+Ao processar envios de formulário, verifique se o token é válido:
 
 ```php
 $security = new XoopsSecurity();
@@ -53,115 +53,115 @@ if (!$security->check()) {
 }
 ```
 
-## Using XOOPS Token System
+## Usando Sistema de Token XOOPS
 
-### With XoopsForm Classes
+### Com Classes XoopsForm
 
-When using XOOPS form classes, token protection is straightforward:
+Ao usar classes de formulário XOOPS, a proteção de token é simples:
 
 ```php
-// Create a form
-$form = new XoopsThemeForm('Add Item', 'form_name', 'submit.php');
+// Criar um formulário
+$form = new XoopsThemeForm('Adicionar Item', 'form_name', 'submit.php');
 
-// Add form elements
-$form->addElement(new XoopsFormText('Title', 'title', 50, 255, ''));
-$form->addElement(new XoopsFormTextArea('Content', 'content', ''));
+// Adicionar elementos de formulário
+$form->addElement(new XoopsFormText('Título', 'title', 50, 255, ''));
+$form->addElement(new XoopsFormTextArea('Conteúdo', 'content', ''));
 
-// Add hidden token field - ALWAYS include this
+// Adicionar campo de token oculto - SEMPRE incluir isto
 $form->addElement(new XoopsFormHiddenToken());
 
-// Add submit button
+// Adicionar botão enviar
 $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 ```
 
-### With Custom Forms
+### Com Formulários Personalizados
 
-For custom HTML forms that do not use XoopsForm:
+Para formulários HTML personalizados que não usam XoopsForm:
 
 ```php
-// In your form template or PHP file
+// Em seu template de formulário ou arquivo PHP
 $security = new XoopsSecurity();
 ?>
 <form method="post" action="submit.php">
     <input type="text" name="title" />
     <textarea name="content"></textarea>
 
-    <!-- Include the token -->
+    <!-- Incluir o token -->
     <?php echo $security->getTokenHTML(); ?>
 
-    <button type="submit">Submit</button>
+    <button type="submit">Enviar</button>
 </form>
 ```
 
-### In Smarty Templates
+### Em Templates Smarty
 
-When generating forms in Smarty templates:
+Ao gerar formulários em templates Smarty:
 
 ```php
-// In your PHP file
+// Em seu arquivo PHP
 $security = new XoopsSecurity();
 $GLOBALS['xoopsTpl']->assign('token', $security->getTokenHTML());
 ```
 
 ```smarty
-{* In your template *}
+{* Em seu template *}
 <form method="post" action="submit.php">
     <input type="text" name="title" />
     <textarea name="content"></textarea>
 
-    {* Include the token *}
+    {* Incluir o token *}
     <{$token}>
 
-    <button type="submit">Submit</button>
+    <button type="submit">Enviar</button>
 </form>
 ```
 
-## Processing Form Submissions
+## Processando Envios de Formulário
 
-### Basic Token Verification
+### Verificação Básica de Token
 
 ```php
-// In your form processing script
+// Em seu script de processamento de formulário
 $security = new XoopsSecurity();
 
-// Verify the token
+// Verificar o token
 if (!$security->check()) {
     redirect_header('index.php', 3, _MD_TOKENEXPIRED);
     exit();
 }
 
-// Token is valid, process the form
+// Token é válido, processar o formulário
 $title = $_POST['title'];
-// ... continue processing
+// ... continuar processando
 ```
 
-### With Custom Error Handling
+### Com Tratamento de Erro Personalizado
 
 ```php
 $security = new XoopsSecurity();
 
 if (!$security->check()) {
-    // Get detailed error information
+    // Obter informações de erro detalhadas
     $errors = $security->getErrors();
 
-    // Log the error
-    error_log('CSRF token validation failed: ' . implode(', ', $errors));
+    // Registrar o erro
+    error_log('Falha na validação de token CSRF: ' . implode(', ', $errors));
 
-    // Redirect with error message
-    redirect_header('form.php', 3, 'Security token expired. Please try again.');
+    // Redirecionar com mensagem de erro
+    redirect_header('form.php', 3, 'Token de segurança expirou. Tente novamente.');
     exit();
 }
 ```
 
-### For AJAX Requests
+### Para Requisições AJAX
 
-When working with AJAX requests, include the token in your request:
+Ao trabalhar com requisições AJAX, inclua o token em sua requisição:
 
 ```javascript
-// JavaScript - get token from hidden field
+// JavaScript - obter token do campo oculto
 var token = document.querySelector('input[name="XOOPS_TOKEN_REQUEST"]').value;
 
-// Include in AJAX request
+// Incluir na requisição AJAX
 fetch('ajax_handler.php', {
     method: 'POST',
     headers: {
@@ -172,145 +172,145 @@ fetch('ajax_handler.php', {
 ```
 
 ```php
-// PHP AJAX handler
+// Manipulador AJAX do PHP
 $security = new XoopsSecurity();
 
 if (!$security->check()) {
-    echo json_encode(['error' => 'Invalid security token']);
+    echo json_encode(['error' => 'Token de segurança inválido']);
     exit();
 }
 
-// Process AJAX request
+// Processar requisição AJAX
 ```
 
-## Checking HTTP Referer
+## Verificando HTTP Referer
 
-For additional protection, especially for AJAX requests, you can also check the HTTP referer:
+Para proteção adicional, especialmente para requisições AJAX, você também pode verificar o referer HTTP:
 
 ```php
 $security = new XoopsSecurity();
 
-// Check referer header
+// Verificar cabeçalho referer
 if (!$security->checkReferer()) {
-    echo json_encode(['error' => 'Invalid request']);
+    echo json_encode(['error' => 'Requisição inválida']);
     exit();
 }
 
-// Also verify the token
+// Também verificar o token
 if (!$security->check()) {
-    echo json_encode(['error' => 'Invalid token']);
+    echo json_encode(['error' => 'Token inválido']);
     exit();
 }
 ```
 
-### Combined Security Check
+### Verificação de Segurança Combinada
 
 ```php
 $security = new XoopsSecurity();
 
-// Perform both checks
+// Executar ambas as verificações
 if (!$security->checkReferer() || !$security->check()) {
-    redirect_header('index.php', 3, 'Security validation failed');
+    redirect_header('index.php', 3, 'Falha na validação de segurança');
     exit();
 }
 ```
 
-## Token Configuration
+## Configuração de Token
 
-### Token Lifetime
+### Vida Útil do Token
 
-Tokens have a limited lifetime to prevent replay attacks. You can configure this in XOOPS settings or handle expired tokens gracefully:
+Os tokens têm uma vida útil limitada para prevenir ataques de repetição. Você pode configurar isso nas configurações XOOPS ou lidar com tokens expirados graciosamente:
 
 ```php
 $security = new XoopsSecurity();
 
 if (!$security->check()) {
-    // Token may have expired
-    // Regenerate form with new token
-    redirect_header('form.php', 3, 'Your session has expired. Please submit the form again.');
+    // Token pode ter expirado
+    // Regenerar formulário com novo token
+    redirect_header('form.php', 3, 'Sua sessão expirou. Por favor, envie o formulário novamente.');
     exit();
 }
 ```
 
-### Multiple Forms on Same Page
+### Múltiplos Formulários na Mesma Página
 
-When you have multiple forms on the same page, each should have its own token:
+Quando você tem múltiplos formulários na mesma página, cada um deve ter seu próprio token:
 
 ```php
-// Form 1
-$form1 = new XoopsThemeForm('Form 1', 'form1', 'submit1.php');
+// Formulário 1
+$form1 = new XoopsThemeForm('Formulário 1', 'form1', 'submit1.php');
 $form1->addElement(new XoopsFormHiddenToken('token1'));
 
-// Form 2
-$form2 = new XoopsThemeForm('Form 2', 'form2', 'submit2.php');
+// Formulário 2
+$form2 = new XoopsThemeForm('Formulário 2', 'form2', 'submit2.php');
 $form2->addElement(new XoopsFormHiddenToken('token2'));
 ```
 
-## Best Practices
+## Boas Práticas
 
-### Always Use Tokens for State-Changing Operations
+### Sempre Use Tokens para Operações que Alteram Estado
 
-Include tokens in any form that:
+Incluir tokens em qualquer formulário que:
 
-- Creates data
-- Updates data
-- Deletes data
-- Changes user settings
-- Performs any administrative action
+- Cria dados
+- Atualiza dados
+- Deleta dados
+- Altera configurações do usuário
+- Realiza qualquer ação administrativa
 
-### Do Not Rely Solely on Referer Checking
+### Não Confie Apenas na Verificação de Referer
 
-The HTTP referer header can be:
+O cabeçalho HTTP referer pode ser:
 
-- Stripped by privacy tools
-- Missing in some browsers
-- Spoofed in some cases
+- Removido por ferramentas de privacidade
+- Ausente em alguns navegadores
+- Falsificado em alguns casos
 
-Always use token verification as your primary defense.
+Sempre use verificação de token como sua defesa primária.
 
-### Regenerate Tokens Appropriately
+### Regenere Tokens Apropriadamente
 
-Consider regenerating tokens:
+Considere regenerar tokens:
 
-- After successful form submission
-- After login/logout
-- At regular intervals for long sessions
+- Após envio bem-sucedido de formulário
+- Após login/logout
+- Em intervalos regulares para sessões longas
 
-### Handle Token Expiration Gracefully
+### Lidar com Expiração de Token Graciosamente
 
 ```php
 $security = new XoopsSecurity();
 
 if (!$security->check()) {
-    // Store form data temporarily
+    // Armazenar dados do formulário temporariamente
     $_SESSION['form_backup'] = $_POST;
 
-    // Redirect back to form with message
-    redirect_header('form.php?restore=1', 3, 'Please resubmit the form.');
+    // Redirecionar de volta ao formulário com mensagem
+    redirect_header('form.php?restore=1', 3, 'Por favor, reenvie o formulário.');
     exit();
 }
 ```
 
-## Common Issues and Solutions
+## Problemas Comuns e Soluções
 
-### Token Not Found Error
+### Erro de Token Não Encontrado
 
-**Problem**: Security check fails with "token not found"
+**Problema**: Falha na verificação de segurança com "token not found"
 
-**Solution**: Ensure the token field is included in your form:
+**Solução**: Certifique-se de que o campo de token está incluído em seu formulário:
 
 ```php
 $form->addElement(new XoopsFormHiddenToken());
 ```
 
-### Token Expired Error
+### Erro de Token Expirado
 
-**Problem**: Users see "token expired" after long form completion
+**Problema**: Usuários veem "token expired" após preenchimento longo de formulário
 
-**Solution**: Consider using JavaScript to refresh the token periodically:
+**Solução**: Considere usar JavaScript para atualizar o token periodicamente:
 
 ```javascript
-// Refresh token every 10 minutes
+// Atualizar token a cada 10 minutos
 setInterval(function() {
     fetch('refresh_token.php')
         .then(response => response.json())
@@ -320,25 +320,25 @@ setInterval(function() {
 }, 600000);
 ```
 
-### AJAX Token Issues
+### Problemas de Token AJAX
 
-**Problem**: AJAX requests fail token validation
+**Problema**: Requisições AJAX falham na validação de token
 
-**Solution**: Ensure the token is passed with every AJAX request and verify it server-side:
+**Solução**: Certifique-se de que o token é passado com cada requisição AJAX e verifique no servidor:
 
 ```php
-// AJAX handler
+// Manipulador AJAX
 header('Content-Type: application/json');
 
 $security = new XoopsSecurity();
-if (!$security->check(true, false)) { // Don't clear token for AJAX
+if (!$security->check(true, false)) { // Não limpar token para AJAX
     http_response_code(403);
-    echo json_encode(['error' => 'Invalid token']);
+    echo json_encode(['error' => 'Token inválido']);
     exit();
 }
 ```
 
-## Example: Complete Form Implementation
+## Exemplo: Implementação Completa de Formulário
 
 ```php
 <?php
@@ -347,28 +347,28 @@ require_once dirname(__DIR__) . '/mainfile.php';
 
 $security = new XoopsSecurity();
 
-// Handle form submission
+// Lidar com envio de formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$security->check()) {
-        redirect_header('form.php', 3, 'Security token expired. Please try again.');
+        redirect_header('form.php', 3, 'Token de segurança expirou. Tente novamente.');
         exit();
     }
 
-    // Process valid submission
+    // Processar envio válido
     $title = $myts->htmlSpecialChars($_POST['title']);
-    // ... save to database
+    // ... salvar no banco de dados
 
-    redirect_header('success.php', 3, 'Item saved successfully!');
+    redirect_header('success.php', 3, 'Item salvo com sucesso!');
     exit();
 }
 
-// Display form
+// Exibir formulário
 $GLOBALS['xoopsOption']['template_main'] = 'mymodule_form.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 
-$form = new XoopsThemeForm('Add Item', 'add_item', 'form.php');
-$form->addElement(new XoopsFormText('Title', 'title', 50, 255, ''));
-$form->addElement(new XoopsFormTextArea('Content', 'content', ''));
+$form = new XoopsThemeForm('Adicionar Item', 'add_item', 'form.php');
+$form->addElement(new XoopsFormText('Título', 'title', 50, 255, ''));
+$form->addElement(new XoopsFormTextArea('Conteúdo', 'content', ''));
 $form->addElement(new XoopsFormHiddenToken());
 $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
@@ -379,4 +379,4 @@ include XOOPS_ROOT_PATH . '/footer.php';
 
 ---
 
-#security #csrf #xoops #forms #tokens #XoopsSecurity
+#segurança #csrf #xoops #formulários #tokens #XoopsSecurity

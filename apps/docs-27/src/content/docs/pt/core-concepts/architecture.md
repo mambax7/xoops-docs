@@ -1,55 +1,55 @@
 ---
-title: "XOOPS Architecture"
-description: "Comprehensive overview of the XOOPS system architecture, including core components, request lifecycle, and extension points"
+title: "Arquitetura XOOPS"
+description: "Visão geral abrangente da arquitetura do sistema XOOPS, incluindo componentes principais, ciclo de vida da requisição e pontos de extensão"
 ---
 
-:::note[About This Document]
-This page describes the **conceptual architecture** of XOOPS that applies to both current (2.5.x) and future (4.0.x) versions. Some diagrams show the layered design vision.
+:::note[Sobre Este Documento]
+Esta página descreve a **arquitetura conceitual** do XOOPS que se aplica às versões atuais (2.5.x) e futuras (4.0.x). Alguns diagramas mostram a visão de design em camadas.
 
-**For version-specific details:**
-- **XOOPS 2.5.x Today:** Uses `mainfile.php`, globals (`$xoopsDB`, `$xoopsUser`), preloads, and handler pattern
-- **XOOPS 4.0 Target:** PSR-15 middleware, DI container, router - see [Roadmap](../../07-XOOPS-4.0/XOOPS-4.0-Roadmap.md)
+**Para detalhes específicos da versão:**
+- **XOOPS 2.5.x Atual:** Usa `mainfile.php`, globais (`$xoopsDB`, `$xoopsUser`), preloads e padrão de handlers
+- **XOOPS 4.0 Alvo:** Middleware PSR-15, container DI, roteador - veja [Roadmap](../../07-XOOPS-4.0/XOOPS-4.0-Roadmap.md)
 :::
 
-This document provides a comprehensive overview of the XOOPS system architecture, explaining how the various components work together to create a flexible and extensible content management system.
+Este documento fornece uma visão geral abrangente da arquitetura do sistema XOOPS, explicando como os vários componentes funcionam juntos para criar um sistema de gerenciamento de conteúdo flexível e extensível.
 
-## Overview
+## Visão Geral
 
-XOOPS follows a modular architecture that separates concerns into distinct layers. The system is built around several core principles:
+O XOOPS segue uma arquitetura modular que separa as preocupações em camadas distintas. O sistema é construído em torno de vários princípios principais:
 
-- **Modularity**: Functionality is organized into independent, installable modules
-- **Extensibility**: The system can be extended without modifying core code
-- **Abstraction**: Database and presentation layers are abstracted from business logic
-- **Security**: Built-in security mechanisms protect against common vulnerabilities
+- **Modularidade**: A funcionalidade é organizada em módulos independentes e instaláveis
+- **Extensibilidade**: O sistema pode ser estendido sem modificar o código principal
+- **Abstração**: As camadas de banco de dados e apresentação são abstraídas da lógica de negócio
+- **Segurança**: Mecanismos de segurança integrados protegem contra vulnerabilidades comuns
 
-## System Layers
+## Camadas do Sistema
 
 ```mermaid
 graph TB
-    subgraph Presentation["🎨 Presentation Layer"]
-        Themes["Themes"]
-        Templates["Smarty Templates"]
-        Blocks["Blocks"]
+    subgraph Presentation["🎨 Camada de Apresentação"]
+        Themes["Temas"]
+        Templates["Templates Smarty"]
+        Blocks["Blocos"]
     end
 
-    subgraph Application["⚙️ Application Layer"]
-        Modules["Modules"]
+    subgraph Application["⚙️ Camada de Aplicação"]
+        Modules["Módulos"]
         Preloads["Preloads"]
-        Controllers["Controllers"]
-        BlockHandlers["Block Handlers"]
+        Controllers["Controladores"]
+        BlockHandlers["Manipuladores de Blocos"]
     end
 
-    subgraph Domain["📦 Domain Layer"]
+    subgraph Domain["📦 Camada de Domínio"]
         XoopsObject["XoopsObject"]
-        Handlers["Object Handlers"]
-        Criteria["Criteria System"]
+        Handlers["Manipuladores de Objetos"]
+        Criteria["Sistema de Critérios"]
     end
 
-    subgraph Infrastructure["🔧 Infrastructure Layer"]
+    subgraph Infrastructure["🔧 Camada de Infraestrutura"]
         Database["XoopsDatabase"]
-        Cache["Cache System"]
-        Session["Session Manager"]
-        Security["Security Layer"]
+        Cache["Sistema de Cache"]
+        Session["Gerenciador de Sessão"]
+        Security["Camada de Segurança"]
     end
 
     Presentation --> Application
@@ -62,43 +62,43 @@ graph TB
     style Infrastructure fill:#fce4ec,stroke:#c2185b
 ```
 
-### 1. Presentation Layer
+### 1. Camada de Apresentação
 
-The presentation layer handles user interface rendering using the Smarty template engine.
+A camada de apresentação lida com a renderização da interface do usuário usando o mecanismo de templates Smarty.
 
-**Key Components:**
-- **Themes**: Visual styling and layout
-- **Smarty Templates**: Dynamic content rendering
-- **Blocks**: Reusable content widgets
+**Componentes Principais:**
+- **Temas**: Estilo visual e layout
+- **Templates Smarty**: Renderização de conteúdo dinâmico
+- **Blocos**: Widgets de conteúdo reutilizáveis
 
-### 2. Application Layer
+### 2. Camada de Aplicação
 
-The application layer contains business logic, controllers, and module functionality.
+A camada de aplicação contém a lógica de negócio, controladores e funcionalidade do módulo.
 
-**Key Components:**
-- **Modules**: Self-contained functionality packages
-- **Handlers**: Data manipulation classes
-- **Preloads**: Event listeners and hooks
+**Componentes Principais:**
+- **Módulos**: Pacotes de funcionalidade independentes
+- **Manipuladores**: Classes de manipulação de dados
+- **Preloads**: Ouvintes de eventos e ganchos
 
-### 3. Domain Layer
+### 3. Camada de Domínio
 
-The domain layer contains core business objects and rules.
+A camada de domínio contém objetos de negócio principais e regras.
 
-**Key Components:**
-- **XoopsObject**: Base class for all domain objects
-- **Handlers**: CRUD operations for domain objects
+**Componentes Principais:**
+- **XoopsObject**: Classe base para todos os objetos de domínio
+- **Manipuladores**: Operações CRUD para objetos de domínio
 
-### 4. Infrastructure Layer
+### 4. Camada de Infraestrutura
 
-The infrastructure layer provides core services like database access and caching.
+A camada de infraestrutura fornece serviços principais como acesso a banco de dados e cache.
 
-## Request Lifecycle
+## Ciclo de Vida da Requisição
 
-Understanding the request lifecycle is crucial for effective XOOPS development.
+Entender o ciclo de vida da requisição é crucial para o desenvolvimento eficaz do XOOPS.
 
-### XOOPS 2.5.x Page Controller Flow
+### Fluxo do Controlador de Página XOOPS 2.5.x
 
-The current XOOPS 2.5.x uses a **Page Controller** pattern where each PHP file handles its own request. Globals (`$xoopsDB`, `$xoopsUser`, `$xoopsTpl`, etc.) are initialized during bootstrap and available throughout execution.
+O XOOPS 2.5.x atual usa um padrão **Page Controller** onde cada arquivo PHP lida com sua própria requisição. As globais (`$xoopsDB`, `$xoopsUser`, `$xoopsTpl`, etc.) são inicializadas durante o bootstrap e disponíveis em toda a execução.
 
 ```mermaid
 sequenceDiagram
@@ -115,116 +115,116 @@ sequenceDiagram
     Browser->>Entry: GET /modules/mymod/index.php
 
     rect rgb(240, 248, 255)
-        Note over Entry,User: Bootstrap Phase (mainfile.php)
+        Note over Entry,User: Fase de Bootstrap (mainfile.php)
         Entry->>Main: include mainfile.php
-        Main->>Kernel: Initialize Core
-        Kernel->>DB: Create XoopsDatabase (singleton)
-        Kernel->>User: Load Session → $xoopsUser
-        Kernel->>Tpl: Initialize Smarty → $xoopsTpl
-        Main-->>Entry: Globals Ready
+        Main->>Kernel: Inicializar Core
+        Kernel->>DB: Criar XoopsDatabase (singleton)
+        Kernel->>User: Carregar Sessão → $xoopsUser
+        Kernel->>Tpl: Inicializar Smarty → $xoopsTpl
+        Main-->>Entry: Globais Prontas
     end
 
     rect rgb(255, 250, 240)
-        Note over Entry,Handler: Page Controller Execution
+        Note over Entry,Handler: Execução do Controlador de Página
         Entry->>Handler: xoops_getModuleHandler('myobject')
-        Handler->>DB: query via Criteria
-        DB-->>Handler: Result Set
+        Handler->>DB: consultar via Critérios
+        DB-->>Handler: Conjunto de Resultados
         Handler-->>Entry: XoopsObject[]
     end
 
     rect rgb(240, 255, 240)
-        Note over Entry,Theme: Rendering Phase
+        Note over Entry,Theme: Fase de Renderização
         Entry->>Tpl: $xoopsTpl->assign('items', $objects)
         Entry->>Theme: include header.php
         Entry->>Tpl: $xoopsTpl->display('mymod_index.tpl')
         Entry->>Theme: include footer.php
-        Theme-->>Browser: Complete HTML Page
+        Theme-->>Browser: Página HTML Completa
     end
 ```
 
-### Key Globals in 2.5.x
+### Globais Principais em 2.5.x
 
-| Global | Type | Initialized | Purpose |
+| Global | Tipo | Inicializado | Propósito |
 |--------|------|-------------|---------|
-| `$xoopsDB` | `XoopsDatabase` | Bootstrap | Database connection (singleton) |
-| `$xoopsUser` | `XoopsUser\|null` | Session load | Current logged-in user |
-| `$xoopsTpl` | `XoopsTpl` | Template init | Smarty template engine |
-| `$xoopsModule` | `XoopsModule` | Module load | Current module context |
-| `$xoopsConfig` | `array` | Config load | System configuration |
+| `$xoopsDB` | `XoopsDatabase` | Bootstrap | Conexão com banco de dados (singleton) |
+| `$xoopsUser` | `XoopsUser\|null` | Carregamento de sessão | Usuário atualmente conectado |
+| `$xoopsTpl` | `XoopsTpl` | Inicialização de template | Mecanismo de templates Smarty |
+| `$xoopsModule` | `XoopsModule` | Carregamento de módulo | Contexto do módulo atual |
+| `$xoopsConfig` | `array` | Carregamento de configuração | Configuração do sistema |
 
-:::note[XOOPS 4.0 Comparison]
-In XOOPS 4.0, the Page Controller pattern is replaced with a **PSR-15 Middleware Pipeline** and router-based dispatching. Globals are replaced with dependency injection. See [Hybrid Mode Contract](../../07-XOOPS-4.0/Specifications/Hybrid-Mode-Contract.md) for compatibility guarantees during migration.
+:::note[Comparação XOOPS 4.0]
+No XOOPS 4.0, o padrão Page Controller é substituído por um **Pipeline de Middleware PSR-15** e despacho baseado em roteador. As globais são substituídas por injeção de dependência. Veja [Contrato de Modo Híbrido](../../07-XOOPS-4.0/Specifications/Hybrid-Mode-Contract.md) para garantias de compatibilidade durante a migração.
 :::
 
-### 1. Bootstrap Phase
+### 1. Fase de Bootstrap
 
 ```php
-// mainfile.php is the entry point
+// mainfile.php é o ponto de entrada
 include_once XOOPS_ROOT_PATH . '/mainfile.php';
 
-// Core initialization
+// Inicialização do core
 $xoops = Xoops::getInstance();
 $xoops->boot();
 ```
 
-**Steps:**
-1. Load configuration (`mainfile.php`)
-2. Initialize autoloader
-3. Set up error handling
-4. Establish database connection
-5. Load user session
-6. Initialize Smarty template engine
+**Passos:**
+1. Carregar configuração (`mainfile.php`)
+2. Inicializar autoloader
+3. Configurar tratamento de erros
+4. Estabelecer conexão com banco de dados
+5. Carregar sessão do usuário
+6. Inicializar mecanismo de templates Smarty
 
-### 2. Routing Phase
+### 2. Fase de Roteamento
 
 ```php
-// Request routing to appropriate module
+// Roteamento de requisição para módulo apropriado
 $module = $GLOBALS['xoopsModule'];
 $controller = $module->getController();
 $controller->dispatch($request);
 ```
 
-**Steps:**
-1. Parse request URL
-2. Identify target module
-3. Load module configuration
-4. Check permissions
-5. Route to appropriate handler
+**Passos:**
+1. Analisar URL da requisição
+2. Identificar módulo alvo
+3. Carregar configuração do módulo
+4. Verificar permissões
+5. Rotear para manipulador apropriado
 
-### 3. Execution Phase
+### 3. Fase de Execução
 
 ```php
-// Controller execution
+// Execução do controlador
 $data = $handler->getObjects($criteria);
 $xoopsTpl->assign('items', $data);
 ```
 
-**Steps:**
-1. Execute controller logic
-2. Interact with data layer
-3. Process business rules
-4. Prepare view data
+**Passos:**
+1. Executar lógica do controlador
+2. Interagir com a camada de dados
+3. Processar regras de negócio
+4. Preparar dados da visualização
 
-### 4. Rendering Phase
+### 4. Fase de Renderização
 
 ```php
-// Template rendering
+// Renderização de template
 include XOOPS_ROOT_PATH . '/header.php';
 $xoopsTpl->display('db:module_template.tpl');
 include XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-**Steps:**
-1. Apply theme layout
-2. Render module template
-3. Process blocks
-4. Output response
+**Passos:**
+1. Aplicar layout do tema
+2. Renderizar template do módulo
+3. Processar blocos
+4. Gerar resposta
 
-## Core Components
+## Componentes Principais
 
 ### XoopsObject
 
-The base class for all data objects in XOOPS.
+A classe base para todos os objetos de dados no XOOPS.
 
 ```php
 <?php
@@ -240,15 +240,15 @@ class MyModuleItem extends XoopsObject
 }
 ```
 
-**Key Methods:**
-- `initVar()` - Define object properties
-- `getVar()` - Retrieve property values
-- `setVar()` - Set property values
-- `assignVars()` - Bulk assign from array
+**Métodos Principais:**
+- `initVar()` - Definir propriedades do objeto
+- `getVar()` - Recuperar valores de propriedade
+- `setVar()` - Definir valores de propriedade
+- `assignVars()` - Atribuição em massa a partir de array
 
 ### XoopsPersistableObjectHandler
 
-Handles CRUD operations for XoopsObject instances.
+Lida com operações CRUD para instâncias de XoopsObject.
 
 ```php
 <?php
@@ -272,48 +272,48 @@ class MyModuleItemHandler extends XoopsPersistableObjectHandler
 }
 ```
 
-**Key Methods:**
-- `create()` - Create new object instance
-- `get()` - Retrieve object by ID
-- `insert()` - Save object to database
-- `delete()` - Remove object from database
-- `getObjects()` - Retrieve multiple objects
-- `getCount()` - Count matching objects
+**Métodos Principais:**
+- `create()` - Criar nova instância de objeto
+- `get()` - Recuperar objeto por ID
+- `insert()` - Salvar objeto no banco de dados
+- `delete()` - Remover objeto do banco de dados
+- `getObjects()` - Recuperar múltiplos objetos
+- `getCount()` - Contar objetos correspondentes
 
-### Module Structure
+### Estrutura do Módulo
 
-Every XOOPS module follows a standard directory structure:
+Cada módulo XOOPS segue uma estrutura de diretório padrão:
 
 ```
 modules/mymodule/
-├── class/                  # PHP classes
+├── class/                  # Classes PHP
 │   ├── MyModuleItem.php
 │   └── MyModuleItemHandler.php
-├── include/                # Include files
+├── include/                # Arquivos de inclusão
 │   ├── common.php
 │   └── functions.php
-├── templates/              # Smarty templates
+├── templates/              # Templates Smarty
 │   ├── mymodule_index.tpl
 │   └── mymodule_item.tpl
-├── admin/                  # Admin area
+├── admin/                  # Área de administrador
 │   ├── index.php
 │   └── menu.php
-├── language/               # Translations
+├── language/               # Traduções
 │   └── english/
 │       ├── main.php
 │       └── modinfo.php
-├── sql/                    # Database schema
+├── sql/                    # Esquema de banco de dados
 │   └── mysql.sql
-├── xoops_version.php       # Module info
-├── index.php               # Module entry
-└── header.php              # Module header
+├── xoops_version.php       # Informações do módulo
+├── index.php               # Entrada do módulo
+└── header.php              # Cabeçalho do módulo
 ```
 
-## Dependency Injection Container
+## Container de Injeção de Dependência
 
-Modern XOOPS development can leverage dependency injection for better testability.
+O desenvolvimento moderno do XOOPS pode aproveitar a injeção de dependência para melhor testabilidade.
 
-### Basic Container Implementation
+### Implementação Básica do Container
 
 ```php
 <?php
@@ -348,7 +348,7 @@ class XoopsDependencyContainer
 }
 ```
 
-### PSR-11 Compatible Container
+### Container Compatível com PSR-11
 
 ```php
 <?php
@@ -387,11 +387,11 @@ class BasicContainer implements ContainerInterface
 }
 ```
 
-### Usage Example
+### Exemplo de Uso
 
 ```php
 <?php
-// Service registration
+// Registro de serviço
 $container = new XoopsDependencyContainer();
 
 $container->register('database', function () {
@@ -402,18 +402,18 @@ $container->register('userHandler', function ($c) {
     return new XoopsUserHandler($c->resolve('database'));
 });
 
-// Service resolution
+// Resolução de serviço
 $userHandler = $container->resolve('userHandler');
 $user = $userHandler->get($userId);
 ```
 
-## Extension Points
+## Pontos de Extensão
 
-XOOPS provides several extension mechanisms:
+O XOOPS fornece vários mecanismos de extensão:
 
 ### 1. Preloads
 
-Preloads allow modules to hook into core events.
+Os preloads permitem que os módulos se conectem a eventos principais.
 
 ```php
 <?php
@@ -422,19 +422,19 @@ class MymoduleCorePreload extends XoopsPreloadItem
 {
     public static function eventCoreHeaderEnd($args)
     {
-        // Execute when header processing ends
+        // Executar quando o processamento do cabeçalho termina
     }
 
     public static function eventCoreFooterStart($args)
     {
-        // Execute when footer processing starts
+        // Executar quando o processamento do rodapé começa
     }
 }
 ```
 
 ### 2. Plugins
 
-Plugins extend specific functionality within modules.
+Os plugins estendem funcionalidades específicas dentro dos módulos.
 
 ```php
 <?php
@@ -443,37 +443,37 @@ class MymoduleNotifyPlugin
 {
     public function onItemCreate($item)
     {
-        // Send notification when item is created
+        // Enviar notificação quando item é criado
     }
 }
 ```
 
-### 3. Filters
+### 3. Filtros
 
-Filters modify data as it passes through the system.
+Os filtros modificam dados conforme passam pelo sistema.
 
 ```php
 <?php
-// Content filter example
+// Exemplo de filtro de conteúdo
 $myts = MyTextSanitizer::getInstance();
 $content = $myts->displayTarea($rawContent, 1, 1, 1);
 ```
 
-## Best Practices
+## Boas Práticas
 
-### Code Organization
+### Organização de Código
 
-1. **Use namespaces** for new code:
+1. **Use namespaces** para novo código:
    ```php
    namespace XoopsModules\MyModule;
 
    class Item extends \XoopsObject
    {
-       // Implementation
+       // Implementação
    }
    ```
 
-2. **Follow PSR-4 autoloading**:
+2. **Siga autoload PSR-4**:
    ```json
    {
        "autoload": {
@@ -484,32 +484,32 @@ $content = $myts->displayTarea($rawContent, 1, 1, 1);
    }
    ```
 
-3. **Separate concerns**:
-   - Domain logic in `class/`
-   - Presentation in `templates/`
-   - Controllers in module root
+3. **Separe responsabilidades**:
+   - Lógica de domínio em `class/`
+   - Apresentação em `templates/`
+   - Controladores na raiz do módulo
 
-### Performance
+### Desempenho
 
-1. **Use caching** for expensive operations
-2. **Lazy load** resources when possible
-3. **Minimize database queries** using criteria batching
-4. **Optimize templates** by avoiding complex logic
+1. **Use cache** para operações custosas
+2. **Carregue lazy** recursos quando possível
+3. **Minimize consultas ao banco de dados** usando lote de critérios
+4. **Otimize templates** evitando lógica complexa
 
-### Security
+### Segurança
 
-1. **Validate all input** using `Xmf\Request`
-2. **Escape output** in templates
-3. **Use prepared statements** for database queries
-4. **Check permissions** before sensitive operations
+1. **Valide toda entrada** usando `Xmf\Request`
+2. **Escape output** em templates
+3. **Use prepared statements** para consultas ao banco de dados
+4. **Verifique permissões** antes de operações sensíveis
 
-## Related Documentation
+## Documentação Relacionada
 
-- [Design-Patterns](Design-Patterns.md) - Design patterns used in XOOPS
-- [Database Layer](../Database/Database-Layer.md) - Database abstraction details
-- [Smarty Basics](../Templates/Smarty-Basics.md) - Template system documentation
-- [Security Best Practices](../Security/Security-Best-Practices.md) - Security guidelines
+- [Design-Patterns](Design-Patterns.md) - Padrões de design usados no XOOPS
+- [Database Layer](../Database/Database-Layer.md) - Detalhes de abstração de banco de dados
+- [Smarty Basics](../Templates/Smarty-Basics.md) - Documentação do sistema de templates
+- [Security Best Practices](../Security/Security-Best-Practices.md) - Diretrizes de segurança
 
 ---
 
-#xoops #architecture #core #design #system-design
+#xoops #arquitetura #core #design #system-design

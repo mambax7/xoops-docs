@@ -1,45 +1,45 @@
 ---
-title: "Design Patterns in XOOPS"
-description: "Comprehensive guide to design patterns used in XOOPS development including MVC, Singleton, Factory, Observer, and more"
+title: "Padrões de Design no XOOPS"
+description: "Guia abrangente de padrões de design usados no desenvolvimento XOOPS incluindo MVC, Singleton, Factory, Observer e muito mais"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-Design patterns are reusable solutions to common software design problems. XOOPS employs several well-established patterns that help maintain code quality, improve testability, and enhance system flexibility.
+Padrões de design são soluções reutilizáveis para problemas comuns de design de software. XOOPS emprega vários padrões bem estabelecidos que ajudam a manter a qualidade do código, melhorar a testabilidade e aumentar a flexibilidade do sistema.
 
-:::note[Quick Pattern Selection]
-Not sure which pattern to use? See:
-- [Choosing a Data Access Pattern](../../03-Module-Development/Choosing-Data-Access-Pattern.md) — handlers vs repository vs service vs CQRS
-- [Choosing an Event System](../Choosing-Event-System.md) — preloads vs PSR-14 events
+:::note[Seleção Rápida de Padrão]
+Não tem certeza de qual padrão usar? Veja:
+- [Escolhendo um Padrão de Acesso a Dados](../../03-Module-Development/Choosing-Data-Access-Pattern.md) — handlers vs repository vs service vs CQRS
+- [Escolhendo um Sistema de Eventos](../Choosing-Event-System.md) — preloads vs eventos PSR-14
 :::
 
-## Overview
+## Visão Geral
 
-Understanding and properly implementing design patterns is crucial for creating maintainable XOOPS modules. This guide covers the most commonly used patterns in XOOPS development.
+Entender e implementar corretamente os padrões de design é crucial para criar módulos XOOPS mantíveis. Este guia cobre os padrões mais comumente usados no desenvolvimento XOOPS.
 
-| Pattern | Purpose | Common Use Cases |
-|---------|---------|------------------|
-| MVC | Separation of concerns | Module structure |
-| Singleton | Single instance guarantee | Database connections |
-| Factory | Object creation abstraction | Handlers, database |
-| Observer | Event notification | Preloads, notifications |
-| Decorator | Dynamic behavior extension | Form elements, filters |
-| Strategy | Algorithm interchange | Authentication, validation |
-| Adapter | Interface compatibility | Legacy code integration |
-| Repository | Data access abstraction | Data persistence |
+| Padrão | Propósito | Casos de Uso Comuns |
+|--------|---------|------------------|
+| MVC | Separação de responsabilidades | Estrutura do módulo |
+| Singleton | Garantia de instância única | Conexões de banco de dados |
+| Factory | Abstração de criação de objetos | Manipuladores, banco de dados |
+| Observer | Notificação de eventos | Preloads, notificações |
+| Decorator | Extensão dinâmica de comportamento | Elementos de formulário, filtros |
+| Strategy | Intercâmbio de algoritmos | Autenticação, validação |
+| Adapter | Compatibilidade de interface | Integração de código legado |
+| Repository | Abstração de acesso a dados | Persistência de dados |
 
 ## Model-View-Controller (MVC)
 
-The MVC pattern separates an application into three interconnected components, making the codebase more organized and testable.
+O padrão MVC separa uma aplicação em três componentes interconectados, tornando a base de código mais organizada e testável.
 
-### Architecture
+### Arquitetura
 
 ```mermaid
 flowchart TB
-    subgraph MVC["MVC Pattern in XOOPS"]
-        Controller["🎮 Controller<br/>(index.php, admin/index.php)"]
-        Model["📦 Model<br/>(Handlers)"]
-        View["🎨 View<br/>(Templates)"]
+    subgraph MVC["Padrão MVC no XOOPS"]
+        Controller["🎮 Controlador<br/>(index.php, admin/index.php)"]
+        Model["📦 Modelo<br/>(Manipuladores)"]
+        View["🎨 Visualização<br/>(Templates)"]
 
         Controller --> Model
         Controller --> View
@@ -51,7 +51,7 @@ flowchart TB
     style View fill:#e8f5e9,stroke:#388e3c
 ```
 
-### Model (Data Layer)
+### Modelo (Camada de Dados)
 
 ```php
 <?php
@@ -101,7 +101,7 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
 }
 ```
 
-### View (Presentation Layer)
+### Visualização (Camada de Apresentação)
 
 ```smarty
 {* templates/article_list.tpl *}
@@ -126,7 +126,7 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
 </div>
 ```
 
-### Controller (Logic Layer)
+### Controlador (Camada de Lógica)
 
 ```php
 <?php
@@ -138,7 +138,7 @@ use XoopsModules\MyModule\Helper;
 $helper = Helper::getInstance();
 $articleHandler = $helper->getHandler('Article');
 
-// Get action from request
+// Obter ação da requisição
 $op = \Xmf\Request::getString('op', 'list');
 
 switch ($op) {
@@ -170,18 +170,18 @@ switch ($op) {
 require_once XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-## Singleton Pattern
+## Padrão Singleton
 
-The Singleton pattern ensures a class has only one instance and provides global access to it.
+O padrão Singleton garante que uma classe tenha apenas uma instância e fornece acesso global a ela.
 
-### When to Use
+### Quando Usar
 
-- Database connections
-- Configuration managers
-- Logger instances
-- Cache managers
+- Conexões de banco de dados
+- Gerenciadores de configuração
+- Instâncias de logger
+- Gerenciadores de cache
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -194,14 +194,14 @@ class ConfigurationManager
 
     private function __construct()
     {
-        // Load configuration
+        // Carregar configuração
         $this->loadConfiguration();
     }
 
-    // Prevent cloning
+    // Prevenir clonagem
     private function __clone() {}
 
-    // Prevent unserialization
+    // Prevenir desserialização
     public function __wakeup()
     {
         throw new \Exception("Cannot unserialize singleton");
@@ -232,37 +232,37 @@ class ConfigurationManager
     }
 }
 
-// Usage
+// Uso
 $config = ConfigurationManager::getInstance();
 $itemsPerPage = $config->get('items_per_page');
 ```
 
-### XOOPS Core Examples
+### Exemplos do Core XOOPS
 
 ```php
 <?php
-// XoopsDatabaseFactory uses Singleton pattern
+// XoopsDatabaseFactory usa padrão Singleton
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 
-// XMF Module Helper uses Singleton
+// Helper de Módulo XMF usa Singleton
 $helper = \Xmf\Module\Helper::getHelper('mymodule');
 
-// Xoops main instance
+// Instância principal do Xoops
 $xoops = \Xoops::getInstance();
 ```
 
-## Factory Pattern
+## Padrão Factory
 
-The Factory pattern creates objects without specifying their exact class, allowing for flexible object creation.
+O padrão Factory cria objetos sem especificar sua classe exata, permitindo criação de objetos flexível.
 
-### When to Use
+### Quando Usar
 
-- Creating handlers dynamically
-- Database connections for different databases
-- Authentication providers
-- Form element creation
+- Criando manipuladores dinamicamente
+- Conexões de banco de dados para diferentes bancos de dados
+- Provedores de autenticação
+- Criação de elementos de formulário
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -315,12 +315,12 @@ class ContentFactory
     }
 }
 
-// Usage
-$article = ContentFactory::create('article', ['title' => 'Hello', 'body' => 'World']);
+// Uso
+$article = ContentFactory::create('article', ['title' => 'Olá', 'body' => 'Mundo']);
 echo $article->render();
 ```
 
-### XOOPS Database Factory
+### Factory de Banco de Dados XOOPS
 
 ```php
 <?php
@@ -353,18 +353,18 @@ class XoopsDatabaseFactory
 }
 ```
 
-## Observer Pattern
+## Padrão Observer
 
-The Observer pattern allows objects to be notified of changes to a subject's state, enabling event-driven behavior.
+O padrão Observer permite que objetos sejam notificados sobre mudanças no estado de um objeto, permitindo comportamento orientado a eventos.
 
-### When to Use
+### Quando Usar
 
-- Event handling
-- Notification systems
-- Plugin architectures
-- Logging and auditing
+- Tratamento de eventos
+- Sistemas de notificação
+- Arquiteturas de plugin
+- Logging e auditoria
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -413,7 +413,7 @@ class EmailNotifier implements ObserverInterface
     public function update(string $event, array $data): void
     {
         if ($event === 'article.published') {
-            // Send email notification
+            // Enviar notificação por email
             $this->sendEmail($data['article']);
         }
     }
@@ -421,21 +421,21 @@ class EmailNotifier implements ObserverInterface
     private function sendEmail($article): void
     {
         $xoopsMailer = xoops_getMailer();
-        $xoopsMailer->setSubject('New Article Published: ' . $article->getVar('title'));
-        $xoopsMailer->setBody('A new article has been published.');
+        $xoopsMailer->setSubject('Novo Artigo Publicado: ' . $article->getVar('title'));
+        $xoopsMailer->setBody('Um novo artigo foi publicado.');
         $xoopsMailer->send();
     }
 }
 
-// Usage
+// Uso
 $dispatcher = new EventDispatcher();
 $dispatcher->attach('article.published', new EmailNotifier());
 
-// When article is published
+// Quando o artigo for publicado
 $dispatcher->notify('article.published', ['article' => $article]);
 ```
 
-### XOOPS Preloads (Observer Implementation)
+### Preloads XOOPS (Implementação Observer)
 
 ```php
 <?php
@@ -444,35 +444,35 @@ class MymoduleCorePreload extends XoopsPreloadItem
 {
     public static function eventCoreIncludeCommonEnd($args)
     {
-        // React to core common include completing
-        $GLOBALS['xoopsLogger']->addExtra('MyModule', 'Initialized');
+        // Reagir ao término da inclusão comum do core
+        $GLOBALS['xoopsLogger']->addExtra('MyModule', 'Inicializado');
     }
 
     public static function eventCoreHeaderEnd($args)
     {
-        // Add custom headers
+        // Adicionar cabeçalhos personalizados
         $GLOBALS['xoTheme']->addStylesheet('modules/mymodule/assets/css/custom.css');
     }
 
     public static function eventCoreFooterStart($args)
     {
-        // Execute before footer renders
+        // Executar antes do rodapé renderizar
     }
 }
 ```
 
-## Decorator Pattern
+## Padrão Decorator
 
-The Decorator pattern adds behavior to objects dynamically without affecting other objects of the same class.
+O padrão Decorator adiciona comportamento aos objetos dinamicamente sem afetar outros objetos da mesma classe.
 
-### When to Use
+### Quando Usar
 
-- Form element customization
-- Output formatting
-- Permission checking
-- Caching layers
+- Personalização de elementos de formulário
+- Formatação de saída
+- Verificação de permissão
+- Camadas de cache
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -566,28 +566,28 @@ class HelpTextDecorator extends FormElementDecorator
     }
 }
 
-// Usage - decorators can be stacked
+// Uso - decoradores podem ser empilhados
 $input = new TextInput('username');
 $input = new RequiredDecorator($input);
-$input = new LabelDecorator($input, 'Username');
-$input = new HelpTextDecorator($input, 'Enter your username');
+$input = new LabelDecorator($input, 'Nome de Usuário');
+$input = new HelpTextDecorator($input, 'Digite seu nome de usuário');
 
 echo $input->render();
-// Output: <label>Username</label><input type="text" name="username" value=""><span class="required">*</span><small class="help-text">Enter your username</small>
+// Saída: <label>Nome de Usuário</label><input type="text" name="username" value=""><span class="required">*</span><small class="help-text">Digite seu nome de usuário</small>
 ```
 
-## Strategy Pattern
+## Padrão Strategy
 
-The Strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+O padrão Strategy define uma família de algoritmos, encapsula cada um e os torna intercambiáveis.
 
-### When to Use
+### Quando Usar
 
-- Multiple authentication methods
-- Different sorting algorithms
-- Various export formats
-- Flexible validation rules
+- Múltiplos métodos de autenticação
+- Diferentes algoritmos de ordenação
+- Vários formatos de exportação
+- Regras de validação flexíveis
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -656,10 +656,10 @@ class AuthService
     }
 }
 
-// Usage
+// Uso
 $authService = new AuthService(new DatabaseAuthStrategy());
 
-// Can switch strategies at runtime
+// Pode trocar estratégias em tempo de execução
 if ($useLdap) {
     $authService->setStrategy(new LdapAuthStrategy('ldap.example.com'));
 }
@@ -667,18 +667,18 @@ if ($useLdap) {
 $authenticated = $authService->login($username, $password);
 ```
 
-## Repository Pattern
+## Padrão Repository
 
-The Repository pattern provides an abstraction layer between data access logic and business logic.
+O padrão Repository fornece uma camada de abstração entre a lógica de acesso a dados e a lógica de negócio.
 
-### When to Use
+### Quando Usar
 
-- Complex data access requirements
-- Multiple data sources
-- Testable data layers
-- Domain-Driven Design
+- Requisitos complexos de acesso a dados
+- Múltiplas fontes de dados
+- Camadas de dados testáveis
+- Design Orientado ao Domínio
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -742,18 +742,18 @@ class ArticleRepository implements ArticleRepositoryInterface
 }
 ```
 
-## Dependency Injection
+## Injeção de Dependência
 
-Dependency Injection (DI) allows objects to be constructed with their dependencies instead of creating them internally.
+Injeção de Dependência (DI) permite que objetos sejam construídos com suas dependências em vez de criá-las internamente.
 
-### Benefits
+### Benefícios
 
-- Improved testability
-- Loose coupling
-- Flexible configuration
-- Better code organization
+- Melhor testabilidade
+- Acoplamento fraco
+- Configuração flexível
+- Melhor organização de código
 
-### Implementation
+### Implementação
 
 ```php
 <?php
@@ -779,25 +779,25 @@ class ArticleService
     {
         $cacheKey = "article_{$id}";
 
-        // Try cache first
+        // Tentar cache primeiro
         if ($this->cache->has($cacheKey)) {
-            $this->logger->debug("Article {$id} loaded from cache");
+            $this->logger->debug("Artigo {$id} carregado do cache");
             return $this->cache->get($cacheKey);
         }
 
-        // Load from repository
+        // Carregar do repositório
         $article = $this->repository->find($id);
 
         if ($article) {
             $this->cache->set($cacheKey, $article, 3600);
-            $this->logger->debug("Article {$id} loaded from database");
+            $this->logger->debug("Artigo {$id} carregado do banco de dados");
         }
 
         return $article;
     }
 }
 
-// Service container setup
+// Configuração do container de serviço
 $container = new DependencyContainer();
 
 $container->register('db', fn() => XoopsDatabaseFactory::getDatabaseConnection());
@@ -822,36 +822,36 @@ $container->register('articleService', fn($c) =>
     )
 );
 
-// Usage
+// Uso
 $articleService = $container->resolve('articleService');
 $article = $articleService->getArticle(1);
 ```
 
-## Best Practices
+## Boas Práticas
 
-### Pattern Selection Guidelines
+### Diretrizes de Seleção de Padrão
 
-1. **Choose patterns based on actual needs**, not anticipated ones
-2. **Keep implementations simple** - don't over-engineer
-3. **Document pattern usage** for team understanding
-4. **Combine patterns** when appropriate (e.g., Factory + Singleton)
-5. **Consider testability** when selecting patterns
+1. **Escolha padrões baseado em necessidades reais**, não em antecipadas
+2. **Mantenha implementações simples** - não sobre-engenharia
+3. **Documente uso de padrão** para compreensão da equipe
+4. **Combine padrões** quando apropriado (por ex., Factory + Singleton)
+5. **Considere testabilidade** ao selecionar padrões
 
-### Common Anti-Patterns to Avoid
+### Anti-Padrões Comuns a Evitar
 
-| Anti-Pattern | Problem | Solution |
+| Anti-Padrão | Problema | Solução |
 |--------------|---------|----------|
-| God Object | Class does too much | Single Responsibility |
-| Spaghetti Code | No clear structure | Use MVC pattern |
-| Copy-Paste | Code duplication | Extract common code |
-| Magic Numbers | Unclear constants | Use named constants |
-| Tight Coupling | Hard to test/maintain | Use Dependency Injection |
+| God Object | Classe faz muito | Responsabilidade Única |
+| Código Espaguete | Sem estrutura clara | Use padrão MVC |
+| Copy-Paste | Duplicação de código | Extrair código comum |
+| Números Mágicos | Constantes pouco claras | Use constantes nomeadas |
+| Acoplamento Forte | Difícil de testar/manter | Use Injeção de Dependência |
 
-### Testing Patterns
+### Padrões de Testagem
 
 ```php
 <?php
-// Unit testing with dependency injection
+// Teste unitário com injeção de dependência
 class ArticleServiceTest extends \PHPUnit\Framework\TestCase
 {
     private $repository;
@@ -894,12 +894,12 @@ class ArticleServiceTest extends \PHPUnit\Framework\TestCase
 }
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- [XOOPS-Architecture](XOOPS-Architecture.md) - Overall system architecture
-- [Database Layer](../Database/Database-Layer.md) - Data persistence patterns
-- [Security Best Practices](../Security/Security-Best-Practices.md) - Secure pattern implementation
+- [XOOPS-Architecture](XOOPS-Architecture.md) - Arquitetura geral do sistema
+- [Database Layer](../Database/Database-Layer.md) - Padrões de persistência de dados
+- [Security Best Practices](../Security/Security-Best-Practices.md) - Implementação segura de padrões
 
 ---
 
-#xoops #design-patterns #architecture #mvc #singleton #factory #observer
+#xoops #padrões-de-design #arquitetura #mvc #singleton #factory #observer

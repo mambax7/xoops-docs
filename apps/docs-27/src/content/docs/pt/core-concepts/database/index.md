@@ -1,37 +1,37 @@
 ---
-title: "Database Layer"
-description: "Comprehensive guide to XOOPS database abstraction, XoopsObject, handlers, and the Criteria system"
+title: "Camada de Banco de Dados"
+description: "Guia abrangente da abstração de banco de dados XOOPS, XoopsObject, manipuladores e sistema de Critérios"
 ---
 
-# 🗄️ Database Layer
+# 🗄️ Camada de Banco de Dados
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-> Understanding XOOPS database abstraction, object persistence, and query building.
+> Entendendo a abstração de banco de dados XOOPS, persistência de objetos e construção de consultas.
 
-:::tip[Future-Proof Your Data Access]
-The handler/Criteria pattern works in both versions. To prepare for XOOPS 4.0, consider wrapping handlers in [Repository classes](../../03-Module-Development/Patterns/Repository-Pattern.md) for better testability. See [Choosing a Data Access Pattern](../../03-Module-Development/Choosing-Data-Access-Pattern.md).
+:::tip[Torne Seu Acesso a Dados à Prova do Futuro]
+O padrão handler/Critérios funciona em ambas as versões. Para se preparar para XOOPS 4.0, considere envolver manipuladores em classes [Repository](../../03-Module-Development/Patterns/Repository-Pattern.md) para melhor testabilidade. Veja [Escolhendo um Padrão de Acesso a Dados](../../03-Module-Development/Choosing-Data-Access-Pattern.md).
 :::
 
 ---
 
-## Overview
+## Visão Geral
 
-The XOOPS database layer provides a robust abstraction over MySQL/MariaDB, featuring:
+A camada de banco de dados XOOPS fornece uma abstração robusta sobre MySQL/MariaDB, apresentando:
 
-- **Factory Pattern** - Centralized database connection management
-- **Object-Relational Mapping** - XoopsObject and handlers
-- **Query Building** - Criteria system for complex queries
-- **Connection Reuse** - Single connection via singleton factory (not pooling)
+- **Padrão Factory** - Gerenciamento centralizado de conexão com banco de dados
+- **Mapeamento Objeto-Relacional** - XoopsObject e manipuladores
+- **Construção de Consultas** - Sistema de Critérios para consultas complexas
+- **Reutilização de Conexão** - Conexão única via factory singleton (não pool)
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Arquitetura
 
 ```mermaid
 flowchart TB
-    subgraph App["📱 Application Code"]
-        AppCode["Your Module Code"]
+    subgraph App["📱 Código de Aplicação"]
+        AppCode["Seu Código do Módulo"]
     end
 
     subgraph Handler["🔧 XoopsPersistableObjectHandler"]
@@ -42,7 +42,7 @@ flowchart TB
         ObjectMethods["initVar() | getVar() | setVar() | toArray()"]
     end
 
-    subgraph Criteria["🔍 Criteria System"]
+    subgraph Criteria["🔍 Sistema de Critérios"]
         CriteriaMethods["Criteria | CriteriaCompo | CriteriaElement"]
     end
 
@@ -51,7 +51,7 @@ flowchart TB
     end
 
     subgraph Storage["💾 MySQL / MariaDB"]
-        DB[(Database)]
+        DB[(Banco de Dados)]
     end
 
     App --> Handler
@@ -70,21 +70,21 @@ flowchart TB
 
 ---
 
-## 🔌 Database Connection
+## 🔌 Conexão com Banco de Dados
 
-### Getting the Connection
+### Obtendo a Conexão
 
 ```php
-// Recommended: Use the global database instance
+// Recomendado: Use a instância de banco de dados global
 $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
-// Legacy: Global variable (still works)
+// Legado: Variável global (ainda funciona)
 global $xoopsDB;
 ```
 
 ### XoopsDatabaseFactory
 
-The factory pattern ensures a single database connection is reused:
+O padrão factory garante que uma única conexão de banco de dados seja reutilizada:
 
 ```php
 <?php
@@ -107,9 +107,9 @@ class XoopsDatabaseFactory
 
 ## 📦 XoopsObject
 
-The base class for all data objects in XOOPS.
+A classe base para todos os objetos de dados no XOOPS.
 
-### Defining an Object
+### Definindo um Objeto
 
 ```php
 <?php
@@ -133,53 +133,53 @@ class Article extends \XoopsObject
 }
 ```
 
-### Data Types
+### Tipos de Dados
 
-| Constant | Type | Description |
+| Constante | Tipo | Descrição |
 |----------|------|-------------|
-| `XOBJ_DTYPE_INT` | Integer | Numeric values |
-| `XOBJ_DTYPE_TXTBOX` | String | Short text (< 255 chars) |
-| `XOBJ_DTYPE_TXTAREA` | Text | Long text content |
-| `XOBJ_DTYPE_EMAIL` | Email | Email addresses |
-| `XOBJ_DTYPE_URL` | URL | Web addresses |
-| `XOBJ_DTYPE_FLOAT` | Float | Decimal numbers |
-| `XOBJ_DTYPE_ARRAY` | Array | Serialized arrays |
-| `XOBJ_DTYPE_OTHER` | Mixed | Raw data |
+| `XOBJ_DTYPE_INT` | Inteiro | Valores numéricos |
+| `XOBJ_DTYPE_TXTBOX` | String | Texto curto (< 255 caracteres) |
+| `XOBJ_DTYPE_TXTAREA` | Texto | Conteúdo de texto longo |
+| `XOBJ_DTYPE_EMAIL` | Email | Endereços de email |
+| `XOBJ_DTYPE_URL` | URL | Endereços web |
+| `XOBJ_DTYPE_FLOAT` | Float | Números decimais |
+| `XOBJ_DTYPE_ARRAY` | Array | Arrays serializados |
+| `XOBJ_DTYPE_OTHER` | Misto | Dados brutos |
 
-### Working with Objects
+### Trabalhando com Objetos
 
 ```php
-// Create new object
+// Criar novo objeto
 $article = new Article();
 
-// Set values
-$article->setVar('title', 'My Article');
-$article->setVar('content', 'Article content here...');
+// Definir valores
+$article->setVar('title', 'Meu Artigo');
+$article->setVar('content', 'Conteúdo do artigo aqui...');
 $article->setVar('category_id', 5);
 $article->setVar('author_id', $xoopsUser->getVar('uid'));
 
-// Get values
-$title = $article->getVar('title');           // Raw value
-$titleDisplay = $article->getVar('title', 'e'); // For editing (HTML entities)
-$titleShow = $article->getVar('title', 's');    // For display (sanitized)
+// Obter valores
+$title = $article->getVar('title');           // Valor bruto
+$titleDisplay = $article->getVar('title', 'e'); // Para edição (entidades HTML)
+$titleShow = $article->getVar('title', 's');    // Para exibição (sanitizado)
 
-// Bulk assign from array
+// Atribuição em massa a partir de array
 $article->assignVars([
-    'title' => 'New Title',
-    'status' => 'published'
+    'title' => 'Novo Título',
+    'status' => 'publicado'
 ]);
 
-// Convert to array
+// Converter para array
 $data = $article->toArray();
 ```
 
 ---
 
-## 🔧 Object Handlers
+## 🔧 Manipuladores de Objeto
 
 ### XoopsPersistableObjectHandler
 
-The handler class manages CRUD operations for XoopsObject instances.
+A classe manipulador gerencia operações CRUD para instâncias de XoopsObject.
 
 ```php
 <?php
@@ -192,47 +192,47 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
     {
         parent::__construct(
             $db,
-            'mymodule_articles',  // Table name
-            Article::class,       // Object class
-            'article_id',         // Primary key
-            'title'               // Identifier field
+            'mymodule_articles',  // Nome da tabela
+            Article::class,       // Classe do objeto
+            'article_id',         // Chave primária
+            'title'               // Campo identificador
         );
     }
 }
 ```
 
-### Handler Methods
+### Métodos do Manipulador
 
 ```php
-// Get handler instance
+// Obter instância do manipulador
 $articleHandler = xoops_getModuleHandler('article', 'mymodule');
 
-// Create new object
+// Criar novo objeto
 $article = $articleHandler->create();
 
-// Get by ID
+// Obter por ID
 $article = $articleHandler->get(123);
 
-// Insert (create or update)
+// Inserir (criar ou atualizar)
 $success = $articleHandler->insert($article);
 
-// Delete
+// Deletar
 $success = $articleHandler->delete($article);
 
-// Get multiple objects
+// Obter múltiplos objetos
 $articles = $articleHandler->getObjects($criteria);
 
-// Get count
+// Obter contagem
 $count = $articleHandler->getCount($criteria);
 
-// Get as array (key => value)
+// Obter como array (chave => valor)
 $list = $articleHandler->getList($criteria);
 
-// Delete multiple
+// Deletar múltiplos
 $deleted = $articleHandler->deleteAll($criteria);
 ```
 
-### Custom Handler Methods
+### Métodos Personalizados do Manipulador
 
 ```php
 <?php
@@ -241,15 +241,15 @@ namespace XoopsModules\MyModule;
 
 class ArticleHandler extends \XoopsPersistableObjectHandler
 {
-    // ... constructor
+    // ... construtor
 
     /**
-     * Get published articles
+     * Obter artigos publicados
      */
     public function getPublished(int $limit = 10, int $start = 0): array
     {
         $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('status', 'published'));
+        $criteria->add(new \Criteria('status', 'publicado'));
         $criteria->setSort('created');
         $criteria->setOrder('DESC');
         $criteria->setLimit($limit);
@@ -259,13 +259,13 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Get articles by category
+     * Obter artigos por categoria
      */
     public function getByCategory(int $categoryId, int $limit = 10): array
     {
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('category_id', $categoryId));
-        $criteria->add(new \Criteria('status', 'published'));
+        $criteria->add(new \Criteria('status', 'publicado'));
         $criteria->setSort('created');
         $criteria->setOrder('DESC');
         $criteria->setLimit($limit);
@@ -274,7 +274,7 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Get articles by author
+     * Obter artigos por autor
      */
     public function getByAuthor(int $authorId): array
     {
@@ -283,7 +283,7 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Increment view count
+     * Incrementar contagem de visualizações
      */
     public function incrementViews(int $articleId): bool
     {
@@ -296,12 +296,12 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Get popular articles
+     * Obter artigos populares
      */
     public function getPopular(int $limit = 5): array
     {
         $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('status', 'published'));
+        $criteria->add(new \Criteria('status', 'publicado'));
         $criteria->setSort('views');
         $criteria->setOrder('DESC');
         $criteria->setLimit($limit);
@@ -313,69 +313,69 @@ class ArticleHandler extends \XoopsPersistableObjectHandler
 
 ---
 
-## 🔍 Criteria System
+## 🔍 Sistema de Critérios
 
-The Criteria system provides a powerful, object-oriented way to build SQL WHERE clauses.
+O sistema de Critérios fornece uma maneira poderosa e orientada a objetos para construir cláusulas SQL WHERE.
 
-### Basic Criteria
+### Critérios Básicos
 
 ```php
-// Simple equality
-$criteria = new \Criteria('status', 'published');
+// Igualdade simples
+$criteria = new \Criteria('status', 'publicado');
 
-// With operator
+// Com operador
 $criteria = new \Criteria('views', 100, '>=');
 
-// Column comparison
+// Comparação de coluna
 $criteria = new \Criteria('updated', 'created', '>');
 ```
 
-### CriteriaCompo (Combining Criteria)
+### CriteriaCompo (Combinando Critérios)
 
 ```php
 $criteria = new \CriteriaCompo();
 
-// AND conditions (default)
-$criteria->add(new \Criteria('status', 'published'));
+// Condições AND (padrão)
+$criteria->add(new \Criteria('status', 'publicado'));
 $criteria->add(new \Criteria('category_id', 5));
 
-// OR conditions
+// Condições OR
 $criteria->add(new \Criteria('featured', 1), 'OR');
 
-// Nested conditions
+// Condições aninhadas
 $subCriteria = new \CriteriaCompo();
 $subCriteria->add(new \Criteria('author_id', 1));
 $subCriteria->add(new \Criteria('author_id', 2), 'OR');
 $criteria->add($subCriteria);
 ```
 
-### Sorting and Pagination
+### Ordenação e Paginação
 
 ```php
 $criteria = new \CriteriaCompo();
-$criteria->add(new \Criteria('status', 'published'));
+$criteria->add(new \Criteria('status', 'publicado'));
 
-// Sorting
+// Ordenação
 $criteria->setSort('created');
 $criteria->setOrder('DESC');
 
-// Multiple sort fields
+// Múltiplos campos de ordenação
 $criteria->setSort('category_id, created');
 $criteria->setOrder('ASC, DESC');
 
-// Pagination
-$criteria->setLimit(10);    // Items per page
+// Paginação
+$criteria->setLimit(10);    // Itens por página
 $criteria->setStart(20);    // Offset
 
-// Group by
+// Agrupar por
 $criteria->setGroupby('category_id');
 ```
 
-### Operators
+### Operadores
 
-| Operator | Example | SQL Output |
+| Operador | Exemplo | Saída SQL |
 |----------|---------|------------|
-| `=` | `new Criteria('status', 'published')` | `status = 'published'` |
+| `=` | `new Criteria('status', 'publicado')` | `status = 'publicado'` |
 | `!=` | `new Criteria('status', 'draft', '!=')` | `status != 'draft'` |
 | `>` | `new Criteria('views', 100, '>')` | `views > 100` |
 | `>=` | `new Criteria('views', 100, '>=')` | `views >= 100` |
@@ -386,32 +386,32 @@ $criteria->setGroupby('category_id');
 | `IN` | `new Criteria('id', '(1,2,3)', 'IN')` | `id IN (1,2,3)` |
 | `NOT IN` | `new Criteria('id', '(1,2,3)', 'NOT IN')` | `id NOT IN (1,2,3)` |
 
-### Complex Example
+### Exemplo Complexo
 
 ```php
-// Find published articles in specific categories,
-// with search term in title, sorted by views
+// Encontrar artigos publicados em categorias específicas,
+// com termo de busca no título, ordenados por visualizações
 $criteria = new \CriteriaCompo();
 
-// Status must be published
-$criteria->add(new \Criteria('status', 'published'));
+// Status deve ser publicado
+$criteria->add(new \Criteria('status', 'publicado'));
 
-// In categories 1, 2, or 3
+// Em categorias 1, 2 ou 3
 $criteria->add(new \Criteria('category_id', '(1, 2, 3)', 'IN'));
 
-// Title contains search term
+// Título contém termo de busca
 $searchTerm = '%' . $db->escape($searchQuery) . '%';
 $criteria->add(new \Criteria('title', $searchTerm, 'LIKE'));
 
-// Created in last 30 days
+// Criado nos últimos 30 dias
 $thirtyDaysAgo = time() - (30 * 24 * 60 * 60);
 $criteria->add(new \Criteria('created', $thirtyDaysAgo, '>='));
 
-// Sort by views descending
+// Ordenar por visualizações descendente
 $criteria->setSort('views');
 $criteria->setOrder('DESC');
 
-// Paginate
+// Paginar
 $criteria->setLimit(10);
 $criteria->setStart($page * 10);
 
@@ -421,11 +421,11 @@ $totalCount = $articleHandler->getCount($criteria);
 
 ---
 
-## 📝 Direct Queries
+## 📝 Consultas Diretas
 
-For complex queries not possible with Criteria, use direct SQL.
+Para consultas complexas não possíveis com Critérios, use SQL direto.
 
-### Safe Queries (Read)
+### Consultas Seguras (Leitura)
 
 ```php
 $db = \XoopsDatabaseFactory::getDatabaseConnection();
@@ -439,22 +439,22 @@ $sql = sprintf(
      LIMIT %d',
     $db->prefix('mymodule_articles'),
     $db->prefix('mymodule_categories'),
-    $db->quoteString('published'),
+    $db->quoteString('publicado'),
     10
 );
 
 $result = $db->query($sql);
 
 while ($row = $db->fetchArray($result)) {
-    // Process row
+    // Processar linha
     echo $row['title'];
 }
 ```
 
-### Write Queries
+### Consultas de Escrita
 
 ```php
-// Insert
+// Inserir
 $sql = sprintf(
     "INSERT INTO %s (title, content, created) VALUES (%s, %s, %d)",
     $db->prefix('mymodule_articles'),
@@ -465,7 +465,7 @@ $sql = sprintf(
 $db->queryF($sql);
 $newId = $db->getInsertId();
 
-// Update
+// Atualizar
 $sql = sprintf(
     "UPDATE %s SET views = views + 1 WHERE article_id = %d",
     $db->prefix('mymodule_articles'),
@@ -474,7 +474,7 @@ $sql = sprintf(
 $db->queryF($sql);
 $affectedRows = $db->getAffectedRows();
 
-// Delete
+// Deletar
 $sql = sprintf(
     "DELETE FROM %s WHERE article_id = %d",
     $db->prefix('mymodule_articles'),
@@ -483,50 +483,50 @@ $sql = sprintf(
 $db->queryF($sql);
 ```
 
-### Escaping Values
+### Escapando Valores
 
 ```php
-// String escaping
+// Escape de string
 $safeString = $db->quoteString($userInput);
-// or
+// ou
 $safeString = $db->escape($userInput);
 
-// Integer (no escaping needed, just cast)
+// Inteiro (sem escape necessário, apenas conversão)
 $safeInt = (int) $userInput;
 ```
 
 ---
 
-## ⚠️ Security Best Practices
+## ⚠️ Boas Práticas de Segurança
 
-### Always Escape User Input
+### Sempre Escape de Entrada do Usuário
 
 ```php
-// NEVER do this
-$sql = "SELECT * FROM articles WHERE title = '$_GET[title]'"; // SQL Injection!
+// NUNCA faça isto
+$sql = "SELECT * FROM articles WHERE title = '$_GET[title]'"; // Injeção SQL!
 
-// DO this
+// FAÇA isto
 $title = $db->escape($_GET['title']);
 $sql = "SELECT * FROM articles WHERE title = '$title'";
 
-// Or better, use Criteria
+// Ou melhor, use Critérios
 $criteria = new \Criteria('title', $db->escape($_GET['title']));
 ```
 
-### Use Parameterized Queries (XMF)
+### Use Consultas Parametrizadas (XMF)
 
 ```php
 use Xmf\Database\TableLoad;
 
-// Safe bulk insert
+// Inserção em massa segura
 $tableLoad = new TableLoad('mymodule_articles');
 $tableLoad->insert([
-    ['title' => 'Article 1', 'content' => 'Content 1'],
-    ['title' => 'Article 2', 'content' => 'Content 2'],
+    ['title' => 'Artigo 1', 'content' => 'Conteúdo 1'],
+    ['title' => 'Artigo 2', 'content' => 'Conteúdo 2'],
 ]);
 ```
 
-### Validate Input Types
+### Validar Tipos de Entrada
 
 ```php
 use Xmf\Request;
@@ -537,7 +537,7 @@ $title = Request::getString('title', '', 'POST');
 
 ---
 
-## 📊 Database Schema Example
+## 📊 Exemplo de Esquema de Banco de Dados
 
 ```sql
 -- sql/mysql.sql
@@ -562,13 +562,13 @@ CREATE TABLE `{PREFIX}_mymodule_articles` (
 
 ---
 
-## 🔗 Related Documentation
+## 🔗 Documentação Relacionada
 
-- [Criteria System Deep Dive](../../04-API-Reference/Kernel/Criteria.md)
-- [Design Patterns - Factory](../Architecture/Design-Patterns.md)
-- [SQL Injection Prevention](../Security/SQL-Injection-Prevention.md)
-- [XoopsDatabase API Reference](../../04-API-Reference/Database/XoopsDatabase.md)
+- [Análise Profunda do Sistema de Critérios](../../04-API-Reference/Kernel/Criteria.md)
+- [Padrões de Design - Factory](../Architecture/Design-Patterns.md)
+- [Prevenção de Injeção de SQL](../Security/SQL-Injection-Prevention.md)
+- [Referência API XoopsDatabase](../../04-API-Reference/Database/XoopsDatabase.md)
 
 ---
 
-#xoops #database #orm #criteria #handlers #mysql
+#xoops #banco-de-dados #orm #critérios #manipuladores #mysql

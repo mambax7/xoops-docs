@@ -1,22 +1,22 @@
 ---
-title: "Hello World Module"
-description: "Step-by-step tutorial for creating your first XOOPS module"
+title: "Módulo Olá Mundo"
+description: "Tutorial passo a passo para criar seu primeiro módulo XOOPS"
 ---
 
-# Hello World Module Tutorial
+# Tutorial do Módulo Olá Mundo
 
-This tutorial guides you through creating your first XOOPS module. By the end, you will have a working module that displays "Hello World" on both the frontend and admin areas.
+Este tutorial o guia através da criação de seu primeiro módulo XOOPS. No final, você terá um módulo funcionando que exibe "Olá Mundo" em ambas as áreas de frontend e administrador.
 
-## Prerequisites
+## Pré-requisitos
 
-- XOOPS 2.5.x installed and running
-- PHP 8.0 or higher
-- Basic PHP knowledge
-- Text editor or IDE (PhpStorm recommended)
+- XOOPS 2.5.x instalado e executando
+- PHP 8.0 ou superior
+- Conhecimento básico de PHP
+- Editor de texto ou IDE (PhpStorm recomendado)
 
-## Step 1: Create the Directory Structure
+## Passo 1: Criar a Estrutura de Diretório
 
-Create the following directory structure in `/modules/helloworld/`:
+Crie a seguinte estrutura de diretório em `/modules/helloworld/`:
 
 ```
 /modules/helloworld/
@@ -41,9 +41,9 @@ Create the following directory structure in `/modules/helloworld/`:
     xoops_version.php
 ```
 
-## Step 2: Create the Module Definition
+## Passo 2: Criar a Definição do Módulo
 
-Create `xoops_version.php`:
+Crie `xoops_version.php`:
 
 ```php
 <?php
@@ -62,7 +62,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 
 $modversion = [];
 
-// Basic Module Information
+// Informações Básicas do Módulo
 $modversion['name']        = _MI_HELLOWORLD_NAME;
 $modversion['version']     = 1.00;
 $modversion['description'] = _MI_HELLOWORLD_DESC;
@@ -74,20 +74,20 @@ $modversion['license_url'] = 'https://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['image']       = 'assets/images/logo.png';
 $modversion['dirname']     = 'helloworld';
 
-// Module Status
+// Status do Módulo
 $modversion['release_date']        = '2025/01/28';
 $modversion['module_website_url']  = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['min_php']             = '8.0';
 $modversion['min_xoops']           = '2.5.11';
 
-// Admin Configuration
+// Configuração de Admin
 $modversion['hasAdmin']    = 1;
 $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
 $modversion['system_menu'] = 1;
 
-// Main Menu
+// Menu Principal
 $modversion['hasMain'] = 1;
 
 // Templates
@@ -96,21 +96,21 @@ $modversion['templates'][] = [
     'description' => _MI_HELLOWORLD_INDEX_TPL,
 ];
 
-// Admin Templates
+// Templates de Admin
 $modversion['templates'][] = [
     'file'        => 'admin/helloworld_admin_index.tpl',
     'description' => _MI_HELLOWORLD_ADMIN_INDEX_TPL,
 ];
 
-// No database tables needed for this simple module
+// Sem tabelas de banco de dados necessárias para este módulo simples
 $modversion['tables'] = [];
 ```
 
-## Step 3: Create Language Files
+## Passo 3: Criar Arquivos de Idioma
 
-### modinfo.php (Module Information)
+### modinfo.php (Informações do Módulo)
 
-Create `language/english/modinfo.php`:
+Crie `language/english/modinfo.php`:
 
 ```php
 <?php
@@ -127,9 +127,9 @@ define('_MI_HELLOWORLD_INDEX_TPL', 'Main index page template');
 define('_MI_HELLOWORLD_ADMIN_INDEX_TPL', 'Admin index page template');
 ```
 
-### main.php (Frontend Language)
+### main.php (Idioma de Frontend)
 
-Create `language/english/main.php`:
+Crie `language/english/main.php`:
 
 ```php
 <?php
@@ -144,9 +144,9 @@ define('_MD_HELLOWORLD_CURRENT_TIME', 'Current server time:');
 define('_MD_HELLOWORLD_VISITOR_COUNT', 'You are visitor number:');
 ```
 
-### admin.php (Admin Language)
+### admin.php (Idioma de Admin)
 
-Create `language/english/admin.php`:
+Crie `language/english/admin.php`:
 
 ```php
 <?php
@@ -162,9 +162,9 @@ define('_AM_HELLOWORLD_VERSION', 'Version:');
 define('_AM_HELLOWORLD_AUTHOR', 'Author:');
 ```
 
-## Step 4: Create the Frontend Index
+## Passo 4: Criar o Index de Frontend
 
-Create `index.php` in the module root:
+Crie `index.php` na raiz do módulo:
 
 ```php
 <?php
@@ -183,36 +183,36 @@ use Xmf\Request;
 
 require_once dirname(__DIR__, 2) . '/mainfile.php';
 
-// Load language file
+// Carregar arquivo de idioma
 xoops_loadLanguage('main', 'helloworld');
 
-// Get the module helper
+// Obter o helper do módulo
 $helper = \Xmf\Module\Helper::getHelper('helloworld');
 
-// Set page template
+// Definir template de página
 $GLOBALS['xoopsOption']['template_main'] = 'helloworld_index.tpl';
 
-// Include XOOPS header
+// Incluir cabeçalho XOOPS
 require XOOPS_ROOT_PATH . '/header.php';
 
-// Get module configuration
+// Obter configuração de módulo
 /** @var \XoopsModule $xoopsModule */
 $xoopsModule = $GLOBALS['xoopsModule'];
 
-// Generate page content
+// Gerar conteúdo de página
 $pageTitle = _MD_HELLOWORLD_TITLE;
 $welcomeMessage = _MD_HELLOWORLD_WELCOME;
 $contentMessage = _MD_HELLOWORLD_MESSAGE;
 $currentTime = date('Y-m-d H:i:s');
 
-// Simple visitor counter (using session)
+// Contador de visitantes simples (usando sessão)
 if (!isset($_SESSION['helloworld_visits'])) {
     $_SESSION['helloworld_visits'] = 0;
 }
 $_SESSION['helloworld_visits']++;
 $visitorCount = $_SESSION['helloworld_visits'];
 
-// Assign variables to template
+// Atribuir variáveis ao template
 $xoopsTpl->assign([
     'page_title'      => $pageTitle,
     'welcome_message' => $welcomeMessage,
@@ -223,13 +223,13 @@ $xoopsTpl->assign([
     'visitor_label'   => _MD_HELLOWORLD_VISITOR_COUNT,
 ]);
 
-// Include XOOPS footer
+// Incluir rodapé XOOPS
 require XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-## Step 5: Create the Frontend Template
+## Passo 5: Criar o Template de Frontend
 
-Create `templates/helloworld_index.tpl`:
+Crie `templates/helloworld_index.tpl`:
 
 ```smarty
 <{* Hello World Module - Index Template *}>
@@ -289,11 +289,11 @@ Create `templates/helloworld_index.tpl`:
 </style>
 ```
 
-## Step 6: Create Admin Files
+## Passo 6: Criar Arquivos de Admin
 
-### Admin Header
+### Cabeçalho de Admin
 
-Create `admin/admin_header.php`:
+Crie `admin/admin_header.php`:
 
 ```php
 <?php
@@ -305,23 +305,23 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 
-// Load admin language file
+// Carregar arquivo de idioma de admin
 xoops_loadLanguage('admin', 'helloworld');
 xoops_loadLanguage('modinfo', 'helloworld');
 
-// Get module helper
+// Obter helper de módulo
 $helper = \Xmf\Module\Helper::getHelper('helloworld');
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-// Module directory
+// Diretório de módulo
 $moduleDirname = $helper->getDirname();
 $modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirname;
 $moduleUrl = XOOPS_URL . '/modules/' . $moduleDirname;
 ```
 
-### Admin Footer
+### Rodapé de Admin
 
-Create `admin/admin_footer.php`:
+Crie `admin/admin_footer.php`:
 
 ```php
 <?php
@@ -329,15 +329,15 @@ Create `admin/admin_footer.php`:
  * Admin Footer
  */
 
-// Display admin footer
+// Exibir rodapé de admin
 $adminObject->displayFooter();
 
 require_once dirname(__DIR__, 3) . '/include/cp_footer.php';
 ```
 
-### Admin Menu
+### Menu de Admin
 
-Create `admin/menu.php`:
+Crie `admin/menu.php`:
 
 ```php
 <?php
@@ -359,9 +359,9 @@ $adminmenu[] = [
 ];
 ```
 
-### Admin Index Page
+### Página de Index de Admin
 
-Create `admin/index.php`:
+Crie `admin/index.php`:
 
 ```php
 <?php
@@ -373,10 +373,10 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/admin_header.php';
 
-// Display admin navigation
+// Exibir navegação de admin
 $adminObject->displayNavigation('index.php');
 
-// Create admin info box
+// Criar caixa de informação de admin
 $adminObject->addInfoBox(_AM_HELLOWORLD_MODULE_INFO);
 $adminObject->addInfoBoxLine(
     sprintf('<strong>%s</strong> %s', _AM_HELLOWORLD_VERSION, $helper->getModule()->getVar('version'))
@@ -385,16 +385,16 @@ $adminObject->addInfoBoxLine(
     sprintf('<strong>%s</strong> %s', _AM_HELLOWORLD_AUTHOR, $helper->getModule()->getVar('author'))
 );
 
-// Display info box
+// Exibir caixa de informação
 $adminObject->displayInfoBox(_AM_HELLOWORLD_MODULE_INFO);
 
-// Display admin footer
+// Exibir rodapé de admin
 require_once __DIR__ . '/admin_footer.php';
 ```
 
-## Step 7: Create Admin Template
+## Passo 7: Criar Template de Admin
 
-Create `templates/admin/helloworld_admin_index.tpl`:
+Crie `templates/admin/helloworld_admin_index.tpl`:
 
 ```smarty
 <{* Hello World Module - Admin Index Template *}>
@@ -405,66 +405,66 @@ Create `templates/admin/helloworld_admin_index.tpl`:
 </div>
 ```
 
-## Step 8: Create the Module Logo
+## Passo 8: Criar o Logo do Módulo
 
-Create or copy a PNG image (recommended size: 92x92 pixels) to:
+Crie ou copie uma imagem PNG (tamanho recomendado: 92x92 pixels) para:
 `assets/images/logo.png`
 
-You can use any image editor to create a simple logo, or use a placeholder from a site like placeholder.com.
+Você pode usar qualquer editor de imagem para criar um logo simples, ou usar um placeholder de um site como placeholder.com.
 
-## Step 9: Install the Module
+## Passo 9: Instalar o Módulo
 
-1. Log in to your XOOPS site as administrator
-2. Go to **System Admin** > **Modules**
-3. Find "Hello World" in the list of available modules
-4. Click the **Install** button
-5. Confirm the installation
+1. Faça login em seu site XOOPS como administrador
+2. Vá para **System Admin** > **Modules**
+3. Encontre "Hello World" na lista de módulos disponíveis
+4. Clique no botão **Install**
+5. Confirme a instalação
 
-## Step 10: Test Your Module
+## Passo 10: Testar Seu Módulo
 
-### Frontend Test
+### Teste de Frontend
 
-1. Navigate to your XOOPS site
-2. Click on "Hello World" in the main menu
-3. You should see the welcome message and current time
+1. Navegue até seu site XOOPS
+2. Clique em "Hello World" no menu principal
+3. Você deve ver a mensagem de boas-vindas e hora atual
 
-### Admin Test
+### Teste de Admin
 
-1. Go to the admin area
-2. Click on "Hello World" in the admin menu
-3. You should see the admin dashboard
+1. Vá para a área de administrador
+2. Clique em "Hello World" no menu de admin
+3. Você deve ver o dashboard de admin
 
-## Troubleshooting
+## Solução de Problemas
 
-### Module Not Appearing in Install List
+### Módulo Não Aparecendo na Lista de Instalação
 
-- Check file permissions (755 for directories, 644 for files)
-- Verify `xoops_version.php` has no syntax errors
-- Clear XOOPS cache
+- Verificar permissões de arquivo (755 para diretórios, 644 para arquivos)
+- Verificar `xoops_version.php` para erros de sintaxe
+- Limpar cache XOOPS
 
-### Template Not Loading
+### Template Não Carregando
 
-- Ensure template files are in the correct directory
-- Check template file names match those in `xoops_version.php`
-- Verify Smarty syntax is correct
+- Garantir que arquivos de template estejam no diretório correto
+- Verificar que nomes de arquivo de template correspondem aos em `xoops_version.php`
+- Verificar que a sintaxe Smarty está correta
 
-### Language Strings Not Showing
+### Cadeias de Idioma Não Aparecendo
 
-- Check language file paths
-- Ensure language constants are defined
-- Verify the correct language folder exists
+- Verificar caminhos de arquivo de idioma
+- Garantir que constantes de idioma sejam definidas
+- Verificar que a pasta de idioma correta existe
 
-## Next Steps
+## Próximos Passos
 
-Now that you have a working module, continue learning with:
+Agora que você tem um módulo funcionando, continue aprendendo com:
 
-- Building-a-CRUD-Module - Add database functionality
-- ../Patterns/MVC-Pattern - Organize your code properly
-- ../Best-Practices/Testing - Add PHPUnit tests
+- Building-a-CRUD-Module - Adicionar funcionalidade de banco de dados
+- ../Patterns/MVC-Pattern - Organizar seu código apropriadamente
+- ../Best-Practices/Testing - Adicionar testes PHPUnit
 
-## Complete File Reference
+## Referência Completa de Arquivo
 
-Your completed module should have these files:
+Seu módulo completo deve ter estes arquivos:
 
 ```
 /modules/helloworld/
@@ -489,14 +489,14 @@ Your completed module should have these files:
     xoops_version.php
 ```
 
-## Summary
+## Resumo
 
-Congratulations! You have created your first XOOPS module. Key concepts covered:
+Parabéns! Você criou seu primeiro módulo XOOPS. Conceitos principais cobertos:
 
-1. **Module Structure** - Standard XOOPS module directory layout
-2. **xoops_version.php** - Module definition and configuration
-3. **Language Files** - Internationalization support
-4. **Templates** - Smarty template integration
-5. **Admin Interface** - Basic admin panel
+1. **Estrutura do Módulo** - Layout de diretório padrão de módulo XOOPS
+2. **xoops_version.php** - Definição e configuração do módulo
+3. **Arquivos de Idioma** - Suporte de internacionalização
+4. **Templates** - Integração de template Smarty
+5. **Interface de Admin** - Painel de administrador básico
 
-See also: ../Module-Development | Building-a-CRUD-Module | ../Patterns/MVC-Pattern
+Veja também: ../Module-Development | Building-a-CRUD-Module | ../Patterns/MVC-Pattern

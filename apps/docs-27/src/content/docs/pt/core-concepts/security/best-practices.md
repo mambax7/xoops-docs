@@ -1,69 +1,69 @@
 ---
-title: "Security Best Practices"
-description: "Comprehensive security guide for XOOPS module development"
+title: "Boas Práticas de Segurança"
+description: "Guia abrangente de segurança para desenvolvimento de módulos XOOPS"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-:::tip[Security APIs are stable across versions]
-The security practices and APIs documented here work in both XOOPS 2.5.x and XOOPS 4.0.x. Core security classes (`XoopsSecurity`, `MyTextSanitizer`) remain stable.
+:::tip[APIs de Segurança são estáveis entre versões]
+As práticas de segurança e APIs documentadas aqui funcionam tanto no XOOPS 2.5.x quanto no XOOPS 4.0.x. As classes de segurança principal (`XoopsSecurity`, `MyTextSanitizer`) permanecem estáveis.
 :::
 
-This document provides comprehensive security best practices for XOOPS module developers. Following these guidelines will help ensure that your modules are secure and do not introduce vulnerabilities into XOOPS installations.
+Este documento fornece boas práticas de segurança abrangentes para desenvolvedores de módulos XOOPS. Seguindo essas diretrizes, você ajudará a garantir que seus módulos sejam seguros e não introduzam vulnerabilidades em instalações XOOPS.
 
-## Security Principles
+## Princípios de Segurança
 
-Every XOOPS developer should follow these fundamental security principles:
+Todo desenvolvedor XOOPS deve seguir estes princípios fundamentais de segurança:
 
-1. **Defense in Depth**: Implement multiple layers of security controls
-2. **Least Privilege**: Provide only the minimum necessary access rights
-3. **Input Validation**: Never trust user input
-4. **Secure by Default**: Security should be the default configuration
-5. **Keep It Simple**: Complex systems are harder to secure
+1. **Defesa em Profundidade**: Implementar múltiplas camadas de controles de segurança
+2. **Privilégio Mínimo**: Fornecer apenas os direitos de acesso mínimos necessários
+3. **Validação de Entrada**: Nunca confiar em entrada do usuário
+4. **Seguro por Padrão**: A segurança deve ser a configuração padrão
+5. **Mantenha Simples**: Sistemas complexos são mais difíceis de proteger
 
-## Related Documentation
+## Documentação Relacionada
 
-- CSRF-Protection - Token system and XoopsSecurity class
-- Input-Sanitization - MyTextSanitizer and validation
-- SQL-Injection-Prevention - Database security practices
+- CSRF-Protection - Sistema de token e classe XoopsSecurity
+- Input-Sanitization - MyTextSanitizer e validação
+- SQL-Injection-Prevention - Práticas de segurança de banco de dados
 
-## Quick Reference Checklist
+## Lista de Verificação Rápida
 
-Before releasing your module, verify:
+Antes de liberar seu módulo, verifique:
 
-- [ ] All forms include XOOPS tokens
-- [ ] All user input is validated and sanitized
-- [ ] All output is properly escaped
-- [ ] All database queries use parameterized statements
-- [ ] File uploads are properly validated
-- [ ] Authentication and authorization checks are in place
-- [ ] Error handling does not reveal sensitive information
-- [ ] Sensitive configuration is protected
-- [ ] Third-party libraries are up to date
-- [ ] Security testing has been performed
+- [ ] Todos os formulários incluem tokens XOOPS
+- [ ] Toda entrada do usuário é validada e sanitizada
+- [ ] Toda saída é adequadamente escapada
+- [ ] Todas as consultas de banco de dados usam prepared statements
+- [ ] Uploads de arquivo são devidamente validados
+- [ ] Verificações de autenticação e autorização estão em vigor
+- [ ] Tratamento de erro não revela informações sensíveis
+- [ ] Configuração sensível está protegida
+- [ ] Bibliotecas de terceiros estão atualizadas
+- [ ] Testes de segurança foram realizados
 
-## Authentication and Authorization
+## Autenticação e Autorização
 
-### Checking User Authentication
+### Verificando Autenticação de Usuário
 
 ```php
-// Check if user is logged in
+// Verificar se o usuário está conectado
 if (!is_object($GLOBALS['xoopsUser'])) {
     redirect_header(XOOPS_URL, 3, _NOPERM);
     exit();
 }
 ```
 
-### Checking User Permissions
+### Verificando Permissões de Usuário
 
 ```php
-// Check if user has permission to access this module
+// Verificar se o usuário tem permissão para acessar este módulo
 if (!$GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
     redirect_header(XOOPS_URL, 3, _NOPERM);
     exit();
 }
 
-// Check specific permission
+// Verificar permissão específica
 $moduleHandler = xoops_getHandler('module');
 $module = $moduleHandler->getByDirname('mymodule');
 $moduleperm_handler = xoops_getHandler('groupperm');
@@ -75,90 +75,90 @@ if (!$moduleperm_handler->checkRight('mymodule_view', $item_id, $groups, $module
 }
 ```
 
-### Setting Up Module Permissions
+### Configurando Permissões de Módulo
 
 ```php
-// Create permission in install/update function
+// Criar permissão na função de instalação/atualização
 $gpermHandler = xoops_getHandler('groupperm');
 $gpermHandler->deleteByModule($module->getVar('mid'), 'mymodule_view');
 
-// Add permission for all groups
+// Adicionar permissão para todos os grupos
 $groups = [XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS];
 foreach ($groups as $group_id) {
     $gpermHandler->addRight('mymodule_view', 1, $group_id, $module->getVar('mid'));
 }
 ```
 
-## Session Security
+## Segurança de Sessão
 
-### Session Handling Best Practices
+### Boas Práticas de Manipulação de Sessão
 
-1. Do not store sensitive information in the session
-2. Regenerate session IDs after login/privilege changes
-3. Validate session data before using it
+1. Não armazenar informações sensíveis na sessão
+2. Regenerar IDs de sessão após login/mudanças de privilégio
+3. Validar dados da sessão antes de usá-los
 
 ```php
-// Regenerate session ID after login
+// Regenerar ID de sessão após login
 session_regenerate_id(true);
 
-// Validate session data
+// Validar dados da sessão
 if (isset($_SESSION['mymodule_user_id'])) {
     $user_id = (int)$_SESSION['mymodule_user_id'];
-    // Verify user exists in database
+    // Verificar se o usuário existe no banco de dados
 }
 ```
 
-### Preventing Session Fixation
+### Prevenindo Fixação de Sessão
 
 ```php
-// After successful login
+// Após login bem-sucedido
 session_regenerate_id(true);
 $_SESSION['mymodule_user_ip'] = $_SERVER['REMOTE_ADDR'];
 
-// On subsequent requests
+// Em requisições subsequentes
 if ($_SESSION['mymodule_user_ip'] !== $_SERVER['REMOTE_ADDR']) {
-    // Possible session hijacking attempt
+    // Possível tentativa de sequestro de sessão
     session_destroy();
-    redirect_header('index.php', 3, 'Session error');
+    redirect_header('index.php', 3, 'Erro de sessão');
     exit();
 }
 ```
 
-## File Upload Security
+## Segurança de Upload de Arquivo
 
-### Validating File Uploads
+### Validando Uploads de Arquivo
 
 ```php
-// Check if file was uploaded properly
+// Verificar se o arquivo foi carregado corretamente
 if (!isset($_FILES['userfile']) || $_FILES['userfile']['error'] != UPLOAD_ERR_OK) {
-    redirect_header('index.php', 3, 'File upload error');
+    redirect_header('index.php', 3, 'Erro no upload de arquivo');
     exit();
 }
 
-// Check file size
-if ($_FILES['userfile']['size'] > 1000000) { // 1MB limit
-    redirect_header('index.php', 3, 'File too large');
+// Verificar tamanho de arquivo
+if ($_FILES['userfile']['size'] > 1000000) { // limite de 1MB
+    redirect_header('index.php', 3, 'Arquivo muito grande');
     exit();
 }
 
-// Check file type
+// Verificar tipo de arquivo
 $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
 if (!in_array($_FILES['userfile']['type'], $allowed_types)) {
-    redirect_header('index.php', 3, 'Invalid file type');
+    redirect_header('index.php', 3, 'Tipo de arquivo inválido');
     exit();
 }
 
-// Validate file extension
+// Validar extensão de arquivo
 $filename = $_FILES['userfile']['name'];
 $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
 if (!in_array($ext, $allowed_extensions)) {
-    redirect_header('index.php', 3, 'Invalid file extension');
+    redirect_header('index.php', 3, 'Extensão de arquivo inválida');
     exit();
 }
 ```
 
-### Using XOOPS Uploader
+### Usando XOOPS Uploader
 
 ```php
 include_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -182,7 +182,7 @@ if ($uploader->fetchMedia('userfile')) {
 
     if ($uploader->upload()) {
         $filename = $uploader->getSavedFileName();
-        // Save filename to database
+        // Salvar nome do arquivo no banco de dados
     } else {
         echo $uploader->getErrors();
     }
@@ -191,98 +191,98 @@ if ($uploader->fetchMedia('userfile')) {
 }
 ```
 
-### Storing Uploaded Files Securely
+### Armazenando Arquivos Carregados com Segurança
 
 ```php
-// Define upload directory outside web root
+// Definir diretório de upload fora da raiz web
 $upload_dir = XOOPS_VAR_PATH . '/uploads/mymodule';
 
-// Create directory if it doesn't exist
+// Criar diretório se não existir
 if (!is_dir($upload_dir)) {
     mkdir($upload_dir, 0755, true);
 }
 
-// Move uploaded file
+// Mover arquivo carregado
 move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . '/' . $safe_filename);
 ```
 
-## Error Handling and Logging
+## Tratamento de Erro e Logging
 
-### Secure Error Handling
+### Tratamento Seguro de Erro
 
 ```php
 try {
     $result = someFunction();
     if (!$result) {
-        throw new Exception('Operation failed');
+        throw new Exception('Operação falhou');
     }
 } catch (Exception $e) {
-    // Log the error
+    // Registrar o erro
     xoops_error($e->getMessage());
 
-    // Display a generic error message to the user
-    redirect_header('index.php', 3, 'An error occurred. Please try again later.');
+    // Exibir uma mensagem de erro genérica para o usuário
+    redirect_header('index.php', 3, 'Ocorreu um erro. Tente novamente mais tarde.');
     exit();
 }
 ```
 
-### Logging Security Events
+### Logging de Eventos de Segurança
 
 ```php
-// Log security events
+// Registrar eventos de segurança
 xoops_loadLanguage('logger', 'mymodule');
-$GLOBALS['xoopsLogger']->addExtra('Security', 'Failed login attempt for user: ' . $username);
+$GLOBALS['xoopsLogger']->addExtra('Segurança', 'Tentativa de login falhada para usuário: ' . $username);
 ```
 
-## Configuration Security
+## Segurança de Configuração
 
-### Storing Sensitive Configuration
+### Armazenando Configuração Sensível
 
 ```php
-// Define configuration path outside web root
+// Definir caminho de configuração fora da raiz web
 $config_path = XOOPS_VAR_PATH . '/configs/mymodule/config.php';
 
-// Load configuration
+// Carregar configuração
 if (file_exists($config_path)) {
     include $config_path;
 } else {
-    // Handle missing configuration
+    // Lidar com configuração ausente
 }
 ```
 
-### Protecting Configuration Files
+### Protegendo Arquivos de Configuração
 
-Use `.htaccess` to protect configuration files:
+Use `.htaccess` para proteger arquivos de configuração:
 
 ```apache
-# In .htaccess
+# Em .htaccess
 <Files "config.php">
     Order Allow,Deny
     Deny from all
 </Files>
 ```
 
-## Third-Party Libraries
+## Bibliotecas de Terceiros
 
-### Selecting Libraries
+### Selecionando Bibliotecas
 
-1. Choose actively maintained libraries
-2. Check for security vulnerabilities
-3. Verify the library's license is compatible with XOOPS
+1. Escolher bibliotecas mantidas ativamente
+2. Verificar vulnerabilidades de segurança
+3. Verificar se a licença da biblioteca é compatível com XOOPS
 
-### Updating Libraries
+### Atualizando Bibliotecas
 
 ```php
-// Check library version
+// Verificar versão da biblioteca
 if (version_compare(LIBRARY_VERSION, '1.2.3', '<')) {
-    xoops_error('Please update the library to version 1.2.3 or higher');
+    xoops_error('Por favor, atualize a biblioteca para a versão 1.2.3 ou superior');
 }
 ```
 
-### Isolating Libraries
+### Isolando Bibliotecas
 
 ```php
-// Load library in a controlled way
+// Carregar biblioteca de forma controlada
 function loadLibrary($file)
 {
     $allowed = ['parser.php', 'formatter.php'];
@@ -296,70 +296,70 @@ function loadLibrary($file)
 }
 ```
 
-## Security Testing
+## Testes de Segurança
 
-### Manual Testing Checklist
+### Lista de Verificação de Testes Manuais
 
-1. Test all forms with invalid input
-2. Attempt to bypass authentication and authorization
-3. Test file upload functionality with malicious files
-4. Check for XSS vulnerabilities in all output
-5. Test for SQL injection in all database queries
+1. Testar todos os formulários com entrada inválida
+2. Tentar contornar autenticação e autorização
+3. Testar funcionalidade de upload de arquivo com arquivos maliciosos
+4. Verificar vulnerabilidades XSS em toda saída
+5. Testar injeção de SQL em todas as consultas de banco de dados
 
-### Automated Testing
+### Testes Automatizados
 
-Use automated tools to scan for vulnerabilities:
+Use ferramentas automatizadas para verificar vulnerabilidades:
 
-1. Static code analysis tools
-2. Web application scanners
-3. Dependency checkers for third-party libraries
+1. Ferramentas de análise de código estática
+2. Scanners de aplicação web
+3. Verificadores de dependência para bibliotecas de terceiros
 
-## Output Escaping
+## Escapando Saída
 
-### HTML Context
+### Contexto HTML
 
 ```php
-// For regular HTML content
+// Para conteúdo HTML regular
 echo htmlspecialchars($variable, ENT_QUOTES, 'UTF-8');
 
-// Using MyTextSanitizer
+// Usando MyTextSanitizer
 $myts = MyTextSanitizer::getInstance();
 echo $myts->htmlSpecialChars($variable);
 ```
 
-### JavaScript Context
+### Contexto JavaScript
 
 ```php
-// For data used in JavaScript
+// Para dados usados em JavaScript
 echo json_encode($variable);
 
-// For inline JavaScript
+// Para JavaScript inline
 echo 'var data = ' . json_encode($variable) . ';';
 ```
 
-### URL Context
+### Contexto URL
 
 ```php
-// For data used in URLs
+// Para dados usados em URLs
 echo htmlspecialchars(urlencode($variable), ENT_QUOTES, 'UTF-8');
 ```
 
-### Template Variables
+### Variáveis de Template
 
 ```php
-// Assign variables to Smarty template
+// Atribuir variáveis ao template Smarty
 $GLOBALS['xoopsTpl']->assign('title', htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
 
-// For HTML content that should be displayed as-is
+// Para conteúdo HTML que deve ser exibido como está
 $GLOBALS['xoopsTpl']->assign('content', $myts->displayTarea($content, 1, 1, 1, 1, 1));
 ```
 
-## Resources
+## Recursos
 
 - [OWASP Top Ten](https://owasp.org/www-project-top-ten/)
-- [PHP Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html)
-- [XOOPS Documentation](https://xoops.org/)
+- [Folha de Cola de Segurança do PHP](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html)
+- [Documentação XOOPS](https://xoops.org/)
 
 ---
 
-#security #best-practices #xoops #module-development #authentication #authorization
+#segurança #boas-práticas #xoops #desenvolvimento-módulo #autenticação #autorização

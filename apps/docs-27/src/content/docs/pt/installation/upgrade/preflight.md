@@ -1,74 +1,74 @@
 ---
-title: "Preflight Check"
+title: "Verificação de Pré-voo"
 ---
 
-XOOPS 2.7.0 upgraded its templating engine from Smarty 3 to Smarty 4. Smarty 4 is stricter about template syntax than Smarty 3, and some custom themes and module templates may need to be adjusted before they will work correctly on XOOPS 2.7.0.
+XOOPS 2.7.0 atualizou seu mecanismo de template de Smarty 3 para Smarty 4. Smarty 4 é mais rigoroso sobre a sintaxe de template do que Smarty 3, e alguns templates de tema personalizado e módulo podem precisar ser ajustados antes que funcionem corretamente no XOOPS 2.7.0.
 
-To help identify and repair these issues _before_ you run the main upgrader, XOOPS 2.7.0 ships with a **preflight scanner** in the `upgrade/` directory. You must run the preflight scanner at least once before the main upgrade workflow will let you continue.
+Para ajudar a identificar e reparar esses problemas _antes_ de executar o upgrade principal, XOOPS 2.7.0 vem com um **scanner de pré-voo** no diretório `upgrade/`. Você deve executar o scanner de pré-voo pelo menos uma vez antes que o fluxo de trabalho de upgrade principal permita que você continue.
 
-## What the Scanner Does
+## O que o Scanner Faz
 
-The preflight scanner walks through your existing themes and module templates looking for known Smarty 4 incompatibilities. It can:
+O scanner de pré-voo percorre seus temas existentes e templates de módulo procurando por incompatibilidades conhecidas com Smarty 4. Ele pode:
 
-* **Scan** your `themes/` and `modules/` directories for `.tpl` and `.html` template files that may need changes
-* **Report** issues grouped by file and by type of problem
-* **Automatically repair** many common issues when you ask it to
+* **Escanear** seus diretórios `themes/` e `modules/` procurando por arquivos de template `.tpl` e `.html` que possam precisar de alterações
+* **Relatar** problemas agrupados por arquivo e por tipo de problema
+* **Reparar automaticamente** muitos problemas comuns quando você pedir
 
-Not every problem can be repaired automatically. Some templates will need manual editing, especially if they use older Smarty 3 idioms that have no direct equivalent in Smarty 4.
+Nem todo problema pode ser reparado automaticamente. Alguns templates precisarão de edição manual, especialmente se usarem idiomas mais antigos do Smarty 3 que não têm equivalente direto no Smarty 4.
 
-## Running the Scanner
+## Executando o Scanner
 
-1. Copy the distribution `upgrade/` directory into your site web root (if you have not already done so as part of the [Preparations for Upgrade](ustep-01.md) step).
-2. Point your browser at the preflight URL:
+1. Copie o diretório de distribuição `upgrade/` para a raiz da web do seu site (se você ainda não fez isso como parte da etapa [Preparações para Atualização](ustep-01.md)).
+2. Aponte seu navegador para a URL de pré-voo:
 
    ```text
    http://example.com/upgrade/preflight.php
    ```
 
-3. Log in with an administrator account when prompted.
-4. The scanner presents a form with three controls:
-   * **Template directory** — leave blank to scan both `themes/` and `modules/`. Enter a path like `/themes/mytheme/` to narrow the scan to a single directory.
-   * **Template extension** — leave blank to scan both `.tpl` and `.html` files. Enter a single extension to narrow the scan.
-   * **Attempt automatic fix** — check this box if you want the scanner to repair issues it knows how to fix. Leave it unchecked for a read-only scan.
-5. Press the **Run** button. The scanner walks the selected directories and reports each issue it finds.
+3. Faça login com uma conta de administrador quando solicitado.
+4. O scanner apresenta um formulário com três controles:
+   * **Diretório de template** — deixe em branco para escanear `themes/` e `modules/`. Digite um caminho como `/themes/mytheme/` para restringir a varredura a um único diretório.
+   * **Extensão de template** — deixe em branco para escanear arquivos `.tpl` e `.html`. Digite uma única extensão para restringir a varredura.
+   * **Tentar correção automática** — marque esta caixa se quiser que o scanner repare problemas que sabe como corrigir. Deixe desmarcado para uma varredura somente leitura.
+5. Pressione o botão **Executar**. O scanner percorre os diretórios selecionados e relata cada problema que encontra.
 
-## Interpreting Results
+## Interpretando Resultados
 
-The scan report lists every file it examined and every issue it found. Each issue entry tells you:
+O relatório de varredura lista cada arquivo que examinou e cada problema que encontrou. Cada entrada de problema informa:
 
-* Which file contains the problem
-* What Smarty 4 rule it violates
-* Whether the scanner could repair it automatically
+* Qual arquivo contém o problema
+* Que regra de Smarty 4 ele viola
+* Se o scanner pôde repará-lo automaticamente
 
-If you ran the scan with _Attempt automatic fix_ enabled, the report will also confirm which files were rewritten.
+Se você executou a varredura com _Tentar correção automática_ ativada, o relatório também confirmará quais arquivos foram reescritos.
 
-## Fixing Issues Manually
+## Corrigindo Problemas Manualmente
 
-For issues the scanner cannot repair automatically, open the flagged template file in an editor and make the required changes. Common Smarty 4 incompatibilities include:
+Para problemas que o scanner não pode reparar automaticamente, abra o arquivo de template marcado em um editor e faça as alterações necessárias. As incompatibilidades comuns com Smarty 4 incluem:
 
-* `{php} ... {/php}` blocks (no longer supported in Smarty 4)
-* Deprecated modifiers and function calls
-* Whitespace-sensitive delimiter usage
-* Register-time plugin assumptions that changed in Smarty 4
+* `{php} ... {/php}` blocos (não mais suportados no Smarty 4)
+* Modificadores e chamadas de função descontinuados
+* Uso de delimitador sensível a espaço em branco
+* Suposições de plugin em tempo de registro que foram alteradas no Smarty 4
 
-If you are not comfortable editing templates, the safest approach is to switch to a shipped theme (`xbootstrap5`, `default`, `xswatch5`, etc.) and deal with the custom theme separately after the upgrade completes.
+Se você não estiver confortável editando templates, a abordagem mais segura é mudar para um tema enviado (`xbootstrap5`, `default`, `xswatch5`, etc.) e lidar com o tema personalizado separadamente após a atualização ser concluída.
 
-## Re-running Until Clean
+## Re-executando Até Estar Limpo
 
-After making fixes — whether automatic or manual — re-run the preflight scanner. Repeat until the scan reports no remaining issues.
+Após fazer correções — automáticas ou manuais — re-execute o scanner de pré-voo. Repita até que a varredura não reporte problemas restantes.
 
-Once the scan is clean, you can end the preflight session by pressing the **Exit Scanner** button in the scanner UI. This marks preflight as complete and allows the main upgrader at `/upgrade/` to proceed.
+Quando a varredura estiver limpa, você pode encerrar a sessão de pré-voo pressionando o botão **Exit Scanner** na interface do scanner. Isto marca o pré-voo como completo e permite que o upgrade principal em `/upgrade/` prossiga.
 
-## Continuing to the Upgrade
+## Continuando para o Upgrade
 
-With preflight complete, you can launch the main upgrader at:
+Com pré-voo completo, você pode iniciar o upgrade principal em:
 
 ```text
 http://example.com/upgrade/
 ```
 
-See [Running Upgrade](ustep-02.md) for the next steps.
+Veja [Executando Upgrade](ustep-02.md) para as próximas etapas.
 
-## If You Skip Preflight
+## Se Você Pular Pré-voo
 
-Skipping preflight is strongly discouraged, but if you upgraded without running it and are now seeing template errors, see the Smarty 4 Template Errors section of [Troubleshooting](ustep-03.md). You can run preflight after the fact and clear `xoops_data/caches/smarty_compile/` to recover.
+Pular pré-voo é fortemente desaconselhado, mas se você atualizou sem executá-lo e agora está vendo erros de template, veja a seção Erros de Template Smarty 4 em [Solução de Problemas](ustep-03.md). Você pode executar pré-voo depois dos fatos e limpar `xoops_data/caches/smarty_compile/` para se recuperar.

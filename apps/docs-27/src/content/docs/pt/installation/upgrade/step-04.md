@@ -1,48 +1,47 @@
 ---
-title: "After the Upgrade"
+title: "Após o Upgrade"
 ---
 
-## Update the System Module
+## Atualizar o Módulo do Sistema
 
-After all needed patches have been applied, selecting _Continue_ will set everything up to update the **system** module. This is a very important step and is required to complete the upgrade properly.
+Depois que todos os patches necessários foram aplicados, selecionar _Continuar_ configurará tudo para atualizar o módulo **sistema**. Esta é uma etapa muito importante e é necessária para completar o upgrade apropriadamente.
 
-![XOOPS Update System Module](/xoops-docs/2.7/img/installation/upgrade-06-update-system-module.png)
+![Atualização do Módulo do Sistema XOOPS](/xoops-docs/2.7/img/installation/upgrade-06-update-system-module.png)
 
-Select _Update_ to perform the update of System module.
+Selecione _Atualizar_ para realizar a atualização do módulo Sistema.
 
-## Update Other XOOPS Supplied Modules
+## Atualizar Outros Módulos Fornecidos pelo XOOPS
 
-XOOPS ships with three optional modules - pm (Private Messaging,) profile (User Profile) and protector (Protector) You should do an update on any of these modules that are installed.
+XOOPS é fornecido com três módulos opcionais - pm (Mensagem Privada,) perfil (Perfil de Usuário) e protetor (Protetor) Você deve fazer uma atualização em qualquer desses módulos que estejam instalados.
 
-![XOOPS Update Other Modules](/xoops-docs/2.7/img/installation/upgrade-07-update-modules.png)
+![Atualização de Outros Módulos XOOPS](/xoops-docs/2.7/img/installation/upgrade-07-update-modules.png)
 
-## Update Other Modules
+## Atualizar Outros Módulos
 
-It is likely that there are updates to other modules that might enable the modules to work better under your now updated XOOPS. You should investigate and apply any appropriate module updates.
+É provável que haja atualizações para outros módulos que possam permitir que os módulos funcionem melhor sob seu XOOPS agora atualizado. Você deve investigar e aplicar quaisquer atualizações de módulo apropriadas.
 
-## Review New Cookie Hardening Preferences
+## Revisar Novas Preferências de Endurecimento de Cookie
 
-The XOOPS 2.7.0 upgrade adds two new preferences that control how session cookies are issued:
+O upgrade do XOOPS 2.7.0 adiciona duas novas preferências que controlam como os cookies de sessão são emitidos:
 
-* **`session_cookie_samesite`** — controls the SameSite cookie attribute. `Lax` is a safe default for most sites. Use `Strict` for maximum protection if your site does not rely on cross-origin navigation. `None` is only appropriate if you know you need it.
-* **`session_cookie_secure`** — when enabled, the session cookie is only sent over HTTPS connections. Turn this on if your site runs on HTTPS.
+* **`session_cookie_samesite`** — controla o atributo SameSite do cookie. `Lax` é um padrão seguro para a maioria dos sites. Use `Strict` para proteção máxima se seu site não depender de navegação entre origens. `None` é apropriado apenas se você sabe que precisa dele.
+* **`session_cookie_secure`** — quando ativado, o cookie de sessão é enviado apenas sobre conexões HTTPS. Ative isto se seu site funciona em HTTPS.
 
-You can review these settings under System Options → Preferences → General Settings.
+Você pode revisar essas configurações em Opções de Sistema → Preferências → Configurações Gerais.
 
-## Validate Custom Themes
+## Validar Temas Personalizados
 
-If your site uses a custom theme, walk through the front end and admin area to confirm that pages render correctly. The upgrade to Smarty 4 may affect custom templates even if the preflight scan passed. If you see rendering problems, revisit [Troubleshooting](ustep-03.md).
+Se seu site usar um tema personalizado, caminhe pelo frontend e pela área de administração para confirmar que as páginas são renderizadas corretamente. O upgrade para Smarty 4 pode afetar templates personalizados mesmo que a varredura de pré-voo tenha passado. Se você ver problemas de renderização, revise [Solução de Problemas](ustep-03.md).
 
-## Clean Up Installation and Upgrade Files
+## Limpar Arquivos de Instalação e Upgrade
 
-For security, remove these directories from your web root once the upgrade is confirmed working:
+Para segurança, remova esses diretórios de sua raiz da web uma vez que o upgrade seja confirmado como funcionando:
 
-* `upgrade/` — the upgrade workflow directory
-* `install/` — if present, either as `install/` or as a renamed `installremove*` directory
+* `upgrade/` — o diretório do fluxo de trabalho de upgrade
+* `install/` — se presente, como `install/` ou como diretório renomeado `installremove*`
 
-Leaving these in place exposes the upgrade and installation scripts to anyone who can reach your site.
+Deixar esses em lugar expõe os scripts de upgrade e instalação a qualquer pessoa que possa alcançar seu site.
 
-## Open Your Site
+## Abrir Seu Site
 
-If you followed the advice to _Turn your site off_, you should turn it back on once you have determined it is working correctly.
-
+Se você seguiu o conselho de _Desligar seu site_, você deve ligá-lo de volta uma vez que tenha determinado que está funcionando corretamente.

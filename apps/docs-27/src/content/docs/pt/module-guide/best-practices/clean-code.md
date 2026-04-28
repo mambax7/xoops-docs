@@ -1,55 +1,55 @@
 ---
-title: "Clean Code Principles for XOOPS"
+title: "Princípios de Código Limpo para XOOPS"
 ---
 
-## Overview
+## Visão Geral
 
-Clean code is code that is easy to read, understand, and maintain. This guide covers clean code principles specifically applied to XOOPS module development.
+Código limpo é código que é fácil de ler, entender e manter. Este guia cobre princípios de código limpo especificamente aplicados ao desenvolvimento de módulos XOOPS.
 
-## Core Principles
+## Princípios Principais
 
 ```mermaid
 mindmap
-  root((Clean Code))
-    Readability
-      Meaningful Names
-      Small Functions
-      Comments When Needed
-    Simplicity
-      Single Responsibility
-      DRY Principle
-      KISS Principle
-    Maintainability
-      Consistent Style
-      Error Handling
-      Testing
+  root((Código Limpo))
+    Legibilidade
+      Nomes Significativos
+      Funções Pequenas
+      Comentários Quando Necessário
+    Simplicidade
+      Responsabilidade Única
+      Princípio DRY
+      Princípio KISS
+    Manutenibilidade
+      Estilo Consistente
+      Tratamento de Erros
+      Testes
 ```
 
-## Meaningful Names
+## Nomes Significativos
 
-### Variables
+### Variáveis
 
 ```php
-// Bad
+// Ruim
 $d = new DateTime();
 $u = $memberHandler->getUser($id);
 $arr = [];
 
-// Good
+// Bom
 $createdDate = new DateTime();
 $currentUser = $memberHandler->getUser($userId);
 $publishedArticles = [];
 ```
 
-### Functions
+### Funções
 
 ```php
-// Bad
+// Ruim
 function process($data) { ... }
 function handle($item) { ... }
 function doStuff($x, $y) { ... }
 
-// Good
+// Bom
 function publishArticle(Article $article): void { ... }
 function calculateTotalPrice(array $items): float { ... }
 function sendNotificationEmail(User $user, string $subject): bool { ... }
@@ -58,44 +58,44 @@ function sendNotificationEmail(User $user, string $subject): bool { ... }
 ### Classes
 
 ```php
-// Bad
+// Ruim
 class Manager { ... }
 class Helper { ... }
 class Utils { ... }
 
-// Good
+// Bom
 class ArticleRepository { ... }
 class NotificationService { ... }
 class PermissionChecker { ... }
 ```
 
-## Small Functions
+## Funções Pequenas
 
-### Single Responsibility
+### Responsabilidade Única
 
 ```php
-// Bad - does too many things
+// Ruim - faz muitas coisas
 function processArticle($data) {
-    // Validate
+    // Validar
     if (empty($data['title'])) {
-        throw new Exception('Title required');
+        throw new Exception('Título necessário');
     }
-    // Save
+    // Salvar
     $article = new Article();
     $article->setTitle($data['title']);
     $this->repository->save($article);
-    // Notify
-    $this->mailer->send($article->getAuthor(), 'Article published');
+    // Notificar
+    $this->mailer->send($article->getAuthor(), 'Artigo publicado');
     // Log
-    $this->logger->info('Article created');
+    $this->logger->info('Artigo criado');
     return $article;
 }
 
-// Good - each function does one thing
+// Bom - cada função faz uma coisa
 function validateArticleData(array $data): void
 {
     if (empty($data['title'])) {
-        throw new ValidationException('Title required');
+        throw new ValidationException('Título necessário');
     }
 }
 
@@ -113,12 +113,12 @@ function publishArticle(Article $article): void
 }
 ```
 
-### Function Length
+### Comprimento de Função
 
-Keep functions short - ideally under 20 lines:
+Manter funções curtas - idealmente menos de 20 linhas:
 
 ```php
-// Good - focused function
+// Bom - função focada
 public function getPublishedArticles(int $limit = 10): array
 {
     $criteria = new CriteriaCompo();
@@ -131,12 +131,12 @@ public function getPublishedArticles(int $limit = 10): array
 }
 ```
 
-## DRY Principle (Don't Repeat Yourself)
+## Princípio DRY (Não Repita Você Mesmo)
 
-### Extract Common Code
+### Extrair Código Comum
 
 ```php
-// Bad - repeated code
+// Ruim - código repetido
 function getActiveUsers() {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('level', 0, '>'));
@@ -152,7 +152,7 @@ function getActiveAdmins() {
     return $this->userHandler->getObjects($criteria);
 }
 
-// Good - shared logic extracted
+// Bom - lógica compartilhada extraída
 function getUsers(CriteriaCompo $criteria): array
 {
     $criteria->add(new Criteria('level', 0, '>'));
@@ -173,21 +173,21 @@ function getActiveAdmins(): array
 }
 ```
 
-## Error Handling
+## Tratamento de Erros
 
-### Use Exceptions Properly
+### Usar Exceções Apropriadamente
 
 ```php
-// Bad - generic exceptions
-throw new Exception('Error');
+// Ruim - exceções genéricas
+throw new Exception('Erro');
 
-// Good - specific exceptions
+// Bom - exceções específicas
 throw new ArticleNotFoundException($articleId);
-throw new PermissionDeniedException('Cannot edit article');
-throw new ValidationException(['title' => 'Title is required']);
+throw new PermissionDeniedException('Não pode editar artigo');
+throw new ValidationException(['title' => 'Título é obrigatório']);
 ```
 
-### Handle Errors Gracefully
+### Tratar Erros Graciosamente
 
 ```php
 public function findArticle(string $id): ?Article
@@ -195,32 +195,32 @@ public function findArticle(string $id): ?Article
     try {
         return $this->repository->findById($id);
     } catch (DatabaseException $e) {
-        $this->logger->error('Database error finding article', [
+        $this->logger->error('Erro de banco de dados ao encontrar artigo', [
             'id' => $id,
             'error' => $e->getMessage()
         ]);
-        throw new ServiceException('Unable to retrieve article', 0, $e);
+        throw new ServiceException('Não foi possível recuperar artigo', 0, $e);
     }
 }
 ```
 
-## Comments
+## Comentários
 
-### When to Comment
+### Quando Comentar
 
 ```php
-// Bad - obvious comment
-// Increment counter
+// Ruim - comentário óbvio
+// Incrementar contador
 $counter++;
 
-// Good - explains why, not what
-// Cache for 1 hour to reduce database load during peak traffic
+// Bom - explica por quê, não o quê
+// Cache por 1 hora para reduzir carga no banco de dados durante tráfego pico
 $cache->set($key, $data, 3600);
 
-// Good - documents complex algorithm
+// Bom - documenta algoritmo complexo
 /**
- * Calculate article relevance score using TF-IDF algorithm.
- * Higher scores indicate better match with search terms.
+ * Calcular pontuação de relevância do artigo usando algoritmo TF-IDF.
+ * Pontuações maiores indicam melhor correspondência com termos de pesquisa.
  */
 function calculateRelevanceScore(Article $article, array $terms): float
 {
@@ -228,21 +228,21 @@ function calculateRelevanceScore(Article $article, array $terms): float
 }
 ```
 
-## Code Organization
+## Organização de Código
 
-### Class Structure
+### Estrutura de Classe
 
 ```php
 class ArticleService
 {
-    // 1. Constants
+    // 1. Constantes
     private const MAX_TITLE_LENGTH = 255;
 
-    // 2. Properties
+    // 2. Propriedades
     private ArticleRepository $repository;
     private EventDispatcher $events;
 
-    // 3. Constructor
+    // 3. Construtor
     public function __construct(
         ArticleRepository $repository,
         EventDispatcher $events
@@ -251,30 +251,30 @@ class ArticleService
         $this->events = $events;
     }
 
-    // 4. Public methods
+    // 4. Métodos públicos
     public function publish(Article $article): void { ... }
     public function archive(Article $article): void { ... }
 
-    // 5. Private methods
+    // 5. Métodos privados
     private function validateForPublication(Article $article): void { ... }
 }
 ```
 
-## Clean Code Checklist
+## Lista de Verificação de Código Limpo
 
-- [ ] Names are meaningful and pronounceable
-- [ ] Functions do one thing only
-- [ ] Functions are small (< 20 lines)
-- [ ] No duplicated code
-- [ ] Proper error handling with specific exceptions
-- [ ] Comments explain "why", not "what"
-- [ ] Consistent formatting and style
-- [ ] No magic numbers or strings
-- [ ] Dependencies are injected, not created
+- [ ] Nomes são significativos e pronunciáveis
+- [ ] Funções fazem apenas uma coisa
+- [ ] Funções são pequenas (< 20 linhas)
+- [ ] Sem código duplicado
+- [ ] Tratamento de erros apropriado com exceções específicas
+- [ ] Comentários explicam "por quê", não "o quê"
+- [ ] Formatação e estilo consistentes
+- [ ] Sem números mágicos ou strings
+- [ ] Dependências são injetadas, não criadas
 
-## Related Documentation
+## Documentação Relacionada
 
-- Code Organization
-- Error Handling
-- Testing Best Practices
-- PHP Standards
+- Organização-de-Código
+- Tratamento-de-Erros
+- Boas-Práticas-de-Testes
+- Padrões-PHP

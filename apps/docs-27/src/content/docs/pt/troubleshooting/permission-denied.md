@@ -1,15 +1,15 @@
 ---
-title: "Permission Denied Errors"
-description: "Troubleshooting file and directory permission issues in XOOPS"
+title: "Erros de Permissão Negada"
+description: "Solução de problemas de permissão de arquivo e diretório no XOOPS"
 ---
 
-File and directory permission issues are common in XOOPS installations, especially after upload or server migration. This guide helps diagnose and resolve permission problems.
+Problemas de permissão de arquivo e diretório são comuns em instalações do XOOPS, especialmente após upload ou migração de servidor. Este guia ajuda a diagnosticar e resolver problemas de permissão.
 
-## Understanding File Permissions
+## Compreender Permissões de Arquivo
 
-### Linux/Unix Permission Basics
+### Noções Básicas de Permissão Linux/Unix
 
-File permissions are represented as three-digit codes:
+Permissões de arquivo são representadas como códigos de três dígitos:
 
 ```
 rwxrwxrwx
@@ -27,9 +27,9 @@ x = execute (1)
 777 = rwxrwxrwx (everyone full access - NOT RECOMMENDED)
 ```
 
-## Common Permission Errors
+## Erros Comuns de Permissão
 
-### "Permission denied" in Upload
+### "Permission denied" em Upload
 
 ```
 Warning: fopen(/var/www/html/xoops/uploads/file.jpg): failed to open stream:
@@ -48,21 +48,21 @@ Error: Unable to write file to /var/www/html/xoops/cache/
 Error: mkdir(/var/www/html/xoops/uploads/temp/): Permission denied
 ```
 
-## Critical XOOPS Directories
+## Diretórios Críticos do XOOPS
 
-### Directories Requiring Write Permissions
+### Diretórios Que Requerem Permissões de Escrita
 
-| Directory | Minimum | Purpose |
-|-----------|---------|---------|
-| `/uploads` | 755 | User uploads |
-| `/cache` | 755 | Cache files |
-| `/templates_c` | 755 | Compiled templates |
-| `/var` | 755 | Variable data |
-| `mainfile.php` | 644 | Configuration (readable) |
+| Diretório | Mínimo | Propósito |
+|-----------|---------|----------|
+| `/uploads` | 755 | Uploads de usuário |
+| `/cache` | 755 | Arquivos de cache |
+| `/templates_c` | 755 | Templates compilados |
+| `/var` | 755 | Dados variáveis |
+| `mainfile.php` | 644 | Configuração (legível) |
 
-## Linux/Unix Troubleshooting
+## Solução de Problemas Linux/Unix
 
-### Step 1: Check Current Permissions
+### Passo 1: Verificar Permissões Atuais
 
 ```bash
 # Check file permissions
@@ -75,7 +75,7 @@ ls -l /var/www/html/xoops/mainfile.php
 ls -ld /var/www/html/xoops/uploads/
 ```
 
-### Step 2: Identify Web Server User
+### Passo 2: Identificar Usuário do Servidor Web
 
 ```bash
 # Check Apache user
@@ -87,7 +87,7 @@ ps aux | grep -E '[n]ginx'
 # Usually: www-data or nginx
 ```
 
-### Step 3: Fix Ownership
+### Passo 3: Corrigir Propriedade
 
 ```bash
 # Set correct ownership (assuming www-data user)
@@ -100,9 +100,9 @@ sudo chown www-data:www-data /var/www/html/xoops/templates_c/
 sudo chown www-data:www-data /var/www/html/xoops/var/
 ```
 
-### Step 4: Fix Permissions
+### Passo 4: Corrigir Permissões
 
-#### Option A: Restrictive Permissions (Recommended)
+#### Opção A: Permissões Restritivas (Recomendado)
 
 ```bash
 # All directories: 755 (rwxr-xr-x)
@@ -118,7 +118,7 @@ chmod 755 /var/www/html/xoops/templates_c/
 chmod 755 /var/www/html/xoops/var/
 ```
 
-#### Option B: All-at-once Script
+#### Opção B: Script Tudo-em-um
 
 ```bash
 #!/bin/bash
@@ -147,11 +147,11 @@ chmod 755 $XOOPS_PATH/var/
 echo "Done! Permissions fixed."
 ```
 
-## Permission Issues by Directory
+## Problemas de Permissão por Diretório
 
-### Uploads Directory
+### Diretório de Uploads
 
-**Problem:** Can't upload files
+**Problema:** Não consegue fazer upload de arquivos
 
 ```bash
 # Solution
@@ -161,9 +161,9 @@ find /var/www/html/xoops/uploads -type f -exec chmod 644 {} \;
 find /var/www/html/xoops/uploads -type d -exec chmod 755 {} \;
 ```
 
-### Cache Directory
+### Diretório de Cache
 
-**Problem:** Cache files not being written
+**Problema:** Arquivos de cache não estão sendo gravados
 
 ```bash
 # Solution
@@ -171,9 +171,9 @@ sudo chown www-data:www-data /var/www/html/xoops/cache/
 chmod 755 /var/www/html/xoops/cache/
 ```
 
-### Templates Cache
+### Cache de Templates
 
-**Problem:** Templates not compiling
+**Problema:** Templates não compilando
 
 ```bash
 # Solution
@@ -181,16 +181,16 @@ sudo chown www-data:www-data /var/www/html/xoops/templates_c/
 chmod 755 /var/www/html/xoops/templates_c/
 ```
 
-## Windows Troubleshooting
+## Solução de Problemas do Windows
 
-### Step 1: Check File Properties
+### Passo 1: Verificar Propriedades do Arquivo
 
-1. Right-click file → Properties
-2. Click "Security" tab
-3. Click "Edit" button
-4. Select user and verify permissions
+1. Clique com botão direito no arquivo → Propriedades
+2. Clique na aba "Segurança"
+3. Clique no botão "Editar"
+4. Selecione usuário e verifique permissões
 
-### Step 2: Grant Write Permissions
+### Passo 2: Conceder Permissões de Escrita
 
 #### Via GUI:
 
@@ -198,102 +198,19 @@ chmod 755 /var/www/html/xoops/templates_c/
 1. Right-click folder → Properties
 2. Select "Security" tab
 3. Click "Edit"
-4. Select "IIS_IUSRS" or "NETWORK SERVICE"
-5. Check "Modify" and "Write"
-6. Click "Apply" and "OK"
+4. Select "Users" or "IUSR"
+5. Check "Write" and "Modify"
+6. Click "Apply"
 ```
-
-#### Via Command Line (PowerShell):
-
-```powershell
-# Run PowerShell as Administrator
-
-# Grant IIS app pool permissions
-$path = "C:\inetpub\wwwroot\xoops\uploads"
-$acl = Get-Acl $path
-$rule = New-Object System.Security.AccessControl.FileSystemAccessRule(
-    "IIS_IUSRS",
-    "Modify",
-    "ContainerInherit,ObjectInherit",
-    "None",
-    "Allow"
-)
-$acl.SetAccessRule($rule)
-Set-Acl -Path $path -AclObject $acl
-```
-
-## PHP Script to Check Permissions
-
-```php
-<?php
-// check-xoops-permissions.php
-
-$paths = [
-    XOOPS_ROOT_PATH . '/uploads' => 'uploads',
-    XOOPS_ROOT_PATH . '/cache' => 'cache',
-    XOOPS_ROOT_PATH . '/templates_c' => 'templates_c',
-    XOOPS_ROOT_PATH . '/var' => 'var',
-    XOOPS_ROOT_PATH . '/mainfile.php' => 'mainfile.php'
-];
-
-echo "<h2>XOOPS Permission Check</h2>";
-echo "<table border='1'>";
-echo "<tr><th>Path</th><th>Readable</th><th>Writable</th></tr>";
-
-foreach ($paths as $path => $name) {
-    $readable = is_readable($path) ? 'YES' : 'NO';
-    $writable = is_writable($path) ? 'YES' : 'NO';
-
-    echo "<tr>";
-    echo "<td>$name</td>";
-    echo "<td style='background: " . ($readable === 'YES' ? 'green' : 'red') . "'>$readable</td>";
-    echo "<td style='background: " . ($writable === 'YES' ? 'green' : 'red') . "'>$writable</td>";
-    echo "</tr>";
-}
-
-echo "</table>";
-?>
-```
-
-## Best Practices
-
-### 1. Principle of Least Privilege
-
-```bash
-# Only grant necessary permissions
-# Don't use 777 or 666
-
-# Bad
-chmod 777 /var/www/html/xoops/uploads/  # Dangerous!
-
-# Good
-chmod 755 /var/www/html/xoops/uploads/  # Secure
-```
-
-### 2. Backup Before Changes
-
-```bash
-# Backup current state
-getfacl -R /var/www/html/xoops > /tmp/xoops-acl-backup.txt
-```
-
-## Quick Reference
-
-```bash
-# Quick fix (Linux)
-sudo chown -R www-data:www-data /var/www/html/xoops/
-find /var/www/html/xoops -type d -exec chmod 755 {} \;
-find /var/www/html/xoops -type f -exec chmod 644 {} \;
-```
-
-## Related Documentation
-
-- White-Screen-of-Death - Other common errors
-- Database-Connection-Errors - Database issues
-- ../../01-Getting-Started/Configuration/System-Settings - XOOPS configuration
 
 ---
 
-**Last Updated:** 2026-01-31
-**Applies To:** XOOPS 2.5.7+
-**OS:** Linux, Windows, macOS
+## Documentação Relacionada
+
+- Tela Branca da Morte
+- Falhas de Instalação de Módulo
+- FAQ de Instalação
+
+---
+
+#xoops #permissions #troubleshooting #security

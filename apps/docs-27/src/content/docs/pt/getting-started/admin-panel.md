@@ -1,49 +1,49 @@
 ---
-title: "Admin Panel Overview"
-description: "Comprehensive guide to XOOPS admin panel layout, navigation, dashboard features, and core administrative functions"
+title: "Visão Geral do Painel de Administrador"
+description: "Guia abrangente do layout do painel de administrador XOOPS, navegação, recursos de painel de controle e funções administrativas principais"
 ---
 
-# XOOPS Admin Panel Overview
+# Visão Geral do Painel de Administrador XOOPS
 
-Complete guide to navigating and using the XOOPS administrator dashboard.
+Guia completo para navegação e uso do painel de controle do administrador XOOPS.
 
-## Accessing the Admin Panel
+## Acessando o Painel de Administrador
 
-### Admin Login
+### Login de Administrador
 
-Open your browser and navigate to:
-
-```
-http://your-domain.com/xoops/admin/
-```
-
-Or if XOOPS is in root:
+Abra seu navegador e acesse:
 
 ```
-http://your-domain.com/admin/
+http://seu-dominio.com/xoops/admin/
 ```
 
-Enter your administrator credentials:
+Ou se XOOPS estiver na raiz:
 
 ```
-Username: [Your admin username]
-Password: [Your admin password]
+http://seu-dominio.com/admin/
 ```
 
-### After Login
+Digite suas credenciais de administrador:
 
-You'll see the main admin dashboard:
+```
+Usuário: [Seu nome de usuário de administrador]
+Senha: [Sua senha de administrador]
+```
+
+### Após o Login
+
+Você verá o painel de controle principal do administrador:
 
 ```mermaid
 flowchart TB
-    subgraph Dashboard["🖥️ Admin Dashboard"]
+    subgraph Dashboard["🖥️ Painel de Controle do Administrador"]
         direction TB
-        Header["👤 Welcome, Administrator | Logout | My Account"]
-        Title["📊 Dashboard"]
-        subgraph Content["Main Content Area"]
-            Widgets["⚡ Quick Access Widgets"]
-            Stats["📈 Statistics"]
-            Recent["🕐 Recent Activities"]
+        Header["👤 Bem-vindo, Administrador | Sair | Minha Conta"]
+        Title["📊 Painel de Controle"]
+        subgraph Content["Área de Conteúdo Principal"]
+            Widgets["⚡ Widgets de Acesso Rápido"]
+            Stats["📈 Estatísticas"]
+            Recent["🕐 Atividades Recentes"]
         end
     end
 
@@ -55,667 +55,667 @@ flowchart TB
     style Content fill:#f5f5f5,stroke:#ccc
 ```
 
-## Admin Panel Layout
+## Layout do Painel de Administrador
 
 ```mermaid
 graph TD
-    A[Admin Dashboard] --> B[Top Navigation]
-    A --> C[Left Sidebar]
-    A --> D[Main Content Area]
-    B --> B1[Admin Name]
-    B --> B2[My Account]
-    B --> B3[Logout]
-    C --> C1[System]
-    C --> C2[Content]
-    C --> C3[Users]
-    C --> C4[Modules]
-    C --> C5[Appearance]
-    C --> C6[Tools]
-    D --> D1[Dashboard Stats]
-    D --> D2[Quick Actions]
-    D --> D3[Recent Items]
+    A[Painel de Controle do Administrador] --> B[Navegação Superior]
+    A --> C[Barra Lateral Esquerda]
+    A --> D[Área de Conteúdo Principal]
+    B --> B1[Nome do Administrador]
+    B --> B2[Minha Conta]
+    B --> B3[Sair]
+    C --> C1[Sistema]
+    C --> C2[Conteúdo]
+    C --> C3[Usuários]
+    C --> C4[Módulos]
+    C --> C5[Aparência]
+    C --> C6[Ferramentas]
+    D --> D1[Estatísticas do Painel]
+    D --> D2[Ações Rápidas]
+    D --> D3[Itens Recentes]
 ```
 
-## Dashboard Components
+## Componentes do Painel de Controle
 
-### Top Bar
+### Barra Superior
 
-The top bar contains essential controls:
+A barra superior contém controles essenciais:
 
-| Element | Purpose |
+| Elemento | Finalidade |
 |---|---|
-| **Admin Logo** | Click to return to dashboard |
-| **Welcome Message** | Shows logged-in admin name |
-| **My Account** | Edit admin profile and password |
-| **Help** | Access documentation |
-| **Logout** | Sign out of admin panel |
+| **Logo do Administrador** | Clique para voltar ao painel de controle |
+| **Mensagem de Boas-vindas** | Mostra o nome do administrador conectado |
+| **Minha Conta** | Editar perfil e senha do administrador |
+| **Ajuda** | Acessar documentação |
+| **Sair** | Desconectar do painel de administrador |
 
-### Left Navigation Sidebar
+### Barra Lateral de Navegação Esquerda
 
-Main menu organized by function:
+Menu principal organizado por função:
 
 ```
-├── System
-│   ├── Dashboard
-│   ├── Preferences
-│   ├── Admin Users
-│   ├── Groups
-│   ├── Permissions
-│   ├── Modules
-│   └── Tools
-├── Content
-│   ├── Pages
-│   ├── Categories
-│   ├── Comments
-│   └── Media Manager
-├── Users
-│   ├── Users
-│   ├── User Requests
-│   ├── Online Users
-│   └── User Groups
-├── Modules
-│   ├── Modules
-│   ├── Module Settings
-│   └── Module Updates
-├── Appearance
-│   ├── Themes
+├── Sistema
+│   ├── Painel de Controle
+│   ├── Preferências
+│   ├── Usuários de Administrador
+│   ├── Grupos
+│   ├── Permissões
+│   ├── Módulos
+│   └── Ferramentas
+├── Conteúdo
+│   ├── Páginas
+│   ├── Categorias
+│   ├── Comentários
+│   └── Gerenciador de Mídia
+├── Usuários
+│   ├── Usuários
+│   ├── Solicitações de Usuários
+│   ├── Usuários Online
+│   └── Grupos de Usuários
+├── Módulos
+│   ├── Módulos
+│   ├── Configurações de Módulo
+│   └── Atualizações de Módulo
+├── Aparência
+│   ├── Temas
 │   ├── Templates
-│   ├── Blocks
-│   └── Images
-└── Tools
-    ├── Maintenance
+│   ├── Blocos
+│   └── Imagens
+└── Ferramentas
+    ├── Manutenção
     ├── Email
-    ├── Statistics
+    ├── Estatísticas
     ├── Logs
     └── Backups
 ```
 
-### Main Content Area
+### Área de Conteúdo Principal
 
-Displays information and controls for selected section:
+Exibe informações e controles para a seção selecionada:
 
-- Forms for configuration
-- Data tables with lists
-- Charts and statistics
-- Quick action buttons
-- Help text and tooltips
+- Formulários para configuração
+- Tabelas de dados com listas
+- Gráficos e estatísticas
+- Botões de ação rápida
+- Texto de ajuda e dicas
 
-### Dashboard Widgets
+### Widgets do Painel de Controle
 
-Quick access to key information:
+Acesso rápido a informações-chave:
 
-- **System Information:** PHP version, MySQL version, XOOPS version
-- **Quick Statistics:** User count, total posts, modules installed
-- **Recent Activity:** Latest logins, content changes, errors
-- **Server Status:** CPU, memory, disk usage
-- **Notifications:** System alerts, pending updates
+- **Informações do Sistema:** Versão do PHP, versão do MySQL, versão do XOOPS
+- **Estatísticas Rápidas:** Contagem de usuários, total de posts, módulos instalados
+- **Atividade Recente:** Últimos logins, mudanças de conteúdo, erros
+- **Status do Servidor:** CPU, memória, uso de disco
+- **Notificações:** Alertas do sistema, atualizações pendentes
 
-## Core Admin Functions
+## Funções Principais de Administrador
 
-### System Management
+### Gerenciamento de Sistema
 
-**Location:** System > [Various Options]
+**Local:** Sistema > [Várias Opções]
 
-#### Preferences
+#### Preferências
 
-Configure basic system settings:
-
-```
-System > Preferences > [Settings Category]
-```
-
-Categories:
-- General Settings (site name, timezone)
-- User Settings (registration, profiles)
-- Email Settings (SMTP configuration)
-- Cache Settings (caching options)
-- URL Settings (friendly URLs)
-- Meta Tags (SEO settings)
-
-See Basic Configuration and System Settings.
-
-#### Admin Users
-
-Manage administrator accounts:
+Configure as configurações básicas do sistema:
 
 ```
-System > Admin Users
+Sistema > Preferências > [Categoria de Configurações]
 ```
 
-Functions:
-- Add new administrators
-- Edit admin profiles
-- Change admin passwords
-- Delete admin accounts
-- Set admin permissions
+Categorias:
+- Configurações Gerais (nome do site, fuso horário)
+- Configurações de Usuário (registro, perfis)
+- Configurações de Email (configuração SMTP)
+- Configurações de Cache (opções de cache)
+- Configurações de URL (URLs amigáveis)
+- Meta Tags (configurações SEO)
 
-### Content Management
+Veja Configuração Básica e Configurações do Sistema.
 
-**Location:** Content > [Various Options]
+#### Usuários de Administrador
 
-#### Pages/Articles
-
-Manage site content:
-
-```
-Content > Pages (or your module)
-```
-
-Functions:
-- Create new pages
-- Edit existing content
-- Delete pages
-- Publish/unpublish
-- Set categories
-- Manage revisions
-
-#### Categories
-
-Organize content:
+Gerencie contas de administrador:
 
 ```
-Content > Categories
+Sistema > Usuários de Administrador
 ```
 
-Functions:
-- Create category hierarchy
-- Edit categories
-- Delete categories
-- Assign to pages
+Funções:
+- Adicionar novos administradores
+- Editar perfis de administrador
+- Alterar senhas de administrador
+- Deletar contas de administrador
+- Definir permissões de administrador
 
-#### Comments
+### Gerenciamento de Conteúdo
 
-Moderate user comments:
+**Local:** Conteúdo > [Várias Opções]
 
-```
-Content > Comments
-```
+#### Páginas/Artigos
 
-Functions:
-- View all comments
-- Approve comments
-- Edit comments
-- Delete spam
-- Block commenters
-
-### User Management
-
-**Location:** Users > [Various Options]
-
-#### Users
-
-Manage user accounts:
+Gerencie o conteúdo do site:
 
 ```
-Users > Users
+Conteúdo > Páginas (ou seu módulo)
 ```
 
-Functions:
-- View all users
-- Create new users
-- Edit user profiles
-- Delete accounts
-- Reset passwords
-- Change user status
-- Assign to groups
+Funções:
+- Criar novas páginas
+- Editar conteúdo existente
+- Deletar páginas
+- Publicar/despublicar
+- Definir categorias
+- Gerenciar revisões
 
-#### Online Users
+#### Categorias
 
-Monitor active users:
-
-```
-Users > Online Users
-```
-
-Shows:
-- Currently online users
-- Last activity time
-- IP address
-- User location (if configured)
-
-#### User Groups
-
-Manage user roles and permissions:
+Organize o conteúdo:
 
 ```
-Users > Groups
+Conteúdo > Categorias
 ```
 
-Functions:
-- Create custom groups
-- Set group permissions
-- Assign users to groups
-- Delete groups
+Funções:
+- Criar hierarquia de categorias
+- Editar categorias
+- Deletar categorias
+- Atribuir a páginas
 
-### Module Management
+#### Comentários
 
-**Location:** Modules > [Various Options]
-
-#### Modules
-
-Install and configure modules:
+Modere comentários de usuários:
 
 ```
-Modules > Modules
+Conteúdo > Comentários
 ```
 
-Functions:
-- View installed modules
-- Enable/disable modules
-- Update modules
-- Configure module settings
-- Install new modules
-- View module details
+Funções:
+- Ver todos os comentários
+- Aprovar comentários
+- Editar comentários
+- Deletar spam
+- Bloquear comentadores
 
-#### Check for Updates
+### Gerenciamento de Usuários
 
-```
-Modules > Modules > Check for Updates
-```
+**Local:** Usuários > [Várias Opções]
 
-Displays:
-- Available module updates
-- Changelog
-- Download and install options
+#### Usuários
 
-### Appearance Management
-
-**Location:** Appearance > [Various Options]
-
-#### Themes
-
-Manage site themes:
+Gerencie contas de usuários:
 
 ```
-Appearance > Themes
+Usuários > Usuários
 ```
 
-Functions:
-- View installed themes
-- Set default theme
-- Upload new themes
-- Delete themes
-- Theme preview
-- Theme configuration
+Funções:
+- Ver todos os usuários
+- Criar novos usuários
+- Editar perfis de usuários
+- Deletar contas
+- Redefinir senhas
+- Alterar status de usuário
+- Atribuir a grupos
 
-#### Blocks
+#### Usuários Online
 
-Manage content blocks:
+Monitore usuários ativos:
 
 ```
-Appearance > Blocks
+Usuários > Usuários Online
 ```
 
-Functions:
-- Create custom blocks
-- Edit block content
-- Arrange blocks on page
-- Set block visibility
-- Delete blocks
-- Configure block caching
+Mostra:
+- Usuários atualmente online
+- Hora da última atividade
+- Endereço IP
+- Localização do usuário (se configurado)
+
+#### Grupos de Usuários
+
+Gerencie funções e permissões de usuários:
+
+```
+Usuários > Grupos
+```
+
+Funções:
+- Criar grupos personalizados
+- Definir permissões de grupo
+- Atribuir usuários a grupos
+- Deletar grupos
+
+### Gerenciamento de Módulos
+
+**Local:** Módulos > [Várias Opções]
+
+#### Módulos
+
+Instale e configure módulos:
+
+```
+Módulos > Módulos
+```
+
+Funções:
+- Ver módulos instalados
+- Ativar/desativar módulos
+- Atualizar módulos
+- Configurar configurações de módulo
+- Instalar novos módulos
+- Ver detalhes de módulo
+
+#### Verificar Atualizações
+
+```
+Módulos > Módulos > Verificar Atualizações
+```
+
+Exibe:
+- Atualizações de módulo disponíveis
+- Histórico de alterações
+- Opções de download e instalação
+
+### Gerenciamento de Aparência
+
+**Local:** Aparência > [Várias Opções]
+
+#### Temas
+
+Gerencie temas do site:
+
+```
+Aparência > Temas
+```
+
+Funções:
+- Ver temas instalados
+- Definir tema padrão
+- Upload de novos temas
+- Deletar temas
+- Visualização de tema
+- Configuração de tema
+
+#### Blocos
+
+Gerencie blocos de conteúdo:
+
+```
+Aparência > Blocos
+```
+
+Funções:
+- Criar blocos personalizados
+- Editar conteúdo de bloco
+- Organizar blocos na página
+- Definir visibilidade de bloco
+- Deletar blocos
+- Configurar cache de bloco
 
 #### Templates
 
-Manage templates (advanced):
+Gerencie templates (avançado):
 
 ```
-Appearance > Templates
+Aparência > Templates
 ```
 
-For advanced users and developers.
+Para usuários avançados e desenvolvedores.
 
-### System Tools
+### Ferramentas do Sistema
 
-**Location:** System > Tools
+**Local:** Sistema > Ferramentas
 
-#### Maintenance Mode
+#### Modo de Manutenção
 
-Prevent user access during maintenance:
+Previna o acesso de usuários durante manutenção:
 
 ```
-System > Maintenance Mode
+Sistema > Modo de Manutenção
 ```
 
 Configure:
-- Enable/disable maintenance
-- Custom maintenance message
-- Allowed IP addresses (for testing)
+- Ativar/desativar manutenção
+- Mensagem de manutenção personalizada
+- Endereços IP permitidos (para testes)
 
-#### Database Management
-
-```
-System > Database
-```
-
-Functions:
-- Check database consistency
-- Run database updates
-- Repair tables
-- Optimize database
-- Export database structure
-
-#### Activity Logs
+#### Gerenciamento de Banco de Dados
 
 ```
-System > Logs
+Sistema > Banco de Dados
 ```
 
-Monitor:
-- User activity
-- Administrative actions
-- System events
-- Error logs
+Funções:
+- Verificar consistência do banco de dados
+- Executar atualizações de banco de dados
+- Reparar tabelas
+- Otimizar banco de dados
+- Exportar estrutura do banco de dados
 
-## Quick Actions
-
-Common tasks accessible from dashboard:
+#### Logs de Atividade
 
 ```
-Quick Links:
-├── Create New Page
-├── Add New User
-├── Create Content Block
-├── Upload Image
-├── Send Mass Email
-├── Update All Modules
-└── Clear Cache
+Sistema > Logs
 ```
 
-## Admin Panel Keyboard Shortcuts
+Monitore:
+- Atividade de usuário
+- Ações administrativas
+- Eventos de sistema
+- Logs de erro
 
-Quick navigation:
+## Ações Rápidas
 
-| Shortcut | Action |
+Tarefas comuns acessíveis do painel de controle:
+
+```
+Links Rápidos:
+├── Criar Nova Página
+├── Adicionar Novo Usuário
+├── Criar Bloco de Conteúdo
+├── Fazer Upload de Imagem
+├── Enviar Email em Massa
+├── Atualizar Todos os Módulos
+└── Limpar Cache
+```
+
+## Atalhos de Teclado do Painel de Administrador
+
+Navegação rápida:
+
+| Atalho | Ação |
 |---|---|
-| `Ctrl+H` | Go to help |
-| `Ctrl+D` | Go to dashboard |
-| `Ctrl+Q` | Quick search |
-| `Ctrl+L` | Logout |
+| `Ctrl+H` | Ir para ajuda |
+| `Ctrl+D` | Ir para painel de controle |
+| `Ctrl+Q` | Pesquisa rápida |
+| `Ctrl+L` | Sair |
 
-## User Account Management
+## Gerenciamento de Conta de Usuário
 
-### My Account
+### Minha Conta
 
-Access your administrator profile:
+Acesse seu perfil de administrador:
 
-1. Click "My Account" in top right
-2. Edit profile information:
-   - Email address
-   - Real name
-   - User information
+1. Clique em "Minha Conta" no canto superior direito
+2. Edite informações de perfil:
+   - Endereço de email
+   - Nome real
+   - Informações de usuário
    - Avatar
 
-### Change Password
+### Alterar Senha
 
-Change your admin password:
+Altere sua senha de administrador:
 
-1. Go to **My Account**
-2. Click "Change Password"
-3. Enter current password
-4. Enter new password (twice)
-5. Click "Save"
+1. Vá para **Minha Conta**
+2. Clique em "Alterar Senha"
+3. Digite a senha atual
+4. Digite a nova senha (duas vezes)
+5. Clique em "Salvar"
 
-**Security Tips:**
-- Use strong passwords (16+ characters)
-- Include uppercase, lowercase, numbers, symbols
-- Change password every 90 days
-- Never share admin credentials
+**Dicas de Segurança:**
+- Use senhas fortes (16+ caracteres)
+- Inclua maiúsculas, minúsculas, números, símbolos
+- Altere a senha a cada 90 dias
+- Nunca compartilhe credenciais de administrador
 
-### Logout
+### Sair
 
-Sign out of admin panel:
+Desconecte do painel de administrador:
 
-1. Click "Logout" in top right
-2. You'll be redirected to login page
+1. Clique em "Sair" no canto superior direito
+2. Você será redirecionado para a página de login
 
-## Admin Panel Statistics
+## Estatísticas do Painel de Administrador
 
-### Dashboard Stats
+### Estatísticas do Painel
 
-Quick overview of site metrics:
+Visão geral rápida de métricas do site:
 
-| Metric | Value |
+| Métrica | Valor |
 |--------|-------|
-| Users Online | 12 |
-| Total Users | 256 |
-| Total Posts | 1,234 |
-| Total Comments | 5,678 |
-| Total Modules | 8 |
+| Usuários Online | 12 |
+| Total de Usuários | 256 |
+| Total de Posts | 1.234 |
+| Total de Comentários | 5.678 |
+| Total de Módulos | 8 |
 
-### System Status
+### Status do Sistema
 
-Server and performance information:
+Informações do servidor e desempenho:
 
-| Component | Version/Value |
+| Componente | Versão/Valor |
 |-----------|---------------|
-| XOOPS Version | 2.5.11 |
-| PHP Version | 8.2.x |
-| MySQL Version | 8.0.x |
-| Server Load | 0.45, 0.42 |
-| Uptime | 45 days |
+| Versão XOOPS | 2.5.11 |
+| Versão PHP | 8.2.x |
+| Versão MySQL | 8.0.x |
+| Carga do Servidor | 0.45, 0.42 |
+| Uptime | 45 dias |
 
-### Recent Activity
+### Atividade Recente
 
-Timeline of recent events:
-
-```
-12:45 - Admin login
-12:30 - New user registered
-12:15 - Page published
-12:00 - Comment posted
-11:45 - Module updated
-```
-
-## Notification System
-
-### Admin Alerts
-
-Receive notifications for:
-
-- New user registrations
-- Comments awaiting moderation
-- Failed login attempts
-- System errors
-- Module updates available
-- Database issues
-- Disk space warnings
-
-Configure alerts:
-
-**System > Preferences > Email Settings**
+Cronologia de eventos recentes:
 
 ```
-Notify Admin on Registration: Yes
-Notify Admin on Comments: Yes
-Notify Admin on Errors: Yes
-Alert Email: admin@your-domain.com
+12:45 - Login de administrador
+12:30 - Novo usuário registrado
+12:15 - Página publicada
+12:00 - Comentário postado
+11:45 - Módulo atualizado
 ```
 
-## Common Admin Tasks
+## Sistema de Notificação
 
-### Create a New Page
+### Alertas de Administrador
 
-1. Go to **Content > Pages** (or relevant module)
-2. Click "Add New Page"
-3. Fill in:
-   - Title
-   - Content
-   - Description
-   - Category
-   - Metadata
-4. Click "Publish"
+Receba notificações para:
 
-### Manage Users
+- Novas inscrições de usuários
+- Comentários aguardando moderação
+- Tentativas de login falhadas
+- Erros de sistema
+- Atualizações de módulo disponíveis
+- Problemas de banco de dados
+- Avisos de espaço em disco
 
-1. Go to **Users > Users**
-2. View user list with:
-   - Username
+Configure alertas:
+
+**Sistema > Preferências > Configurações de Email**
+
+```
+Notificar Administrador no Registro: Sim
+Notificar Administrador nos Comentários: Sim
+Notificar Administrador nos Erros: Sim
+Email de Alerta: admin@seu-dominio.com
+```
+
+## Tarefas Comuns de Administrador
+
+### Criar uma Nova Página
+
+1. Vá para **Conteúdo > Páginas** (ou módulo relevante)
+2. Clique em "Adicionar Nova Página"
+3. Preencha:
+   - Título
+   - Conteúdo
+   - Descrição
+   - Categoria
+   - Metadados
+4. Clique em "Publicar"
+
+### Gerenciar Usuários
+
+1. Vá para **Usuários > Usuários**
+2. Veja lista de usuários com:
+   - Nome de usuário
    - Email
-   - Registration date
-   - Last login
+   - Data de registro
+   - Último login
    - Status
 
-3. Click username to:
-   - Edit profile
-   - Change password
-   - Edit groups
-   - Block/unblock user
+3. Clique no nome de usuário para:
+   - Editar perfil
+   - Alterar senha
+   - Editar grupos
+   - Bloquear/desbloquear usuário
 
-### Configure Module
+### Configurar Módulo
 
-1. Go to **Modules > Modules**
-2. Find module in list
-3. Click the module name
-4. Click "Preferences" or "Settings"
-5. Configure module options
-6. Save changes
+1. Vá para **Módulos > Módulos**
+2. Encontre o módulo na lista
+3. Clique no nome do módulo
+4. Clique em "Preferências" ou "Configurações"
+5. Configure opções de módulo
+6. Salve as alterações
 
-### Create a New Block
+### Criar um Novo Bloco
 
-1. Go to **Appearance > Blocks**
-2. Click "Add New Block"
-3. Enter:
-   - Block title
-   - Block content (HTML allowed)
-   - Position on page
-   - Visibility (all pages or specific)
-   - Module (if applicable)
-4. Click "Submit"
+1. Vá para **Aparência > Blocos**
+2. Clique em "Adicionar Novo Bloco"
+3. Digite:
+   - Título do bloco
+   - Conteúdo do bloco (HTML permitido)
+   - Posição na página
+   - Visibilidade (todas as páginas ou específicas)
+   - Módulo (se aplicável)
+4. Clique em "Enviar"
 
-## Admin Panel Help
+## Ajuda do Painel de Administrador
 
-### Built-in Documentation
+### Documentação Integrada
 
-Access help from admin panel:
+Acesse ajuda do painel de administrador:
 
-1. Click "Help" button in top bar
-2. Context-sensitive help for current page
-3. Links to documentation
-4. Frequently asked questions
+1. Clique no botão "Ajuda" na barra superior
+2. Ajuda sensível ao contexto para a página atual
+3. Links para documentação
+4. Perguntas frequentes
 
-### External Resources
+### Recursos Externos
 
-- XOOPS Official Site: https://xoops.org/
-- Community Forum: https://xoops.org/modules/newbb/
-- Module Repository: https://xoops.org/modules/repository/
-- Bugs/Issues: https://github.com/XOOPS/XoopsCore/issues
+- Site Oficial XOOPS: https://xoops.org/
+- Fórum da Comunidade: https://xoops.org/modules/newbb/
+- Repositório de Módulo: https://xoops.org/modules/repository/
+- Bugs/Problemas: https://github.com/XOOPS/XoopsCore/issues
 
-## Customizing Admin Panel
+## Personalizando o Painel de Administrador
 
-### Admin Theme
+### Tema de Administrador
 
-Choose admin interface theme:
+Escolha o tema da interface de administração:
 
-**System > Preferences > General Settings**
+**Sistema > Preferências > Configurações Gerais**
 
 ```
-Admin Theme: [Select theme]
+Tema de Administrador: [Selecionar tema]
 ```
 
-Available themes:
-- Default (light)
-- Dark mode
-- Custom themes
+Temas disponíveis:
+- Padrão (claro)
+- Modo escuro
+- Temas personalizados
 
-### Dashboard Customization
+### Personalização do Painel de Controle
 
-Choose which widgets appear:
+Escolha quais widgets aparecem:
 
-**Dashboard > Customize**
+**Painel de Controle > Personalizar**
 
-Select:
-- System information
-- Statistics
-- Recent activity
-- Quick links
-- Custom widgets
+Selecione:
+- Informações do sistema
+- Estatísticas
+- Atividade recente
+- Links rápidos
+- Widgets personalizados
 
-## Admin Panel Permissions
+## Permissões do Painel de Administrador
 
-Different admin levels have different permissions:
+Diferentes níveis de administração têm permissões diferentes:
 
-| Role | Capabilities |
+| Função | Capacidades |
 |---|---|
-| **Webmaster** | Full access to all admin functions |
-| **Admin** | Limited admin functions |
-| **Moderator** | Content moderation only |
-| **Editor** | Content creation and editing |
+| **Webmaster** | Acesso total a todas as funções de administrador |
+| **Administrador** | Funções de administrador limitadas |
+| **Moderador** | Apenas moderação de conteúdo |
+| **Editor** | Criação e edição de conteúdo |
 
-Manage permissions:
+Gerencie permissões:
 
-**System > Permissions**
+**Sistema > Permissões**
 
-## Security Best Practices for Admin Panel
+## Práticas Recomendadas de Segurança para Painel de Administrador
 
-1. **Strong Password:** Use 16+ character password
-2. **Regular Changes:** Change password every 90 days
-3. **Monitor Access:** Check "Admin Users" logs regularly
-4. **Limit Access:** Rename admin folder for additional security
-5. **Use HTTPS:** Always access admin via HTTPS
-6. **IP Whitelisting:** Restrict admin access to specific IPs
-7. **Regular Logout:** Logout when done
-8. **Browser Security:** Clear browser cache regularly
+1. **Senha Forte:** Use senha com 16+ caracteres
+2. **Alterações Regulares:** Altere a senha a cada 90 dias
+3. **Monitore o Acesso:** Verifique os logs de "Usuários de Administrador" regularmente
+4. **Limite o Acesso:** Renomeie pasta de administrador para segurança adicional
+5. **Use HTTPS:** Sempre acesse administrador via HTTPS
+6. **Whitelist de IP:** Restrinja acesso de administrador a IPs específicos
+7. **Logout Regular:** Faça logout quando terminar
+8. **Segurança do Navegador:** Limpe o cache do navegador regularmente
 
-See Security Configuration.
+Veja Configuração de Segurança.
 
-## Troubleshooting Admin Panel
+## Solução de Problemas do Painel de Administrador
 
-### Can't Access Admin Panel
+### Não Consegue Acessar Painel de Administrador
 
-**Solution:**
-1. Verify login credentials
-2. Clear browser cache and cookies
-3. Try different browser
-4. Check if admin folder path is correct
-5. Verify file permissions on admin folder
-6. Check database connection in mainfile.php
+**Solução:**
+1. Verifique credenciais de login
+2. Limpe cache e cookies do navegador
+3. Tente outro navegador
+4. Verifique se o caminho da pasta de administrador está correto
+5. Verifique as permissões de arquivo na pasta de administrador
+6. Verifique a conexão com o banco de dados em mainfile.php
 
-### Blank Admin Page
+### Página em Branco de Administrador
 
-**Solution:**
+**Solução:**
 ```bash
-# Check PHP errors
+# Verifique erros do PHP
 tail -f /var/log/apache2/error.log
 
-# Enable debug mode temporarily
+# Ativar modo de depuração temporariamente
 sed -i "s/define('XOOPS_DEBUG', 0)/define('XOOPS_DEBUG', 1)/" /var/www/html/xoops/mainfile.php
 
-# Check file permissions
+# Verifique permissões de arquivo
 ls -la /var/www/html/xoops/admin/
 ```
 
-### Slow Admin Panel
+### Painel de Administrador Lento
 
-**Solution:**
-1. Clear cache: **System > Tools > Clear Cache**
-2. Optimize database: **System > Database > Optimize**
-3. Check server resources: `htop`
-4. Review slow queries in MySQL
+**Solução:**
+1. Limpe cache: **Sistema > Ferramentas > Limpar Cache**
+2. Otimize banco de dados: **Sistema > Banco de Dados > Otimizar**
+3. Verifique recursos do servidor: `htop`
+4. Revise consultas lentas no MySQL
 
-### Module Not Appearing
+### Módulo Não Aparecendo
 
-**Solution:**
-1. Verify module installed: **Modules > Modules**
-2. Check module enabled
-3. Verify permissions assigned
-4. Check module files exist
-5. Review error logs
+**Solução:**
+1. Verifique módulo instalado: **Módulos > Módulos**
+2. Verifique módulo ativado
+3. Verifique permissões atribuídas
+4. Verifique se os arquivos do módulo existem
+5. Revise logs de erro
 
-## Next Steps
+## Próximas Etapas
 
-After familiarizing yourself with admin panel:
+Após se familiarizar com o painel de administrador:
 
-1. Create your first page
-2. Set up user groups
-3. Install additional modules
-4. Configure basic settings
-5. Implement security
+1. Crie sua primeira página
+2. Configure grupos de usuários
+3. Instale módulos adicionais
+4. Configure configurações básicas
+5. Implemente segurança
 
 ---
 
-**Tags:** #admin-panel #dashboard #navigation #getting-started
+**Tags:** #painel-de-administrador #painel-de-controle #navegação #primeiros-passos
 
-**Related Articles:**
+**Artigos Relacionados:**
 - ../Configuration/Basic-Configuration
 - ../Configuration/System-Settings
 - Creating-Your-First-Page

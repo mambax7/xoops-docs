@@ -1,13 +1,13 @@
 ---
-title: "Criteria API Reference"
-description: "Complete API reference for the XOOPS Criteria query building system"
+title: "Referência da API Criteria"
+description: "Referência completa da API para o sistema de construção de consultas Criteria do XOOPS"
 ---
 
-> Complete API documentation for the XOOPS Criteria query building system.
+> Documentação completa da API para o sistema de construção de consultas Criteria do XOOPS.
 
 ---
 
-## Criteria System Architecture
+## Arquitetura do Sistema Criteria
 
 ```mermaid
 classDiagram
@@ -59,24 +59,24 @@ classDiagram
 
 ---
 
-## Criteria Class
+## Classe Criteria
 
-### Constructor
+### Construtor
 
 ```php
 public function __construct(
-    string $column,           // Column name
-    mixed $value = '',        // Value to compare
-    string $operator = '=',   // Comparison operator
-    string $prefix = '',      // Table prefix
-    string $function = ''     // SQL function wrapper
+    string $column,           // Nome da coluna
+    mixed $value = '',        // Valor a comparar
+    string $operator = '=',   // Operador de comparação
+    string $prefix = '',      // Prefixo da tabela
+    string $function = ''     // Wrapper de função SQL
 )
 ```
 
-### Operators
+### Operadores
 
-| Operator | Example | SQL Output |
-|----------|---------|------------|
+| Operador | Exemplo | Saída SQL |
+|----------|---------|-----------|
 | `=` | `new Criteria('status', 1)` | `status = 1` |
 | `!=` | `new Criteria('status', 0, '!=')` | `status != 0` |
 | `<>` | `new Criteria('status', 0, '<>')` | `status <> 0` |
@@ -92,154 +92,154 @@ public function __construct(
 | `IS NOT NULL` | `new Criteria('email', null, 'IS NOT NULL')` | `email IS NOT NULL` |
 | `BETWEEN` | `new Criteria('created', '1000 AND 2000', 'BETWEEN')` | `created BETWEEN 1000 AND 2000` |
 
-### Usage Examples
+### Exemplos de Uso
 
 ```php
-// Simple equality
+// Igualdade simples
 $criteria = new Criteria('status', 'published');
 
-// Numeric comparison
+// Comparação numérica
 $criteria = new Criteria('views', 100, '>=');
 
-// Pattern matching
+// Correspondência de padrão
 $criteria = new Criteria('title', '%XOOPS%', 'LIKE');
 
-// With table prefix
+// Com prefixo de tabela
 $criteria = new Criteria('uid', 1, '=', 'u');
-// Renders: u.uid = 1
+// Renderiza: u.uid = 1
 
-// With SQL function
+// Com função SQL
 $criteria = new Criteria('title', '', '!=', '', 'LOWER');
-// Renders: LOWER(title) != ''
+// Renderiza: LOWER(title) != ''
 ```
 
 ---
 
-## CriteriaCompo Class
+## Classe CriteriaCompo
 
-### Constructor & Methods
+### Construtor e Métodos
 
 ```php
-// Create empty compo
+// Criar compo vazio
 $criteria = new CriteriaCompo();
 
-// Or with initial criteria
+// Ou com criteria inicial
 $criteria = new CriteriaCompo(new Criteria('status', 'active'));
 
-// Add criteria (AND by default)
+// Adicionar criteria (AND por padrão)
 $criteria->add(new Criteria('views', 10, '>='));
 
-// Add with OR
+// Adicionar com OR
 $criteria->add(new Criteria('featured', 1), 'OR');
 
-// Nesting
+// Aninhamento
 $subCriteria = new CriteriaCompo();
 $subCriteria->add(new Criteria('author', 1));
 $subCriteria->add(new Criteria('author', 2), 'OR');
 $criteria->add($subCriteria); // (author = 1 OR author = 2)
 ```
 
-### Sorting and Pagination
+### Ordenação e Paginação
 
 ```php
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 'published'));
 
-// Single sort
+// Ordenação simples
 $criteria->setSort('created');
 $criteria->setOrder('DESC');
 
-// Multiple sort columns
+// Múltiplas colunas de ordenação
 $criteria->setSort('category_id, created');
 $criteria->setOrder('ASC, DESC');
 
-// Pagination
-$criteria->setLimit(10);    // Items per page
-$criteria->setStart(0);     // Offset (page * limit)
+// Paginação
+$criteria->setLimit(10);    // Itens por página
+$criteria->setStart(0);     // Offset (página * limite)
 
-// Group by
+// Agrupar por
 $criteria->setGroupby('category_id');
 ```
 
 ---
 
-## Query Building Flow
+## Fluxo de Construção de Consulta
 
 ```mermaid
 flowchart TD
-    A[Create CriteriaCompo] --> B[Add Criteria]
-    B --> C{More Conditions?}
-    C -->|Yes| B
-    C -->|No| D[Set Sort/Order]
-    D --> E[Set Limit/Start]
-    E --> F[Pass to Handler]
-    F --> G[Handler calls render]
-    G --> H[Generate SQL WHERE]
-    H --> I[Execute Query]
-    I --> J[Return Results]
+    A[Criar CriteriaCompo] --> B[Adicionar Criteria]
+    B --> C{Mais Condições?}
+    C -->|Sim| B
+    C -->|Não| D[Definir Sort/Order]
+    D --> E[Definir Limit/Start]
+    E --> F[Passar para Handler]
+    F --> G[Handler chama render]
+    G --> H[Gerar SQL WHERE]
+    H --> I[Executar Consulta]
+    I --> J[Retornar Resultados]
 ```
 
 ---
 
-## Complex Query Examples
+## Exemplos de Consulta Complexa
 
-### Search with Multiple Conditions
+### Busca com Múltiplas Condições
 
 ```php
 $criteria = new CriteriaCompo();
 
-// Status must be published
+// Status deve ser publicado
 $criteria->add(new Criteria('status', 'published'));
 
-// Category is 1, 2, or 3
+// Categoria é 1, 2 ou 3
 $criteria->add(new Criteria('category_id', '(1, 2, 3)', 'IN'));
 
-// Created in last 30 days
+// Criado nos últimos 30 dias
 $thirtyDaysAgo = time() - (30 * 24 * 60 * 60);
 $criteria->add(new Criteria('created', $thirtyDaysAgo, '>='));
 
-// Search term in title OR content
+// Termo de busca no título OU conteúdo
 $searchCriteria = new CriteriaCompo();
 $searchCriteria->add(new Criteria('title', '%' . $searchTerm . '%', 'LIKE'));
 $searchCriteria->add(new Criteria('content', '%' . $searchTerm . '%', 'LIKE'), 'OR');
 $criteria->add($searchCriteria);
 
-// Sort by views descending
+// Ordenar por visualizações descendente
 $criteria->setSort('views');
 $criteria->setOrder('DESC');
 
-// Paginate
+// Paginar
 $criteria->setLimit($perPage);
 $criteria->setStart($page * $perPage);
 
-// Execute
+// Executar
 $items = $itemHandler->getObjects($criteria);
 $total = $itemHandler->getCount($criteria);
 ```
 
-### Date Range Query
+### Consulta de Intervalo de Data
 
 ```php
 $criteria = new CriteriaCompo();
 
-// Between two dates
+// Entre duas datas
 $startDate = strtotime('2024-01-01');
 $endDate = strtotime('2024-12-31');
 
 $criteria->add(new Criteria('created', $startDate, '>='));
 $criteria->add(new Criteria('created', $endDate, '<='));
 
-// Or using BETWEEN
+// Ou usando BETWEEN
 $criteria->add(new Criteria('created', "$startDate AND $endDate", 'BETWEEN'));
 ```
 
-### User Permission Filter
+### Filtro de Permissão de Usuário
 
 ```php
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 'published'));
 
-// If not admin, only show own items or public
+// Se não for admin, mostrar apenas itens próprios ou públicos
 if (!$xoopsUser || !$xoopsUser->isAdmin()) {
     $permCriteria = new CriteriaCompo();
     $permCriteria->add(new Criteria('visibility', 'public'));
@@ -252,11 +252,11 @@ if (!$xoopsUser || !$xoopsUser->isAdmin()) {
 }
 ```
 
-### Join-like Query
+### Consulta Similar a Join
 
 ```php
-// Get items where category is active
-// (Using subquery approach)
+// Obter itens onde a categoria está ativa
+// (Usando abordagem de subconsulta)
 $categoryHandler = xoops_getHandler('category');
 $activeCatCriteria = new Criteria('status', 'active');
 $activeCategories = $categoryHandler->getIds($activeCatCriteria);
@@ -268,17 +268,17 @@ if (!empty($activeCategories)) {
 
 ---
 
-## Criteria to SQL Visualization
+## Visualização de Criteria para SQL
 
 ```mermaid
 graph LR
-    subgraph "PHP Code"
+    subgraph "Código PHP"
         A["new Criteria('status', 'published')"]
         B["new Criteria('views', 100, '>=')"]
-        C["CriteriaCompo with A + B"]
+        C["CriteriaCompo com A + B"]
     end
 
-    subgraph "Generated SQL"
+    subgraph "SQL Gerado"
         D["status = 'published'"]
         E["views >= 100"]
         F["WHERE status = 'published' AND views >= 100"]
@@ -291,65 +291,65 @@ graph LR
 
 ---
 
-## Handler Integration
+## Integração com Handler
 
 ```php
-// Standard handler methods that accept Criteria
+// Métodos padrão de handler que aceitam Criteria
 
-// Get multiple objects
+// Obter múltiplos objetos
 $objects = $handler->getObjects($criteria);
-$objects = $handler->getObjects($criteria, true);  // As array
-$objects = $handler->getObjects($criteria, true, true); // As array, id as key
+$objects = $handler->getObjects($criteria, true);  // Como array
+$objects = $handler->getObjects($criteria, true, true); // Como array, id como chave
 
-// Get count
+// Obter contagem
 $count = $handler->getCount($criteria);
 
-// Get list (id => identifier)
+// Obter lista (id => identificador)
 $list = $handler->getList($criteria);
 
-// Delete matching
+// Deletar correspondentes
 $deleted = $handler->deleteAll($criteria);
 
-// Update matching
+// Atualizar correspondentes
 $handler->updateAll('status', 'archived', $criteria);
 ```
 
 ---
 
-## Performance Considerations
+## Considerações de Desempenho
 
 ```mermaid
 graph TB
-    subgraph "Optimization Tips"
-        A[Use Indexes] --> E[Faster Queries]
-        B[Limit Results] --> E
-        C[Avoid LIKE '%...'] --> E
-        D[Use Specific Columns] --> E
+    subgraph "Dicas de Otimização"
+        A[Usar Índices] --> E[Consultas Mais Rápidas]
+        B[Limitar Resultados] --> E
+        C[Evitar LIKE '%...'] --> E
+        D[Usar Colunas Específicas] --> E
     end
 
-    subgraph "Anti-Patterns"
-        F[No Indexes] --> G[Slow Queries]
+    subgraph "Anti-Padrões"
+        F[Sem Índices] --> G[Consultas Lentas]
         H[SELECT *] --> G
-        I[No LIMIT] --> G
-        J[Leading Wildcards] --> G
+        I[Sem LIMIT] --> G
+        J[Wildcards Iniciais] --> G
     end
 ```
 
-### Best Practices
+### Melhores Práticas
 
-1. **Always set LIMIT** for large tables
-2. **Use indexes** on columns used in criteria
-3. **Avoid leading wildcards** in LIKE (`'%term'` is slow)
-4. **Pre-filter in PHP** when possible for complex logic
-5. **Use COUNT sparingly** - cache results when possible
+1. **Sempre definir LIMIT** para tabelas grandes
+2. **Usar índices** em colunas usadas em criteria
+3. **Evitar wildcards iniciais** em LIKE (`'%term'` é lento)
+4. **Pré-filtrar em PHP** quando possível para lógica complexa
+5. **Usar COUNT raramente** - cache de resultados quando possível
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Database Layer
-- XoopsObjectHandler API
-- SQL Injection Prevention
+- Camada de Banco de Dados
+- API XoopsObjectHandler
+- Prevenção de Injeção SQL
 
 ---
 

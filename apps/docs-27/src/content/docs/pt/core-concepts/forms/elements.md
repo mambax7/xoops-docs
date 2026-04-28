@@ -1,12 +1,12 @@
 ---
-title: "XOOPS Form Elements"
+title: "Elementos de Formulário XOOPS"
 ---
 
-## Overview
+## Visão Geral
 
-XOOPS provides a comprehensive set of form elements through its `XoopsFormElement` class hierarchy. These elements handle rendering, validation, and data processing for web forms.
+O XOOPS fornece um conjunto abrangente de elementos de formulário através de sua hierarquia de classe `XoopsFormElement`. Esses elementos lidam com renderização, validação e processamento de dados para formulários web.
 
-## Form Element Hierarchy
+## Hierarquia de Elemento de Formulário
 
 ```mermaid
 classDiagram
@@ -31,17 +31,17 @@ classDiagram
     XoopsFormElement <|-- XoopsFormDateTime
 ```
 
-## Text Input Elements
+## Elementos de Entrada de Texto
 
 ### XoopsFormText
 
-Single-line text input:
+Entrada de texto em uma linha:
 
 ```php
 use XoopsFormText;
 
 $element = new XoopsFormText(
-    caption: 'Username',
+    caption: 'Nome de Usuário',
     name: 'username',
     size: 30,
     maxlength: 50,
@@ -51,13 +51,13 @@ $element = new XoopsFormText(
 
 ### XoopsFormPassword
 
-Password input with masking:
+Entrada de senha com mascaramento:
 
 ```php
 use XoopsFormPassword;
 
 $element = new XoopsFormPassword(
-    caption: 'Password',
+    caption: 'Senha',
     name: 'password',
     size: 30,
     maxlength: 100
@@ -66,13 +66,13 @@ $element = new XoopsFormPassword(
 
 ### XoopsFormTextArea
 
-Multi-line text input:
+Entrada de texto em múltiplas linhas:
 
 ```php
 use XoopsFormTextArea;
 
 $element = new XoopsFormTextArea(
-    caption: 'Description',
+    caption: 'Descrição',
     name: 'description',
     value: $currentValue,
     rows: 5,
@@ -80,51 +80,51 @@ $element = new XoopsFormTextArea(
 );
 ```
 
-## Selection Elements
+## Elementos de Seleção
 
 ### XoopsFormSelect
 
-Dropdown select:
+Dropdown de seleção:
 
 ```php
 use XoopsFormSelect;
 
 $element = new XoopsFormSelect(
-    caption: 'Category',
+    caption: 'Categoria',
     name: 'category_id',
     value: $selected,
     size: 1,
     multiple: false
 );
 
-$element->addOption(1, 'Category 1');
-$element->addOption(2, 'Category 2');
+$element->addOption(1, 'Categoria 1');
+$element->addOption(2, 'Categoria 2');
 $element->addOptionArray([
-    3 => 'Category 3',
-    4 => 'Category 4'
+    3 => 'Categoria 3',
+    4 => 'Categoria 4'
 ]);
 ```
 
 ### XoopsFormCheckBox
 
-Checkbox input:
+Entrada de checkbox:
 
 ```php
 use XoopsFormCheckBox;
 
 $element = new XoopsFormCheckBox(
-    caption: 'Features',
+    caption: 'Recursos',
     name: 'features',
     value: $selected
 );
 
-$element->addOption('comments', 'Enable Comments');
-$element->addOption('ratings', 'Enable Ratings');
+$element->addOption('comments', 'Ativar Comentários');
+$element->addOption('ratings', 'Ativar Classificações');
 ```
 
 ### XoopsFormRadio
 
-Radio button group:
+Grupo de botões de rádio:
 
 ```php
 use XoopsFormRadio;
@@ -135,50 +135,50 @@ $element = new XoopsFormRadio(
     value: $currentValue
 );
 
-$element->addOption('draft', 'Draft');
-$element->addOption('published', 'Published');
-$element->addOption('archived', 'Archived');
+$element->addOption('draft', 'Rascunho');
+$element->addOption('published', 'Publicado');
+$element->addOption('archived', 'Arquivado');
 ```
 
-## File Upload
+## Upload de Arquivo
 
 ### XoopsFormFile
 
-File upload input:
+Entrada de upload de arquivo:
 
 ```php
 use XoopsFormFile;
 
 $element = new XoopsFormFile(
-    caption: 'Upload Image',
+    caption: 'Carregar Imagem',
     name: 'image'
 );
 
 $element->setMaxFileSize(2 * 1024 * 1024); // 2MB
 ```
 
-## Date and Time
+## Data e Hora
 
 ### XoopsFormDateTime
 
-Date/time picker:
+Seletor de data/hora:
 
 ```php
 use XoopsFormDateTime;
 
 $element = new XoopsFormDateTime(
-    caption: 'Publish Date',
+    caption: 'Data de Publicação',
     name: 'publish_date',
     size: 15,
     value: time()
 );
 ```
 
-## Special Elements
+## Elementos Especiais
 
 ### XoopsFormHidden
 
-Hidden field:
+Campo oculto:
 
 ```php
 use XoopsFormHidden;
@@ -188,53 +188,53 @@ $element = new XoopsFormHidden('article_id', $articleId);
 
 ### XoopsFormLabel
 
-Display-only label:
+Etiqueta somente leitura:
 
 ```php
 use XoopsFormLabel;
 
 $element = new XoopsFormLabel(
-    caption: 'Created By',
+    caption: 'Criado por',
     value: $authorName
 );
 ```
 
 ### XoopsFormButton
 
-Form buttons:
+Botões de formulário:
 
 ```php
 use XoopsFormButton;
 
-// Submit button
-$submit = new XoopsFormButton('', 'submit', 'Save', 'submit');
+// Botão enviar
+$submit = new XoopsFormButton('', 'submit', 'Salvar', 'submit');
 
-// Reset button
-$reset = new XoopsFormButton('', 'reset', 'Reset', 'reset');
+// Botão redefinir
+$reset = new XoopsFormButton('', 'reset', 'Redefinir', 'reset');
 ```
 
-## Element Customization
+## Personalização de Elemento
 
-### Adding CSS Classes
+### Adicionando Classes CSS
 
 ```php
 $element->setExtra('class="form-control custom-class"');
 ```
 
-### Adding Custom Attributes
+### Adicionando Atributos Personalizados
 
 ```php
-$element->setExtra('data-validate="required" placeholder="Enter text..."');
+$element->setExtra('data-validate="required" placeholder="Digite texto..."');
 ```
 
-### Setting Description
+### Definindo Descrição
 
 ```php
-$element->setDescription('Enter a unique username (3-20 characters)');
+$element->setDescription('Digite um nome de usuário único (3-20 caracteres)');
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- Forms Overview
-- Form Validation
-- Custom Renderers
+- Visão Geral de Formulários
+- Validação de Formulário
+- Renderizadores Personalizados

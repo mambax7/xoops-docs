@@ -1,38 +1,37 @@
 ---
-title: "Initial Settings"
+title: "Configurações Iniciais"
 ---
 
-This page collects the information used to create the primary Administrator (AKA Webmaster) account.
+Esta página coleta as informações usadas para criar a conta de Administrador Principal (AKA Webmaster).
 
-After entering the requested information and correcting any issues, select the "Continue" button to proceed.
+Após digitar as informações solicitadas e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Initial Settings](/xoops-docs/2.7/img/installation/installer-09.png)
+![Configurações Iniciais do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-09.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### Administrator account
+### Conta de administrador
 
-#### Admin login
+#### Login de administrador
 
-This will be the username used by the adminstrator to log in to the XOOPS system.
+Este será o nome de usuário usado pelo administrador para fazer login no sistema XOOPS.
 
-#### Admin e-mail
+#### Email de administrador
 
-This the email address used by the XOOPS system to communicate with the administrator. (Note, this is required for password recovery/reset.)
+Este é o endereço de email usado pelo sistema XOOPS para se comunicar com o administrador. (Nota, isso é necessário para recuperação/redefinição de senha.)
 
-#### Admin password
+#### Senha de administrador
 
-This is the password to use for the adminstrator account,
+Esta é a senha a usar para a conta de administrador,
 
-#### Confirm password
+#### Confirmar senha
 
-Use this field to confirm the adminstrator password. It must match the _Admin password_ field.
+Use este campo para confirmar a senha do administrador. Deve corresponder ao campo _Senha de administrador_.
 
-### Password strength
+### Força de senha
 
-This section displays the relative strenght of the _Admin password_.
+Esta seção exibe a força relativa da _Senha de administrador_.
 
-#### Password Generator
+#### Gerador de Senha
 
-You can use this section to generate and use a random password for the account. Select _Generate_ to show a random password. Select _Copy_ to copy the generated password to _Admin password_.
-
+Você pode usar esta seção para gerar e usar uma senha aleatória para a conta. Selecione _Gerar_ para mostrar uma senha aleatória. Selecione _Copiar_ para copiar a senha gerada para _Senha de administrador_.

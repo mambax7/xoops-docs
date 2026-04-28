@@ -1,81 +1,81 @@
 ---
-title: "XOOPS Module System"
-description: "Module lifecycle, XoopsModule class, module installation/uninstallation, module hooks, and module management"
+title: "Sistema de Módulo XOOPS"
+description: "Ciclo de vida do módulo, classe XoopsModule, instalação/desinstalação de módulo, hooks de módulo e gerenciamento de módulo"
 ---
 
-The XOOPS Module System provides a complete framework for developing, installing, managing, and extending module functionality. Modules are self-contained packages that extend XOOPS with additional features and capabilities.
+O Sistema de Módulo XOOPS fornece um framework completo para desenvolver, instalar, gerenciar e estender a funcionalidade do módulo. Os módulos são pacotes auto-contidos que estendem o XOOPS com recursos e capacidades adicionais.
 
-## Module Architecture
+## Arquitetura do Módulo
 
 ```mermaid
 graph TD
-    A[Module Package] -->|contains| B[xoops_version.php]
-    A -->|contains| C[Admin Interface]
-    A -->|contains| D[User Interface]
-    A -->|contains| E[Class Files]
-    A -->|contains| F[SQL Schema]
+    A[Pacote de Módulo] -->|contém| B[xoops_version.php]
+    A -->|contém| C[Interface de Administrador]
+    A -->|contém| D[Interface de Usuário]
+    A -->|contém| E[Arquivos de Classe]
+    A -->|contém| F[Schema SQL]
 
-    B -->|defines| G[Module Metadata]
-    B -->|defines| H[Admin Pages]
-    B -->|defines| I[User Pages]
-    B -->|defines| J[Blocks]
-    B -->|defines| K[Hooks]
+    B -->|define| G[Metadados de Módulo]
+    B -->|define| H[Páginas de Administrador]
+    B -->|define| I[Páginas de Usuário]
+    B -->|define| J[Blocos]
+    B -->|define| K[Hooks]
 
-    L[Module Manager] -->|reads| B
-    L -->|controls| M[Installation]
-    L -->|controls| N[Activation]
-    L -->|controls| O[Update]
-    L -->|controls| P[Uninstallation]
+    L[Gerenciador de Módulo] -->|lê| B
+    L -->|controla| M[Instalação]
+    L -->|controla| N[Ativação]
+    L -->|controla| O[Atualização]
+    L -->|controla| P[Desinstalação]
 ```
 
-## Module Structure
+## Estrutura do Módulo
 
-Standard XOOPS module directory structure:
+Estrutura de diretório padrão de módulo XOOPS:
 
 ```
 mymodule/
-├── xoops_version.php          # Module manifest and configuration
-├── admin.php                  # Admin main page
-├── index.php                  # User main page
-├── admin/                     # Admin pages directory
+├── xoops_version.php          # Manifesto de módulo e configuração
+├── admin.php                  # Página principal do administrador
+├── index.php                  # Página principal do usuário
+├── admin/                     # Diretório de páginas de administrador
 │   ├── main.php
 │   ├── manage.php
 │   └── settings.php
-├── class/                     # Module classes
+├── class/                     # Classes do módulo
 │   ├── Handler/
 │   │   ├── ItemHandler.php
 │   │   └── CategoryHandler.php
 │   └── Objects/
 │       ├── Item.php
 │       └── Category.php
-├── sql/                       # Database schemas
+├── sql/                       # Schemas de banco de dados
 │   ├── mysql.sql
 │   └── postgres.sql
-├── include/                   # Include files
+├── include/                   # Arquivos de inclusão
 │   ├── common.inc.php
 │   └── functions.php
-├── templates/                 # Module templates
+├── templates/                 # Templates de módulo
 │   ├── admin/
 │   │   └── main.tpl
 │   └── user/
 │       ├── index.tpl
 │       └── item.tpl
-├── blocks/                    # Module blocks
+├── blocks/                    # Blocos de módulo
 │   └── blocks.php
-├── tests/                     # Unit tests
-├── language/                  # Language files
+├── tests/                     # Testes unitários
+├── language/                  # Arquivos de idioma
 │   ├── english/
 │   │   └── main.php
 │   └── spanish/
 │       └── main.php
-└── docs/                      # Documentation
+└── docs/                      # Documentação
 ```
 
-## XoopsModule Class
+## Classe XoopsModule
 
-The XoopsModule class represents an installed XOOPS module.
+A classe XoopsModule representa um módulo XOOPS instalado.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops\Core\Module;
@@ -94,41 +94,41 @@ class XoopsModule extends XoopsObject
 }
 ```
 
-### Properties
+### Propriedades
 
-| Property | Type | Description |
+| Propriedade | Tipo | Descrição |
 |----------|------|-------------|
-| `$moduleid` | int | Unique module ID |
-| `$name` | string | Module display name |
-| `$dirname` | string | Module directory name |
-| `$version` | string | Current module version |
-| `$description` | string | Module description |
-| `$config` | array | Module configuration |
-| `$blocks` | array | Module blocks |
-| `$adminPages` | array | Admin panel pages |
-| `$userPages` | array | User-facing pages |
+| `$moduleid` | int | ID de módulo único |
+| `$name` | string | Nome de exibição do módulo |
+| `$dirname` | string | Nome do diretório do módulo |
+| `$version` | string | Versão atual do módulo |
+| `$description` | string | Descrição do módulo |
+| `$config` | array | Configuração do módulo |
+| `$blocks` | array | Blocos do módulo |
+| `$adminPages` | array | Páginas do painel de administrador |
+| `$userPages` | array | Páginas voltadas para o usuário |
 
-### Constructor
+### Construtor
 
 ```php
 public function __construct()
 ```
 
-Creates a new module instance and initializes variables.
+Cria uma nova instância de módulo e inicializa variáveis.
 
-### Core Methods
+### Métodos Principais
 
 #### getName
 
-Gets the module's display name.
+Obtém o nome de exibição do módulo.
 
 ```php
 public function getName(): string
 ```
 
-**Returns:** `string` - Module display name
+**Retorna:** `string` - Nome de exibição do módulo
 
-**Example:**
+**Exemplo:**
 ```php
 $module = new XoopsModule();
 $module->setVar('name', 'Publisher');
@@ -137,66 +137,66 @@ echo $module->getName(); // "Publisher"
 
 #### getDirname
 
-Gets the module's directory name.
+Obtém o nome do diretório do módulo.
 
 ```php
 public function getDirname(): string
 ```
 
-**Returns:** `string` - Module directory name
+**Retorna:** `string` - Nome do diretório do módulo
 
-**Example:**
+**Exemplo:**
 ```php
 echo $module->getDirname(); // "publisher"
 ```
 
 #### getVersion
 
-Gets the current module version.
+Obtém a versão atual do módulo.
 
 ```php
 public function getVersion(): string
 ```
 
-**Returns:** `string` - Version string
+**Retorna:** `string` - String de versão
 
-**Example:**
+**Exemplo:**
 ```php
 echo $module->getVersion(); // "2.1.0"
 ```
 
 #### getDescription
 
-Gets the module description.
+Obtém a descrição do módulo.
 
 ```php
 public function getDescription(): string
 ```
 
-**Returns:** `string` - Module description
+**Retorna:** `string` - Descrição do módulo
 
-**Example:**
+**Exemplo:**
 ```php
 $desc = $module->getDescription();
 ```
 
 #### getConfig
 
-Retrieves module configuration.
+Recupera a configuração do módulo.
 
 ```php
 public function getConfig(string $key = null): mixed
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$key` | string | Configuration key (null for all) |
+| `$key` | string | Chave de configuração (null para todas) |
 
-**Returns:** `mixed` - Configuration value or array
+**Retorna:** `mixed` - Valor de configuração ou array
 
-**Example:**
+**Exemplo:**
 ```php
 $config = $module->getConfig();
 $itemsPerPage = $module->getConfig('items_per_page');
@@ -204,20 +204,20 @@ $itemsPerPage = $module->getConfig('items_per_page');
 
 #### setConfig
 
-Sets module configuration.
+Define a configuração do módulo.
 
 ```php
 public function setConfig(string $key, mixed $value): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$key` | string | Configuration key |
-| `$value` | mixed | Configuration value |
+| `$key` | string | Chave de configuração |
+| `$value` | mixed | Valor de configuração |
 
-**Example:**
+**Exemplo:**
 ```php
 $module->setConfig('items_per_page', 20);
 $module->setConfig('enable_cache', true);
@@ -225,15 +225,15 @@ $module->setConfig('enable_cache', true);
 
 #### getPath
 
-Gets the full file system path to the module.
+Obtém o caminho do sistema de arquivos completo para o módulo.
 
 ```php
 public function getPath(): string
 ```
 
-**Returns:** `string` - Absolute module directory path
+**Retorna:** `string` - Caminho de diretório de módulo absoluto
 
-**Example:**
+**Exemplo:**
 ```php
 $path = $module->getPath(); // "/var/www/xoops/modules/publisher"
 $classPath = $module->getPath() . '/class';
@@ -241,72 +241,72 @@ $classPath = $module->getPath() . '/class';
 
 #### getUrl
 
-Gets the URL to the module.
+Obtém a URL para o módulo.
 
 ```php
 public function getUrl(): string
 ```
 
-**Returns:** `string` - Module URL
+**Retorna:** `string` - URL do módulo
 
-**Example:**
+**Exemplo:**
 ```php
 $url = $module->getUrl(); // "http://example.com/modules/publisher"
 ```
 
-## Module Installation Process
+## Processo de Instalação do Módulo
 
-### xoops_module_install Function
+### Função xoops_module_install
 
-The module installation function defined in `xoops_version.php`:
+A função de instalação do módulo definida em `xoops_version.php`:
 
 ```php
 function xoops_module_install_modulename($module)
 {
-    // $module is an XoopsModule instance
+    // $module é uma instância de XoopsModule
 
-    // Create database tables
-    // Initialize default configuration
-    // Create default folders
-    // Set up file permissions
+    // Criar tabelas de banco de dados
+    // Inicializar configuração padrão
+    // Criar pastas padrão
+    // Definir permissões de arquivo
 
-    return true; // Success
+    return true; // Sucesso
 }
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$module` | XoopsModule | The module being installed |
+| `$module` | XoopsModule | O módulo sendo instalado |
 
-**Returns:** `bool` - True on success, false on failure
+**Retorna:** `bool` - Verdadeiro em sucesso, falso em falha
 
-**Example:**
+**Exemplo:**
 ```php
 function xoops_module_install_publisher($module)
 {
-    // Get module path
+    // Obter caminho do módulo
     $modulePath = $module->getPath();
 
-    // Create uploads directory
+    // Criar diretório de uploads
     $uploadsPath = XOOPS_ROOT_PATH . '/uploads/publisher';
     if (!is_dir($uploadsPath)) {
         mkdir($uploadsPath, 0755, true);
     }
 
-    // Get database connection
+    // Obter conexão de banco de dados
     global $xoopsDB;
 
-    // Execute SQL installation script
+    // Executar script de instalação SQL
     $sqlFile = $modulePath . '/sql/mysql.sql';
     if (file_exists($sqlFile)) {
         $sqlQueries = file_get_contents($sqlFile);
-        // Execute queries (simplified)
+        // Executar consultas (simplificado)
         $xoopsDB->queryFromFile($sqlFile);
     }
 
-    // Set default configuration
+    // Definir configuração padrão
     $module->setConfig('items_per_page', 10);
     $module->setConfig('enable_comments', true);
 
@@ -314,37 +314,37 @@ function xoops_module_install_publisher($module)
 }
 ```
 
-### xoops_module_uninstall Function
+### Função xoops_module_uninstall
 
-The module uninstallation function:
+A função de desinstalação do módulo:
 
 ```php
 function xoops_module_uninstall_modulename($module)
 {
-    // Drop database tables
-    // Remove uploaded files
-    // Clean up configuration
+    // Descartar tabelas de banco de dados
+    // Remover arquivos carregados
+    // Limpar configuração
 
     return true;
 }
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 function xoops_module_uninstall_publisher($module)
 {
     global $xoopsDB;
 
-    // Drop tables
+    // Descartar tabelas
     $tables = ['publisher_items', 'publisher_categories', 'publisher_comments'];
     foreach ($tables as $table) {
         $xoopsDB->query('DROP TABLE IF EXISTS ' . $xoopsDB->prefix($table));
     }
 
-    // Remove upload folder
+    // Remover pasta de upload
     $uploadsPath = XOOPS_ROOT_PATH . '/uploads/publisher';
     if (is_dir($uploadsPath)) {
-        // Recursive directory deletion
+        // Exclusão recursiva de diretório
         $this->recursiveRemoveDir($uploadsPath);
     }
 
@@ -352,13 +352,13 @@ function xoops_module_uninstall_publisher($module)
 }
 ```
 
-## Module Hooks
+## Hooks do Módulo
 
-Module hooks allow modules to integrate with other modules and the system.
+Os hooks do módulo permitem que os módulos se integrem com outros módulos e o sistema.
 
-### Hook Declaration
+### Declaração de Hook
 
-In `xoops_version.php`:
+Em `xoops_version.php`:
 
 ```php
 $modversion['hooks'] = [
@@ -371,14 +371,14 @@ $modversion['hooks'] = [
 ];
 ```
 
-### Hook Implementation
+### Implementação de Hook
 
 ```php
-// In a module file (e.g., include/hooks.php)
+// Em um arquivo de módulo (ex: include/hooks.php)
 
 function publisher_page_footer()
 {
-    // Return HTML for footer
+    // Retornar HTML para rodapé
     return '<div class="publisher-footer">Publisher Footer Content</div>';
 }
 
@@ -386,7 +386,7 @@ function publisher_user_articles($user_id)
 {
     global $xoopsDB;
 
-    // Get user's articles
+    // Obter artigos do usuário
     $result = $xoopsDB->query(
         'SELECT * FROM ' . $xoopsDB->prefix('publisher_articles') .
         ' WHERE author_id = ? ORDER BY published DESC LIMIT 5',
@@ -402,41 +402,41 @@ function publisher_user_articles($user_id)
 }
 ```
 
-### Available System Hooks
+### Hooks de Sistema Disponíveis
 
-| Hook | Parameters | Description |
+| Hook | Parâmetros | Descrição |
 |------|-----------|-------------|
-| `system.page.header` | None | Page header output |
-| `system.page.footer` | None | Page footer output |
-| `user.login.success` | $user object | After user login |
-| `user.logout` | $user object | After user logout |
-| `user.profile.view` | $user_id | Viewing user profile |
-| `module.install` | $module object | Module installation |
-| `module.uninstall` | $module object | Module uninstallation |
+| `system.page.header` | Nenhum | Saída de cabeçalho de página |
+| `system.page.footer` | Nenhum | Saída de rodapé de página |
+| `user.login.success` | Objeto $user | Após login do usuário |
+| `user.logout` | Objeto $user | Após logout do usuário |
+| `user.profile.view` | $user_id | Visualizando perfil do usuário |
+| `module.install` | Objeto $module | Instalação do módulo |
+| `module.uninstall` | Objeto $module | Desinstalação do módulo |
 
-## Module Manager Service
+## Serviço de Gerenciador de Módulo
 
-The ModuleManager service handles module operations.
+O serviço ModuleManager manipula operações de módulo.
 
-### Methods
+### Métodos
 
 #### getModule
 
-Retrieves a module by name.
+Recupera um módulo pelo nome.
 
 ```php
 public function getModule(string $dirname): ?XoopsModule
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$dirname` | string | Module directory name |
+| `$dirname` | string | Nome do diretório do módulo |
 
-**Returns:** `?XoopsModule` - Module instance or null
+**Retorna:** `?XoopsModule` - Instância do módulo ou null
 
-**Example:**
+**Exemplo:**
 ```php
 $moduleManager = $kernel->getService('module');
 $publisher = $moduleManager->getModule('publisher');
@@ -447,21 +447,21 @@ if ($publisher) {
 
 #### getAllModules
 
-Gets all installed modules.
+Obtém todos os módulos instalados.
 
 ```php
 public function getAllModules(bool $activeOnly = true): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$activeOnly` | bool | Only return active modules |
+| `$activeOnly` | bool | Retornar apenas módulos ativos |
 
-**Returns:** `array` - Array of XoopsModule objects
+**Retorna:** `array` - Array de objetos XoopsModule
 
-**Example:**
+**Exemplo:**
 ```php
 $activeModules = $moduleManager->getAllModules(true);
 foreach ($activeModules as $module) {
@@ -471,65 +471,65 @@ foreach ($activeModules as $module) {
 
 #### isModuleActive
 
-Checks if a module is active.
+Verifica se um módulo está ativo.
 
 ```php
 public function isModuleActive(string $dirname): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 if ($moduleManager->isModuleActive('publisher')) {
-    // Publisher module is active
+    // Módulo Publisher está ativo
 }
 ```
 
 #### activateModule
 
-Activates a module.
+Ativa um módulo.
 
 ```php
 public function activateModule(string $dirname): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 if ($moduleManager->activateModule('publisher')) {
-    echo "Publisher activated";
+    echo "Publisher ativado";
 }
 ```
 
 #### deactivateModule
 
-Deactivates a module.
+Desativa um módulo.
 
 ```php
 public function deactivateModule(string $dirname): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 if ($moduleManager->deactivateModule('publisher')) {
-    echo "Publisher deactivated";
+    echo "Publisher desativado";
 }
 ```
 
-## Module Configuration (xoops_version.php)
+## Configuração do Módulo (xoops_version.php)
 
-Complete module manifest example:
+Exemplo completo de manifesto de módulo:
 
 ```php
 <?php
 /**
- * Module manifest for Publisher
+ * Manifesto de módulo para Publisher
  */
 
 $modversion = [
     'name' => 'Publisher',
     'version' => '2.1.0',
-    'description' => 'Professional content publishing module',
-    'author' => 'XOOPS Community',
-    'credits' => 'Based on original work by...',
+    'description' => 'Módulo profissional de publicação de conteúdo',
+    'author' => 'Comunidade XOOPS',
+    'credits' => 'Baseado no trabalho original de...',
     'license' => 'GPL v2',
     'official' => 1,
     'image' => 'images/logo.png',
@@ -538,7 +538,7 @@ $modversion = [
     'onUpdate' => 'xoops_module_update_publisher',
     'onUninstall' => 'xoops_module_uninstall_publisher',
 
-    // Admin pages
+    // Páginas de administrador
     'hasAdmin' => 1,
     'adminindex' => 'admin/main.php',
     'adminmenu' => [
@@ -559,11 +559,11 @@ $modversion = [
         ]
     ],
 
-    // User pages
+    // Páginas de usuário
     'hasMain' => 1,
     'main_file' => 'index.php',
 
-    // Blocks
+    // Blocos
     'blocks' => [
         [
             'file' => 'blocks/recent.php',
@@ -583,7 +583,7 @@ $modversion = [
         ]
     ],
 
-    // Module hooks
+    // Hooks de módulo
     'hooks' => [
         'system.page.footer' => [
             'function' => 'publisher_page_footer'
@@ -593,7 +593,7 @@ $modversion = [
         ]
     ],
 
-    // Configuration items
+    // Itens de configuração
     'config' => [
         [
             'name' => 'items_per_page',
@@ -616,83 +616,83 @@ $modversion = [
 
 function xoops_module_install_publisher($module)
 {
-    // Installation logic
+    // Lógica de instalação
     return true;
 }
 
 function xoops_module_update_publisher($module)
 {
-    // Update logic
+    // Lógica de atualização
     return true;
 }
 
 function xoops_module_uninstall_publisher($module)
 {
-    // Uninstallation logic
+    // Lógica de desinstalação
     return true;
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Namespace Your Classes** - Use module-specific namespaces to avoid conflicts
+1. **Namespace Suas Classes** - Use namespaces específicos de módulo para evitar conflitos
 
-2. **Use Handlers** - Always use handler classes for database operations
+2. **Use Handlers** - Sempre use classes de handler para operações de banco de dados
 
-3. **Internationalize Content** - Use language constants for all user-facing strings
+3. **Internacionalize Conteúdo** - Use constantes de idioma para todas as strings voltadas para o usuário
 
-4. **Create Installation Scripts** - Provide SQL schemas for database tables
+4. **Crie Scripts de Instalação** - Forneça schemas SQL para tabelas de banco de dados
 
-5. **Document Hooks** - Clearly document what hooks your module provides
+5. **Documente Hooks** - Documente claramente quais hooks seu módulo fornece
 
-6. **Version Your Module** - Increment version numbers with releases
+6. **Version Seu Módulo** - Incremente números de versão com lançamentos
 
-7. **Test Installation** - Thoroughly test install/uninstall processes
+7. **Teste Instalação** - Teste completamente processos de install/uninstall
 
-8. **Handle Permissions** - Check user permissions before allowing actions
+8. **Manipule Permissões** - Verifique permissões de usuário antes de permitir ações
 
-## Complete Module Example
+## Exemplo Completo de Módulo
 
 ```php
 <?php
 /**
- * Custom Article Module Main Page
+ * Página Principal do Módulo de Artigos Personalizados
  */
 
 include __DIR__ . '/include/common.inc.php';
 
-// Get module instance
+// Obter instância de módulo
 $module = xoops_getModuleByDirname('mymodule');
 
-// Check if module is active
+// Verificar se módulo está ativo
 if (!$module) {
-    die('Module not found');
+    die('Módulo não encontrado');
 }
 
-// Get module configuration
+// Obter configuração do módulo
 $itemsPerPage = $module->getConfig('items_per_page');
 
-// Get item handler
+// Obter handler de item
 $itemHandler = xoops_getModuleHandler('item', 'mymodule');
 
-// Fetch items with pagination
+// Buscar itens com paginação
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 1));
 $items = $itemHandler->getObjects($criteria, $itemsPerPage);
 
-// Prepare template
+// Preparar template
 $xoopsTpl->assign('items', $items);
 $xoopsTpl->assign('module_name', $module->getName());
 $xoopsTpl->display($module->getPath() . '/templates/user/index.tpl');
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../Kernel/Kernel-Classes - Kernel initialization and core services
-- ../Template/Template-System - Module templates and theme integration
-- ../Database/QueryBuilder - Database query building
-- ../Core/XoopsObject - Base object class
+- ../Kernel/Kernel-Classes - Inicialização do kernel e serviços principais
+- ../Template/Template-System - Templates do módulo e integração de tema
+- ../Database/QueryBuilder - Construção de consultas de banco de dados
+- ../Core/XoopsObject - Classe base de objetos
 
 ---
 
-*See also: [XOOPS Module Development Guide](https://github.com/XOOPS/XoopsCore27/wiki/Module-Development)*
+*Veja também: [Guia de Desenvolvimento de Módulo XOOPS](https://github.com/XOOPS/XoopsCore27/wiki/Module-Development)*

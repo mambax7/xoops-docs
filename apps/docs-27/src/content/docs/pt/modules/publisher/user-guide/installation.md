@@ -1,284 +1,284 @@
 ---
-title: "Publisher - Installation Guide"
-description: "Step-by-step instructions for installing and initializing the Publisher module"
+title: "Publisher - Guia de Instalação"
+description: "Instruções passo a passo para instalar e inicializar o módulo Publisher"
 ---
 
-# Publisher Installation Guide
+# Guia de Instalação do Publisher
 
-> Complete instructions for installing and configuring the Publisher module for XOOPS CMS.
+> Instruções completas para instalar e configurar o módulo Publisher para XOOPS CMS.
 
 ---
 
-## System Requirements
+## Requisitos do Sistema
 
-### Minimum Requirements
+### Requisitos Mínimos
 
-| Requirement | Version | Notes |
+| Requisito | Versão | Notas |
 |-------------|---------|-------|
-| XOOPS | 2.5.10+ | Core CMS platform |
-| PHP | 7.1+ | PHP 8.x recommended |
-| MySQL | 5.7+ | Database server |
-| Web Server | Apache/Nginx | With rewrite support |
+| XOOPS | 2.5.10+ | Plataforma CMS central |
+| PHP | 7.1+ | PHP 8.x recomendado |
+| MySQL | 5.7+ | Servidor de banco de dados |
+| Servidor Web | Apache/Nginx | Com suporte de reescrita |
 
-### PHP Extensions
+### Extensões PHP
 
 ```
-- PDO (PHP Data Objects)
-- pdo_mysql or mysqli
-- mb_string (multibyte strings)
-- curl (for external content)
+- PDO (Objetos de Dados PHP)
+- pdo_mysql ou mysqli
+- mb_string (strings multibyte)
+- curl (para conteúdo externo)
 - json
-- gd (image processing)
+- gd (processamento de imagem)
 ```
 
-### Disk Space
+### Espaço em Disco
 
-- **Module files**: ~5 MB
-- **Cache directory**: 50+ MB recommended
-- **Upload directory**: As needed for content
-
----
-
-## Pre-Installation Checklist
-
-Before installing Publisher, verify:
-
-- [ ] XOOPS core is installed and running
-- [ ] Admin account has module management permissions
-- [ ] Database backup created
-- [ ] File permissions allow write access to `/modules/` directory
-- [ ] PHP memory limit is at least 128 MB
-- [ ] File upload size limits are appropriate (min 10 MB)
+- **Arquivos do módulo**: ~5 MB
+- **Diretório de cache**: 50+ MB recomendado
+- **Diretório de envio**: Conforme necessário para conteúdo
 
 ---
 
-## Installation Steps
+## Lista de Verificação Pré-instalação
 
-### Step 1: Download Publisher
+Antes de instalar o Publisher, verifique:
 
-#### Option A: From GitHub (Recommended)
+- [ ] O núcleo XOOPS está instalado e funcionando
+- [ ] A conta de admin tem permissões de gerenciamento de módulos
+- [ ] Backup do banco de dados criado
+- [ ] As permissões de arquivo permitem acesso de escrita ao diretório `/modules/`
+- [ ] O limite de memória PHP é de pelo menos 128 MB
+- [ ] Os limites de tamanho de envio de arquivo são apropriados (mín. 10 MB)
+
+---
+
+## Etapas de Instalação
+
+### Etapa 1: Baixar Publisher
+
+#### Opção A: Do GitHub (Recomendado)
 
 ```bash
-# Navigate to modules directory
+# Navegue para o diretório de módulos
 cd /path/to/xoops/htdocs/modules/
 
-# Clone the repository
+# Clone o repositório
 git clone https://github.com/XoopsModules25x/publisher.git
 
-# Verify download
+# Verifique o download
 ls -la publisher/
 ```
 
-#### Option B: Manual Download
+#### Opção B: Download Manual
 
-1. Visit [GitHub Publisher Releases](https://github.com/XoopsModules25x/publisher/releases)
-2. Download the latest `.zip` file
-3. Extract to `modules/publisher/`
+1. Visite [Versões do Publisher no GitHub](https://github.com/XoopsModules25x/publisher/releases)
+2. Baixe o arquivo `.zip` mais recente
+3. Extraia para `modules/publisher/`
 
-### Step 2: Set File Permissions
+### Etapa 2: Definir Permissões de Arquivo
 
 ```bash
-# Set proper ownership
+# Defina propriedade apropriada
 chown -R www-data:www-data /path/to/xoops/htdocs/modules/publisher
 
-# Set directory permissions (755)
+# Defina permissões de diretório (755)
 find publisher -type d -exec chmod 755 {} \;
 
-# Set file permissions (644)
+# Defina permissões de arquivo (644)
 find publisher -type f -exec chmod 644 {} \;
 
-# Make scripts executable
+# Torne scripts executáveis
 chmod 755 publisher/admin/index.php
 chmod 755 publisher/index.php
 ```
 
-### Step 3: Install via XOOPS Admin
+### Etapa 3: Instalar via Admin XOOPS
 
-1. Log in to **XOOPS Admin Panel** as administrator
-2. Navigate to **System → Modules**
-3. Click **Install Module**
-4. Find **Publisher** in the list
-5. Click **Install** button
-6. Wait for installation to complete (shows database tables created)
+1. Faça login no **Painel de Admin XOOPS** como administrador
+2. Navegue para **Sistema → Módulos**
+3. Clique em **Instalar Módulo**
+4. Encontre **Publisher** na lista
+5. Clique no botão **Instalar**
+6. Aguarde a conclusão da instalação (mostra tabelas de banco de dados criadas)
 
 ```
-Installation Progress:
-✓ Tables created
-✓ Configuration initialized
-✓ Permissions set
-✓ Cache cleared
-Installation Complete!
+Progresso de Instalação:
+✓ Tabelas criadas
+✓ Configuração inicializada
+✓ Permissões definidas
+✓ Cache limpo
+Instalação Completa!
 ```
 
 ---
 
-## Initial Setup
+## Configuração Inicial
 
-### Step 1: Access Publisher Admin
+### Etapa 1: Acessar Admin do Publisher
 
-1. Go to **Admin Panel → Modules**
-2. Find **Publisher** module
-3. Click **Admin** link
-4. You're now in Publisher Administration
+1. Vá para **Painel de Admin → Módulos**
+2. Encontre módulo **Publisher**
+3. Clique no link **Admin**
+4. Agora você está em Administração do Publisher
 
-### Step 2: Configure Module Preferences
+### Etapa 2: Configurar Preferências do Módulo
 
-1. Click **Preferences** in the left menu
-2. Configure basic settings:
-
-```
-General Settings:
-- Editor: Select your WYSIWYG editor
-- Items per page: 10
-- Show breadcrumb: Yes
-- Allow comments: Yes
-- Allow ratings: Yes
-
-SEO Settings:
-- SEO URLs: No (enable later if needed)
-- URL rewriting: None
-
-Upload Settings:
-- Max upload size: 5 MB
-- Allowed file types: jpg, png, gif, pdf, doc, docx
-```
-
-3. Click **Save Settings**
-
-### Step 3: Create First Category
-
-1. Click **Categories** in left menu
-2. Click **Add Category**
-3. Fill in form:
+1. Clique em **Preferências** no menu esquerdo
+2. Configure configurações básicas:
 
 ```
-Category Name: News
-Description: Latest news and updates
-Image: (optional) Upload category image
-Parent Category: (leave blank for top-level)
-Status: Enabled
+Configurações Gerais:
+- Editor: Selecione seu editor WYSIWYG
+- Itens por página: 10
+- Mostrar breadcrumb: Sim
+- Permitir comentários: Sim
+- Permitir avaliações: Sim
+
+Configurações de SEO:
+- URLs de SEO: Não (habilitar mais tarde se necessário)
+- Reescrita de URL: Nenhuma
+
+Configurações de Envio:
+- Tamanho máx de envio: 5 MB
+- Tipos de arquivo permitidos: jpg, png, gif, pdf, doc, docx
 ```
 
-4. Click **Save Category**
+3. Clique em **Salvar Configurações**
 
-### Step 4: Verify Installation
+### Etapa 3: Criar Primeira Categoria
 
-Check these indicators:
+1. Clique em **Categorias** no menu esquerdo
+2. Clique em **Adicionar Categoria**
+3. Preencha o formulário:
+
+```
+Nome da Categoria: Notícias
+Descrição: Últimas notícias e atualizações
+Imagem: (opcional) Envie imagem de categoria
+Categoria Pai: (deixe em branco para nível superior)
+Status: Habilitado
+```
+
+4. Clique em **Salvar Categoria**
+
+### Etapa 4: Verificar Instalação
+
+Verificar estes indicadores:
 
 ```mermaid
 graph TD
-    A[Installation Check] -->|Database| B[✓ Tables exist]
-    A -->|Files| C[✓ Folders writable]
-    A -->|Admin| D[✓ Module visible]
-    A -->|Frontend| E[✓ Module displays]
+    A[Verificação de Instalação] -->|Banco de Dados| B[✓ Tabelas existem]
+    A -->|Arquivos| C[✓ Pastas graváveis]
+    A -->|Admin| D[✓ Módulo visível]
+    A -->|Front-end| E[✓ Módulo exibe]
 ```
 
-#### Database Check
+#### Verificação de Banco de Dados
 
 ```bash
 mysql -u xoops_user -p xoops_database
 mysql> SHOW TABLES LIKE 'publisher%';
 
-# Should show tables:
+# Deve mostrar tabelas:
 # - publisher_categories
 # - publisher_items
 # - publisher_comments
 # - publisher_files
 ```
 
-#### Front-End Check
+#### Verificação de Front-End
 
-1. Visit your XOOPS homepage
-2. Look for **Publisher** or **News** block
-3. Should display recent articles
+1. Visite sua página inicial XOOPS
+2. Procure por bloco **Publisher** ou **Notícias**
+3. Deve exibir artigos recentes
 
 ---
 
-## Configuration After Installation
+## Configuração Após Instalação
 
-### Editor Selection
+### Seleção de Editor
 
-Publisher supports multiple WYSIWYG editors:
+O Publisher suporta múltiplos editores WYSIWYG:
 
-| Editor | Pros | Cons |
+| Editor | Vantagens | Desvantagens |
 |--------|------|------|
-| FCKeditor | Feature-rich | Older, larger |
-| CKEditor | Modern standard | Config complexity |
-| TinyMCE | Lightweight | Limited features |
-| DHTML Editor | Basic | Very basic |
+| FCKeditor | Rico em recursos | Mais antigo, maior |
+| CKEditor | Padrão moderno | Complexidade de config |
+| TinyMCE | Leve | Recursos limitados |
+| Editor DHTML | Básico | Muito básico |
 
-**To change editor:**
+**Para mudar editor:**
 
-1. Go to **Preferences**
-2. Scroll to **Editor** setting
-3. Select from dropdown
-4. Save and test
+1. Vá para **Preferências**
+2. Role para configuração **Editor**
+3. Selecione do dropdown
+4. Salve e teste
 
-### Upload Directory Setup
+### Configuração de Diretório de Envio
 
 ```bash
-# Create upload directories
+# Criar diretórios de envio
 mkdir -p /path/to/xoops/uploads/publisher/
 mkdir -p /path/to/xoops/uploads/publisher/categories/
 mkdir -p /path/to/xoops/uploads/publisher/images/
 mkdir -p /path/to/xoops/uploads/publisher/files/
 
-# Set permissions
+# Definir permissões
 chmod 755 /path/to/xoops/uploads/publisher/
 chmod 755 /path/to/xoops/uploads/publisher/*
 ```
 
-### Configure Image Sizes
+### Configurar Tamanhos de Imagem
 
-In Preferences, set thumbnail sizes:
+Em Preferências, defina tamanhos de miniatura:
 
 ```
-Category image size: 300 x 200 px
-Article image size: 600 x 400 px
-Thumbnail size: 150 x 100 px
+Tamanho de imagem de categoria: 300 x 200 px
+Tamanho de imagem de artigo: 600 x 400 px
+Tamanho de miniatura: 150 x 100 px
 ```
 
 ---
 
-## Post-Installation Steps
+## Etapas Pós-instalação
 
-### 1. Set Group Permissions
+### 1. Definir Permissões de Grupo
 
-1. Go to **Permissions** in admin menu
-2. Configure access for groups:
-   - Anonymous: View only
-   - Registered Users: Submit articles
-   - Editors: Approve/edit articles
-   - Admins: Full access
+1. Vá para **Permissões** no menu admin
+2. Configure acesso para grupos:
+   - Anônimo: Apenas visualização
+   - Usuários Registrados: Enviar artigos
+   - Editores: Aprovar/editar artigos
+   - Admins: Acesso total
 
-### 2. Configure Module Visibility
+### 2. Configurar Visibilidade de Módulo
 
-1. Go to **Blocks** in XOOPS admin
-2. Find Publisher blocks:
-   - Publisher - Latest Articles
-   - Publisher - Categories
-   - Publisher - Archives
-3. Configure block visibility per page
+1. Vá para **Blocos** em admin XOOPS
+2. Encontre blocos do Publisher:
+   - Publisher - Artigos Recentes
+   - Publisher - Categorias
+   - Publisher - Arquivos
+3. Configure visibilidade de bloco por página
 
-### 3. Import Test Content (Optional)
+### 3. Importar Conteúdo de Teste (Opcional)
 
-For testing, import sample articles:
+Para testes, importe artigos de amostra:
 
-1. Go to **Publisher Admin → Import**
-2. Select **Sample Content**
-3. Click **Import**
+1. Vá para **Admin do Publisher → Importar**
+2. Selecione **Conteúdo de Amostra**
+3. Clique em **Importar**
 
-### 4. Enable SEO URLs (Optional)
+### 4. Habilitar URLs de SEO (Opcional)
 
-For search-friendly URLs:
+Para URLs amigáveis à busca:
 
-1. Go to **Preferences**
-2. Set **SEO URLs**: Yes
-3. Enable **.htaccess** rewriting
-4. Verify `.htaccess` file exists in Publisher folder
+1. Vá para **Preferências**
+2. Defina **URLs de SEO**: Sim
+3. Habilite reescrita **.htaccess**
+4. Verifique se arquivo `.htaccess` existe na pasta do Publisher
 
 ```apache
-# .htaccess example
+# exemplo .htaccess
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /modules/publisher/
@@ -289,106 +289,106 @@ For search-friendly URLs:
 
 ---
 
-## Troubleshooting Installation
+## Solução de Problemas de Instalação
 
-### Problem: Module doesn't appear in admin
+### Problema: Módulo não aparece em admin
 
-**Solution:**
+**Solução:**
 ```bash
-# Check file permissions
+# Verificar permissões de arquivo
 ls -la /path/to/xoops/modules/publisher/
 
-# Check xoops_version.php exists
+# Verificar se xoops_version.php existe
 ls /path/to/xoops/modules/publisher/xoops_version.php
 
-# Verify PHP syntax
+# Verificar sintaxe PHP
 php -l /path/to/xoops/modules/publisher/xoops_version.php
 ```
 
-### Problem: Database tables not created
+### Problema: Tabelas de banco de dados não criadas
 
-**Solution:**
-1. Check MySQL user has CREATE TABLE privilege
-2. Check database error log:
+**Solução:**
+1. Verificar se usuário MySQL tem privilégio CREATE TABLE
+2. Verificar log de erro do banco de dados:
    ```bash
    mysql> SHOW WARNINGS;
    ```
-3. Manually import SQL:
+3. Importar SQL manualmente:
    ```bash
    mysql -u user -p database < modules/publisher/sql/mysql.sql
    ```
 
-### Problem: File upload fails
+### Problema: Falha no envio de arquivo
 
-**Solution:**
+**Solução:**
 ```bash
-# Check directory exists and is writable
+# Verificar se diretório existe e é gravável
 stat /path/to/xoops/uploads/publisher/
 
-# Fix permissions
+# Corrigir permissões
 chmod 777 /path/to/xoops/uploads/publisher/
 
-# Verify PHP settings
+# Verificar configurações PHP
 php -i | grep upload_max_filesize
 ```
 
-### Problem: "Page not found" errors
+### Problema: Erros "Página não encontrada"
 
-**Solution:**
-1. Check `.htaccess` file is present
-2. Verify Apache `mod_rewrite` is enabled:
+**Solução:**
+1. Verificar se arquivo `.htaccess` está presente
+2. Verificar se Apache `mod_rewrite` está habilitado:
    ```bash
    a2enmod rewrite
    systemctl restart apache2
    ```
-3. Check `AllowOverride All` in Apache config
+3. Verificar `AllowOverride All` na config Apache
 
 ---
 
-## Upgrade from Previous Versions
+## Atualizar de Versões Anteriores
 
-### From Publisher 1.x to 2.x
+### Do Publisher 1.x para 2.x
 
-1. **Backup current installation:**
+1. **Fazer backup da instalação atual:**
    ```bash
    cp -r modules/publisher/ modules/publisher-backup/
    mysqldump -u user -p database > publisher-backup.sql
    ```
 
-2. **Download Publisher 2.x**
+2. **Baixar Publisher 2.x**
 
-3. **Overwrite files:**
+3. **Sobrescrever arquivos:**
    ```bash
    rm -rf modules/publisher/
    unzip publisher-2.0.zip -d modules/
    ```
 
-4. **Run update:**
-   - Go to **Admin → Publisher → Update**
-   - Click **Update Database**
-   - Wait for completion
+4. **Executar atualização:**
+   - Vá para **Admin → Publisher → Atualizar**
+   - Clique em **Atualizar Banco de Dados**
+   - Aguarde conclusão
 
-5. **Verify:**
-   - Check all articles display correctly
-   - Verify permissions are intact
-   - Test file uploads
+5. **Verificar:**
+   - Verificar se todos os artigos são exibidos corretamente
+   - Verificar se permissões estão intactas
+   - Testar envios de arquivo
 
 ---
 
-## Security Considerations
+## Considerações de Segurança
 
-### File Permissions
+### Permissões de Arquivo
 
 ```
-- Core files: 644 (readable by web server)
-- Directories: 755 (browseable by web server)
-- Upload directories: 755 or 777
-- Config files: 600 (not readable by web)
+- Arquivos principais: 644 (legível por servidor web)
+- Diretórios: 755 (navegável por servidor web)
+- Diretórios de envio: 755 ou 777
+- Arquivos de config: 600 (não legível por web)
 ```
 
-### Disable Direct Access to Sensitive Files
+### Desabilitar Acesso Direto a Arquivos Sensíveis
 
-Create `.htaccess` in upload directories:
+Criar `.htaccess` em diretórios de envio:
 
 ```apache
 <FilesMatch "\.(php|phtml|php3|php4|php5|phtml)$">
@@ -396,53 +396,53 @@ Create `.htaccess` in upload directories:
 </FilesMatch>
 ```
 
-### Database Security
+### Segurança de Banco de Dados
 
 ```bash
-# Use strong password
+# Usar senha forte
 ALTER USER 'publisher_user'@'localhost' IDENTIFIED BY 'strong_password_here';
 
-# Grant minimal permissions
+# Conceder permissões mínimas
 GRANT SELECT, INSERT, UPDATE, DELETE ON publisher_db.* TO 'publisher_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
 ---
 
-## Verification Checklist
+## Lista de Verificação de Verificação
 
-After installation, verify:
+Após a instalação, verifique:
 
-- [ ] Module appears in admin modules list
-- [ ] Can access Publisher admin section
-- [ ] Can create categories
-- [ ] Can create articles
-- [ ] Articles display on front-end
-- [ ] File uploads work
-- [ ] Images display correctly
-- [ ] Permissions are applied correctly
-- [ ] Database tables created
-- [ ] Cache directory is writable
-
----
-
-## Next Steps
-
-After successful installation:
-
-1. Read Basic Configuration Guide
-2. Create your first Article
-3. Set up Group Permissions
-4. Review Category Management
+- [ ] Módulo aparece na lista de módulos admin
+- [ ] Pode acessar seção admin do Publisher
+- [ ] Pode criar categorias
+- [ ] Pode criar artigos
+- [ ] Artigos são exibidos no front-end
+- [ ] Envios de arquivo funcionam
+- [ ] Imagens são exibidas corretamente
+- [ ] Permissões são aplicadas corretamente
+- [ ] Tabelas de banco de dados criadas
+- [ ] Diretório de cache é gravável
 
 ---
 
-## Support & Resources
+## Próximas Etapas
 
-- **GitHub Issues**: [Publisher Issues](https://github.com/XoopsModules25x/publisher/issues)
-- **XOOPS Forum**: [Community Support](https://www.xoops.org/modules/newbb/)
-- **GitHub Wiki**: [Installation Help](https://github.com/XoopsModules25x/publisher/wiki)
+Após instalação bem-sucedida:
+
+1. Leia Guia de Configuração Básica
+2. Crie seu primeiro Artigo
+3. Configure Permissões de Grupo
+4. Revise Gerenciamento de Categoria
 
 ---
 
-#publisher #installation #setup #xoops #module #configuration
+## Suporte e Recursos
+
+- **Problemas GitHub**: [Problemas do Publisher](https://github.com/XoopsModules25x/publisher/issues)
+- **Fórum XOOPS**: [Suporte da Comunidade](https://www.xoops.org/modules/newbb/)
+- **Wiki GitHub**: [Ajuda de Instalação](https://github.com/XoopsModules25x/publisher/wiki)
+
+---
+
+#publisher #instalação #configuração #xoops #módulo #configuração

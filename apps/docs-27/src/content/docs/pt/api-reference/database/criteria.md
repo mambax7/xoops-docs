@@ -1,15 +1,15 @@
 ---
-title: "Criteria and CriteriaCompo Classes"
-description: "Query building and advanced filtering using Criteria classes"
+title: "Classes Criteria e CriteriaCompo"
+description: "Construção de consultas e filtragem avançada usando classes Criteria"
 ---
 
-The `Criteria` and `CriteriaCompo` classes provide a fluent, object-oriented interface for building complex database queries. These classes abstract SQL WHERE clauses, allowing developers to construct dynamic queries safely and readably.
+As classes `Criteria` e `CriteriaCompo` fornecem uma interface fluente orientada a objetos para construir consultas de banco de dados complexas. Essas classes abstraem cláusulas SQL WHERE, permitindo que os desenvolvedores construam consultas dinâmicas de forma segura e legível.
 
-## Class Overview
+## Visão Geral da Classe
 
-### Criteria Class
+### Classe Criteria
 
-The `Criteria` class represents a single condition in a WHERE clause:
+A classe `Criteria` representa uma condição única em uma cláusula WHERE:
 
 ```php
 namespace Xoops\Database;
@@ -32,54 +32,54 @@ class Criteria
 }
 ```
 
-## Basic Usage
+## Uso Básico
 
-### Simple Criteria
+### Criteria Simples
 
 ```php
 use Xoops\Database\Criteria;
 use Xoops\Database\CriteriaCompo;
 
-// Single condition
+// Condição única
 $criteria = new Criteria('status', 'active');
-// Renders: `status` = 'active'
+// Renderiza: `status` = 'active'
 ```
 
-### Different Operators
+### Diferentes Operadores
 
 ```php
-// Equality (default)
+// Igualdade (padrão)
 $criteria = new Criteria('status', 'active', '=');
 
-// Not equal
+// Não igual
 $criteria = new Criteria('status', 'active', '<>');
 
-// Greater than
+// Maior que
 $criteria = new Criteria('age', 18, '>');
 
-// Less than or equal
+// Menor ou igual
 $criteria = new Criteria('age', 65, '<=');
 
-// LIKE (for pattern matching)
+// LIKE (para correspondência de padrão)
 $criteria = new Criteria('email', '%@example.com', 'LIKE');
 
-// IN (for multiple values)
+// IN (para múltiplos valores)
 $criteria = new Criteria('status', ['active', 'pending', 'review'], 'IN');
 ```
 
-## Building Complex Queries
+## Construindo Consultas Complexas
 
-### AND Logic (Default)
+### Lógica AND (Padrão)
 
 ```php
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 'active'));
 $criteria->add(new Criteria('age', 18, '>='));
 $criteria->add(new Criteria('verified', 1));
-// Renders: `status` = 'active' AND `age` >= 18 AND `verified` = 1
+// Renderiza: `status` = 'active' AND `age` >= 18 AND `verified` = 1
 ```
 
-### OR Logic
+### Lógica OR
 
 ```php
 $criteria = new CriteriaCompo('OR');
@@ -88,9 +88,9 @@ $criteria->add(new Criteria('role', 'moderator'));
 $criteria->add(new Criteria('role', 'editor'));
 ```
 
-## Integration with Repository Pattern
+## Integração com Padrão Repository
 
-### Repository Example
+### Exemplo de Repository
 
 ```php
 namespace MyModule\Repository;
@@ -129,49 +129,49 @@ class UserRepository
 }
 ```
 
-## Safety and Security
+## Segurança e Proteção
 
-### Automatic Escaping
+### Escaping Automático
 
-The `Criteria` class automatically escapes values to prevent SQL injection:
+A classe `Criteria` escapa automaticamente de valores para prevenir injeção de SQL:
 
 ```php
-// Safe - value is automatically escaped
+// Seguro - o valor é escapado automaticamente
 $userInput = "'; DROP TABLE users; --";
 $criteria = new Criteria('username', $userInput);
-// Safely renders: `username` = '\''; DROP TABLE users; --'
+// Renderiza com segurança: `username` = '\''; DROP TABLE users; --'
 ```
 
-## API Reference
+## Referência da API
 
-### Criteria Methods
+### Métodos de Criteria
 
-| Method | Description | Return |
-|--------|-------------|--------|
-| `__construct()` | Initialize a criteria condition | void |
-| `render($prefix = '')` | Render to SQL WHERE clause segment | string |
-| `getColumn()` | Get the column name | string |
-| `getValue()` | Get the comparison value | mixed |
-| `getOperator()` | Get the comparison operator | string |
+| Método | Descrição | Retorna |
+|--------|-------------|---------|
+| `__construct()` | Inicializar uma condição criteria | void |
+| `render($prefix = '')` | Renderizar para segmento de cláusula WHERE de SQL | string |
+| `getColumn()` | Obter o nome da coluna | string |
+| `getValue()` | Obter o valor de comparação | mixed |
+| `getOperator()` | Obter o operador de comparação | string |
 
-### CriteriaCompo Methods
+### Métodos de CriteriaCompo
 
-| Method | Description | Return |
-|--------|-------------|--------|
-| `__construct($logic = 'AND')` | Initialize composite criteria | void |
-| `add($criteria, $logic = null)` | Add criteria or nested composite | void |
-| `render($prefix = '')` | Render to complete WHERE clause | string |
-| `count()` | Get number of criteria | int |
-| `clear()` | Remove all criteria | void |
+| Método | Descrição | Retorna |
+|--------|-------------|---------|
+| `__construct($logic = 'AND')` | Inicializar criteria composita | void |
+| `add($criteria, $logic = null)` | Adicionar criteria ou composita aninhada | void |
+| `render($prefix = '')` | Renderizar para cláusula WHERE completa | string |
+| `count()` | Obter número de criteria | int |
+| `clear()` | Remover todas as criteria | void |
 
-## Related Documentation
+## Documentação Relacionada
 
-- XoopsDatabase - Database class reference
-- ../../03-Module-Development/Patterns/Repository-Pattern - Repository pattern in XOOPS
-- ../../03-Module-Development/Patterns/Service-Layer-Pattern - Service layer pattern
+- XoopsDatabase - Referência de classe de banco de dados
+- ../../03-Module-Development/Patterns/Repository-Pattern - Padrão Repository em XOOPS
+- ../../03-Module-Development/Patterns/Service-Layer-Pattern - Padrão Service Layer
 
-## Version Information
+## Informações de Versão
 
-- **Introduced:** XOOPS 2.5.0
-- **Last Updated:** XOOPS 4.0
-- **Compatibility:** PHP 7.4+
+- **Introduzido:** XOOPS 2.5.0
+- **Última Atualização:** XOOPS 4.0
+- **Compatibilidade:** PHP 7.4+

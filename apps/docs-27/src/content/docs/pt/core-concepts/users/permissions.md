@@ -1,36 +1,36 @@
 ---
-title: "Permission System"
-description: "Complete guide to XOOPS permission system, types, checking, hierarchy, and access control"
+title: "Sistema de Permissões"
+description: "Guia completo para o sistema de permissões XOOPS, tipos, verificação, hierarquia e controle de acesso"
 ---
 
-# Permission System in XOOPS
+# Sistema de Permissões no XOOPS
 
-The XOOPS Permission System is a granular access control framework that manages who can perform what actions on which resources. This document covers permission types, checking mechanisms, hierarchy, and implementation examples.
+O Sistema de Permissões do XOOPS é um framework de controle de acesso granular que gerencia quem pode realizar quais ações em quais recursos. Este documento cobre tipos de permissões, mecanismos de verificação, hierarquia e exemplos de implementação.
 
-## Permission Types
+## Tipos de Permissões
 
-### Module-Level Permissions
+### Permissões no Nível do Módulo
 
-Module-level permissions control access to entire modules or module functions.
+As permissões no nível do módulo controlam o acesso a módulos inteiros ou funções do módulo.
 
-**Common Permission Names:**
-- `module_view` - View module content
-- `module_read` - Read module resources
-- `module_submit` - Submit content to module
-- `module_edit` - Edit module content
-- `module_admin` - Administer module
+**Nomes de Permissão Comuns:**
+- `module_view` - Ver conteúdo do módulo
+- `module_read` - Ler recursos do módulo
+- `module_submit` - Enviar conteúdo para módulo
+- `module_edit` - Editar conteúdo do módulo
+- `module_admin` - Administrar módulo
 
 ```php
 <?php
 /**
- * Module permission example
+ * Exemplo de permissão de módulo
  */
 
 $permissionHandler = xoops_getHandler('groupperm');
 $userGroups = $xoopsUser->getGroups();
-$moduleId = 2; // Article module
+$moduleId = 2; // Módulo de Artigos
 
-// Check if user can view module
+// Verificar se usuário pode ver módulo
 $canView = false;
 foreach ($userGroups as $groupId) {
     if ($permissionHandler->checkRight('module_view', $groupId, $moduleId)) {
@@ -44,27 +44,27 @@ if (!$canView) {
 }
 ```
 
-### Item-Level Permissions
+### Permissões no Nível de Item
 
-Item-level permissions control access to specific resources within a module.
+As permissões no nível de item controlam o acesso a recursos específicos dentro de um módulo.
 
-**Examples:**
-- Article ID: Can group view/edit specific article?
-- Category ID: Can group access category?
-- Page ID: Can group view/modify specific page?
+**Exemplos:**
+- ID do Artigo: Grupo pode ver/editar artigo específico?
+- ID da Categoria: Grupo pode acessar categoria?
+- ID da Página: Grupo pode ver/modificar página específica?
 
 ```php
 <?php
 /**
- * Item permission example
+ * Exemplo de permissão de item
  */
 
 $permissionHandler = xoops_getHandler('groupperm');
 $userGroups = $xoopsUser->getGroups();
-$moduleId = 2;      // Article module
-$articleId = 42;    // Specific article
+$moduleId = 2;      // Módulo de Artigos
+$articleId = 42;    // Artigo específico
 
-// Check if user can edit specific article
+// Verificar se usuário pode editar artigo específico
 $canEdit = false;
 foreach ($userGroups as $groupId) {
     if ($permissionHandler->checkRight(
@@ -79,20 +79,20 @@ foreach ($userGroups as $groupId) {
 }
 ```
 
-### Block Permissions
+### Permissões de Bloco
 
-Block permissions control visibility and interaction with blocks displayed on pages.
+As permissões de bloco controlam a visibilidade e a interação com blocos exibidos nas páginas.
 
 ```php
 <?php
 /**
- * Block permission example
+ * Exemplo de permissão de bloco
  */
 
 $permissionHandler = xoops_getHandler('groupperm');
 $userGroups = $xoopsUser->getGroups();
 
-// Check if user can view block
+// Verificar se usuário pode ver bloco
 $blockId = 5;
 $canViewBlock = false;
 
@@ -104,20 +104,20 @@ foreach ($userGroups as $groupId) {
 }
 ```
 
-### Group Permissions
+### Permissões de Grupo
 
-Permissions controlling group management and administration.
+Permissões que controlam gerenciamento e administração de grupos.
 
 ```php
 <?php
 /**
- * Group management permission example
+ * Exemplo de permissão de gerenciamento de grupo
  */
 
 $permissionHandler = xoops_getHandler('groupperm');
 $userGroups = $xoopsUser->getGroups();
 
-// Check if user can manage groups
+// Verificar se usuário pode gerenciar grupos
 $canManageGroups = false;
 foreach ($userGroups as $groupId) {
     if ($permissionHandler->checkRight('group_admin', $groupId, 1)) {
@@ -127,77 +127,77 @@ foreach ($userGroups as $groupId) {
 }
 ```
 
-## Permission Hierarchy
+## Hierarquia de Permissões
 
-### Permission Structure Diagram
+### Diagrama de Estrutura de Permissões
 
 ```mermaid
 graph TB
-    SYSTEM["XOOPS System<br/>Global Permissions"]
+    SYSTEM["Sistema XOOPS<br/>Permissões Globais"]
 
-    SYSTEM --> MODULES["Module Level<br/>Module Access Control"]
-    SYSTEM --> ADMIN["Admin Level<br/>System Administration"]
-    SYSTEM --> GROUPS["Group Level<br/>Group Management"]
+    SYSTEM --> MODULES["Nível de Módulo<br/>Controle de Acesso a Módulo"]
+    SYSTEM --> ADMIN["Nível de Admin<br/>Administração do Sistema"]
+    SYSTEM --> GROUPS["Nível de Grupo<br/>Gerenciamento de Grupo"]
 
-    MODULES --> ITEM["Item Level<br/>Specific Resources"]
-    MODULES --> BLOCK["Block Level<br/>Block Display"]
-    MODULES --> CUSTOM["Custom Permissions<br/>Module Defined"]
+    MODULES --> ITEM["Nível de Item<br/>Recursos Específicos"]
+    MODULES --> BLOCK["Nível de Bloco<br/>Exibição de Bloco"]
+    MODULES --> CUSTOM["Permissões Personalizadas<br/>Definidas pelo Módulo"]
 
-    ITEM --> VIEW["View Permission"]
-    ITEM --> EDIT["Edit Permission"]
-    ITEM --> DELETE["Delete Permission"]
-    ITEM --> SUBMIT["Submit Permission"]
+    ITEM --> VIEW["Permissão de Ver"]
+    ITEM --> EDIT["Permissão de Editar"]
+    ITEM --> DELETE["Permissão de Deletar"]
+    ITEM --> SUBMIT["Permissão de Enviar"]
 
-    CUSTOM --> PERM1["Custom Perm 1"]
-    CUSTOM --> PERM2["Custom Perm 2"]
-    CUSTOM --> PERM3["Custom Perm 3"]
+    CUSTOM --> PERM1["Perm Personalizada 1"]
+    CUSTOM --> PERM2["Perm Personalizada 2"]
+    CUSTOM --> PERM3["Perm Personalizada 3"]
 
-    VIEW --> GRANT["User Granted<br/>via Group"]
+    VIEW --> GRANT["Usuário Concedido<br/>via Grupo"]
     EDIT --> GRANT
     DELETE --> GRANT
 ```
 
-### Permission Inheritance Chain
+### Cadeia de Herança de Permissões
 
 ```mermaid
 sequenceDiagram
-    participant User as User
-    participant Groups as User Groups
-    participant Perms as Permission Check
-    participant Result as Access Decision
+    participant User as Usuário
+    participant Groups as Grupos do Usuário
+    participant Perms as Verificação de Permissão
+    participant Result as Decisão de Acesso
 
-    User->>Groups: Get User's Groups
-    Groups-->>Perms: Group IDs
-    Perms->>Perms: Check Module Permission
-    Perms->>Perms: Check Item Permission
-    Perms->>Perms: Merge Results (OR logic)
-    Perms-->>Result: Has Permission?
-    Result->>Result: Grant or Deny Access
-    Result-->>User: Access Status
+    User->>Groups: Obter Grupos do Usuário
+    Groups-->>Perms: IDs de Grupos
+    Perms->>Perms: Verificar Permissão de Módulo
+    Perms->>Perms: Verificar Permissão de Item
+    Perms->>Perms: Mesclar Resultados (Lógica OU)
+    Perms-->>Result: Tem Permissão?
+    Result->>Result: Conceder ou Negar Acesso
+    Result-->>User: Status de Acesso
 ```
 
-## Permission Checking
+## Verificação de Permissões
 
 ### XoopsGroupPermHandler
 
-The `XoopsGroupPermHandler` class provides methods for checking and managing permissions.
+A classe `XoopsGroupPermHandler` fornece métodos para verificar e gerenciar permissões.
 
 ```php
 <?php
 /**
- * XoopsGroupPermHandler methods
+ * Métodos de XoopsGroupPermHandler
  */
 
 class XoopsGroupPermHandler
 {
     /**
-     * Check if group has permission
+     * Verificar se grupo tem permissão
      *
-     * @param string $gperm_name Permission name
-     * @param int $gperm_group_id Group ID
-     * @param int $gperm_modid Module ID
-     * @param int $gperm_itemid Item ID (optional)
-     * @return bool Permission status
+     * @param string $gperm_name Nome da permissão
+     * @param int $gperm_group_id ID do Grupo
+     * @param int $gperm_modid ID do Módulo
+     * @param int $gperm_itemid ID do Item (opcional)
+     * @return bool Status da permissão
      */
     public function checkRight(
         $gperm_name,
@@ -207,13 +207,13 @@ class XoopsGroupPermHandler
     ) { }
 
     /**
-     * Add permission to group
+     * Adicionar permissão a grupo
      *
-     * @param string $gperm_name Permission name
-     * @param int $gperm_group_id Group ID
-     * @param int $gperm_modid Module ID
-     * @param int $gperm_itemid Item ID (optional)
-     * @return bool Success status
+     * @param string $gperm_name Nome da permissão
+     * @param int $gperm_group_id ID do Grupo
+     * @param int $gperm_modid ID do Módulo
+     * @param int $gperm_itemid ID do Item (opcional)
+     * @return bool Status de sucesso
      */
     public function addRight(
         $gperm_name,
@@ -223,13 +223,13 @@ class XoopsGroupPermHandler
     ) { }
 
     /**
-     * Remove permission from group
+     * Remover permissão de grupo
      *
-     * @param string $gperm_name Permission name
-     * @param int $gperm_group_id Group ID
-     * @param int $gperm_modid Module ID
-     * @param int $gperm_itemid Item ID (optional)
-     * @return bool Success status
+     * @param string $gperm_name Nome da permissão
+     * @param int $gperm_group_id ID do Grupo
+     * @param int $gperm_modid ID do Módulo
+     * @param int $gperm_itemid ID do Item (opcional)
+     * @return bool Status de sucesso
      */
     public function deleteRight(
         $gperm_name,
@@ -239,21 +239,21 @@ class XoopsGroupPermHandler
     ) { }
 
     /**
-     * Get all permissions for group in module
+     * Obter todas as permissões para grupo em módulo
      *
-     * @param int $groupId Group ID
-     * @param int $modId Module ID
-     * @return array Permission list
+     * @param int $groupId ID do Grupo
+     * @param int $modId ID do Módulo
+     * @return array Lista de permissões
      */
     public function getGroupPermissions($groupId, $modId) { }
 
     /**
-     * Get permitted item IDs for group
+     * Obter IDs de itens permitidos para grupo
      *
-     * @param string $permName Permission name
-     * @param int $groupId Group ID
-     * @param int $modId Module ID
-     * @return array Item IDs
+     * @param string $permName Nome da permissão
+     * @param int $groupId ID do Grupo
+     * @param int $modId ID do Módulo
+     * @return array IDs de itens
      */
     public function getPermittedItemIds(
         $permName,
@@ -263,14 +263,14 @@ class XoopsGroupPermHandler
 }
 ```
 
-## Permission Checking Implementation
+## Implementação de Verificação de Permissões
 
-### Single User Permission Check
+### Verificação de Permissão de Usuário Único
 
 ```php
 <?php
 /**
- * Permission checking utility
+ * Utilitário de verificação de permissões
  */
 class PermissionChecker
 {
@@ -284,12 +284,12 @@ class PermissionChecker
     }
 
     /**
-     * Check if user has permission
+     * Verificar se usuário tem permissão
      *
-     * @param string $permissionName Permission name
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID (optional)
-     * @return bool Permission status
+     * @param string $permissionName Nome da permissão
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item (opcional)
+     * @return bool Status da permissão
      */
     public function hasPermission(
         string $permissionName,
@@ -318,12 +318,12 @@ class PermissionChecker
     }
 
     /**
-     * Require permission or deny access
+     * Exigir permissão ou negar acesso
      *
-     * @param string $permissionName Permission name
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID (optional)
-     * @throws Exception If permission denied
+     * @param string $permissionName Nome da permissão
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item (opcional)
+     * @throws Exception Se permissão negada
      */
     public function requirePermission(
         string $permissionName,
@@ -332,16 +332,16 @@ class PermissionChecker
     ): void
     {
         if (!$this->hasPermission($permissionName, $moduleId, $itemId)) {
-            throw new Exception('Permission denied');
+            throw new Exception('Permissão negada');
         }
     }
 
     /**
-     * Get permitted item IDs
+     * Obter IDs de itens permitidos
      *
-     * @param string $permissionName Permission name
-     * @param int $moduleId Module ID
-     * @return array Item IDs user can access
+     * @param string $permissionName Nome da permissão
+     * @param int $moduleId ID do Módulo
+     * @return array IDs de itens que o usuário pode acessar
      */
     public function getPermittedItems(
         string $permissionName,
@@ -368,12 +368,12 @@ class PermissionChecker
     }
 
     /**
-     * Check multiple permissions (AND logic)
+     * Verificar múltiplas permissões (lógica E)
      *
-     * @param array $permissions Permission names
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID (optional)
-     * @return bool All permissions granted
+     * @param array $permissions Nomes de permissões
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item (opcional)
+     * @return bool Todas as permissões concedidas
      */
     public function hasAllPermissions(
         array $permissions,
@@ -390,12 +390,12 @@ class PermissionChecker
     }
 
     /**
-     * Check multiple permissions (OR logic)
+     * Verificar múltiplas permissões (lógica OU)
      *
-     * @param array $permissions Permission names
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID (optional)
-     * @return bool Any permission granted
+     * @param array $permissions Nomes de permissões
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item (opcional)
+     * @return bool Qualquer permissão concedida
      */
     public function hasAnyPermission(
         array $permissions,
@@ -413,12 +413,12 @@ class PermissionChecker
 }
 ```
 
-### Permission Middleware
+### Middleware de Permissão
 
 ```php
 <?php
 /**
- * Permission middleware for request filtering
+ * Middleware de permissão para filtro de requisição
  */
 class PermissionMiddleware
 {
@@ -430,12 +430,12 @@ class PermissionMiddleware
     }
 
     /**
-     * Enforce permission on request
+     * Aplicar permissão na requisição
      *
-     * @param string $permissionName Permission to check
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID (optional)
-     * @return void Halts execution on permission denied
+     * @param string $permissionName Permissão a verificar
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item (opcional)
+     * @return void Interrompe execução se permissão negada
      */
     public function enforce(
         string $permissionName,
@@ -450,29 +450,29 @@ class PermissionMiddleware
                 $itemId
             );
         } catch (Exception $e) {
-            // Log permission denial
+            // Registrar negação de permissão
             error_log(sprintf(
-                'Permission denied: %s (User: %s, Module: %d, Item: %d)',
+                'Permissão negada: %s (Usuário: %s, Módulo: %d, Item: %d)',
                 $permissionName,
-                $GLOBALS['xoopsUser']?->getVar('uname') ?? 'anonymous',
+                $GLOBALS['xoopsUser']?->getVar('uname') ?? 'anônimo',
                 $moduleId,
                 $itemId
             ));
 
-            // Send error response
+            // Enviar resposta de erro
             header('HTTP/1.1 403 Forbidden');
-            die('Access denied');
+            die('Acesso negado');
         }
     }
 
     /**
-     * Filter array of items by permission
+     * Filtrar array de itens por permissão
      *
-     * @param array $items Items to filter
-     * @param string $permissionName Permission name
-     * @param int $moduleId Module ID
-     * @param callable $idExtractor Callback to extract ID from item
-     * @return array Filtered items
+     * @param array $items Itens a filtrar
+     * @param string $permissionName Nome da permissão
+     * @param int $moduleId ID do Módulo
+     * @param callable $idExtractor Callback para extrair ID do item
+     * @return array Itens filtrados
      */
     public function filterByPermission(
         array $items,
@@ -497,41 +497,41 @@ class PermissionMiddleware
 }
 ```
 
-## Practical Implementation Examples
+## Exemplos Práticos de Implementação
 
-### Module Access Control
+### Controle de Acesso de Módulo
 
 ```php
 <?php
 /**
- * Module access control example
+ * Exemplo de controle de acesso de módulo
  */
 
-// Get current module
+// Obter módulo atual
 $moduleId = $GLOBALS['xoopsModule']->getVar('mid');
 $moduleDir = $GLOBALS['xoopsModule']->getVar('dirname');
 
-// Create permission checker
+// Criar verificador de permissão
 $checker = new PermissionChecker();
 
-// Check module view permission
+// Verificar permissão de ver módulo
 if (!$checker->hasPermission('module_view', $moduleId)) {
     redirect('index.php?error=access_denied');
 }
 
-// Get items user can access
+// Obter itens que usuário pode acessar
 $permittedItems = $checker->getPermittedItems('item_view', $moduleId);
 
-// Build query to only show permitted items
+// Construir consulta para mostrar apenas itens permitidos
 $sql = 'SELECT * FROM articles WHERE id IN (' . implode(',', $permittedItems) . ')';
 ```
 
-### Content Management Example
+### Exemplo de Gerenciamento de Conteúdo
 
 ```php
 <?php
 /**
- * Article management with permissions
+ * Gerenciamento de artigo com permissões
  */
 
 class ArticleManager
@@ -545,9 +545,9 @@ class ArticleManager
     }
 
     /**
-     * Get articles user can view
+     * Obter artigos que usuário pode ver
      *
-     * @return array Article list
+     * @return array Lista de artigos
      */
     public function getViewableArticles(): array
     {
@@ -581,10 +581,10 @@ class ArticleManager
     }
 
     /**
-     * Create article with permission check
+     * Criar artigo com verificação de permissão
      *
-     * @param array $data Article data
-     * @return int Article ID
+     * @param array $data Dados do artigo
+     * @return int ID do artigo
      */
     public function createArticle(array $data): int
     {
@@ -603,11 +603,11 @@ class ArticleManager
     }
 
     /**
-     * Update article with permission check
+     * Atualizar artigo com verificação de permissão
      *
-     * @param int $articleId Article ID
-     * @param array $data Update data
-     * @return bool Success
+     * @param int $articleId ID do artigo
+     * @param array $data Dados de atualização
+     * @return bool Sucesso
      */
     public function updateArticle(int $articleId, array $data): bool
     {
@@ -625,10 +625,10 @@ class ArticleManager
     }
 
     /**
-     * Delete article with permission check
+     * Deletar artigo com verificação de permissão
      *
-     * @param int $articleId Article ID
-     * @return bool Success
+     * @param int $articleId ID do artigo
+     * @return bool Sucesso
      */
     public function deleteArticle(int $articleId): bool
     {
@@ -647,15 +647,15 @@ class ArticleManager
 }
 ```
 
-### Admin Panel Permission Check
+### Verificação de Permissão do Painel de Admin
 
 ```php
 <?php
 /**
- * Admin panel access control
+ * Controle de acesso do painel de admin
  */
 
-// Verify user is webmaster
+// Verificar se usuário é webmaster
 if (!in_array(1, $xoopsUser->getGroups())) {
     redirect('index.php');
     exit;
@@ -664,23 +664,23 @@ if (!in_array(1, $xoopsUser->getGroups())) {
 $checker = new PermissionChecker();
 $moduleId = $GLOBALS['xoopsModule']->getVar('mid');
 
-// Check admin permission
+// Verificar permissão de admin
 $checker->requirePermission('module_admin', $moduleId);
 
-// Load admin content
+// Carregar conteúdo de admin
 ?>
-<h1>Admin Panel</h1>
-<p>Welcome, Administrator</p>
+<h1>Painel de Admin</h1>
+<p>Bem-vindo, Administrador</p>
 ```
 
-## Permission Caching
+## Cache de Permissões
 
-### Optimized Permission Checking
+### Verificação de Permissão Otimizada
 
 ```php
 <?php
 /**
- * Cached permission checker for performance
+ * Verificador de permissão com cache para desempenho
  */
 class CachedPermissionChecker extends PermissionChecker
 {
@@ -688,12 +688,12 @@ class CachedPermissionChecker extends PermissionChecker
     private $cachePrefix = 'xoops_perm_';
 
     /**
-     * Check permission with caching
+     * Verificar permissão com cache
      *
-     * @param string $permissionName Permission name
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID (optional)
-     * @return bool Permission status
+     * @param string $permissionName Nome da permissão
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item (opcional)
+     * @return bool Status da permissão
      */
     public function hasPermission(
         string $permissionName,
@@ -707,12 +707,12 @@ class CachedPermissionChecker extends PermissionChecker
             $itemId
         );
 
-        // Check memory cache
+        // Verificar cache em memória
         if (isset($this->cache[$cacheKey])) {
             return $this->cache[$cacheKey];
         }
 
-        // Check APCu cache
+        // Verificar cache APCu
         $cacheKeyFull = $this->cachePrefix . $cacheKey;
         $cached = apcu_fetch($cacheKeyFull);
         if ($cached !== false) {
@@ -720,10 +720,10 @@ class CachedPermissionChecker extends PermissionChecker
             return $cached;
         }
 
-        // Check actual permission
+        // Verificar permissão real
         $result = parent::hasPermission($permissionName, $moduleId, $itemId);
 
-        // Cache result (1 hour TTL)
+        // Cachear resultado (TTL 1 hora)
         $this->cache[$cacheKey] = $result;
         apcu_store($cacheKeyFull, $result, 3600);
 
@@ -731,12 +731,12 @@ class CachedPermissionChecker extends PermissionChecker
     }
 
     /**
-     * Generate cache key
+     * Gerar chave de cache
      *
-     * @param string $permissionName Permission name
-     * @param int $moduleId Module ID
-     * @param int $itemId Item ID
-     * @return string Cache key
+     * @param string $permissionName Nome da permissão
+     * @param int $moduleId ID do Módulo
+     * @param int $itemId ID do Item
+     * @return string Chave de cache
      */
     private function getCacheKey(
         string $permissionName,
@@ -749,60 +749,60 @@ class CachedPermissionChecker extends PermissionChecker
     }
 
     /**
-     * Clear permission cache for user
+     * Limpar cache de permissão para usuário
      *
-     * @param int $uid User ID
+     * @param int $uid ID do Usuário
      */
     public static function clearUserCache(int $uid): void
     {
-        // This would need to be more sophisticated in production
+        // Isso precisaria ser mais sofisticado em produção
         apcu_clear_cache();
     }
 }
 ```
 
-## Security Best Practices
+## Boas Práticas de Segurança
 
-### Permission Assignment Rules
+### Regras de Atribuição de Permissão
 
-1. **Principle of Least Privilege**: Assign only necessary permissions
-2. **Role-Based Access**: Use groups for role-based permissions
-3. **Regular Audits**: Periodically review permissions
-4. **Separation of Duties**: Separate admin from user permissions
-5. **Explicit Deny**: Default deny, explicit allow approach
+1. **Princípio do Menor Privilégio**: Atribuir apenas permissões necessárias
+2. **Acesso Baseado em Função**: Usar grupos para permissões baseadas em função
+3. **Auditorias Regulares**: Revisar permissões periodicamente
+4. **Separação de Deveres**: Separar permissões de admin de usuário
+5. **Negação Explícita**: Abordagem de negar por padrão, permitir explicitamente
 
-### Permission Validation
+### Validação de Permissão
 
 ```php
 <?php
 /**
- * Permission validation best practices
+ * Boas práticas de validação de permissão
  */
 
-// Always check permission before action
+// Sempre verificar permissão antes da ação
 $moduleId = 2;
 $articleId = 42;
 
 try {
     $checker = new PermissionChecker();
 
-    // Explicit permission check
+    // Verificação de permissão explícita
     if (!$checker->hasPermission('article_edit', $moduleId, $articleId)) {
-        throw new Exception('Insufficient permissions');
+        throw new Exception('Permissões insuficientes');
     }
 
-    // Perform action only after permission verified
+    // Realizar ação apenas após permissão verificada
     updateArticle($articleId);
 
 } catch (Exception $e) {
-    // Log security event
-    error_log('Permission denied: ' . $e->getMessage());
-    // Show user-friendly error
-    die('You do not have permission to perform this action');
+    // Registrar evento de segurança
+    error_log('Permissão negada: ' . $e->getMessage());
+    // Mostrar erro amigável ao usuário
+    die('Você não tem permissão para executar esta ação');
 }
 ```
 
-## Related Links
+## Links Relacionados
 
 - User Management.md
 - Group System.md

@@ -1,32 +1,32 @@
 ---
-title: "Theme FAQ"
-description: "Frequently asked questions about XOOPS themes"
+title: "FAQ de Temas"
+description: "Perguntas frequentes sobre temas do XOOPS"
 ---
 
-# Theme Frequently Asked Questions
+# Perguntas Frequentes sobre Temas
 
-> Common questions and answers about XOOPS themes, customization, and management.
-
----
-
-## Theme Installation & Activation
-
-### Q: How do I install a new theme in XOOPS?
-
-**A:**
-1. Download the theme zip file
-2. Go to XOOPS Admin > Appearance > Themes
-3. Click "Upload" and select the zip file
-4. The theme appears in the theme list
-5. Click to activate it for your site
-
-Alternative: Extract manually into `/themes/` directory and refresh admin panel.
+> Perguntas e respostas comuns sobre temas do XOOPS, customização e gerenciamento.
 
 ---
 
-### Q: Theme upload fails with "Permission denied"
+## Instalação e Ativação de Tema
 
-**A:** Fix theme directory permissions:
+### P: Como instalo um novo tema no XOOPS?
+
+**R:**
+1. Baixar arquivo zip do tema
+2. Ir para XOOPS Admin > Aparência > Temas
+3. Clicar em "Enviar" e selecionar arquivo zip
+4. O tema aparece na lista de temas
+5. Clicar para ativá-lo para seu site
+
+Alternativa: Extrair manualmente em diretório `/themes/` e atualizar painel admin.
+
+---
+
+### P: Upload de tema falha com "Permissão negada"
+
+**R:** Corrigir permissões do diretório de temas:
 
 ```bash
 # Make themes directory writable
@@ -41,36 +41,36 @@ chown -R www-data:www-data /path/to/xoops/themes
 
 ---
 
-### Q: How do I set a different theme for specific users?
+### P: Como defino um tema diferente para usuários específicos?
 
-**A:**
-1. Go to User Manager > Edit User
-2. Go to "Other" tab
-3. Select preferred theme in "User Theme" dropdown
-4. Save
+**R:**
+1. Ir para Gerenciador de Usuário > Editar Usuário
+2. Ir para aba "Outro"
+3. Selecionar tema preferido em dropdown "User Theme"
+4. Salvar
 
-User-selected themes override the default site theme.
-
----
-
-### Q: Can I have different themes for admin and user sites?
-
-**A:** Yes, set in XOOPS Admin > Settings:
-
-1. **Frontend theme** - Default site theme
-2. **Admin theme** - Admin control panel theme (usually separate)
-
-Look for settings like:
-- `theme_set` - Frontend theme
-- `admin_theme` - Admin theme
+Temas selecionados pelo usuário sobrescrevem o tema padrão do site.
 
 ---
 
-## Theme Customization
+### P: Posso ter temas diferentes para admin e site de usuário?
 
-### Q: How do I customize an existing theme?
+**R:** Sim, definir em XOOPS Admin > Configurações:
 
-**A:** Create a child theme to preserve updates:
+1. **Tema de frontend** - Tema padrão do site
+2. **Tema de admin** - Tema do painel de controle de admin (geralmente separado)
+
+Procure por configurações como:
+- `theme_set` - Tema de frontend
+- `admin_theme` - Tema de admin
+
+---
+
+## Customização de Tema
+
+### P: Como customizo um tema existente?
+
+**R:** Criar um tema filho para preservar atualizações:
 
 ```
 themes/
@@ -84,13 +84,13 @@ themes/
     └── images/
 ```
 
-Then edit `theme.html` in your custom theme.
+Depois editar `theme.html` no seu tema customizado.
 
 ---
 
-### Q: How do I change the theme colors?
+### P: Como altero as cores do tema?
 
-**A:** Edit the theme's CSS file:
+**R:** Editar arquivo CSS do tema:
 
 ```bash
 # Locate theme CSS
@@ -100,7 +100,7 @@ themes/mytheme/style.css
 themes/mytheme/theme.html
 ```
 
-For XOOPS themes:
+Para temas XOOPS:
 
 ```css
 /* themes/mytheme/style.css */
@@ -126,11 +126,11 @@ a {
 
 ---
 
-### Q: How do I add custom CSS to a theme?
+### P: Como adiciono CSS customizado a um tema?
 
-**A:** Several options:
+**R:** Várias opções:
 
-**Option 1: Edit theme.html**
+**Opção 1: Editar theme.html**
 ```html
 <!-- themes/mytheme/theme.html -->
 <head>
@@ -139,7 +139,7 @@ a {
 </head>
 ```
 
-**Option 2: Create custom.css**
+**Opção 2: Criar custom.css**
 ```bash
 # Create file
 themes/mytheme/custom.css
@@ -148,14 +148,14 @@ themes/mytheme/custom.css
 body { background: #fff; }
 ```
 
-**Option 3: Admin Settings (if supported)**
-Go to XOOPS Admin > Settings > Theme Settings and add custom CSS.
+**Opção 3: Configurações Admin (se suportado)**
+Ir para XOOPS Admin > Configurações > Configurações de Tema e adicionar CSS customizado.
 
 ---
 
-### Q: How do I modify theme HTML templates?
+### P: Como modifico templates HTML de tema?
 
-**A:** Locate the template file:
+**R:** Localizar arquivo de template:
 
 ```bash
 # List theme templates
@@ -168,7 +168,7 @@ themes/mytheme/templates/footer.html     {* Footer *}
 themes/mytheme/templates/sidebar.html    {* Sidebar *}
 ```
 
-Edit with proper Smarty syntax:
+Editar com sintaxe Smarty correta:
 
 ```html
 <!-- themes/mytheme/templates/theme.html -->
@@ -208,11 +208,11 @@ Edit with proper Smarty syntax:
 
 ---
 
-## Theme Structure
+## Estrutura de Tema
 
-### Q: What files are required in a theme?
+### P: Quais arquivos são necessários em um tema?
 
-**A:** Minimum structure:
+**R:** Estrutura mínima:
 
 ```
 themes/mytheme/
@@ -227,20 +227,20 @@ themes/mytheme/
     └── sidebar.html
 ```
 
-See Theme Structure for details.
+Veja Estrutura de Tema para detalhes.
 
 ---
 
-### Q: How do I create a theme from scratch?
+### P: Como crio um tema do zero?
 
-**A:** Create the structure:
+**R:** Criar a estrutura:
 
 ```bash
 mkdir -p themes/mytheme/images
 cd themes/mytheme
 ```
 
-Create `theme.html`:
+Criar `theme.html`:
 ```html
 <!DOCTYPE html>
 <html>
@@ -257,7 +257,7 @@ Create `theme.html`:
 </html>
 ```
 
-Create `style.css`:
+Criar `style.css`:
 ```css
 * { margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; }
@@ -268,11 +268,11 @@ footer { background: #f5f5f5; padding: 20px; border-top: 1px solid #ddd; }
 
 ---
 
-## Theme Variables
+## Variáveis de Tema
 
-### Q: What variables are available in theme templates?
+### P: Quais variáveis estão disponíveis em templates de tema?
 
-**A:** Common XOOPS theme variables:
+**R:** Variáveis comuns de tema XOOPS:
 
 ```smarty
 {* Site Information *}
@@ -304,9 +304,9 @@ footer { background: #f5f5f5; padding: 20px; border-top: 1px solid #ddd; }
 
 ---
 
-### Q: How do I add custom variables to my theme?
+### P: Como adiciono variáveis customizadas ao meu tema?
 
-**A:** In your PHP code before rendering:
+**R:** Em seu código PHP antes de renderizar:
 
 ```php
 <?php
@@ -323,7 +323,7 @@ $xoopsTpl->display('file:theme.html');
 ?>
 ```
 
-In theme:
+No tema:
 ```smarty
 <p>{$my_variable}</p>
 <p>{$data_array.key1}</p>
@@ -331,11 +331,11 @@ In theme:
 
 ---
 
-## Theme Styling
+## Estilo de Tema
 
-### Q: How do I make my theme responsive?
+### P: Como faço meu tema responsivo?
 
-**A:** Use CSS Grid or Flexbox:
+**R:** Usar CSS Grid ou Flexbox:
 
 ```css
 /* themes/mytheme/style.css */
@@ -374,7 +374,7 @@ aside {
 }
 ```
 
-Or use Bootstrap integration:
+Ou usar integração Bootstrap:
 ```html
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -390,9 +390,9 @@ Or use Bootstrap integration:
 
 ---
 
-### Q: How do I add a dark mode to my theme?
+### P: Como adiciono modo escuro ao meu tema?
 
-**A:**
+**R:**
 ```css
 /* themes/mytheme/style.css */
 
@@ -426,7 +426,7 @@ body.dark-mode {
 }
 ```
 
-Toggle with JavaScript:
+Alternar com JavaScript:
 ```html
 <script>
 document.getElementById('dark-mode-toggle').addEventListener('click', function() {
@@ -443,21 +443,21 @@ if (localStorage.getItem('darkMode') === 'true') {
 
 ---
 
-## Theme Issues
+## Problemas de Tema
 
-### Q: Theme shows "unrecognized template variable" errors
+### P: Tema mostra erros "unrecognized template variable"
 
-**A:** The variable isn't being passed to the template. Check:
+**R:** A variável não está sendo passada ao template. Verifique:
 
-1. **Variable is assigned** in PHP:
+1. **Variável é atribuída** em PHP:
 ```php
 <?php
 $xoopsTpl->assign('variable_name', $value);
 ?>
 ```
 
-2. **Template exists** where specified
-3. **Template syntax is correct**:
+2. **Template existe** onde especificado
+3. **Sintaxe de template está correta**:
 ```smarty
 {* Correct *}
 {$variable_name}
@@ -469,27 +469,27 @@ $variable_name
 
 ---
 
-### Q: CSS changes don't appear in browser
+### P: Mudanças de CSS não aparecem no navegador
 
-**A:** Clear browser cache:
+**R:** Limpar cache do navegador:
 
-1. Hard refresh: `Ctrl+Shift+R` (Cmd+Shift+R on Mac)
-2. Clear theme cache on server:
+1. Atualização forçada: `Ctrl+Shift+R` (Cmd+Shift+R no Mac)
+2. Limpar cache de tema no servidor:
 ```bash
 rm -rf xoops_data/caches/smarty_cache/themes/*
 rm -rf xoops_data/caches/smarty_compile/themes/*
 ```
 
-3. Check CSS file path in theme:
+3. Verificar caminho de arquivo CSS no tema:
 ```bash
 ls -la themes/mytheme/style.css
 ```
 
 ---
 
-### Q: Images in theme don't load
+### P: Imagens no tema não carregam
 
-**A:** Check image paths:
+**R:** Verificar caminhos de imagem:
 
 ```html
 {* WRONG - relative path from web root *}
@@ -504,17 +504,17 @@ background-image: url('{$xoops_url}/themes/{$xoops_theme}/images/bg.png');
 
 ---
 
-### Q: Theme templates missing or causing errors
+### P: Templates de tema faltando ou causando erros
 
-**A:** See Template Errors for debugging.
+**R:** Veja Erros de Template para depuração.
 
 ---
 
-## Theme Distribution
+## Distribuição de Tema
 
-### Q: How do I package a theme for distribution?
+### P: Como empacoto um tema para distribuição?
 
-**A:** Create a distributable zip:
+**R:** Criar um zip distribuível:
 
 ```bash
 # Structure
@@ -537,24 +537,24 @@ zip -r mytheme.zip mytheme/
 
 ---
 
-### Q: Can I sell my XOOPS theme?
+### P: Posso vender meu tema do XOOPS?
 
-**A:** Check XOOPS license:
-- Themes using XOOPS classes/templates must respect XOOPS license
-- Pure CSS/HTML themes have fewer restrictions
-- Check XOOPS Contributing Guidelines for details
+**R:** Verificar licença do XOOPS:
+- Temas usando classes/templates do XOOPS devem respeitar licença do XOOPS
+- Temas puros de CSS/HTML têm menos restrições
+- Verificar Diretrizes de Contribuição do XOOPS para detalhes
 
 ---
 
-## Theme Performance
+## Performance de Tema
 
-### Q: How do I optimize theme performance?
+### P: Como otimizo performance de tema?
 
-**A:**
-1. **Minimize CSS/JS** - Remove unused code
-2. **Optimize images** - Use proper formats (WebP, AVIF)
-3. **Use CDN** for resources
-4. **Lazy load** images:
+**R:**
+1. **Minimizar CSS/JS** - Remover código não utilizado
+2. **Otimizar imagens** - Usar formatos apropriados (WebP, AVIF)
+3. **Usar CDN** para recursos
+4. **Lazy load** imagens:
 ```html
 <img src="image.jpg" loading="lazy">
 ```
@@ -564,16 +564,16 @@ zip -r mytheme.zip mytheme/
 <link rel="stylesheet" href="{$xoops_url}/themes/{$xoops_theme}/style.css?v={$xoops_version}">
 ```
 
-See Performance FAQ for more details.
+Veja FAQ de Performance para mais detalhes.
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Template Errors
-- Theme Structure
-- Performance FAQ
-- Smarty Debugging
+- Erros de Template
+- Estrutura de Tema
+- FAQ de Performance
+- Depuração de Smarty
 
 ---
 

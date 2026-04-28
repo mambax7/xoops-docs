@@ -1,21 +1,21 @@
 ---
-title: "Performance FAQ"
-description: "Frequently asked questions about XOOPS performance optimization"
+title: "FAQ de Performance"
+description: "Perguntas frequentes sobre otimização de performance do XOOPS"
 ---
 
-# Performance Frequently Asked Questions
+# Perguntas Frequentes sobre Performance
 
-> Common questions and answers about optimizing XOOPS performance and diagnosing slow sites.
+> Perguntas e respostas comuns sobre otimização de performance do XOOPS e diagnóstico de sites lentos.
 
 ---
 
-## General Performance
+## Performance Geral
 
-### Q: How can I tell if my XOOPS site is slow?
+### P: Como saber se meu site XOOPS é lento?
 
-**A:** Use these tools and metrics:
+**R:** Use estas ferramentas e métricas:
 
-1. **Page Load Time**:
+1. **Tempo de Carregamento de Página**:
 ```bash
 # Use curl to measure response time
 curl -w "@curl-format.txt" -o /dev/null -s https://yoursite.com
@@ -26,13 +26,13 @@ curl -w "@curl-format.txt" -o /dev/null -s https://yoursite.com
 # - WebPageTest
 ```
 
-2. **Target Metrics**:
+2. **Métricas Alvo**:
 - First Contentful Paint (FCP): < 1.8s
 - Largest Contentful Paint (LCP): < 2.5s
 - Time to First Byte (TTFB): < 0.6s
-- Total page size: < 2-3 MB
+- Tamanho total da página: < 2-3 MB
 
-3. **Check Server Logs**:
+3. **Verificar Logs de Servidor**:
 ```bash
 # Apache
 tail -100 /var/log/apache2/access.log
@@ -45,9 +45,9 @@ tail -100 /var/log/nginx/access.log
 
 ---
 
-### Q: What are the most common performance issues?
+### P: Quais são os problemas de performance mais comuns?
 
-**A:**
+**R:**
 ```mermaid
 pie title Common Performance Issues
     "Unoptimized Database Queries" : 25
@@ -60,9 +60,9 @@ pie title Common Performance Issues
 
 ---
 
-### Q: Where should I focus my optimization efforts?
+### P: Onde devo focar meus esforços de otimização?
 
-**A:** Follow the optimization priority:
+**R:** Seguir a prioridade de otimização:
 
 ```mermaid
 graph TD
@@ -90,11 +90,11 @@ graph TD
 
 ---
 
-## Caching
+## Cache
 
-### Q: How do I enable caching in XOOPS?
+### P: Como ativo cache no XOOPS?
 
-**A:** XOOPS has built-in caching. Configure in Admin > Settings > Performance:
+**R:** XOOPS tem cache integrado. Configurar em Admin > Configurações > Performance:
 
 ```php
 <?php
@@ -122,14 +122,14 @@ if ($data === false) {
 
 ---
 
-### Q: What type of caching should I use?
+### P: Qual tipo de cache devo usar?
 
-**A:**
-- **File Cache**: Default, simple, no extra setup. Good for small sites.
-- **Memcache**: Faster, memory-based. Better for high-traffic sites.
-- **Redis**: Most powerful, supports more data types. Best for scaling.
+**R:**
+- **File Cache**: Padrão, simples, sem configuração adicional. Bom para sites pequenos.
+- **Memcache**: Mais rápido, baseado em memória. Melhor para sites de alto tráfego.
+- **Redis**: Mais poderoso, suporta mais tipos de dados. Melhor para escalabilidade.
 
-Install and enable:
+Instalar e ativar:
 ```bash
 # Install Memcached
 sudo apt-get install memcached php-memcached
@@ -142,13 +142,13 @@ sudo systemctl restart php-fpm
 sudo systemctl restart apache2
 ```
 
-Then enable in XOOPS admin.
+Depois ativar no admin do XOOPS.
 
 ---
 
-### Q: How do I clear XOOPS cache?
+### P: Como limpo cache do XOOPS?
 
-**A:**
+**R:**
 ```bash
 # Clear all cache
 rm -rf xoops_data/caches/*
@@ -161,7 +161,7 @@ rm -rf xoops_data/caches/smarty_compile/*
 Go to Admin > System > Maintenance > Clear Cache
 ```
 
-In code:
+Em código:
 ```php
 <?php
 $cache = xoops_cache_handler::getInstance();
@@ -174,9 +174,9 @@ $cache->delete('cache_key');
 
 ---
 
-### Q: How long should I cache data?
+### P: Por quanto tempo devo cachear dados?
 
-**A:** Depends on data freshness requirements:
+**R:** Depende dos requisitos de atualização de dados:
 
 ```php
 <?php
@@ -199,11 +199,11 @@ $cache->write('key', $data, 1);
 
 ---
 
-## Database Optimization
+## Otimização de Banco de Dados
 
-### Q: How can I find slow database queries?
+### P: Como posso encontrar queries de banco de dados lentas?
 
-**A:** Enable query logging:
+**R:** Ativar logging de query:
 
 ```php
 <?php
@@ -217,7 +217,7 @@ ORDER BY created DESC LIMIT 20;
 ?>
 ```
 
-Or use MySQL slow query log:
+Ou usar slow query log do MySQL:
 ```bash
 # Enable in /etc/mysql/my.cnf
 [mysqld]
@@ -231,11 +231,11 @@ tail -100 /var/log/mysql/slow.log
 
 ---
 
-### Q: How do I optimize database queries?
+### P: Como otimizo queries de banco de dados?
 
-**A:** Follow these steps:
+**R:** Seguir estes passos:
 
-**1. Add Database Indexes**
+**1. Adicionar Índices de Banco de Dados**
 ```sql
 -- Add index to frequently searched columns
 ALTER TABLE `xoops_articles` ADD INDEX `author_id` (`author_id`);
@@ -246,7 +246,7 @@ ANALYZE TABLE `xoops_articles`;
 EXPLAIN SELECT * FROM xoops_articles WHERE author_id = 5;
 ```
 
-**2. Use LIMIT and Pagination**
+**2. Usar LIMIT e Paginação**
 ```php
 <?php
 // WRONG - Gets all records
@@ -261,7 +261,7 @@ $result = $db->query(
 ?>
 ```
 
-**3. Select Only Needed Columns**
+**3. Selecionar Apenas Colunas Necessárias**
 ```php
 <?php
 // WRONG
@@ -274,7 +274,7 @@ $result = $db->query(
 ?>
 ```
 
-**4. Avoid N+1 Queries**
+**4. Evitar Problema N+1 Queries**
 ```php
 <?php
 // WRONG - N+1 problem
@@ -299,7 +299,7 @@ while ($row = $result->fetch_assoc()) {
 ?>
 ```
 
-**5. Use EXPLAIN to Analyze Queries**
+**5. Usar EXPLAIN para Analisar Queries**
 ```sql
 EXPLAIN SELECT * FROM xoops_articles WHERE author_id = 5 AND status = 1;
 
@@ -312,10 +312,10 @@ EXPLAIN SELECT * FROM xoops_articles WHERE author_id = 5 AND status = 1;
 
 ---
 
-### Q: How do I reduce database load?
+### P: Como reduzo carga de banco de dados?
 
-**A:**
-1. **Cache query results**:
+**R:**
+1. **Cachear resultados de query**:
 ```php
 <?php
 $cache = xoops_cache_handler::getInstance();
@@ -329,14 +329,14 @@ if ($articles === false) {
 ?>
 ```
 
-2. **Archive old data** into separate tables
-3. **Clean up logs** regularly:
+2. **Arquivar dados antigos** em tabelas separadas
+3. **Limpar logs** regularmente:
 ```bash
 # Delete old log entries (older than 30 days)
 DELETE FROM xoops_log WHERE created < NOW() - INTERVAL 30 DAY;
 ```
 
-4. **Enable query cache** (MySQL):
+4. **Ativar query cache** (MySQL):
 ```sql
 SET GLOBAL query_cache_type = 1;
 SET GLOBAL query_cache_size = 268435456;  -- 256 MB
@@ -344,13 +344,13 @@ SET GLOBAL query_cache_size = 268435456;  -- 256 MB
 
 ---
 
-## Asset Optimization
+## Otimização de Ativo
 
-### Q: How do I optimize CSS and JavaScript?
+### P: Como otimizo CSS e JavaScript?
 
-**A:**
+**R:**
 
-**1. Minify Files**:
+**1. Minificar Arquivos**:
 ```bash
 # Using online tools
 # - cssminifier.com
@@ -362,7 +362,7 @@ sudo apt-get install yui-compressor closure-compiler
 yui-compressor file.css -o file.min.css
 ```
 
-**2. Combine Related Files**:
+**2. Combinar Arquivos Relacionados**:
 ```html
 {* Instead of many files *}
 <link rel="stylesheet" href="{$xoops_url}/themes/{$xoops_theme}/style1.css">
@@ -373,7 +373,7 @@ yui-compressor file.css -o file.min.css
 <link rel="stylesheet" href="{$xoops_url}/themes/{$xoops_theme}/style.css">
 ```
 
-**3. Defer Non-Critical JavaScript**:
+**3. Adiar JavaScript Não Crítico**:
 ```html
 {* Critical JS - load immediately *}
 <script src="critical.js"></script>
@@ -383,7 +383,7 @@ yui-compressor file.css -o file.min.css
 <script src="ads.js" async></script>
 ```
 
-**4. Enable Gzip Compression** (.htaccess):
+**4. Ativar Compressão Gzip** (.htaccess):
 ```apache
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html
@@ -398,17 +398,17 @@ yui-compressor file.css -o file.min.css
 
 ---
 
-### Q: How do I optimize images?
+### P: Como otimizo imagens?
 
-**A:**
+**R:**
 
-**1. Choose Right Format**:
-- JPG: Photos and complex images
-- PNG: Graphics and images with transparency
-- WebP: Modern browsers, better compression
-- AVIF: Newest, best compression
+**1. Escolher Formato Correto**:
+- JPG: Fotos e imagens complexas
+- PNG: Gráficos e imagens com transparência
+- WebP: Navegadores modernos, melhor compressão
+- AVIF: Mais novo, melhor compressão
 
-**2. Compress Images**:
+**2. Comprimir Imagens**:
 ```bash
 # Using ImageMagick
 convert image.jpg -quality 85 image-compressed.jpg
@@ -421,7 +421,7 @@ imageoptim image.jpg
 # - tinypng.com
 ```
 
-**3. Serve Responsive Images**:
+**3. Servir Imagens Responsivas**:
 ```html
 {* Serve different sizes *}
 <picture>
@@ -432,7 +432,7 @@ imageoptim image.jpg
 </picture>
 ```
 
-**4. Lazy Load Images**:
+**4. Lazy Load Imagens**:
 ```html
 {* Native lazy loading *}
 <img src="image.jpg" loading="lazy" alt="description">
@@ -444,11 +444,11 @@ imageoptim image.jpg
 
 ---
 
-## Server Configuration
+## Configuração de Servidor
 
-### Q: How do I check server performance?
+### P: Como verifico performance de servidor?
 
-**A:**
+**R:**
 
 ```bash
 # CPU and Memory
@@ -468,9 +468,9 @@ watch 'free -h && echo "---" && df -h'
 
 ---
 
-### Q: How do I optimize PHP for XOOPS?
+### P: Como otimizo PHP para XOOPS?
 
-**A:** Edit `/etc/php/8.x/fpm/php.ini`:
+**R:** Editar `/etc/php/8.x/fpm/php.ini`:
 
 ```ini
 ; Increase limits for XOOPS
@@ -491,7 +491,7 @@ default_socket_timeout = 60
 mysqli.default_socket = /run/mysqld/mysqld.sock
 ```
 
-Then restart PHP:
+Depois reiniciar PHP:
 ```bash
 sudo systemctl restart php8.2-fpm
 # or
@@ -500,9 +500,9 @@ sudo systemctl restart apache2
 
 ---
 
-### Q: How do I enable HTTP/2 and compression?
+### P: Como ativo HTTP/2 e compressão?
 
-**A:** For Apache (.htaccess):
+**R:** Para Apache (.htaccess):
 ```apache
 # Enable HTTPS (required for HTTP/2)
 <IfModule mod_ssl.c>
@@ -524,7 +524,7 @@ sudo systemctl restart apache2
 </IfModule>
 ```
 
-For Nginx (nginx.conf):
+Para Nginx (nginx.conf):
 ```nginx
 http {
     # Enable gzip
@@ -543,18 +543,18 @@ http {
 
 ---
 
-## Monitoring & Diagnostics
+## Monitoramento e Diagnósticos
 
-### Q: How do I monitor XOOPS performance over time?
+### P: Como monitoro performance do XOOPS ao longo do tempo?
 
-**A:**
+**R:**
 
-**1. Use Google Analytics**:
+**1. Usar Google Analytics**:
 - Core Web Vitals
-- Page load times
-- User behavior
+- Tempos de carregamento de página
+- Comportamento do usuário
 
-**2. Use Server Monitoring Tools**:
+**2. Usar Ferramentas de Monitoramento de Servidor**:
 ```bash
 # Install Glances (system monitor)
 sudo apt-get install glances
@@ -563,7 +563,7 @@ glances
 # Or use New Relic, DataDog, etc.
 ```
 
-**3. Log and Analyze Requests**:
+**3. Registrar e Analisar Requisições**:
 ```bash
 # Get average response time
 grep "GET /index.php" /var/log/apache2/access.log | \
@@ -574,9 +574,9 @@ grep "GET /index.php" /var/log/apache2/access.log | \
 
 ---
 
-### Q: How do I identify memory leaks?
+### P: Como identifico vazamentos de memória?
 
-**A:**
+**R:**
 
 ```php
 <?php
@@ -603,7 +603,7 @@ echo "Peak memory: " . ($peak / 1024 / 1024) . " MB";
 
 ---
 
-## Performance Checklist
+## Lista de Verificação de Performance
 
 ```mermaid
 graph TD
@@ -635,12 +635,12 @@ graph TD
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Database Debugging
-- Enable Debug Mode
-- Module FAQ
-- Performance Optimization
+- Depuração de Banco de Dados
+- Ativar Modo Debug
+- FAQ de Módulos
+- Otimização de Performance
 
 ---
 

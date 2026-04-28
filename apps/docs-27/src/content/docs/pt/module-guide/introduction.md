@@ -1,54 +1,54 @@
 ---
-title: "Module Development"
-description: "Comprehensive guide to developing XOOPS modules using modern PHP practices"
+title: "Desenvolvimento de Módulo"
+description: "Guia abrangente para desenvolver módulos XOOPS usando práticas PHP modernas"
 ---
 
-This section provides comprehensive documentation for developing XOOPS modules using modern PHP practices, design patterns, and best practices.
+Esta seção fornece documentação abrangente para desenvolver módulos XOOPS usando práticas PHP modernas, padrões de design e melhores práticas.
 
-## Overview
+## Visão Geral
 
-XOOPS module development has evolved significantly over the years. Modern modules leverage:
+O desenvolvimento de módulo XOOPS evoluiu significativamente ao longo dos anos. Módulos modernos aproveitam:
 
-- **MVC Architecture** - Clean separation of concerns
-- **PHP 8.x Features** - Type declarations, attributes, named arguments
-- **Design Patterns** - Repository, DTO, Service Layer patterns
-- **Testing** - PHPUnit with modern testing practices
-- **XMF Framework** - XOOPS Module Framework utilities
+- **Arquitetura MVC** - Separação limpa de responsabilidades
+- **Recursos PHP 8.x** - Declarações de tipo, atributos, argumentos nomeados
+- **Padrões de Design** - Padrões Repository, DTO, Service Layer
+- **Testes** - PHPUnit com práticas de teste modernas
+- **Framework XMF** - Utilitários do XOOPS Module Framework
 
-## Documentation Structure
+## Estrutura da Documentação
 
-### Tutorials
+### Tutoriais
 
-Step-by-step guides for building XOOPS modules from scratch.
+Guias passo a passo para construir módulos XOOPS do zero.
 
-- Tutorials/Hello-World-Module - Your first XOOPS module
-- Tutorials/Building-a-CRUD-Module - Complete Create, Read, Update, Delete functionality
+- Tutorials/Hello-World-Module - Seu primeiro módulo XOOPS
+- Tutorials/Building-a-CRUD-Module - Funcionalidade completa Create, Read, Update, Delete
 
-### Design Patterns
+### Padrões de Design
 
-Architectural patterns used in modern XOOPS module development.
+Padrões arquiteturais usados no desenvolvimento moderno de módulo XOOPS.
 
-- Patterns/MVC-Pattern - Model-View-Controller architecture
-- Patterns/Repository-Pattern - Data access abstraction
-- Patterns/DTO-Pattern - Data Transfer Objects for clean data flow
+- Patterns/MVC-Pattern - Arquitetura Model-View-Controller
+- Patterns/Repository-Pattern - Abstração de acesso de dados
+- Patterns/DTO-Pattern - Data Transfer Objects para fluxo de dados limpo
 
-### Best Practices
+### Melhores Práticas
 
-Guidelines for writing maintainable, high-quality code.
+Diretrizes para escrever código mantível e de alta qualidade.
 
-- Best-Practices/Clean-Code - Clean code principles for XOOPS
-- Best-Practices/Code-Smells - Common anti-patterns and how to fix them
-- Best-Practices/Testing - PHPUnit testing strategies
+- Best-Practices/Clean-Code - Princípios de código limpo para XOOPS
+- Best-Practices/Code-Smells - Anti-padrões comuns e como corrigi-los
+- Best-Practices/Testing - Estratégias de teste PHPUnit
 
-### Examples
+### Exemplos
 
-Real-world module analysis and implementation examples.
+Análise de módulo do mundo real e exemplos de implementação.
 
-- Publisher-Module-Analysis - Deep dive into the Publisher module
+- Publisher-Module-Analysis - Análise profunda do módulo Publisher
 
-## Module Directory Structure
+## Estrutura de Diretório de Módulo
 
-A well-organized XOOPS module follows this directory structure:
+Um módulo XOOPS bem organizado segue esta estrutura de diretório:
 
 ```
 /modules/mymodule/
@@ -94,17 +94,17 @@ A well-organized XOOPS module follows this directory structure:
     xoops_version.php
 ```
 
-## Key Files Explained
+## Arquivos Principais Explicados
 
 ### xoops_version.php
 
-The module definition file that tells XOOPS about your module:
+O arquivo de definição do módulo que informa XOOPS sobre seu módulo:
 
 ```php
 <?php
 $modversion = [];
 
-// Basic Information
+// Informações Básicas
 $modversion['name']        = 'My Module';
 $modversion['version']     = 1.00;
 $modversion['description'] = 'A sample XOOPS module';
@@ -114,16 +114,16 @@ $modversion['license']     = 'GPL 2.0 or later';
 $modversion['dirname']     = 'mymodule';
 $modversion['image']       = 'assets/images/logo.png';
 
-// Module Flags
+// Sinalizadores de Módulo
 $modversion['hasMain']     = 1;  // Has frontend pages
 $modversion['hasAdmin']    = 1;  // Has admin section
 $modversion['system_menu'] = 1;  // Show in admin menu
 
-// Admin Configuration
+// Configuração de Admin
 $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
 
-// Database
+// Banco de Dados
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 $modversion['tables'] = [
     'mymodule_items',
@@ -136,7 +136,7 @@ $modversion['templates'][] = [
     'description' => 'Index page template',
 ];
 
-// Blocks
+// Blocos
 $modversion['blocks'][] = [
     'file'        => 'myblock.php',
     'name'        => 'My Block',
@@ -146,7 +146,7 @@ $modversion['blocks'][] = [
     'template'    => 'mymodule_block.tpl',
 ];
 
-// Module Preferences
+// Preferências do Módulo
 $modversion['config'][] = [
     'name'        => 'items_per_page',
     'title'       => '_MI_MYMODULE_ITEMS_PER_PAGE',
@@ -157,9 +157,9 @@ $modversion['config'][] = [
 ];
 ```
 
-### Common Include File
+### Arquivo Comum de Include
 
-Create a common bootstrap file for your module:
+Crie um arquivo de bootstrap comum para seu módulo:
 
 ```php
 <?php
@@ -169,18 +169,18 @@ if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
 }
 
-// Module constants
+// Constantes do módulo
 define('MYMODULE_DIRNAME', 'mymodule');
 define('MYMODULE_PATH', XOOPS_ROOT_PATH . '/modules/' . MYMODULE_DIRNAME);
 define('MYMODULE_URL', XOOPS_URL . '/modules/' . MYMODULE_DIRNAME);
 
-// Autoload classes
+// Autoload de classes
 require_once MYMODULE_PATH . '/class/autoload.php';
 ```
 
-## PHP Version Requirements
+## Requisitos de Versão PHP
 
-Modern XOOPS modules should target PHP 8.0 or higher to leverage:
+Módulos modernos de XOOPS devem ter como alvo PHP 8.0 ou superior para aproveitar:
 
 - **Constructor Property Promotion**
 - **Named Arguments**
@@ -189,23 +189,23 @@ Modern XOOPS modules should target PHP 8.0 or higher to leverage:
 - **Attributes**
 - **Nullsafe Operator**
 
-## Getting Started
+## Começando
 
-1. Start with the Tutorials/Hello-World-Module tutorial
-2. Progress to Tutorials/Building-a-CRUD-Module
-3. Study the Patterns/MVC-Pattern for architecture guidance
-4. Apply Best-Practices/Clean-Code practices throughout
-5. Implement Best-Practices/Testing from the beginning
+1. Comece com o tutorial Tutorials/Hello-World-Module
+2. Progresso para Tutorials/Building-a-CRUD-Module
+3. Estude o Patterns/MVC-Pattern para orientação de arquitetura
+4. Aplique as práticas Best-Practices/Clean-Code ao longo
+5. Implemente Best-Practices/Testing desde o início
 
-## Related Resources
+## Recursos Relacionados
 
-- ../05-XMF-Framework/XMF-Framework - XOOPS Module Framework utilities
-- Database-Operations - Working with the XOOPS database
-- ../04-API-Reference/Template/Template-System - Smarty templating in XOOPS
-- ../02-Core-Concepts/Security/Security-Best-Practices - Securing your module
+- ../05-XMF-Framework/XMF-Framework - Utilitários do XOOPS Module Framework
+- Database-Operations - Trabalhando com o banco de dados XOOPS
+- ../04-API-Reference/Template/Template-System - Templating Smarty em XOOPS
+- ../02-Core-Concepts/Security/Security-Best-Practices - Protegendo seu módulo
 
-## Version History
+## Histórico de Versão
 
-| Version | Date | Changes |
+| Versão | Data | Alterações |
 |---------|------|---------|
-| 1.0 | 2025-01-28 | Initial documentation |
+| 1.0 | 2025-01-28 | Documentação inicial |

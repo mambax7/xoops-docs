@@ -1,719 +1,719 @@
 ---
-title: "Managing Users"
-description: "Comprehensive guide to user administration in XOOPS including creating users, user groups, permissions, and user roles"
+title: "Gerenciando Usuários"
+description: "Guia abrangente da administração de usuários no XOOPS incluindo criação de usuários, grupos de usuários, permissões e funções de usuário"
 ---
 
-# Managing Users in XOOPS
+# Gerenciando Usuários no XOOPS
 
-Learn how to create user accounts, organize users into groups, and manage permissions in XOOPS.
+Aprenda como criar contas de usuário, organizar usuários em grupos e gerenciar permissões no XOOPS.
 
-## User Management Overview
+## Visão Geral do Gerenciamento de Usuários
 
-XOOPS provides comprehensive user management with:
+XOOPS fornece gerenciamento abrangente de usuários com:
 
 ```
-Users > Accounts
-├── Individual users
-├── User profiles
-├── Registration requests
-└── Online users
+Usuários > Contas
+├── Usuários individuais
+├── Perfis de usuários
+├── Solicitações de registro
+└── Usuários online
 
-Users > Groups
-├── User groups/roles
-├── Group permissions
-└── Group membership
+Usuários > Grupos
+├── Grupos/funções de usuários
+├── Permissões de grupo
+└── Associação de grupo
 
-System > Permissions
-├── Module access
-├── Content access
-├── Function permissions
-└── Group capabilities
+Sistema > Permissões
+├── Acesso de módulo
+├── Acesso de conteúdo
+├── Permissões de função
+└── Capacidades de grupo
 ```
 
-## Accessing User Management
+## Acessando Gerenciamento de Usuários
 
-### Admin Panel Navigation
+### Navegação do Painel de Administrador
 
-1. Log in to admin: `http://your-domain.com/xoops/admin/`
-2. Click **Users** in left sidebar
-3. Select from options:
-   - **Users:** Manage individual accounts
-   - **Groups:** Manage user groups
-   - **Online Users:** See currently active users
-   - **User Requests:** Process registration requests
+1. Faça login no admin: `http://seu-dominio.com/xoops/admin/`
+2. Clique em **Usuários** na barra lateral esquerda
+3. Selecione entre opções:
+   - **Usuários:** Gerenciar contas individuais
+   - **Grupos:** Gerenciar grupos de usuários
+   - **Usuários Online:** Ver usuários ativos atualmente
+   - **Solicitações de Usuários:** Processar solicitações de registro
 
-## Understanding User Roles
+## Entendendo Funções de Usuário
 
-XOOPS comes with predefined user roles:
+XOOPS vem com funções de usuário predefinidas:
 
-| Group | Role | Capabilities | Use Case |
+| Grupo | Função | Capacidades | Caso de Uso |
 |---|---|---|---|
-| **Webmasters** | Administrator | Full site control | Main admins |
-| **Admins** | Administrator | Limited admin access | Trusted users |
-| **Moderators** | Content control | Approve content | Community managers |
-| **Editors** | Content creation | Create/edit content | Content staff |
-| **Registered** | Member | Post, comment, profile | Regular users |
-| **Anonymous** | Visitor | Read only | Non-logged-in users |
+| **Webmasters** | Administrador | Controle total do site | Admins principais |
+| **Admins** | Administrador | Acesso admin limitado | Usuários confiáveis |
+| **Moderadores** | Controle de conteúdo | Aprovar conteúdo | Gerentes de comunidade |
+| **Editores** | Criação de conteúdo | Criar/editar conteúdo | Equipe de conteúdo |
+| **Registrados** | Membro | Postar, comentar, perfil | Usuários regulares |
+| **Anônimo** | Visitante | Apenas leitura | Usuários não conectados |
 
-## Creating User Accounts
+## Criando Contas de Usuários
 
-### Method 1: Admin Creates User
+### Método 1: Admin Cria Usuário
 
-**Step 1: Access User Creation**
+**Etapa 1: Acessar Criação de Usuário**
 
-1. Go to **Users > Users**
-2. Click **"Add New User"** or **"Create User"**
+1. Vá para **Usuários > Usuários**
+2. Clique em **"Adicionar Novo Usuário"** ou **"Criar Usuário"**
 
-**Step 2: Enter User Information**
+**Etapa 2: Digite Informações de Usuário**
 
-Fill in user details:
-
-```
-Username: [4+ characters, letters/numbers/underscore only]
-Example: john_smith
-
-Email Address: [Valid email address]
-Example: john@example.com
-
-Password: [Strong password]
-Example: MyStr0ng!Pass2025
-
-Confirm Password: [Repeat password]
-Example: MyStr0ng!Pass2025
-
-Real Name: [User's full name]
-Example: John Smith
-
-URL: [Optional user website]
-Example: https://johnsmith.com
-
-Signature: [Optional forum signature]
-Example: "Happy XOOPS user!"
-```
-
-**Step 3: Configure User Settings**
+Preencha detalhes do usuário:
 
 ```
-User Status: ☑ Active
-             ☐ Inactive
-             ☐ Pending Approval
+Nome de Usuário: [4+ caracteres, apenas letras/números/underscore]
+Exemplo: john_smith
 
-User Groups:
-☑ Registered Users
+Endereço de Email: [Endereço de email válido]
+Exemplo: john@example.com
+
+Senha: [Senha forte]
+Exemplo: MyStr0ng!Pass2025
+
+Confirmar Senha: [Repetir senha]
+Exemplo: MyStr0ng!Pass2025
+
+Nome Real: [Nome completo do usuário]
+Exemplo: John Smith
+
+URL: [Site do usuário opcional]
+Exemplo: https://johnsmith.com
+
+Assinatura: [Assinatura de forum opcional]
+Exemplo: "Usuário XOOPS feliz!"
+```
+
+**Etapa 3: Configurar Configurações de Usuário**
+
+```
+Status do Usuário: ☑ Ativo
+                   ☐ Inativo
+                   ☐ Pendente de Aprovação
+
+Grupos de Usuários:
+☑ Usuários Registrados
 ☐ Webmasters
 ☐ Admins
-☐ Moderators
+☐ Moderadores
 ```
 
-**Step 4: Additional Options**
+**Etapa 4: Opções Adicionais**
 
 ```
-Notify User: ☑ Send welcome email
-Allow Avatar: ☑ Yes
-User Theme: [Default theme]
-Show Email: ☐ Public / ☑ Private
+Notificar Usuário: ☑ Enviar email de boas-vindas
+Permitir Avatar: ☑ Sim
+Tema do Usuário: [Tema padrão]
+Mostrar Email: ☐ Público / ☑ Privado
 ```
 
-**Step 5: Create Account**
+**Etapa 5: Criar Conta**
 
-Click **"Add User"** or **"Create"**
+Clique em **"Adicionar Usuário"** ou **"Criar"**
 
-Confirmation:
+Confirmação:
 ```
-User created successfully!
-Username: john_smith
+Usuário criado com sucesso!
+Nome de Usuário: john_smith
 Email: john@example.com
-Groups: Registered Users
+Grupos: Usuários Registrados
 ```
 
-### Method 2: User Self-Registration
+### Método 2: Auto-Registro de Usuário
 
-Allow users to register themselves:
+Permita que usuários se registrem:
 
-**Admin Panel > System > Preferences > User Settings**
+**Painel de Administrador > Sistema > Preferências > Configurações de Usuário**
 
 ```
-Allow User Registration: ☑ Yes
+Permitir Registro de Usuário: ☑ Sim
 
-Registration Type:
-☐ Instant (Approve automatically)
-☑ Email Verification (Email confirmation)
-☐ Admin Approval (You approve each)
+Tipo de Registro:
+☐ Instantâneo (Aprovar automaticamente)
+☑ Verificação de Email (Confirmação de email)
+☐ Aprovação de Admin (Você aprova cada)
 
-Send Verification Email: ☑ Yes
+Enviar Email de Verificação: ☑ Sim
 ```
 
-Then:
-1. Users visit registration page
-2. Fill in basic information
-3. Verify email or wait for approval
-4. Account activated
+Depois:
+1. Usuários visitam página de registro
+2. Preenchem informações básicas
+3. Verificam email ou aguardam aprovação
+4. Conta ativada
 
-## Managing User Accounts
+## Gerenciando Contas de Usuários
 
-### View All Users
+### Ver Todos os Usuários
 
-**Location:** Users > Users
+**Local:** Usuários > Usuários
 
-Shows user list with:
-- Username
-- Email address
-- Registration date
-- Last login
-- User status (Active/Inactive)
-- Group membership
+Mostra lista de usuários com:
+- Nome de usuário
+- Endereço de email
+- Data de registro
+- Último login
+- Status do usuário (Ativo/Inativo)
+- Associação de grupo
 
-### Edit User Account
+### Editar Conta de Usuário
 
-1. In user list, click username
-2. Modify any field:
-   - Email address
-   - Password
-   - Real name
-   - User groups
+1. Na lista de usuários, clique no nome de usuário
+2. Modifique qualquer campo:
+   - Endereço de email
+   - Senha
+   - Nome real
+   - Grupos de usuários
    - Status
 
-3. Click **"Save"** or **"Update"**
+3. Clique em **"Salvar"** ou **"Atualizar"**
 
-### Change User Password
+### Alterar Senha de Usuário
 
-1. Click user in list
-2. Scroll to "Change Password" section
-3. Enter new password
-4. Confirm password
-5. Click **"Change Password"**
+1. Clique no usuário na lista
+2. Vá para seção "Alterar Senha"
+3. Digite nova senha
+4. Confirme a senha
+5. Clique em **"Alterar Senha"**
 
-User will use new password on next login.
+O usuário usará nova senha no próximo login.
 
-### Deactivate/Suspend User
+### Desativar/Suspender Usuário
 
-Temporarily disable account without deletion:
+Desativar conta temporariamente sem deletar:
 
-1. Click user in list
-2. Set **User Status** to "Inactive"
-3. Click **"Save"**
+1. Clique no usuário na lista
+2. Defina **Status do Usuário** como "Inativo"
+3. Clique em **"Salvar"**
 
-User cannot log in while inactive.
+O usuário não pode fazer login enquanto inativo.
 
-### Reactivate User
+### Reativar Usuário
 
-1. Click user in list
-2. Set **User Status** to "Active"
-3. Click **"Save"**
+1. Clique no usuário na lista
+2. Defina **Status do Usuário** como "Ativo"
+3. Clique em **"Salvar"**
 
-User can log in again.
+O usuário pode fazer login novamente.
 
-### Delete User Account
+### Deletar Conta de Usuário
 
-Remove user permanently:
+Remova usuário permanentemente:
 
-1. Click user in list
-2. Scroll to bottom
-3. Click **"Delete User"**
-4. Confirm: "Delete user and all data?"
-5. Click **"Yes"**
+1. Clique no usuário na lista
+2. Role para baixo
+3. Clique em **"Deletar Usuário"**
+4. Confirme: "Deletar usuário e todos os dados?"
+5. Clique em **"Sim"**
 
-**Warning:** Deletion is permanent!
+**Aviso:** Exclusão é permanente!
 
-### View User Profile
+### Ver Perfil de Usuário
 
-See user profile details:
+Veja detalhes do perfil de usuário:
 
-1. Click username in user list
-2. Review profile information:
-   - Real name
+1. Clique no nome de usuário na lista de usuários
+2. Revise informações de perfil:
+   - Nome real
    - Email
    - Website
-   - Join date
-   - Last login
-   - User bio
+   - Data de associação
+   - Último login
+   - Bio do usuário
    - Avatar
-   - Posts/contributions
+   - Posts/contribuições
 
-## Understanding User Groups
+## Entendendo Grupos de Usuários
 
-### Default User Groups
+### Grupos de Usuários Padrão
 
-XOOPS includes default groups:
+XOOPS inclui grupos padrão:
 
-| Group | Purpose | Special | Edit |
+| Grupo | Finalidade | Especial | Editar |
 |---|---|---|---|
-| **Anonymous** | Non-logged-in users | Fixed | No |
-| **Registered Users** | Regular members | Default | Yes |
-| **Webmasters** | Site administrators | Admin | Yes |
-| **Admins** | Limited admins | Admin | Yes |
-| **Moderators** | Content moderators | Custom | Yes |
+| **Anônimo** | Usuários não conectados | Fixo | Não |
+| **Usuários Registrados** | Membros regulares | Padrão | Sim |
+| **Webmasters** | Administradores do site | Admin | Sim |
+| **Admins** | Admins limitados | Admin | Sim |
+| **Moderadores** | Moderadores de conteúdo | Personalizado | Sim |
 
-### Create Custom Group
+### Criar Grupo Personalizado
 
-Create group for specific role:
+Crie grupo para função específica:
 
-**Location:** Users > Groups
+**Local:** Usuários > Grupos
 
-1. Click **"Add New Group"**
-2. Enter group details:
+1. Clique em **"Adicionar Novo Grupo"**
+2. Digite detalhes do grupo:
 
 ```
-Group Name: Content Editors
-Group Description: Users who can create and edit content
+Nome do Grupo: Editores de Conteúdo
+Descrição do Grupo: Usuários que podem criar e editar conteúdo
 
-Display Group: ☑ Yes (Show in member profiles)
-Group Type: ☑ Regular / ☐ Admin
+Exibir Grupo: ☑ Sim (Mostrar em perfis de membros)
+Tipo de Grupo: ☑ Regular / ☐ Admin
 ```
 
-3. Click **"Create Group"**
+3. Clique em **"Criar Grupo"**
 
-### Manage Group Membership
+### Gerenciar Associação de Grupo
 
-Assign users to groups:
+Atribua usuários a grupos:
 
-**Option A: From Users List**
+**Opção A: A Partir da Lista de Usuários**
 
-1. Go to **Users > Users**
-2. Click user
-3. Check/uncheck groups in "User Groups" section
-4. Click **"Save"**
+1. Vá para **Usuários > Usuários**
+2. Clique no usuário
+3. Marque/desmarque grupos na seção "Grupos de Usuários"
+4. Clique em **"Salvar"**
 
-**Option B: From Groups**
+**Opção B: A Partir de Grupos**
 
-1. Go to **Users > Groups**
-2. Click group name
-3. View/edit member list
-4. Add or remove users
-5. Click **"Save"**
+1. Vá para **Usuários > Grupos**
+2. Clique no nome do grupo
+3. Ver/editar lista de membros
+4. Adicionar ou remover usuários
+5. Clique em **"Salvar"**
 
-### Edit Group Properties
+### Editar Propriedades de Grupo
 
-Customize group settings:
+Personalize configurações de grupo:
 
-1. Go to **Users > Groups**
-2. Click group name
-3. Modify:
-   - Group name
-   - Group description
-   - Display group (show/hide)
-   - Group type
-4. Click **"Save"**
+1. Vá para **Usuários > Grupos**
+2. Clique no nome do grupo
+3. Modifique:
+   - Nome do grupo
+   - Descrição do grupo
+   - Exibir grupo (mostrar/ocultar)
+   - Tipo de grupo
+4. Clique em **"Salvar"**
 
-## User Permissions
+## Permissões de Usuário
 
-### Understanding Permissions
+### Entendendo Permissões
 
-Three permission levels:
+Três níveis de permissão:
 
-| Level | Scope | Example |
+| Nível | Escopo | Exemplo |
 |---|---|---|
-| **Module Access** | Can see/use module | Can access Forum module |
-| **Content Permissions** | Can view specific content | Can read published news |
-| **Function Permissions** | Can perform actions | Can post comments |
+| **Acesso de Módulo** | Pode ver/usar módulo | Pode acessar módulo Forum |
+| **Permissões de Conteúdo** | Pode visualizar conteúdo específico | Pode ler notícias publicadas |
+| **Permissões de Função** | Pode realizar ações | Pode postar comentários |
 
-### Configure Module Access
+### Configurar Acesso de Módulo
 
-**Location:** System > Permissions
+**Local:** Sistema > Permissões
 
-Restrict which groups can access each module:
+Restrinja quais grupos podem acessar cada módulo:
 
 ```
-Module: News
+Módulo: Notícias
 
-Admin Access:
+Acesso de Administrador:
 ☑ Webmasters
 ☑ Admins
-☐ Moderators
-☐ Registered Users
-☐ Anonymous
+☐ Moderadores
+☐ Usuários Registrados
+☐ Anônimo
 
-User Access:
+Acesso de Usuário:
 ☐ Webmasters
 ☐ Admins
-☑ Moderators
-☑ Registered Users
-☑ Anonymous
+☑ Moderadores
+☑ Usuários Registrados
+☑ Anônimo
 ```
 
-Click **"Save"** to apply.
+Clique em **"Salvar"** para aplicar.
 
-### Set Content Permissions
+### Definir Permissões de Conteúdo
 
-Control access to specific content:
+Controle acesso a conteúdo específico:
 
-Example - News article:
+Exemplo - Artigo de notícia:
 ```
-View Permission:
-☑ All groups can read
+Permissão de Visualização:
+☑ Todos os grupos podem ler
 
-Post Permission:
-☑ Registered Users
-☑ Content Editors
-☐ Anonymous
+Permissão de Post:
+☑ Usuários Registrados
+☑ Editores de Conteúdo
+☐ Anônimo
 
-Moderate Comments:
-☑ Moderators required
-```
-
-### Permission Best Practices
-
-```
-Public Content (News, Pages):
-├── View: All groups
-├── Post: Registered Users + Editors
-└── Moderate: Admins + Moderators
-
-Community (Forum, Comments):
-├── View: All groups
-├── Post: Registered Users
-└── Moderate: Moderators + Admins
-
-Admin Tools:
-├── View: Webmasters + Admins only
-├── Configure: Webmasters only
-└── Delete: Webmasters only
+Moderar Comentários:
+☑ Moderadores necessários
 ```
 
-## User Registration Management
+### Práticas Recomendadas de Permissão
 
-### Handle Registration Requests
+```
+Conteúdo Público (Notícias, Páginas):
+├── Visualizar: Todos os grupos
+├── Post: Usuários Registrados + Editores
+└── Moderar: Admins + Moderadores
 
-If "Admin Approval" enabled:
+Comunidade (Forum, Comentários):
+├── Visualizar: Todos os grupos
+├── Post: Usuários Registrados
+└── Moderar: Moderadores + Admins
 
-1. Go to **Users > User Requests**
-2. View pending registrations:
-   - Username
+Ferramentas de Admin:
+├── Visualizar: Apenas Webmasters + Admins
+├── Configurar: Apenas Webmasters
+└── Deletar: Apenas Webmasters
+```
+
+## Gerenciamento de Registro de Usuários
+
+### Lidar com Solicitações de Registro
+
+Se "Aprovação de Admin" ativada:
+
+1. Vá para **Usuários > Solicitações de Usuários**
+2. Ver registros pendentes:
+   - Nome de usuário
    - Email
-   - Registration date
-   - Request status
+   - Data de registro
+   - Status da solicitação
 
-3. For each request:
-   - Click to review
-   - Click **"Approve"** to activate
-   - Click **"Reject"** to deny
+3. Para cada solicitação:
+   - Clique para revisar
+   - Clique em **"Aprovar"** para ativar
+   - Clique em **"Rejeitar"** para negar
 
-### Send Registration Email
+### Enviar Email de Registro
 
-Resend welcome/verification email:
+Reenvie email de boas-vindas/verificação:
 
-1. Go to **Users > Users**
-2. Click user
-3. Click **"Send Email"** or **"Resend Verification"**
-4. Email sent to user
+1. Vá para **Usuários > Usuários**
+2. Clique no usuário
+3. Clique em **"Enviar Email"** ou **"Reenviar Verificação"**
+4. Email enviado para o usuário
 
-## Online Users Monitoring
+## Monitoramento de Usuários Online
 
-### View Currently Online Users
+### Ver Usuários Atualmente Online
 
-Track active site visitors:
+Rastreie visitantes ativos do site:
 
-**Location:** Users > Online Users
+**Local:** Usuários > Usuários Online
 
-Shows:
-- Current online users
-- Guest visitors count
-- Last activity time
-- IP address
-- Browsing location
+Mostra:
+- Usuários atualmente online
+- Contagem de visitantes convidados
+- Hora da última atividade
+- Endereço IP
+- Localização de navegação
 
-### Monitor User Activity
+### Monitorar Atividade de Usuário
 
-Understand user behavior:
-
-```
-Active Users: 12
-Registered: 8
-Anonymous: 4
-
-Recent Activity:
-- User1 - Forum post (2 min ago)
-- User2 - Comment (5 min ago)
-- User3 - Page view (8 min ago)
-```
-
-## User Profile Customization
-
-### Enable User Profiles
-
-Configure user profile options:
-
-**Admin > System > Preferences > User Settings**
+Entenda comportamento de usuário:
 
 ```
-Allow User Profiles: ☑ Yes
-Show Member List: ☑ Yes
-Users Can Edit Profile: ☑ Yes
-Show User Avatar: ☑ Yes
-Show Last Online: ☑ Yes
-Show Email Address: ☐ Yes / ☑ No
+Usuários Ativos: 12
+Registrados: 8
+Anônimos: 4
+
+Atividade Recente:
+- User1 - Post de forum (2 min atrás)
+- User2 - Comentário (5 min atrás)
+- User3 - Visualização de página (8 min atrás)
 ```
 
-### Profile Fields
+## Personalização de Perfil de Usuário
 
-Configure what users can add to profiles:
+### Habilitar Perfis de Usuário
 
-Example profile fields:
-- Real name
-- Website URL
-- Biography
-- Location
-- Avatar (picture)
-- Signature
-- Interests
-- Social media links
+Configure opções de perfil de usuário:
 
-Customize in module settings.
-
-## User Authentication
-
-### Enable Two-Factor Authentication
-
-Enhanced security option (if available):
-
-**Admin > Users > Settings**
+**Admin > Sistema > Preferências > Configurações de Usuário**
 
 ```
-Two-Factor Authentication: ☑ Enabled
+Permitir Perfis de Usuário: ☑ Sim
+Mostrar Lista de Membros: ☑ Sim
+Usuários Podem Editar Perfil: ☑ Sim
+Mostrar Avatar de Usuário: ☑ Sim
+Mostrar Último Online: ☑ Sim
+Mostrar Endereço de Email: ☐ Sim / ☑ Não
+```
 
-Methods:
+### Campos de Perfil
+
+Configure quais campos os usuários podem adicionar a perfis:
+
+Campos de perfil de exemplo:
+- Nome real
+- URL do website
+- Biografia
+- Localização
+- Avatar (imagem)
+- Assinatura
+- Interesses
+- Links de mídia social
+
+Personalize nas configurações do módulo.
+
+## Autenticação de Usuário
+
+### Habilitar Autenticação de Dois Fatores
+
+Opção de segurança aprimorada (se disponível):
+
+**Admin > Usuários > Configurações**
+
+```
+Autenticação de Dois Fatores: ☑ Habilitada
+
+Métodos:
 ☑ Email
 ☑ SMS
-☑ Authenticator App
+☑ App Autenticador
 ```
 
-Users must verify with second method.
+Os usuários devem verificar com segundo método.
 
-### Password Policy
+### Política de Senha
 
-Enforce strong passwords:
+Aplique senhas fortes:
 
-**Admin > System > Preferences > User Settings**
-
-```
-Minimum Password Length: 8 characters
-Require Uppercase: ☑ Yes
-Require Numbers: ☑ Yes
-Require Special Chars: ☑ Yes
-
-Password Expiration: 90 days
-Force Change on First Login: ☑ Yes
-```
-
-### Login Attempts
-
-Prevent brute force attacks:
+**Admin > Sistema > Preferências > Configurações de Usuário**
 
 ```
-Lock After Failed Attempts: 5
-Lock Duration: 15 minutes
-Log All Attempts: ☑ Yes
-Notify Admin: ☑ Yes
+Comprimento Mínimo de Senha: 8 caracteres
+Requer Maiúscula: ☑ Sim
+Requer Números: ☑ Sim
+Requer Caracteres Especiais: ☑ Sim
+
+Expiração de Senha: 90 dias
+Forçar Alteração no Primeiro Login: ☑ Sim
 ```
 
-## User Email Management
+### Tentativas de Login
 
-### Send Bulk Email to Group
-
-Message multiple users:
-
-1. Go to **Users > Users**
-2. Select multiple users (checkboxes)
-3. Click **"Send Email"**
-4. Compose message:
-   - Subject
-   - Message body
-   - Include signature
-5. Click **"Send"**
-
-### Email Notification Settings
-
-Configure what emails users receive:
-
-**Admin > System > Preferences > Email Settings**
+Previna ataques de força bruta:
 
 ```
-New Registration: ☑ Send welcome email
-Password Reset: ☑ Send reset link
-Comments: ☑ Notify on replies
-Messages: ☑ Notify new messages
-Notifications: ☑ Site announcements
-Frequency: ☐ Immediate / ☑ Daily / ☐ Weekly
+Bloquear Após Tentativas Falhadas: 5
+Duração do Bloqueio: 15 minutos
+Registrar Todas as Tentativas: ☑ Sim
+Notificar Admin: ☑ Sim
 ```
 
-## User Statistics
+## Gerenciamento de Email de Usuário
 
-### View User Reports
+### Enviar Email em Massa para Grupo
 
-Monitor user metrics:
+Mensagem múltiplos usuários:
 
-**Admin > System > Dashboard**
+1. Vá para **Usuários > Usuários**
+2. Selecione múltiplos usuários (caixas de seleção)
+3. Clique em **"Enviar Email"**
+4. Componha mensagem:
+   - Assunto
+   - Corpo da mensagem
+   - Incluir assinatura
+5. Clique em **"Enviar"**
 
-```
-User Statistics:
-├── Total Users: 256
-├── Active Users: 189
-├── New This Month: 24
-├── Registration Requests: 3
-├── Currently Online: 12
-└── Last 24h Posts: 45
-```
+### Configurações de Notificação de Email
 
-### User Growth Tracking
+Configure quais emails os usuários recebem:
 
-Monitor registration trends:
-
-```
-Registrations Last 7 Days: 12 users
-Registrations Last 30 Days: 48 users
-Active Users (30 days): 156
-Inactive Users (30+ days): 100
-```
-
-## Common User Management Tasks
-
-### Create Admin User
-
-1. Create new user (steps above)
-2. Assign to **Webmasters** or **Admins** group
-3. Grant permissions in System > Permissions
-4. Verify admin access works
-
-### Create Moderator
-
-1. Create new user
-2. Assign to **Moderators** group
-3. Configure permissions to moderate specific modules
-4. User can approve content, manage comments
-
-### Setup Content Editors
-
-1. Create **Content Editors** group
-2. Create users, assign to group
-3. Grant permissions to:
-   - Create/edit pages
-   - Create/edit posts
-   - Moderate comments
-4. Restrict admin panel access
-
-### Reset Forgotten Password
-
-User forgot their password:
-
-1. Go to **Users > Users**
-2. Find user
-3. Click username
-4. Click **"Reset Password"** or edit password field
-5. Set temporary password
-6. Notify user (send email)
-7. User logs in, changes password
-
-### Bulk Import Users
-
-Import user list (advanced):
-
-Many hosting panels provide tools to:
-1. Prepare CSV file with user data
-2. Upload via admin panel
-3. Mass create accounts
-
-Or use custom script/plugin for imports.
-
-## User Privacy
-
-### Respect User Privacy
-
-Privacy best practices:
+**Admin > Sistema > Preferências > Configurações de Email**
 
 ```
-Do:
-✓ Hide emails by default
-✓ Let users choose visibility
-✓ Protect against spam
-
-Don't:
-✗ Share private data
-✗ Display without permission
-✗ Use for marketing without consent
+Novo Registro: ☑ Enviar email de boas-vindas
+Redefinição de Senha: ☑ Enviar link de redefinição
+Comentários: ☑ Notificar sobre respostas
+Mensagens: ☑ Notificar novas mensagens
+Notificações: ☑ Comunicados do site
+Frequência: ☐ Imediato / ☑ Diário / ☐ Semanal
 ```
 
-### GDPR Compliance
+## Estatísticas de Usuário
 
-If serving EU users:
+### Ver Relatórios de Usuário
 
-1. Get consent for data collection
-2. Allow users to download their data
-3. Provide delete account option
-4. Maintain privacy policy
-5. Log data processing activities
+Monitore métricas de usuário:
 
-## Troubleshooting User Issues
+**Admin > Sistema > Painel de Controle**
 
-### User Can't Login
+```
+Estatísticas de Usuário:
+├── Total de Usuários: 256
+├── Usuários Ativos: 189
+├── Novo Este Mês: 24
+├── Solicitações de Registro: 3
+├── Atualmente Online: 12
+└── Posts Últimas 24h: 45
+```
 
-**Problem:** User forgot password or can't access account
+### Rastreamento de Crescimento de Usuários
 
-**Solution:**
-1. Verify user account is "Active"
-2. Reset password:
-   - Admin > Users > Find user
-   - Set new temporary password
-   - Send to user via email
-3. Clear user cookies/cache
-4. Check if account is not locked
+Monitore tendências de registro:
 
-### User Registration Stuck
+```
+Registros Últimos 7 Dias: 12 usuários
+Registros Últimos 30 Dias: 48 usuários
+Usuários Ativos (30 dias): 156
+Usuários Inativos (30+ dias): 100
+```
 
-**Problem:** User can't complete registration
+## Tarefas Comuns de Gerenciamento de Usuários
 
-**Solution:**
-1. Check registration is allowed:
-   - Admin > System > Preferences > User Settings
-   - Enable registration
-2. Check email settings work
-3. If email verification required:
-   - Resend verification email
-   - Check spam folder
-4. Lower password requirements if too strict
+### Criar Usuário Admin
 
-### Duplicate Accounts
+1. Criar novo usuário (etapas acima)
+2. Atribuir a grupo **Webmasters** ou **Admins**
+3. Conceder permissões em Sistema > Permissões
+4. Verificar se o acesso de admin funciona
 
-**Problem:** User has multiple accounts
+### Criar Moderador
 
-**Solution:**
-1. Identify duplicate accounts in Users list
-2. Keep primary account
-3. Merge data if possible
-4. Delete duplicate accounts
-5. Enable "Prevent Duplicate Email" in settings
+1. Criar novo usuário
+2. Atribuir ao grupo **Moderadores**
+3. Configure permissões para moderar módulos específicos
+4. O usuário pode aprovar conteúdo, gerenciar comentários
 
-## User Management Checklist
+### Configurar Editores de Conteúdo
 
-For initial setup:
+1. Criar grupo **Editores de Conteúdo**
+2. Criar usuários, atribuir ao grupo
+3. Conceder permissões para:
+   - Criar/editar páginas
+   - Criar/editar posts
+   - Moderar comentários
+4. Restringir acesso ao painel de administrador
 
-- [ ] Set user registration type (instant/email/admin)
-- [ ] Create required user groups
-- [ ] Configure group permissions
-- [ ] Set password policy
-- [ ] Enable user profiles
-- [ ] Configure email notifications
-- [ ] Set user avatar options
-- [ ] Test registration process
-- [ ] Create test accounts
-- [ ] Verify permissions working
-- [ ] Document group structure
-- [ ] Plan user onboarding
+### Redefinir Senha Esquecida
 
-## Next Steps
+O usuário esqueceu sua senha:
 
-After setting up users:
+1. Vá para **Usuários > Usuários**
+2. Encontre o usuário
+3. Clique no nome de usuário
+4. Clique em **"Redefinir Senha"** ou edite campo de senha
+5. Defina senha temporária
+6. Notifique o usuário (envie email)
+7. O usuário faz login, altera a senha
 
-1. Install modules users need
-2. Create content for users
-3. Secure user accounts
-4. Explore more admin features
-5. Configure system-wide settings
+### Importação em Massa de Usuários
+
+Importar lista de usuários (avançado):
+
+Muitos painéis de hospedagem fornecem ferramentas para:
+1. Preparar arquivo CSV com dados de usuário
+2. Upload via painel de administrador
+3. Criar contas em massa
+
+Ou use script/plugin personalizado para importações.
+
+## Privacidade do Usuário
+
+### Respeite a Privacidade do Usuário
+
+Práticas recomendadas de privacidade:
+
+```
+Faça:
+✓ Ocultar emails por padrão
+✓ Permitir que usuários escolham visibilidade
+✓ Proteger contra spam
+
+Não Faça:
+✗ Compartilhar dados privados
+✗ Exibir sem permissão
+✗ Usar para marketing sem consentimento
+```
+
+### Conformidade com GDPR
+
+Se servir usuários da UE:
+
+1. Obter consentimento para coleta de dados
+2. Permitir que usuários baixem seus dados
+3. Fornecer opção de deletar conta
+4. Manter política de privacidade
+5. Registrar atividades de processamento de dados
+
+## Solução de Problemas de Usuário
+
+### Usuário Não Consegue Fazer Login
+
+**Problema:** Usuário esqueceu senha ou não consegue acessar conta
+
+**Solução:**
+1. Verifique se conta de usuário está "Ativa"
+2. Redefinir senha:
+   - Admin > Usuários > Encontre usuário
+   - Defina nova senha temporária
+   - Envie para usuário via email
+3. Limpe cookies/cache do usuário
+4. Verifique se a conta não está bloqueada
+
+### Registro de Usuário Travado
+
+**Problema:** Usuário não consegue completar registro
+
+**Solução:**
+1. Verifique se registro está permitido:
+   - Admin > Sistema > Preferências > Configurações de Usuário
+   - Habilitar registro
+2. Verifique se configurações de email funcionam
+3. Se verificação de email necessária:
+   - Reenvie email de verificação
+   - Verifique pasta de spam
+4. Reduza requisitos de senha se muito rigorosos
+
+### Contas Duplicadas
+
+**Problema:** Usuário tem múltiplas contas
+
+**Solução:**
+1. Identifique contas duplicadas na lista de usuários
+2. Mantenha conta primária
+3. Mescle dados se possível
+4. Delete contas duplicadas
+5. Habilitar "Impedir Email Duplicado" em configurações
+
+## Lista de Verificação de Gerenciamento de Usuários
+
+Para configuração inicial:
+
+- [ ] Definir tipo de registro de usuário (instantâneo/email/admin)
+- [ ] Criar grupos de usuários necessários
+- [ ] Configurar permissões de grupo
+- [ ] Definir política de senha
+- [ ] Habilitar perfis de usuários
+- [ ] Configurar notificações por email
+- [ ] Definir opções de avatar do usuário
+- [ ] Testar processo de registro
+- [ ] Criar contas de teste
+- [ ] Verificar se permissões estão funcionando
+- [ ] Documentar estrutura de grupo
+- [ ] Planejar integração de usuários
+
+## Próximas Etapas
+
+Após configurar usuários:
+
+1. Instalar módulos que os usuários precisam
+2. Criar conteúdo para usuários
+3. Proteger contas de usuários
+4. Explorar mais recursos de administrador
+5. Configurar configurações em todo o sistema
 
 ---
 
-**Tags:** #users #groups #permissions #administration #access-control
+**Tags:** #usuários #grupos #permissões #administração #controle-de-acesso
 
-**Related Articles:**
+**Artigos Relacionados:**
 - Admin-Panel-Overview
 - Installing-Modules
 - ../Configuration/Security-Configuration

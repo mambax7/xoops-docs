@@ -1,50 +1,50 @@
 ---
-title: "Repository Pattern in XOOPS"
-description: "Data access abstraction layer implementation"
+title: "Padrão Repositório em XOOPS"
+description: "Implementação de camada de abstração de acesso de dados"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-:::note[Not sure if this is the right pattern?]
-See [Choosing a Data Access Pattern](../Choosing-Data-Access-Pattern.md) for a decision tree comparing handlers, repositories, services, and CQRS.
+:::note[Não tem certeza se este é o padrão certo?]
+Veja [Choosing a Data Access Pattern](../Choosing-Data-Access-Pattern.md) para árvore de decisão comparando handlers, repositórios, serviços e CQRS.
 :::
 
-:::tip[Works Today & Tomorrow]
-The Repository pattern **works in both XOOPS 2.5.x and XOOPS 4.0.x**. In 2.5.x, wrap your existing `XoopsPersistableObjectHandler` in a Repository class to get the abstraction benefits:
+:::tip[Funciona Hoje e Amanhã]
+O padrão Repositório **funciona em XOOPS 2.5.x e XOOPS 4.0.x**. Em 2.5.x, envolva seu `XoopsPersistableObjectHandler` existente em uma classe Repository para obter os benefícios de abstração:
 
-| Approach | XOOPS 2.5.x | XOOPS 4.0 |
+| Abordagem | XOOPS 2.5.x | XOOPS 4.0 |
 |----------|-------------|------------|
-| Direct handler access | `xoops_getModuleHandler()` | Via DI container |
-| Repository wrapper | ✅ Recommended | ✅ Native pattern |
-| Testing with mocks | ✅ With manual DI | ✅ Container autowiring |
+| Acesso direto de handler | `xoops_getModuleHandler()` | Via DI container |
+| Wrapper de repositório | ✅ Recomendado | ✅ Padrão nativo |
+| Teste com mocks | ✅ Com DI manual | ✅ Autowiring de container |
 
-**Start with Repository pattern today** to prepare your modules for XOOPS 4.0 migration.
+**Comece com padrão Repositório hoje** para preparar seus módulos para migração XOOPS 4.0.
 :::
 
-The Repository Pattern is a data access pattern that abstracts database operations, providing a clean interface for accessing data. It acts as a middleman between the business logic and data mapping layers.
+O Padrão Repositório é um padrão de acesso de dados que abstrai operações de banco de dados, fornecendo uma interface limpa para acessar dados. Ele atua como um intermediário entre a lógica de negócio e as camadas de mapeamento de dados.
 
-## Repository Concept
+## Conceito de Repositório
 
-The Repository Pattern provides:
-- Abstraction of database implementation details
-- Easy mocking for unit testing
-- Centralized data access logic
-- Flexibility to change database without affecting business logic
-- Reusable data access logic across the application
+O Padrão Repositório fornece:
+- Abstração de detalhes de implementação de banco de dados
+- Mock fácil para testes unitários
+- Lógica centralizada de acesso de dados
+- Flexibilidade para alterar banco de dados sem afetar lógica de negócio
+- Lógica de acesso a dados reutilizável em toda a aplicação
 
-## When to Use Repositories
+## Quando Usar Repositórios
 
-**Use Repositories when:**
-- Transferring data between application layers
-- Needing to change database implementation
-- Writing testable code with mocks
-- Abstracting data access patterns
+**Use Repositórios quando:**
+- Transferindo dados entre camadas de aplicação
+- Precisando alterar implementação de banco de dados
+- Escrevendo código testável com mocks
+- Abstraindo padrões de acesso de dados
 
-## Implementation Pattern
+## Padrão de Implementação
 
 ```php
 <?php
-// Define repository interface
+// Definir interface de repositório
 interface UserRepositoryInterface
 {
     public function find($id);
@@ -55,7 +55,7 @@ interface UserRepositoryInterface
     public function delete($id);
 }
 
-// Implement repository
+// Implementar repositório
 class UserRepository implements UserRepositoryInterface
 {
     private $db;
@@ -67,18 +67,18 @@ class UserRepository implements UserRepositoryInterface
     
     public function find($id)
     {
-        // Implementation
+        // Implementação
     }
     
     public function save($entity)
     {
-        // Implementation
+        // Implementação
     }
 }
 ?>
 ```
 
-## Usage in Services
+## Uso em Serviços
 
 ```php
 <?php
@@ -93,12 +93,12 @@ class UserService
     
     public function registerUser($username, $email, $password)
     {
-        // Check if user exists
+        // Verificar se usuário existe
         if ($this->userRepository->findByUsername($username)) {
             throw new \InvalidArgumentException('Username exists');
         }
         
-        // Create user
+        // Criar usuário
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
@@ -110,21 +110,21 @@ class UserService
 ?>
 ```
 
-## Best Practices
+## Melhores Práticas
 
-- Use interfaces to define repository contracts
-- Each repository handles one entity type
-- Keep business logic in services, not repositories
-- Use entity objects for data mapping
-- Throw appropriate exceptions for invalid operations
+- Use interfaces para definir contratos de repositório
+- Cada repositório lida com um tipo de entidade
+- Mantenha lógica de negócio em serviços, não em repositórios
+- Use objetos de entidade para mapeamento de dados
+- Lance exceções apropriadas para operações inválidas
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- [MVC-Pattern](../Patterns/MVC-Pattern.md) for controller integration
-- [Service-Layer](../Patterns/Service-Layer.md) for service implementation
-- [DTO-Pattern](DTO-Pattern.md) for data transfer objects
-- [Testing](../Best-Practices/Testing.md) for repository testing
+Veja também:
+- [MVC-Pattern](../Patterns/MVC-Pattern.md) para integração de controlador
+- [Service-Layer](../Patterns/Service-Layer.md) para implementação de serviço
+- [DTO-Pattern](DTO-Pattern.md) para data transfer objects
+- [Testing](../Best-Practices/Testing.md) para teste de repositório
 
 ---
 

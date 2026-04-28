@@ -1,40 +1,40 @@
 ---
-title: "Getting Started with XMF"
-description: "Installation, basic concepts, and first steps with the XOOPS Module Framework"
+title: "Começando com XMF"
+description: "Instalação, conceitos básicos e primeiros passos com o XOOPS Module Framework"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-This guide covers the fundamental concepts of the XOOPS Module Framework (XMF) and how to start using it in your modules.
+Este guia cobre os conceitos fundamentais do XOOPS Module Framework (XMF) e como começar a usá-lo em seus módulos.
 
-## Prerequisites
+## Pré-requisitos
 
-- XOOPS 2.5.8 or later installed
-- PHP 7.2 or later
-- Basic understanding of PHP object-oriented programming
+- XOOPS 2.5.8 ou posterior instalado
+- PHP 7.2 ou posterior
+- Compreensão básica de programação orientada a objetos em PHP
 
-## Understanding Namespaces
+## Entendendo Namespaces
 
-XMF uses PHP namespaces to organize its classes and avoid naming conflicts. All XMF classes are in the `Xmf` namespace.
+XMF usa namespaces PHP para organizar suas classes e evitar conflitos de nomenclatura. Todas as classes XMF estão no namespace `Xmf`.
 
-### Global Space Problem
+### Problema do Espaço Global
 
-Without namespaces, all PHP classes share a global space. This can cause conflicts:
+Sem namespaces, todas as classes PHP compartilham um espaço global. Isto pode causar conflitos:
 
 ```php
 <?php
-// This would conflict with PHP's built-in ArrayObject
+// Isto entraria em conflito com o ArrayObject nativo do PHP
 class ArrayObject {
     public function doStuff() {
         // ...
     }
 }
-// Fatal error: Cannot redeclare class ArrayObject
+// Erro fatal: Cannot redeclare class ArrayObject
 ```
 
-### Namespaces Solution
+### Solução com Namespaces
 
-Namespaces create isolated naming contexts:
+Namespaces criam contextos de nomenclatura isolados:
 
 ```php
 <?php
@@ -45,26 +45,26 @@ class ArrayObject {
         // ...
     }
 }
-// No conflict - this is \MyNamespace\ArrayObject
+// Sem conflito - isto é \MyNamespace\ArrayObject
 ```
 
-### Using XMF Namespaces
+### Usando Namespaces XMF
 
-You can reference XMF classes in several ways:
+Você pode referenciar classes XMF de várias maneiras:
 
-**Full namespace path:**
+**Caminho completo do namespace:**
 ```php
 $helper = \Xmf\Module\Helper::getHelper('mymodule');
 ```
 
-**With use statement:**
+**Com declaração use:**
 ```php
 use Xmf\Module\Helper;
 
 $helper = Helper::getHelper('mymodule');
 ```
 
-**Multiple imports:**
+**Múltiplas importações:**
 ```php
 use Xmf\Request;
 use Xmf\Module\Helper;
@@ -77,26 +77,26 @@ $perm = new Permission();
 
 ## Autoloading
 
-One of XMF's greatest conveniences is automatic class loading. You never need to manually include XMF class files.
+Uma das maiores conveniências do XMF é o carregamento automático de classes. Você nunca precisa incluir manualmente arquivos de classe XMF.
 
-### Traditional XOOPS Loading
+### Carregamento Tradicional XOOPS
 
-The old way required explicit loading:
+A forma antiga requeria carregamento explícito:
 
 ```php
 XoopsLoad('xoopsrequest');
 $cleanInput = XoopsRequest::getString('input', '');
 ```
 
-### XMF Autoloading
+### Autoloading XMF
 
-With XMF, classes load automatically when referenced:
+Com XMF, as classes carregam automaticamente quando referenciadas:
 
 ```php
 $input = Xmf\Request::getString('input', '');
 ```
 
-Or with a use statement:
+Ou com uma declaração use:
 
 ```php
 use Xmf\Request;
@@ -106,107 +106,107 @@ $id = Request::getInt('id', 0);
 $op = Request::getCmd('op', 'display');
 ```
 
-The autoloader follows the [PSR-4](http://www.php-fig.org/psr/psr-4/) standard and also manages dependencies that XMF relies on.
+O autoloader segue o padrão [PSR-4](http://www.php-fig.org/psr/psr-4/) e também gerencia dependências nas quais XMF depende.
 
-## Basic Usage Examples
+## Exemplos de Uso Básico
 
-### Reading Request Input
+### Lendo Entrada de Requisição
 
 ```php
 use Xmf\Request;
 
-// Get integer value with default of 0
+// Obter valor inteiro com padrão de 0
 $id = Request::getInt('id', 0);
 
-// Get string value with default empty string
+// Obter valor string com padrão vazio
 $title = Request::getString('title', '');
 
-// Get command (alphanumeric, lowercase)
+// Obter comando (alfanumérico, minúsculo)
 $op = Request::getCmd('op', 'list');
 
-// Get email with validation
+// Obter email com validação
 $email = Request::getEmail('email', '');
 
-// Get from specific hash (POST, GET, etc.)
+// Obter de hash específico (POST, GET, etc.)
 $formData = Request::getString('data', '', 'POST');
 ```
 
-### Using the Module Helper
+### Usando o Helper de Módulo
 
 ```php
 use Xmf\Module\Helper;
 
-// Get helper for your module
+// Obter helper para seu módulo
 $helper = Helper::getHelper('mymodule');
 
-// Read module configuration
+// Ler configuração do módulo
 $itemsPerPage = $helper->getConfig('items_per_page', 10);
 $enableFeature = $helper->getConfig('enable_feature', false);
 
-// Access the module object
+// Acessar o objeto do módulo
 $module = $helper->getModule();
 $version = $module->getVar('version');
 
-// Get a handler
+// Obter um handler
 $itemHandler = $helper->getHandler('items');
 
-// Load language file
+// Carregar arquivo de idioma
 $helper->loadLanguage('admin');
 
-// Check if current module
+// Verificar se é o módulo atual
 if ($helper->isCurrentModule()) {
-    // We are in this module
+    // Estamos neste módulo
 }
 
-// Check admin rights
+// Verificar direitos de admin
 if ($helper->isUserAdmin()) {
-    // User has admin access
+    // Usuário tem acesso admin
 }
 ```
 
-### Path and URL Helpers
+### Helpers de Caminho e URL
 
 ```php
 use Xmf\Module\Helper;
 
 $helper = Helper::getHelper('mymodule');
 
-// Get module URL
+// Obter URL do módulo
 $moduleUrl = $helper->url('images/logo.png');
-// Returns: https://example.com/modules/mymodule/images/logo.png
+// Retorna: https://example.com/modules/mymodule/images/logo.png
 
-// Get module path
+// Obter caminho do módulo
 $modulePath = $helper->path('templates/view.tpl');
-// Returns: /var/www/html/modules/mymodule/templates/view.tpl
+// Retorna: /var/www/html/modules/mymodule/templates/view.tpl
 
-// Upload paths
+// Caminhos de upload
 $uploadUrl = $helper->uploadUrl('files/document.pdf');
 $uploadPath = $helper->uploadPath('files/document.pdf');
 ```
 
-## Debugging with XMF
+## Depuração com XMF
 
-XMF provides helpful debugging tools:
+XMF fornece ferramentas de depuração úteis:
 
 ```php
-// Dump a variable with nice formatting
+// Despejar uma variável com formatação legal
 \Xmf\Debug::dump($myVariable);
 
-// Dump multiple variables
+// Despejar múltiplas variáveis
 \Xmf\Debug::dump($var1, $var2, $var3);
 
-// Dump POST data
+// Despejar dados POST
 \Xmf\Debug::dump($_POST);
 
-// Show a backtrace
+// Mostrar um rastreamento de pilha
 \Xmf\Debug::backtrace();
 ```
 
-The debug output is collapsible and displays objects and arrays in an easy-to-read format.
+A saída de depuração é colapsível e exibe objetos e arrays em um formato fácil de ler.
 
-## Project Structure Recommendation
+## Recomendação de Estrutura de Projeto
 
-When building XMF-based modules, organize your code:
+Ao construir módulos baseados em XMF, organize seu código:
 
 ```
 mymodule/
@@ -214,8 +214,8 @@ mymodule/
     index.php
     menu.php
   class/
-    Helper.php          # Optional custom helper
-    ItemHandler.php     # Your handlers
+    Helper.php          # Helper customizado opcional
+    ItemHandler.php     # Seus handlers
   include/
     common.php
   language/
@@ -229,9 +229,9 @@ mymodule/
   xoops_version.php
 ```
 
-## Common Include Pattern
+## Padrão Comum de Inclusão
 
-A typical module entry point:
+Um ponto de entrada típico do módulo:
 
 ```php
 <?php
@@ -244,42 +244,42 @@ require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $helper = Helper::getHelper(basename(__DIR__));
 
-// Get operation from request
+// Obter operação da requisição
 $op = Request::getCmd('op', 'list');
 $id = Request::getInt('id', 0);
 
-// Include XOOPS header
+// Incluir cabeçalho XOOPS
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-// Your module logic here
+// Lógica do seu módulo aqui
 switch ($op) {
     case 'view':
-        // Handle view
+        // Manipular view
         break;
     case 'list':
     default:
-        // Handle list
+        // Manipular list
         break;
 }
 
-// Include XOOPS footer
+// Incluir rodapé XOOPS
 require_once XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-## Next Steps
+## Próximos Passos
 
-Now that you understand the basics, explore:
+Agora que você compreende o básico, explore:
 
-- XMF-Request - Detailed request handling documentation
-- XMF-Module-Helper - Complete module helper reference
-- ../Recipes/Permission-Helper - Managing user permissions
-- ../Recipes/Module-Admin-Pages - Building admin interfaces
+- XMF-Request - Documentação detalhada de manipulação de requisições
+- XMF-Module-Helper - Referência completa do helper de módulo
+- ../Recipes/Permission-Helper - Gerenciamento de permissões de usuário
+- ../Recipes/Module-Admin-Pages - Construindo interfaces administrativas
 
-## See Also
+## Veja Também
 
-- ../XMF-Framework - Framework overview
-- ../Reference/JWT - JSON Web Token support
-- ../Reference/Database - Database utilities
+- ../XMF-Framework - Visão geral do framework
+- ../Reference/JWT - Suporte a JSON Web Token
+- ../Reference/Database - Utilitários de banco de dados
 
 ---
 

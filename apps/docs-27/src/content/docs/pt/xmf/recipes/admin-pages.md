@@ -1,38 +1,38 @@
 ---
-title: "Module Admin Pages"
-description: "Creating standardized and forward-compatible module administration pages with XMF"
+title: "Páginas Admin de Módulo"
+description: "Criando páginas de administração de módulo padronizadas e compatíveis com XMF"
 ---
 
-The `Xmf\Module\Admin` class provides a consistent way to create module administration interfaces. Using XMF for admin pages ensures forward compatibility with future XOOPS versions while maintaining a uniform user experience.
+A classe `Xmf\Module\Admin` fornece uma maneira consistente de criar interfaces de administração de módulo. Usar XMF para páginas admin garante compatibilidade futura com versões XOOPS futuras enquanto mantém uma experiência de usuário uniforme.
 
-## Overview
+## Visão Geral
 
-The ModuleAdmin class in XOOPS Frameworks made administration easier, but its API has evolved across versions. The `Xmf\Module\Admin` wrapper:
+A classe ModuleAdmin no XOOPS Frameworks facilitou a administração, mas sua API evoluiu entre versões. O wrapper `Xmf\Module\Admin`:
 
-- Provides a stable API that works across XOOPS versions
-- Automatically handles API differences between versions
-- Ensures your admin code is forward-compatible
-- Offers convenient static methods for common tasks
+- Fornece uma API estável que funciona entre versões XOOPS
+- Trata automaticamente diferenças de API entre versões
+- Garante que seu código admin seja compatível com futuro
+- Oferece métodos estáticos convenientes para tarefas comuns
 
-## Getting Started
+## Começando
 
-### Creating an Admin Instance
+### Criando uma Instância Admin
 
 ```php
 $admin = \Xmf\Module\Admin::getInstance();
 ```
 
-This returns either an `Xmf\Module\Admin` instance or a native system class if already compatible.
+Isto retorna ou uma instância `Xmf\Module\Admin` ou uma classe nativa do sistema se já compatível.
 
-## Icon Management
+## Gerenciamento de Ícone
 
-### The Icon Location Problem
+### O Problema de Localização de Ícone
 
-Icons have moved between XOOPS versions, causing maintenance headaches. XMF solves this with utility methods.
+Ícones se moveram entre versões XOOPS, causando dores de cabeça de manutenção. XMF resolve isto com métodos utilitários.
 
-### Finding Icons
+### Encontrando Ícones
 
-**Old way (version-dependent):**
+**Forma antiga (dependente de versão):**
 ```php
 $dirname = basename(dirname(dirname(__FILE__)));
 $module_handler = xoops_gethandler('module');
@@ -41,31 +41,31 @@ $pathIcon16 = $module->getInfo('icons16');
 $img_src = $pathIcon16 . '/delete.png';
 ```
 
-**XMF way:**
+**Forma XMF:**
 ```php
 $img_src = \Xmf\Module\Admin::iconUrl('delete.png', 16);
 ```
 
-The `iconUrl()` method returns a full URL, so you don't need to worry about path construction.
+O método `iconUrl()` retorna uma URL completa, então você não precisa se preocupar com construção de caminho.
 
-### Icon Sizes
+### Tamanhos de Ícone
 
 ```php
-// 16x16 icons
+// Ícones 16x16
 $smallIcon = \Xmf\Module\Admin::iconUrl('edit.png', 16);
 
-// 32x32 icons (default)
+// Ícones 32x32 (padrão)
 $largeIcon = \Xmf\Module\Admin::iconUrl('edit.png', 32);
 
-// Just the path (no filename)
+// Apenas o caminho (sem nome de arquivo)
 $iconPath = \Xmf\Module\Admin::iconUrl('', 16);
 ```
 
-### Menu Icons
+### Ícones do Menu
 
-For admin menu.php files:
+Para arquivos admin menu.php:
 
-**Old way:**
+**Forma antiga:**
 ```php
 $dirname = basename(dirname(dirname(__FILE__)));
 $module_handler = xoops_gethandler('module');
@@ -85,9 +85,9 @@ $adminmenu[] = [
 ];
 ```
 
-**XMF way:**
+**Forma XMF:**
 ```php
-// Get path to icons
+// Obter caminho para ícones
 $pathIcon32 = '';
 if (class_exists('Xmf\Module\Admin', true)) {
     $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
@@ -106,11 +106,11 @@ $adminmenu[] = [
 ];
 ```
 
-## Standard Admin Pages
+## Páginas Admin Padrão
 
-### Index Page
+### Página de Index
 
-**Old format:**
+**Formato antigo:**
 ```php
 $indexAdmin = new ModuleAdmin();
 
@@ -118,7 +118,7 @@ echo $indexAdmin->addNavigation('index.php');
 echo $indexAdmin->renderIndex();
 ```
 
-**XMF format:**
+**Formato XMF:**
 ```php
 $indexAdmin = \Xmf\Module\Admin::getInstance();
 
@@ -126,9 +126,9 @@ $indexAdmin->displayNavigation('index.php');
 $indexAdmin->displayIndex();
 ```
 
-### About Page
+### Página About
 
-**Old format:**
+**Formato antigo:**
 ```php
 $aboutAdmin = new ModuleAdmin();
 
@@ -136,7 +136,7 @@ echo $aboutAdmin->addNavigation('about.php');
 echo $aboutAdmin->renderAbout('6XYZRW5DR3VTJ', false);
 ```
 
-**XMF format:**
+**Formato XMF:**
 ```php
 $aboutAdmin = \Xmf\Module\Admin::getInstance();
 
@@ -145,112 +145,112 @@ $aboutAdmin->displayNavigation('about.php');
 $aboutAdmin->displayAbout(false);
 ```
 
-> **Note:** In future XOOPS versions, PayPal information is set in xoops_version.php. The `setPaypal()` call ensures compatibility with current versions while having no effect in newer ones.
+> **Nota:** Em versões futuras XOOPS, informação de PayPal é definida em xoops_version.php. A chamada `setPaypal()` garante compatibilidade com versões atuais enquanto não têm efeito em versões mais novas.
 
-## Navigation
+## Navegação
 
-### Display Navigation Menu
+### Exibir Menu de Navegação
 
 ```php
 $admin = \Xmf\Module\Admin::getInstance();
 
-// Display navigation for current page
+// Exibir navegação para página atual
 $admin->displayNavigation('items.php');
 
-// Or get HTML string
+// Ou obter string HTML
 $navHtml = $admin->renderNavigation('items.php');
 ```
 
-## Info Boxes
+## Caixas de Informação
 
-### Creating Info Boxes
+### Criando Caixas de Informação
 
 ```php
 $admin = \Xmf\Module\Admin::getInstance();
 
-// Add an info box
-$admin->addInfoBox('Module Statistics');
+// Adicionar uma caixa de informação
+$admin->addInfoBox('Estatísticas do Módulo');
 
-// Add lines to the info box
-$admin->addInfoBoxLine('Total Items: ' . $itemCount, 'default', 'green');
-$admin->addInfoBoxLine('Active Users: ' . $userCount, 'default', 'blue');
+// Adicionar linhas à caixa de informação
+$admin->addInfoBoxLine('Total de Itens: ' . $itemCount, 'default', 'green');
+$admin->addInfoBoxLine('Usuários Ativos: ' . $userCount, 'default', 'blue');
 
-// Display the info box
+// Exibir a caixa de informação
 $admin->displayInfoBox();
 ```
 
-## Config Boxes
+## Caixas de Configuração
 
-Config boxes display system requirements and status checks.
+Caixas de configuração exibem requisitos do sistema e verificações de status.
 
-### Basic Config Lines
+### Linhas de Configuração Básica
 
 ```php
 $admin = \Xmf\Module\Admin::getInstance();
 
-// Add a simple message
-$admin->addConfigBoxLine('Module is properly configured', 'default');
+// Adicionar uma mensagem simples
+$admin->addConfigBoxLine('Módulo está configurado corretamente', 'default');
 
-// Check if directory exists
+// Verificar se diretório existe
 $admin->addConfigBoxLine('/uploads/mymodule', 'folder');
 
-// Check directory with permissions
+// Verificar diretório com permissões
 $admin->addConfigBoxLine(['/uploads/mymodule', '0755'], 'chmod');
 
-// Check if module is installed
+// Verificar se módulo está instalado
 $admin->addConfigBoxLine('xlanguage', 'module');
 
-// Check module with warning instead of error if missing
+// Verificar módulo com aviso se faltando
 $admin->addConfigBoxLine(['xlanguage', 'warning'], 'module');
 ```
 
-### Convenience Methods
+### Métodos de Conveniência
 
 ```php
 $admin = \Xmf\Module\Admin::getInstance();
 
-// Add error message
-$admin->addConfigError('Upload directory is not writable');
+// Adicionar mensagem de erro
+$admin->addConfigError('Diretório de upload não é gravável');
 
-// Add success/accept message
-$admin->addConfigAccept('Database tables verified');
+// Adicionar mensagem de sucesso/aceitação
+$admin->addConfigAccept('Tabelas de banco de dados verificadas');
 
-// Add warning message
-$admin->addConfigWarning('Cache directory should be cleared');
+// Adicionar mensagem de aviso
+$admin->addConfigWarning('Diretório de cache deve ser limpo');
 
-// Check module version
+// Verificar versão do módulo
 $admin->addConfigModuleVersion('xlanguage', '1.0');
 ```
 
-### Config Box Types
+### Tipos de Caixa de Configuração
 
-| Type | Value | Behavior |
+| Tipo | Valor | Comportamento |
 |------|-------|----------|
-| `default` | Message string | Displays message directly |
-| `folder` | Directory path | Shows accept if exists, error if not |
-| `chmod` | `[path, permission]` | Checks directory exists with permission |
-| `module` | Module name | Accept if installed, error if not |
-| `module` | `[name, 'warning']` | Accept if installed, warning if not |
+| `default` | Cadeia de mensagem | Exibe mensagem diretamente |
+| `folder` | Caminho do diretório | Mostra aceitação se existe, erro se não |
+| `chmod` | `[caminho, permissão]` | Verifica se diretório existe com permissão |
+| `module` | Nome do módulo | Aceita se instalado, erro se não |
+| `module` | `[nome, 'warning']` | Aceita se instalado, aviso se não |
 
-## Item Buttons
+## Botões de Item
 
-Add action buttons to admin pages:
+Adicione botões de ação para páginas admin:
 
 ```php
 $admin = \Xmf\Module\Admin::getInstance();
 
-// Add buttons
-$admin->addItemButton('Add New Item', 'item.php?op=new', 'add');
-$admin->addItemButton('Import Items', 'import.php', 'import');
+// Adicionar botões
+$admin->addItemButton('Adicionar Novo Item', 'item.php?op=new', 'add');
+$admin->addItemButton('Importar Items', 'import.php', 'import');
 
-// Display buttons (left aligned by default)
+// Exibir botões (alinhado à esquerda por padrão)
 $admin->displayButton('left');
 
-// Or get HTML
+// Ou obter HTML
 $buttonHtml = $admin->renderButton('right', ' | ');
 ```
 
-## Complete Admin Page Examples
+## Exemplos Completos de Página Admin
 
 ### index.php
 
@@ -261,10 +261,10 @@ require_once dirname(__DIR__) . '/include/common.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-// Display navigation
+// Exibir navegação
 $adminObject->displayNavigation(basename(__FILE__));
 
-// Add info box with statistics
+// Adicionar caixa de informação com estatísticas
 $adminObject->addInfoBox(_MI_MYMODULE_DASHBOARD);
 
 $itemHandler = $helper->getHandler('items');
@@ -275,15 +275,15 @@ $categoryHandler = $helper->getHandler('categories');
 $categoryCount = $categoryHandler->getCount();
 $adminObject->addInfoBoxLine(sprintf(_MI_MYMODULE_TOTAL_CATEGORIES, $categoryCount));
 
-// Check configuration
+// Verificar configuração
 $uploadDir = XOOPS_UPLOAD_PATH . '/mymodule';
 $adminObject->addConfigBoxLine($uploadDir, 'folder');
 $adminObject->addConfigBoxLine([$uploadDir, '0755'], 'chmod');
 
-// Check optional modules
+// Verificar módulos opcionais
 $adminObject->addConfigBoxLine(['xlanguage', 'warning'], 'module');
 
-// Display the index page
+// Exibir página index
 $adminObject->displayIndex();
 
 require_once __DIR__ . '/admin_footer.php';
@@ -298,7 +298,7 @@ require_once dirname(__DIR__) . '/include/common.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-// Get operation
+// Obter operação
 $op = \Xmf\Request::getCmd('op', 'list');
 
 switch ($op) {
@@ -306,11 +306,11 @@ switch ($op) {
     default:
         $adminObject->displayNavigation(basename(__FILE__));
 
-        // Add action buttons
+        // Adicionar botões de ação
         $adminObject->addItemButton(_MI_MYMODULE_ADD_ITEM, 'items.php?op=new', 'add');
         $adminObject->displayButton('left');
 
-        // List items
+        // Listar items
         $itemHandler = $helper->getHandler('items');
         $criteria = new CriteriaCompo();
         $criteria->setSort('created');
@@ -319,7 +319,7 @@ switch ($op) {
 
         $items = $itemHandler->getObjects($criteria);
 
-        // Display table
+        // Exibir tabela
         echo '<table class="outer">';
         echo '<tr><th>' . _MI_MYMODULE_TITLE . '</th><th>' . _MI_MYMODULE_ACTIONS . '</th></tr>';
 
@@ -341,7 +341,7 @@ switch ($op) {
 
     case 'new':
     case 'edit':
-        // Form handling code...
+        // Código de manipulação de formulário...
         break;
 }
 
@@ -359,11 +359,11 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 
 $adminObject->displayNavigation(basename(__FILE__));
 
-// Set PayPal ID for donations (optional)
+// Definir ID de PayPal para doações (opcional)
 \Xmf\Module\Admin::setPaypal('YOUR_PAYPAL_ID');
 
-// Display about page
-// Pass false to hide XOOPS logo, true to show it
+// Exibir página about
+// Passar false para ocultar logo XOOPS, true para mostrá-lo
 $adminObject->displayAbout(false);
 
 require_once __DIR__ . '/admin_footer.php';
@@ -375,7 +375,7 @@ require_once __DIR__ . '/admin_footer.php';
 <?php
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-// Get icon path using XMF
+// Obter caminho de ícone usando XMF
 $pathIcon32 = '';
 if (class_exists('Xmf\Module\Admin', true)) {
     $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
@@ -397,21 +397,21 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . 'content.png'
 ];
 
-// Categories
+// Categorias
 $adminmenu[] = [
     'title' => _MI_MYMODULE_ADMIN_CATEGORIES,
     'link'  => 'admin/categories.php',
     'icon'  => $pathIcon32 . 'category.png'
 ];
 
-// Permissions
+// Permissões
 $adminmenu[] = [
     'title' => _MI_MYMODULE_ADMIN_PERMISSIONS,
     'link'  => 'admin/permissions.php',
     'icon'  => $pathIcon32 . 'permissions.png'
 ];
 
-// About
+// Sobre
 $adminmenu[] = [
     'title' => _MI_MYMODULE_ADMIN_ABOUT,
     'link'  => 'admin/about.php',
@@ -419,45 +419,45 @@ $adminmenu[] = [
 ];
 ```
 
-## API Reference
+## Referência da API
 
-### Static Methods
+### Métodos Estáticos
 
-| Method | Description |
-|--------|-------------|
-| `getInstance()` | Get admin instance |
-| `iconUrl($name, $size)` | Get icon URL (size: 16 or 32) |
-| `menuIconPath($image)` | Get icon path for menu.php |
-| `setPaypal($paypal)` | Set PayPal ID for about page |
+| Método | Descrição |
+|--------|-----------|
+| `getInstance()` | Obter instância admin |
+| `iconUrl($name, $size)` | Obter URL de ícone (tamanho: 16 ou 32) |
+| `menuIconPath($image)` | Obter caminho de ícone para menu.php |
+| `setPaypal($paypal)` | Definir ID de PayPal para página about |
 
-### Instance Methods
+### Métodos de Instância
 
-| Method | Description |
-|--------|-------------|
-| `displayNavigation($menu)` | Display navigation menu |
-| `renderNavigation($menu)` | Return navigation HTML |
-| `addInfoBox($title)` | Add info box |
-| `addInfoBoxLine($text, $type, $color)` | Add line to info box |
-| `displayInfoBox()` | Display info box |
-| `renderInfoBox()` | Return info box HTML |
-| `addConfigBoxLine($value, $type)` | Add config check line |
-| `addConfigError($value)` | Add error to config box |
-| `addConfigAccept($value)` | Add success to config box |
-| `addConfigWarning($value)` | Add warning to config box |
-| `addConfigModuleVersion($moddir, $version)` | Check module version |
-| `addItemButton($title, $link, $icon, $extra)` | Add action button |
-| `displayButton($position, $delimiter)` | Display buttons |
-| `renderButton($position, $delimiter)` | Return button HTML |
-| `displayIndex()` | Display index page |
-| `renderIndex()` | Return index page HTML |
-| `displayAbout($logo_xoops)` | Display about page |
-| `renderAbout($logo_xoops)` | Return about page HTML |
+| Método | Descrição |
+|--------|-----------|
+| `displayNavigation($menu)` | Exibir menu de navegação |
+| `renderNavigation($menu)` | Retornar HTML de navegação |
+| `addInfoBox($title)` | Adicionar caixa de informação |
+| `addInfoBoxLine($text, $type, $color)` | Adicionar linha à caixa de informação |
+| `displayInfoBox()` | Exibir caixa de informação |
+| `renderInfoBox()` | Retornar HTML de caixa de informação |
+| `addConfigBoxLine($value, $type)` | Adicionar linha de verificação de config |
+| `addConfigError($value)` | Adicionar erro à caixa de config |
+| `addConfigAccept($value)` | Adicionar sucesso à caixa de config |
+| `addConfigWarning($value)` | Adicionar aviso à caixa de config |
+| `addConfigModuleVersion($moddir, $version)` | Verificar versão do módulo |
+| `addItemButton($title, $link, $icon, $extra)` | Adicionar botão de ação |
+| `displayButton($position, $delimiter)` | Exibir botões |
+| `renderButton($position, $delimiter)` | Retornar HTML de botões |
+| `displayIndex()` | Exibir página index |
+| `renderIndex()` | Retornar HTML de página index |
+| `displayAbout($logo_xoops)` | Exibir página about |
+| `renderAbout($logo_xoops)` | Retornar HTML de página about |
 
-## See Also
+## Veja Também
 
-- ../Basics/XMF-Module-Helper - Module helper class
-- Permission-Helper - Permission management
-- ../XMF-Framework - Framework overview
+- ../Basics/XMF-Module-Helper - Classe module helper
+- Permission-Helper - Gerenciamento de permissões
+- ../XMF-Framework - Visão geral do framework
 
 ---
 

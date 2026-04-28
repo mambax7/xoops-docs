@@ -1,44 +1,43 @@
 ---
-title: "Running Upgrade"
+title: "Executando Upgrade"
 ---
 
-Before running the main upgrader, make sure you have completed the [Preflight Check](preflight.md). The upgrade UI requires preflight to be run at least once and will direct you there if you have not.
+Antes de executar o upgrade principal, certifique-se de ter concluído a [Verificação de Pré-voo](preflight.md). A interface do upgrade exige que o pré-voo seja executado pelo menos uma vez e o direcionará lá se você não tiver.
 
-Launch the upgrade by pointing your browser to the _upgrade_ directory of your site:
+Inicie o upgrade apontando seu navegador para o diretório _upgrade_ do seu site:
 
 ```text
 http://example.com/upgrade/
 ```
 
-This should show a page like this:
+Isto deve mostrar uma página assim:
 
-![XOOPS Upgrade Startup](/xoops-docs/2.7/img/installation/upgrade-01.png)
+![Inicialização de Upgrade XOOPS](/xoops-docs/2.7/img/installation/upgrade-01.png)
 
-Select the "Continue" button to proceed.
+Selecione o botão "Continuar" para prosseguir.
 
-Each "Continue" advances through another patch. Keep continuing until all patches are applied, and the System Module Update page is presented.
+Cada "Continuar" avança através de outro patch. Continue até que todos os patches sejam aplicados e a página Atualizar Módulo do Sistema seja apresentada.
 
-![XOOPS Upgrade Applied Patch](/xoops-docs/2.7/img/installation/upgrade-05-applied.png)
+![Patch Aplicado de Upgrade XOOPS](/xoops-docs/2.7/img/installation/upgrade-05-applied.png)
 
-## What the 2.5.11 → 2.7.0 Upgrade Applies
+## O que o Upgrade 2.5.11 → 2.7.0 Aplica
 
-When upgrading from XOOPS 2.5.11 to 2.7.0, the upgrader applies the following patches. Each is presented as a separate step in the wizard so you can confirm what is being changed:
+Ao atualizar do XOOPS 2.5.11 para 2.7.0, o upgrade aplica os seguintes patches. Cada é apresentado como um passo separado no assistente para que você possa confirmar o que está sendo alterado:
 
-1. **Remove obsolete bundled PHPMailer.** The bundled copy of PHPMailer inside the Protector module is deleted. PHPMailer is now supplied through Composer in `xoops_lib/vendor/`.
-2. **Remove obsolete HTMLPurifier folder.** Similarly, the old HTMLPurifier folder inside the Protector module is deleted. HTMLPurifier is now supplied through Composer.
-3. **Create the `tokens` table.** A new `tokens` table is added for generic scoped token storage. The table has columns for token id, user id, scope, hash, and issued/expires/used timestamps, and is used by token-based features in XOOPS 2.7.0.
-4. **Widen `bannerclient.passwd`.** The `bannerclient.passwd` column is widened to `VARCHAR(255)` so it can store modern password hashes (bcrypt, argon2) instead of the legacy narrow column.
-5. **Add session cookie preferences.** Two new preferences are inserted: `session_cookie_samesite` (for the SameSite cookie attribute) and `session_cookie_secure` (to force HTTPS-only cookies). See [After the Upgrade](ustep-04.md) for how to review these after the upgrade completes.
+1. **Remover PHPMailer agrupado obsoleto.** A cópia agrupada do PHPMailer dentro do módulo Protector é deletada. PHPMailer agora é fornecido através do Composer em `xoops_lib/vendor/`.
+2. **Remover pasta HTMLPurifier obsoleta.** Da mesma forma, a pasta HTMLPurifier antiga dentro do módulo Protector é deletada. HTMLPurifier agora é fornecida através do Composer.
+3. **Criar tabela `tokens`.** Uma nova tabela `tokens` é adicionada para armazenamento de token genérico com escopo. A tabela tem colunas para ID de token, ID de usuário, escopo, hash e carimbos de emissão/expiração/uso, e é usada por recursos baseados em token no XOOPS 2.7.0.
+4. **Ampliar `bannerclient.passwd`.** A coluna `bannerclient.passwd` é ampliada para `VARCHAR(255)` para que possa armazenar hashes de senha moderno (bcrypt, argon2) em vez da coluna herdada estreita.
+5. **Adicionar preferências de cookie de sessão.** Duas novas preferências são inseridas: `session_cookie_samesite` (para o atributo SameSite do cookie) e `session_cookie_secure` (para forçar cookies somente HTTPS). Veja [Após o Upgrade](ustep-04.md) para como revisar essas após o upgrade ser concluído.
 
-None of these steps touch your content data. Your users, posts, images, and module data remain untouched.
+Nenhuma dessas etapas toca seus dados de conteúdo. Seus usuários, posts, imagens e dados de módulo permanecem intocados.
 
-## Choosing a Language
+## Escolhendo um Idioma
 
-The main XOOPS distribution comes with English support. Support for additional locales is supplied by [XOOPS Local support sites](https://xoops.org/modules/xoopspartners/). This support can come in the form of a customized distribution, or additional files to add to the main distribution.
+A distribuição principal do XOOPS vem com suporte em inglês. O suporte para locales adicionais é fornecido por [Sites de suporte local XOOPS](https://xoops.org/modules/xoopspartners/). Este suporte pode vir em forma de distribuição personalizada ou arquivos adicionais para adicionar à distribuição principal.
 
-XOOPS translations are maintained on [transifex](https://www.transifex.com/xoops/public/)
+As traduções do XOOPS são mantidas em [transifex](https://www.transifex.com/xoops/public/)
 
-If your XOOPS Upgrader has additional language support, you can change the language by selecting the language icon in the top menus, and choosing a different language.
+Se o Upgrade do XOOPS tiver suporte a idioma adicional, você pode alterar o idioma selecionando o ícone de idioma nos menus superiores e escolhendo um idioma diferente.
 
-![XOOPS Upgrade Language](/xoops-docs/2.7/img/installation/upgrade-02-change-language.png)
-
+![Idioma de Upgrade XOOPS](/xoops-docs/2.7/img/installation/upgrade-02-change-language.png)

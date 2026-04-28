@@ -1,52 +1,52 @@
 ---
-title: "Smarty Templating in XOOPS"
+title: "Sistemas de Template Smarty no XOOPS"
 ---
 
-## Overview
+## Visão Geral
 
-XOOPS uses the Smarty template engine for separating presentation from logic. This guide covers Smarty syntax, XOOPS-specific features, and template best practices.
+XOOPS usa o mecanismo de template Smarty para separar apresentação da lógica. Este guia cobre sintaxe Smarty, recursos específicos do XOOPS e boas práticas de template.
 
-## Basic Syntax
+## Sintaxe Básica
 
-### Variables
+### Variáveis
 
 ```smarty
-{* Scalar variables *}
+{* Variáveis escalares *}
 <{$variable}>
 <{$article.title}>
 <{$user->getUsername()}>
 
-{* Array access *}
+{* Acesso a array *}
 <{$items[0]}>
 <{$config['setting']}>
 
-{* Default values *}
+{* Valores padrão *}
 <{$title|default:'Untitled'}>
 ```
 
-### Modifiers
+### Modificadores
 
 ```smarty
-{* Text transformations *}
+{* Transformações de texto *}
 <{$text|upper}>
 <{$text|lower}>
 <{$text|capitalize}>
 <{$text|truncate:100:'...'}>
 
-{* HTML handling *}
+{* Manipulação HTML *}
 <{$content|strip_tags}>
 <{$html|escape:'html'}>
 <{$url|escape:'url'}>
 
-{* Date formatting *}
+{* Formatação de data *}
 <{$timestamp|date_format:'%Y-%m-%d'}>
 <{$date|date_format:$xoops_config.dateformat}>
 
-{* Chaining modifiers *}
+{* Encadeamento de modificadores *}
 <{$text|strip_tags|truncate:50|escape}>
 ```
 
-### Conditionals
+### Condicionais
 
 ```smarty
 {* If/else *}
@@ -58,12 +58,12 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
     Unknown state.
 <{/if}>
 
-{* Comparisons *}
+{* Comparações *}
 <{if $count > 0}>
 <{if $status == 'published'}>
 <{if $items|@count >= 5}>
 
-{* Logical operators *}
+{* Operadores lógicos *}
 <{if $is_admin && $can_edit}>
 <{if $type == 'news' || $type == 'article'}>
 <{if !$is_hidden}>
@@ -72,17 +72,17 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 ### Loops
 
 ```smarty
-{* Foreach with items *}
+{* Foreach com items *}
 <{foreach item=article from=$articles}>
     <h2><{$article.title}></h2>
 <{/foreach}>
 
-{* With key *}
+{* Com chave *}
 <{foreach key=id item=value from=$items}>
     <{$id}>: <{$value}>
 <{/foreach}>
 
-{* With iteration info *}
+{* Com informações de iteração *}
 <{foreach item=item from=$items name=itemloop}>
     <{$smarty.foreach.itemloop.index}>
     <{$smarty.foreach.itemloop.iteration}>
@@ -90,7 +90,7 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
     <{$smarty.foreach.itemloop.last}>
 <{/foreach}>
 
-{* Foreachelse for empty arrays *}
+{* Foreachelse para arrays vazios *}
 <{foreach item=item from=$items}>
     <{$item.name}>
 <{foreachelse}>
@@ -98,7 +98,7 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 <{/foreach}>
 ```
 
-### Sections (Legacy)
+### Sections (Legado)
 
 ```smarty
 <{section name=i loop=$items}>
@@ -106,24 +106,24 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 <{/section}>
 ```
 
-## XOOPS-Specific Features
+## Recursos Específicos do XOOPS
 
-### Global Variables
+### Variáveis Globais
 
 ```smarty
-{* Site info *}
+{* Informações do site *}
 <{$xoops_sitename}>
 <{$xoops_url}>
 <{$xoops_rootpath}>
 <{$xoops_theme}>
 
-{* User info *}
+{* Informações do usuário *}
 <{$xoops_isuser}>
 <{$xoops_isadmin}>
 <{$xoops_userid}>
 <{$xoops_uname}>
 
-{* Module info *}
+{* Informações do módulo *}
 <{$xoops_dirname}>
 <{$xoops_pagetitle}>
 
@@ -132,26 +132,26 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 <{$xoops_meta_description}>
 ```
 
-### Including Files
+### Incluindo Arquivos
 
 ```smarty
-{* Include from theme *}
+{* Incluir do tema *}
 <{include file="theme:header.html"}>
 
-{* Include from module *}
+{* Incluir do módulo *}
 <{include file="db:modulename_partial.tpl"}>
 
-{* Include with variables *}
+{* Incluir com variáveis *}
 <{include file="db:mymodule_item.tpl" item=$article}>
 
-{* Include from file system *}
+{* Incluir do sistema de arquivos *}
 <{include file="$xoops_rootpath/modules/mymodule/templates/partial.tpl"}>
 ```
 
-### Block Display
+### Exibição de Blocos
 
 ```smarty
-{* In theme.html *}
+{* No theme.html *}
 <{foreach item=block from=$xoops_lblocks}>
     <div class="block">
         <{if $block.title}>
@@ -162,10 +162,10 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 <{/foreach}>
 ```
 
-### Form Integration
+### Integração de Formulário
 
 ```smarty
-{* XoopsForm rendering *}
+{* Renderização de XoopsForm *}
 <{$form.javascript}>
 <form action="<{$form.action}>" method="<{$form.method}>">
     <{foreach item=element from=$form.elements}>
@@ -180,9 +180,9 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 </form>
 ```
 
-## Custom Functions
+## Funções Personalizadas
 
-### Registered by XOOPS
+### Registradas pelo XOOPS
 
 ```smarty
 {* XoopsFormLoader *}
@@ -191,11 +191,11 @@ XOOPS uses the Smarty template engine for separating presentation from logic. Th
 {* Breadcrumb *}
 <{xoBreadcrumb}>
 
-{* Module menu *}
+{* Menu do módulo *}
 <{xoModuleMenu}>
 ```
 
-### Custom Plugins
+### Plugins Personalizados
 
 ```php
 // include/smarty_plugins/function.myfunction.php
@@ -210,9 +210,9 @@ function smarty_function_myfunction($params, $smarty)
 <{myfunction name="XOOPS"}>
 ```
 
-## Template Organization
+## Organização de Template
 
-### Recommended Structure
+### Estrutura Recomendada
 
 ```
 templates/
@@ -249,49 +249,49 @@ templates/
     <{/if}>
 </nav>
 
-{* Usage *}
+{* Uso *}
 <{include file="db:mymodule_pagination.tpl" page=$current_page total_pages=$pages base_url=$url}>
 ```
 
 ## Performance
 
-### Caching
+### Cache
 
 ```php
-// In PHP
+// Em PHP
 $xoopsTpl->caching = 1;
-$xoopsTpl->cache_lifetime = 3600; // 1 hour
+$xoopsTpl->cache_lifetime = 3600; // 1 hora
 
-// Check if cached
+// Verificar se está em cache
 if (!$xoopsTpl->is_cached('mymodule_index.tpl')) {
-    // Fetch data only if not cached
+    // Buscar dados apenas se não estiver em cache
     $items = $handler->getObjects();
     $xoopsTpl->assign('items', $items);
 }
 ```
 
-### Clear Cache
+### Limpar Cache
 
 ```php
-// Clear specific template
+// Limpar template específico
 $xoopsTpl->clear_cache('mymodule_index.tpl');
 
-// Clear all module templates
+// Limpar todos os templates do módulo
 $xoopsTpl->clear_all_cache();
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Escape Output** - Always escape user-generated content
-2. **Use Modifiers** - Apply appropriate transformations
-3. **Keep Logic Minimal** - Complex logic belongs in PHP
-4. **Use Partials** - Reuse common template fragments
-5. **Semantic HTML** - Use proper HTML5 elements
-6. **Accessibility** - Include ARIA attributes where needed
+1. **Escapar Saída** - Sempre escapar conteúdo gerado pelo usuário
+2. **Usar Modificadores** - Aplicar transformações apropriadas
+3. **Manter Lógica Minimal** - Lógica complexa pertence ao PHP
+4. **Usar Partials** - Reutilizar fragmentos de template comuns
+5. **HTML Semântico** - Usar elementos HTML5 apropriados
+6. **Acessibilidade** - Incluir atributos ARIA quando necessário
 
-## Related Documentation
+## Documentação Relacionada
 
-- Theme-Development - Theme creation
-- ../../04-API-Reference/Template/Template-System - XOOPS template API
-- ../../03-Module-Development/Block-Development - Block templates
-- ../Forms/Form-Elements - Form rendering
+- Theme-Development - Criação de tema
+- ../../04-API-Reference/Template/Template-System - API de template XOOPS
+- ../../03-Module-Development/Block-Development - Templates de bloco
+- ../Forms/Form-Elements - Renderização de formulário

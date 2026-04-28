@@ -1,608 +1,608 @@
 ---
-title: "Installing Modules"
-description: "Complete guide to finding, installing, configuring, and managing XOOPS modules, plus module lifecycle"
+title: "Instalando Módulos"
+description: "Guia completo para encontrar, instalar, configurar e gerenciar módulos XOOPS, mais ciclo de vida de módulo"
 ---
 
-# Installing and Managing XOOPS Modules
+# Instalando e Gerenciando Módulos XOOPS
 
-Learn how to extend XOOPS functionality by installing and configuring modules.
+Aprenda como estender a funcionalidade do XOOPS instalando e configurando módulos.
 
-## Understanding XOOPS Modules
+## Entendendo Módulos XOOPS
 
-### What are Modules?
+### O que são Módulos?
 
-Modules are extensions that add functionality to XOOPS:
+Módulos são extensões que adicionam funcionalidade ao XOOPS:
 
-| Type | Purpose | Examples |
+| Tipo | Finalidade | Exemplos |
 |---|---|---|
-| **Content** | Manage specific content types | News, Blog, Tickets |
-| **Community** | User interaction | Forum, Comments, Reviews |
-| **eCommerce** | Selling products | Shop, Cart, Payments |
-| **Media** | Handle files/images | Gallery, Downloads, Videos |
-| **Utility** | Tools and helpers | Email, Backup, Analytics |
+| **Conteúdo** | Gerenciar tipos de conteúdo específicos | Notícias, Blog, Tickets |
+| **Comunidade** | Interação de usuários | Forum, Comentários, Avaliações |
+| **eCommerce** | Venda de produtos | Shop, Carrinho, Pagamentos |
+| **Mídia** | Lidar com arquivos/imagens | Galeria, Downloads, Vídeos |
+| **Utilitário** | Ferramentas e ajudantes | Email, Backup, Análise |
 
-### Core vs. Optional Modules
+### Módulos Principais vs. Opcionais
 
-| Module | Type | Included | Removable |
+| Módulo | Tipo | Incluído | Removível |
 |---|---|---|---|
-| **System** | Core | Yes | No |
-| **User** | Core | Yes | No |
-| **Profile** | Recommended | Yes | Yes |
-| **PM (Private Message)** | Recommended | Yes | Yes |
-| **WF-Channel** | Optional | Often | Yes |
-| **News** | Optional | No | Yes |
-| **Forum** | Optional | No | Yes |
+| **Sistema** | Principal | Sim | Não |
+| **Usuário** | Principal | Sim | Não |
+| **Perfil** | Recomendado | Sim | Sim |
+| **PM (Mensagem Privada)** | Recomendado | Sim | Sim |
+| **WF-Channel** | Opcional | Muitas vezes | Sim |
+| **Notícias** | Opcional | Não | Sim |
+| **Forum** | Opcional | Não | Sim |
 
-## Module Lifecycle
+## Ciclo de Vida do Módulo
 
 ```mermaid
 graph LR
-    A[Find Module] --> B[Download]
-    B --> C[Extract]
-    C --> D[Install]
-    D --> E[Configure]
-    E --> F[Use]
-    F --> G{Maintain?}
-    G -->|Yes| H[Update]
-    G -->|No| I[Disable]
-    I --> J[Remove]
+    A[Encontrar Módulo] --> B[Download]
+    B --> C[Extrair]
+    C --> D[Instalar]
+    D --> E[Configurar]
+    E --> F[Usar]
+    F --> G{Manter?}
+    G -->|Sim| H[Atualizar]
+    G -->|Não| I[Desativar]
+    I --> J[Remover]
     H --> E
 ```
 
-## Finding Modules
+## Encontrando Módulos
 
-### XOOPS Module Repository
+### Repositório de Módulos XOOPS
 
-Official XOOPS module repository:
+Repositório oficial de módulos XOOPS:
 
-**Visit:** https://xoops.org/modules/repository/
+**Visite:** https://xoops.org/modules/repository/
 
 ```
-Directory > Modules > [Browse Categories]
+Diretório > Módulos > [Procurar Categorias]
 ```
 
-Browse by category:
-- Content Management
-- Community
+Procure por categoria:
+- Gerenciamento de Conteúdo
+- Comunidade
 - eCommerce
-- Multimedia
-- Development
-- Site Administration
+- Multimídia
+- Desenvolvimento
+- Administração de Site
 
-### Evaluating Modules
+### Avaliando Módulos
 
-Before installing, check:
+Antes de instalar, verifique:
 
-| Criteria | What to Look For |
+| Critério | O que Procurar |
 |---|---|
-| **Compatibility** | Works with your XOOPS version |
-| **Rating** | Good user reviews and ratings |
-| **Updates** | Recently maintained |
-| **Downloads** | Popular and widely used |
-| **Requirements** | Compatible with your server |
-| **License** | GPL or similar open source |
-| **Support** | Active developer and community |
+| **Compatibilidade** | Funciona com sua versão XOOPS |
+| **Avaliação** | Boas avaliações e comentários de usuários |
+| **Atualizações** | Mantido recentemente |
+| **Downloads** | Popular e amplamente utilizado |
+| **Requisitos** | Compatível com seu servidor |
+| **Licença** | GPL ou licença de código aberto similar |
+| **Suporte** | Desenvolvedor e comunidade ativos |
 
-### Read Module Information
+### Leia Informações do Módulo
 
-Each module listing shows:
-
-```
-Module Name: [Name]
-Version: [X.X.X]
-Requires: XOOPS [Version]
-Author: [Name]
-Last Update: [Date]
-Downloads: [Number]
-Rating: [Stars]
-Description: [Brief description]
-Compatibility: PHP [Version], MySQL [Version]
-```
-
-## Installing Modules
-
-### Method 1: Admin Panel Installation
-
-**Step 1: Access Modules Section**
-
-1. Log in to admin panel
-2. Navigate to **Modules > Modules**
-3. Click **"Install New Module"** or **"Browse Modules"**
-
-**Step 2: Upload Module**
-
-Option A - Direct Upload:
-1. Click **"Choose File"**
-2. Select module .zip file from computer
-3. Click **"Upload"**
-
-Option B - URL Upload:
-1. Paste module URL
-2. Click **"Download and Install"**
-
-**Step 3: Review Module Info**
+Cada listagem de módulo mostra:
 
 ```
-Module Name: [Name shown]
-Version: [Version]
-Author: [Author info]
-Description: [Full description]
-Requirements: [PHP/MySQL versions]
+Nome do Módulo: [Nome]
+Versão: [X.X.X]
+Requer: XOOPS [Versão]
+Autor: [Nome]
+Última Atualização: [Data]
+Downloads: [Número]
+Avaliação: [Estrelas]
+Descrição: [Descrição breve]
+Compatibilidade: PHP [Versão], MySQL [Versão]
 ```
 
-Review and click **"Proceed with Installation"**
+## Instalando Módulos
 
-**Step 4: Choose Install Type**
+### Método 1: Instalação do Painel de Administrador
 
-```
-☐ Fresh Install (New installation)
-☐ Update (Upgrade existing)
-☐ Delete Then Install (Replace existing)
-```
+**Etapa 1: Acessar Seção de Módulos**
 
-Select appropriate option.
+1. Faça login no painel de administrador
+2. Navegue para **Módulos > Módulos**
+3. Clique em **"Instalar Novo Módulo"** ou **"Procurar Módulos"**
 
-**Step 5: Confirm Installation**
+**Etapa 2: Upload de Módulo**
 
-Review final confirmation:
-```
-Module will be installed to: /modules/modulename/
-Database: xoops_db
-Proceed? [Yes] [No]
-```
+Opção A - Upload Direto:
+1. Clique em **"Escolher Arquivo"**
+2. Selecione arquivo .zip do módulo do computador
+3. Clique em **"Upload"**
 
-Click **"Yes"** to confirm.
+Opção B - Upload de URL:
+1. Cole URL do módulo
+2. Clique em **"Download e Instalar"**
 
-**Step 6: Installation Complete**
+**Etapa 3: Revisar Informações do Módulo**
 
 ```
-Installation successful!
-
-Module: [Module Name]
-Version: [Version]
-Tables created: [Number]
-Files installed: [Number]
-
-[Go to Module Settings]  [Return to Modules]
+Nome do Módulo: [Nome mostrado]
+Versão: [Versão]
+Autor: [Informações do autor]
+Descrição: [Descrição completa]
+Requisitos: [Versões PHP/MySQL]
 ```
 
-### Method 2: Manual Installation (Advanced)
+Revise e clique em **"Prosseguir com Instalação"**
 
-For manual installation or troubleshooting:
+**Etapa 4: Escolher Tipo de Instalação**
 
-**Step 1: Download Module**
+```
+☐ Instalação Nova (Nova instalação)
+☐ Atualizar (Atualizar existente)
+☐ Deletar Depois Instalar (Substituir existente)
+```
 
-1. Download module .zip from repository
-2. Extract to `/var/www/html/xoops/modules/modulename/`
+Selecione opção apropriada.
+
+**Etapa 5: Confirmar Instalação**
+
+Revise confirmação final:
+```
+Módulo será instalado em: /modules/modulename/
+Banco de Dados: xoops_db
+Prosseguir? [Sim] [Não]
+```
+
+Clique em **"Sim"** para confirmar.
+
+**Etapa 6: Instalação Completa**
+
+```
+Instalação bem-sucedida!
+
+Módulo: [Nome do Módulo]
+Versão: [Versão]
+Tabelas criadas: [Número]
+Arquivos instalados: [Número]
+
+[Ir para Configurações de Módulo]  [Voltar aos Módulos]
+```
+
+### Método 2: Instalação Manual (Avançado)
+
+Para instalação manual ou solução de problemas:
+
+**Etapa 1: Download de Módulo**
+
+1. Download módulo .zip do repositório
+2. Extrair para `/var/www/html/xoops/modules/modulename/`
 
 ```bash
-# Extract module
+# Extrair módulo
 unzip module_name.zip
 cp -r module_name /var/www/html/xoops/modules/
 
-# Set permissions
+# Definir permissões
 chmod -R 755 /var/www/html/xoops/modules/module_name
 ```
 
-**Step 2: Run Installation Script**
+**Etapa 2: Executar Script de Instalação**
 
 ```
-Visit: http://your-domain.com/xoops/modules/module_name/admin/index.php?op=install
+Visite: http://seu-dominio.com/xoops/modules/module_name/admin/index.php?op=install
 ```
 
-Or through admin panel (System > Modules > Update DB).
+Ou através do painel de administrador (Sistema > Módulos > Atualizar DB).
 
-**Step 3: Verify Installation**
+**Etapa 3: Verificar Instalação**
 
-1. Go to **Modules > Modules** in admin
-2. Look for your module in list
-3. Verify it shows as "Active"
+1. Vá para **Módulos > Módulos** no admin
+2. Procure seu módulo na lista
+3. Verifique se mostra como "Ativo"
 
-## Module Configuration
+## Configuração de Módulo
 
-### Access Module Settings
+### Acessar Configurações de Módulo
 
-1. Go to **Modules > Modules**
-2. Find your module
-3. Click on module name
-4. Click **"Preferences"** or **"Settings"**
+1. Vá para **Módulos > Módulos**
+2. Encontre seu módulo
+3. Clique no nome do módulo
+4. Clique em **"Preferências"** ou **"Configurações"**
 
-### Common Module Settings
+### Configurações Comuns de Módulo
 
-Most modules offer:
+A maioria dos módulos oferece:
 
 ```
-Module Status: [Enabled/Disabled]
-Display in Menu: [Yes/No]
-Module Weight: [1-999] (display order)
-Visible To Groups: [Checkboxes for user groups]
+Status do Módulo: [Ativado/Desativado]
+Exibir no Menu: [Sim/Não]
+Peso do Módulo: [1-999] (ordem de exibição)
+Visível para Grupos: [Caixas de seleção para grupos de usuários]
 ```
 
-### Module-Specific Options
+### Opções Específicas do Módulo
 
-Each module has unique settings. Examples:
+Cada módulo tem configurações exclusivas. Exemplos:
 
-**News Module:**
+**Módulo de Notícias:**
 ```
-Items Per Page: 10
-Show Author: Yes
-Allow Comments: Yes
-Moderation Required: Yes
-```
-
-**Forum Module:**
-```
-Topics Per Page: 20
-Posts Per Page: 15
-Maximum Attachment Size: 5MB
-Enable Signatures: Yes
+Itens Por Página: 10
+Mostrar Autor: Sim
+Permitir Comentários: Sim
+Moderação Obrigatória: Sim
 ```
 
-**Gallery Module:**
+**Módulo de Forum:**
 ```
-Images Per Page: 12
-Thumbnail Size: 150x150
-Maximum Upload: 10MB
-Watermark: Yes/No
+Tópicos Por Página: 20
+Posts Por Página: 15
+Tamanho Máximo de Anexo: 5MB
+Habilitar Assinaturas: Sim
 ```
 
-Review your module documentation for specific options.
+**Módulo de Galeria:**
+```
+Imagens Por Página: 12
+Tamanho de Miniatura: 150x150
+Upload Máximo: 10MB
+Marca de Água: Sim/Não
+```
 
-### Save Configuration
+Revise a documentação do seu módulo para opções específicas.
 
-After adjusting settings:
+### Salvar Configuração
 
-1. Click **"Submit"** or **"Save"**
-2. You'll see confirmation:
+Após ajustar configurações:
+
+1. Clique em **"Enviar"** ou **"Salvar"**
+2. Você verá confirmação:
    ```
-   Settings saved successfully!
+   Configurações salvas com sucesso!
    ```
 
-## Managing Module Blocks
+## Gerenciando Blocos de Módulo
 
-Many modules create "blocks" - widget-like content areas.
+Muitos módulos criam "blocos" - áreas de conteúdo tipo widget.
 
-### View Module Blocks
+### Ver Blocos de Módulo
 
-1. Go to **Appearance > Blocks**
-2. Look for blocks from your module
-3. Most modules show "[Module Name] - [Block Description]"
+1. Vá para **Aparência > Blocos**
+2. Procure blocos do seu módulo
+3. A maioria dos módulos mostra "[Nome do Módulo] - [Descrição do Bloco]"
 
-### Configure Blocks
+### Configurar Blocos
 
-1. Click on block name
-2. Adjust:
-   - Block title
-   - Visibility (all pages or specific)
-   - Position on page (left, center, right)
-   - User groups who can see
-3. Click **"Submit"**
+1. Clique no nome do bloco
+2. Ajuste:
+   - Título do bloco
+   - Visibilidade (todas as páginas ou específicas)
+   - Posição na página (esquerda, centro, direita)
+   - Grupos de usuários que podem ver
+3. Clique em **"Enviar"**
 
-### Display Block on Homepage
+### Exibir Bloco na Homepage
 
-1. Go to **Appearance > Blocks**
-2. Find the block you want
-3. Click **"Edit"**
-4. Set:
-   - **Visible to:** Select groups
-   - **Position:** Choose column (left/center/right)
-   - **Pages:** Homepage or all pages
-5. Click **"Submit"**
+1. Vá para **Aparência > Blocos**
+2. Encontre o bloco que deseja
+3. Clique em **"Editar"**
+4. Defina:
+   - **Visível para:** Selecione grupos
+   - **Posição:** Escolha coluna (esquerda/centro/direita)
+   - **Páginas:** Homepage ou todas as páginas
+5. Clique em **"Enviar"**
 
-## Installing Specific Module Examples
+## Instalando Exemplos de Módulo Específico
 
-### Installing News Module
+### Instalando Módulo de Notícias
 
-**Perfect for:** Blog posts, announcements
+**Perfeito para:** Posts de blog, comunicados
 
-1. Download News module from repository
-2. Upload via **Modules > Modules > Install**
-3. Configure in **Modules > News > Preferences**:
-   - Stories per page: 10
-   - Allow comments: Yes
-   - Approve before publishing: Yes
-4. Create blocks for latest news
-5. Start publishing stories!
+1. Download módulo de Notícias do repositório
+2. Upload via **Módulos > Módulos > Instalar**
+3. Configure em **Módulos > Notícias > Preferências**:
+   - Histórias por página: 10
+   - Permitir comentários: Sim
+   - Aprovar antes de publicar: Sim
+4. Crie blocos para últimas notícias
+5. Comece a publicar histórias!
 
-### Installing Forum Module
+### Instalando Módulo de Forum
 
-**Perfect for:** Community discussion
+**Perfeito para:** Discussão da comunidade
 
-1. Download Forum module
-2. Install via admin panel
-3. Create forum categories in module
-4. Configure settings:
-   - Topics/page: 20
-   - Posts/page: 15
-   - Enable moderation: Yes
-5. Assign user groups permissions
-6. Create blocks for latest topics
+1. Download módulo de Forum
+2. Instale via painel de administrador
+3. Crie categorias de forum no módulo
+4. Configure configurações:
+   - Tópicos/página: 20
+   - Posts/página: 15
+   - Habilitar moderação: Sim
+5. Atribua permissões de grupos de usuários
+6. Crie blocos para tópicos mais recentes
 
-### Installing Gallery Module
+### Instalando Módulo de Galeria
 
-**Perfect for:** Image showcase
+**Perfeito para:** Vitrine de imagem
 
-1. Download Gallery module
-2. Install and configure
-3. Create photo albums
-4. Upload images
-5. Set permissions for viewing/uploading
-6. Display gallery on website
+1. Download módulo de Galeria
+2. Instale e configure
+3. Crie álbuns de fotos
+4. Faça upload de imagens
+5. Defina permissões para visualização/upload
+6. Exiba galeria no site
 
-## Updating Modules
+## Atualizando Módulos
 
-### Check for Updates
-
-```
-Admin Panel > Modules > Modules > Check for Updates
-```
-
-This shows:
-- Available module updates
-- Current vs. new version
-- Changelog/release notes
-
-### Update a Module
-
-1. Go to **Modules > Modules**
-2. Click module with available update
-3. Click **"Update"** button
-4. Select **"Update" from Install Type**
-5. Follow installation wizard
-6. Module updated!
-
-### Important Update Notes
-
-Before updating:
-
-- [ ] Backup database
-- [ ] Backup module files
-- [ ] Review changelog
-- [ ] Test on staging server first
-- [ ] Note any custom modifications
-
-After updating:
-- [ ] Verify functionality
-- [ ] Check module settings
-- [ ] Review for warnings/errors
-- [ ] Clear cache
-
-## Module Permissions
-
-### Assign User Group Access
-
-Control which user groups can access modules:
-
-**Location:** System > Permissions
-
-For each module, configure:
+### Verificar Atualizações
 
 ```
-Module: [Module Name]
-
-Admin Access: [Select groups]
-User Access: [Select groups]
-Read Permission: [Groups allowed to view]
-Write Permission: [Groups allowed to post]
-Delete Permission: [Administrators only]
+Painel de Administrador > Módulos > Módulos > Verificar Atualizações
 ```
 
-### Common Permission Levels
+Isto mostra:
+- Atualizações de módulo disponíveis
+- Versão atual vs. nova versão
+- Notas de lançamento/changelog
+
+### Atualizar um Módulo
+
+1. Vá para **Módulos > Módulos**
+2. Clique no módulo com atualização disponível
+3. Clique no botão **"Atualizar"**
+4. Selecione **"Atualizar"** a partir do tipo de instalação
+5. Siga o assistente de instalação
+6. Módulo atualizado!
+
+### Notas Importantes de Atualização
+
+Antes de atualizar:
+
+- [ ] Backup do banco de dados
+- [ ] Backup dos arquivos do módulo
+- [ ] Revise changelog
+- [ ] Teste no servidor de staging primeiro
+- [ ] Anote quaisquer modificações personalizadas
+
+Depois de atualizar:
+- [ ] Verifique funcionalidade
+- [ ] Verifique configurações de módulo
+- [ ] Revise avisos/erros
+- [ ] Limpe cache
+
+## Permissões de Módulo
+
+### Atribuir Acesso de Grupo de Usuários
+
+Controle quais grupos de usuários podem acessar módulos:
+
+**Local:** Sistema > Permissões
+
+Para cada módulo, configure:
 
 ```
-Public Content (News, Pages):
-├── Admin Access: Webmaster
-├── User Access: All logged-in users
-└── Read Permission: Everyone
+Módulo: [Nome do Módulo]
 
-Community Features (Forum, Comments):
-├── Admin Access: Webmaster, Moderators
-├── User Access: All logged-in users
-└── Write Permission: All logged-in users
-
-Admin Tools:
-├── Admin Access: Webmaster only
-└── User Access: Disabled
+Acesso de Administrador: [Selecionar grupos]
+Acesso de Usuário: [Selecionar grupos]
+Permissão de Leitura: [Grupos permitidos para visualizar]
+Permissão de Escrita: [Grupos permitidos para postar]
+Permissão de Exclusão: [Apenas administradores]
 ```
 
-## Disabling and Removing Modules
+### Níveis Comuns de Permissão
 
-### Disable Module (Keep Files)
-
-Keep module but hide from site:
-
-1. Go to **Modules > Modules**
-2. Find module
-3. Click module name
-4. Click **"Disable"** or set status to Inactive
-5. Module hidden but data preserved
-
-Re-enable anytime:
-1. Click module
-2. Click **"Enable"**
-
-### Remove Module Completely
-
-Delete module and its data:
-
-1. Go to **Modules > Modules**
-2. Find module
-3. Click **"Uninstall"** or **"Delete"**
-4. Confirm: "Delete module and all data?"
-5. Click **"Yes"** to confirm
-
-**Warning:** Uninstalling deletes all module data!
-
-### Reinstall After Uninstall
-
-If you uninstall a module:
-- Module files deleted
-- Database tables deleted
-- All data lost
-- Must reinstall to use again
-- Can restore from backup
-
-## Troubleshooting Module Installation
-
-### Module Not Appearing After Install
-
-**Symptom:** Module listed but not visible on site
-
-**Solution:**
 ```
-1. Check module is "Active" (Modules > Modules)
-2. Enable module blocks (Appearance > Blocks)
-3. Verify user permissions (System > Permissions)
-4. Clear cache (System > Tools > Clear Cache)
-5. Check .htaccess doesn't block module
+Conteúdo Público (Notícias, Páginas):
+├── Acesso de Administrador: Webmaster
+├── Acesso de Usuário: Todos os usuários conectados
+└── Permissão de Leitura: Todos
+
+Recursos da Comunidade (Forum, Comentários):
+├── Acesso de Administrador: Webmaster, Moderadores
+├── Acesso de Usuário: Todos os usuários conectados
+└── Permissão de Escrita: Todos os usuários conectados
+
+Ferramentas de Administrador:
+├── Acesso de Administrador: Apenas Webmaster
+└── Acesso de Usuário: Desativado
 ```
 
-### Installation Error: "Table Already Exists"
+## Desativando e Removendo Módulos
 
-**Symptom:** Error during module installation
+### Desativar Módulo (Manter Arquivos)
 
-**Solution:**
+Mantenha módulo mas oculte do site:
+
+1. Vá para **Módulos > Módulos**
+2. Encontre módulo
+3. Clique no nome do módulo
+4. Clique em **"Desativar"** ou defina status como Inativo
+5. Módulo oculto mas dados preservados
+
+Reativar a qualquer momento:
+1. Clique no módulo
+2. Clique em **"Ativar"**
+
+### Remover Módulo Completamente
+
+Delete módulo e seus dados:
+
+1. Vá para **Módulos > Módulos**
+2. Encontre módulo
+3. Clique em **"Desinstalar"** ou **"Deletar"**
+4. Confirme: "Deletar módulo e todos os dados?"
+5. Clique em **"Sim"** para confirmar
+
+**Aviso:** Desinstalar deleta todos os dados do módulo!
+
+### Reinstalar Após Desinstalar
+
+Se você desinstalar um módulo:
+- Arquivos do módulo deletados
+- Tabelas do banco de dados deletadas
+- Todos os dados perdidos
+- Deve reinstalar para usar novamente
+- Pode restaurar do backup
+
+## Solução de Problemas de Instalação de Módulo
+
+### Módulo Não Aparecendo Após Instalação
+
+**Sintoma:** Módulo listado mas não visível no site
+
+**Solução:**
 ```
-1. Module partially installed before
-2. Try "Delete then Install" option
-3. Or uninstall first, then install fresh
-4. Check database for existing tables:
+1. Verifique se módulo está "Ativo" (Módulos > Módulos)
+2. Ativar blocos de módulo (Aparência > Blocos)
+3. Verifique permissões de usuário (Sistema > Permissões)
+4. Limpe cache (Sistema > Ferramentas > Limpar Cache)
+5. Verifique se .htaccess não bloqueia módulo
+```
+
+### Erro de Instalação: "Tabela Já Existe"
+
+**Sintoma:** Erro durante instalação de módulo
+
+**Solução:**
+```
+1. Módulo parcialmente instalado antes
+2. Tente opção "Deletar Depois Instalar"
+3. Ou desinstale primeiro, depois instale novo
+4. Verifique banco de dados para tabelas existentes:
    mysql> SHOW TABLES LIKE 'xoops_module%';
 ```
 
-### Module Missing Dependencies
+### Módulo Faltando Dependências
 
-**Symptom:** Module won't install - requires other module
+**Sintoma:** Módulo não se instala - requer outro módulo
 
-**Solution:**
+**Solução:**
 ```
-1. Note required modules from error message
-2. Install required modules first
-3. Then install the module
-4. Install in correct order
+1. Observe módulos necessários da mensagem de erro
+2. Instale módulos necessários primeiro
+3. Depois instale o módulo
+4. Instale na ordem correta
 ```
 
-### Blank Page When Accessing Module
+### Página em Branco Ao Acessar Módulo
 
-**Symptom:** Module loads but shows nothing
+**Sintoma:** Módulo carrega mas não mostra nada
 
-**Solution:**
+**Solução:**
 ```
-1. Enable debug mode in mainfile.php:
+1. Ativar modo de depuração em mainfile.php:
    define('XOOPS_DEBUG', 1);
 
-2. Check PHP error log:
+2. Verifique log de erro PHP:
    tail -f /var/log/php_errors.log
 
-3. Verify file permissions:
+3. Verifique permissões de arquivo:
    chmod -R 755 /var/www/html/xoops/modules/modulename
 
-4. Check database connection in module config
+4. Verifique conexão com banco de dados na configuração do módulo
 
-5. Disable module and reinstall
+5. Desativar módulo e reinstalar
 ```
 
-### Module Breaks Site
+### Módulo Quebra o Site
 
-**Symptom:** Installing module breaks website
+**Sintoma:** Instalar módulo quebra site
 
-**Solution:**
+**Solução:**
 ```
-1. Disable the problematic module immediately:
-   Admin > Modules > [Module] > Disable
+1. Desativar o módulo problemático imediatamente:
+   Admin > Módulos > [Módulo] > Desativar
 
-2. Clear cache:
+2. Limpe cache:
    rm -rf /var/www/html/xoops/cache/*
    rm -rf /var/www/html/xoops/templates_c/*
 
-3. Restore from backup if needed
+3. Restaurar do backup se necessário
 
-4. Check error logs for root cause
+4. Verifique logs de erro para causa raiz
 
-5. Contact module developer
+5. Entre em contato com desenvolvedor de módulo
 ```
 
-## Module Security Considerations
+## Considerações de Segurança de Módulo
 
-### Only Install from Trusted Sources
-
-```
-✓ Official XOOPS Repository
-✓ GitHub official XOOPS modules
-✓ Trusted module developers
-✗ Unknown websites
-✗ Unverified sources
-```
-
-### Check Module Permissions
-
-After installation:
-
-1. Review module code for suspicious activity
-2. Check database tables for anomalies
-3. Monitor file changes
-4. Keep modules updated
-5. Remove unused modules
-
-### Permissions Best Practice
+### Instale Apenas de Fontes Confiáveis
 
 ```
-Module directory: 755 (readable, not writable by web server)
-Module files: 644 (readable only)
-Module data: Protected by database
+✓ Repositório Oficial XOOPS
+✓ Módulos GitHub oficial XOOPS
+✓ Desenvolvedores de módulo confiáveis
+✗ Sites desconhecidos
+✗ Fontes não verificadas
 ```
 
-## Module Development Resources
+### Verifique Permissões de Módulo
 
-### Learn Module Development
+Após instalação:
 
-- Official Documentation: https://xoops.org/
-- GitHub Repository: https://github.com/XOOPS/
-- Community Forum: https://xoops.org/modules/newbb/
-- Developer Guide: Available in docs folder
+1. Revise código do módulo para atividade suspeita
+2. Verifique tabelas do banco de dados para anomalias
+3. Monitore alterações de arquivo
+4. Mantenha módulos atualizados
+5. Remova módulos não utilizados
 
-## Best Practices for Modules
+### Práticas Recomendadas de Permissões
 
-1. **Install One at a Time:** Monitor for conflicts
-2. **Test After Install:** Verify functionality
-3. **Document Custom Config:** Note your settings
-4. **Keep Updated:** Install module updates promptly
-5. **Remove Unused:** Delete modules not needed
-6. **Backup Before:** Always backup before installing
-7. **Read Documentation:** Check module instructions
-8. **Join Community:** Ask for help if needed
+```
+Diretório de módulo: 755 (legível, não gravável por servidor web)
+Arquivos de módulo: 644 (apenas leitura)
+Dados de módulo: Protegido por banco de dados
+```
 
-## Module Installation Checklist
+## Recursos de Desenvolvimento de Módulo
 
-For each module installation:
+### Aprenda Desenvolvimento de Módulo
 
-- [ ] Research and read reviews
-- [ ] Verify XOOPS version compatibility
-- [ ] Backup database and files
-- [ ] Download latest version
-- [ ] Install via admin panel
-- [ ] Configure settings
-- [ ] Create/position blocks
-- [ ] Set user permissions
-- [ ] Test functionality
-- [ ] Document configuration
-- [ ] Schedule for updates
+- Documentação Oficial: https://xoops.org/
+- Repositório GitHub: https://github.com/XOOPS/
+- Fórum da Comunidade: https://xoops.org/modules/newbb/
+- Guia do Desenvolvedor: Disponível em pasta de docs
 
-## Next Steps
+## Práticas Recomendadas para Módulos
 
-After installing modules:
+1. **Instale Um por Um:** Monitore conflitos
+2. **Teste Após Instalar:** Verifique funcionalidade
+3. **Documente Configuração Personalizada:** Anote suas configurações
+4. **Mantenha Atualizado:** Instale atualizações de módulo prontamente
+5. **Remova Não Utilizados:** Delete módulos não necessários
+6. **Backup Antes:** Sempre faça backup antes de instalar
+7. **Leia Documentação:** Verifique instruções do módulo
+8. **Junte-se à Comunidade:** Peça ajuda se necessário
 
-1. Create content for modules
-2. Set up user groups
-3. Explore admin features
-4. Optimize performance
-5. Install additional modules as needed
+## Lista de Verificação de Instalação de Módulo
+
+Para cada instalação de módulo:
+
+- [ ] Pesquisar e ler avaliações
+- [ ] Verificar compatibilidade de versão XOOPS
+- [ ] Backup de banco de dados e arquivos
+- [ ] Download da versão mais recente
+- [ ] Instalar via painel de administrador
+- [ ] Configurar configurações
+- [ ] Criar/posicionar blocos
+- [ ] Definir permissões de usuários
+- [ ] Testar funcionalidade
+- [ ] Documentar configuração
+- [ ] Agendar para atualizações
+
+## Próximas Etapas
+
+Após instalar módulos:
+
+1. Criar conteúdo para módulos
+2. Configurar grupos de usuários
+3. Explorar recursos de administração
+4. Otimizar desempenho
+5. Instalar módulos adicionais conforme necessário
 
 ---
 
-**Tags:** #modules #installation #extension #management
+**Tags:** #módulos #instalação #extensão #gerenciamento
 
-**Related Articles:**
+**Artigos Relacionados:**
 - Admin-Panel-Overview
 - Managing-Users
 - Creating-Your-First-Page

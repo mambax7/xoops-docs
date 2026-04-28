@@ -1,169 +1,169 @@
 ---
-title: "Input Sanitization"
-description: "Using MyTextSanitizer and validation techniques in XOOPS"
+title: "Sanitização de Entrada"
+description: "Usando MyTextSanitizer e técnicas de validação no XOOPS"
 ---
 
-Never trust user input. Always validate and sanitize all input data before using it. XOOPS provides the `MyTextSanitizer` class for sanitizing text input and various helper functions for validation.
+Nunca confie em entrada do usuário. Sempre valide e sanitize todos os dados de entrada antes de usá-los. XOOPS fornece a classe `MyTextSanitizer` para sanitizar entrada de texto e várias funções auxiliares para validação.
 
-## Related Documentation
+## Documentação Relacionada
 
-- Security-Best-Practices - Comprehensive security guide
-- CSRF-Protection - Token system and XoopsSecurity class
-- SQL-Injection-Prevention - Database security practices
+- Security-Best-Practices - Guia abrangente de segurança
+- CSRF-Protection - Sistema de token e classe XoopsSecurity
+- SQL-Injection-Prevention - Práticas de segurança de banco de dados
 
-## The Golden Rule
+## A Regra de Ouro
 
-**Never trust user input.** All data from external sources must be:
+**Nunca confie em entrada do usuário.** Todos os dados de fontes externas devem ser:
 
-1. **Validated**: Check that it matches expected format and type
-2. **Sanitized**: Remove or escape potentially dangerous characters
-3. **Escaped**: When outputting, escape for the specific context (HTML, JavaScript, SQL)
+1. **Validados**: Verificar se corresponde ao formato e tipo esperados
+2. **Sanitizados**: Remover ou escapar caracteres potencialmente perigosos
+3. **Escapados**: Ao exibir, escapar para o contexto específico (HTML, JavaScript, SQL)
 
-## MyTextSanitizer Class
+## Classe MyTextSanitizer
 
-XOOPS provides the `MyTextSanitizer` class (commonly aliased as `$myts`) for text sanitization.
+XOOPS fornece a classe `MyTextSanitizer` (comumente aliasada como `$myts`) para sanitização de texto.
 
-### Getting the Instance
+### Obtendo a Instância
 
 ```php
-// Get the singleton instance
+// Obter a instância singleton
 $myts = MyTextSanitizer::getInstance();
 ```
 
-### Basic Text Sanitization
+### Sanitização Básica de Texto
 
 ```php
 $myts = MyTextSanitizer::getInstance();
 
-// For plain text fields (no HTML allowed)
+// Para campos de texto simples (sem HTML permitido)
 $title = $myts->htmlSpecialChars($_POST['title']);
 
-// This converts:
-// < to &lt;
-// > to &gt;
-// & to &amp;
-// " to &quot;
-// ' to &#039;
+// Isto converte:
+// < para &lt;
+// > para &gt;
+// & para &amp;
+// " para &quot;
+// ' para &#039;
 ```
 
-### Textarea Content Processing
+### Processamento de Conteúdo de Textarea
 
-The `displayTarea()` method provides comprehensive textarea processing:
+O método `displayTarea()` fornece processamento abrangente de textarea:
 
 ```php
 $myts = MyTextSanitizer::getInstance();
 
 $content = $myts->displayTarea(
     $_POST['content'],
-    $allowhtml = 0,      // 0 = No HTML allowed, 1 = HTML allowed
-    $allowsmiley = 1,    // 1 = Smilies enabled
-    $allowxcode = 1,     // 1 = XOOPS codes enabled (BBCode)
-    $allowimages = 1,    // 1 = Images allowed
-    $allowlinebreak = 1  // 1 = Line breaks converted to <br>
+    $allowhtml = 0,      // 0 = Sem HTML permitido, 1 = HTML permitido
+    $allowsmiley = 1,    // 1 = Smilies ativados
+    $allowxcode = 1,     // 1 = Códigos XOOPS ativados (BBCode)
+    $allowimages = 1,    // 1 = Imagens permitidas
+    $allowlinebreak = 1  // 1 = Quebras de linha convertidas para <br>
 );
 ```
 
-### Common Sanitization Methods
+### Métodos de Sanitização Comum
 
 ```php
 $myts = MyTextSanitizer::getInstance();
 
-// HTML special characters escaping
+// Escape de caracteres especiais HTML
 $safe_text = $myts->htmlSpecialChars($text);
 
-// Strip slashes if magic quotes are on
+// Remover barras invertidas se magic quotes estiverem ativadas
 $text = $myts->stripSlashesGPC($text);
 
-// Convert XOOPS codes (BBCode) to HTML
+// Converter códigos XOOPS (BBCode) para HTML
 $html = $myts->xoopsCodeDecode($text);
 
-// Convert smileys to images
+// Converter smileys para imagens
 $html = $myts->smiley($text);
 
-// Make clickable links
+// Tornar links clicáveis
 $html = $myts->makeClickable($text);
 
-// Complete text processing for preview
+// Processamento completo de texto para visualização
 $preview = $myts->previewTarea($text, $allowhtml, $allowsmiley, $allowxcode);
 ```
 
-## Input Validation
+## Validação de Entrada
 
-### Validating Integer Values
+### Validando Valores Inteiros
 
 ```php
-// Validate integer ID
+// Validar ID inteiro
 $id = isset($_REQUEST['id']) ? (int)$_REQUEST['id'] : 0;
 
 if ($id <= 0) {
-    redirect_header('index.php', 3, 'Invalid ID');
+    redirect_header('index.php', 3, 'ID inválido');
     exit();
 }
 
-// Alternative with filter_var
+// Alternativa com filter_var
 $id = filter_var($_REQUEST['id'] ?? 0, FILTER_VALIDATE_INT);
 if ($id === false || $id <= 0) {
-    redirect_header('index.php', 3, 'Invalid ID');
+    redirect_header('index.php', 3, 'ID inválido');
     exit();
 }
 ```
 
-### Validating Email Addresses
+### Validando Endereços de Email
 
 ```php
 $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 
 if (!$email) {
-    redirect_header('form.php', 3, 'Invalid email address');
+    redirect_header('form.php', 3, 'Endereço de email inválido');
     exit();
 }
 ```
 
-### Validating URLs
+### Validando URLs
 
 ```php
 $url = filter_var($_POST['url'], FILTER_VALIDATE_URL);
 
 if (!$url) {
-    redirect_header('form.php', 3, 'Invalid URL');
+    redirect_header('form.php', 3, 'URL inválida');
     exit();
 }
 
-// Additional check for allowed protocols
+// Verificação adicional para protocolos permitidos
 $parsed = parse_url($url);
 $allowed_schemes = ['http', 'https'];
 if (!in_array($parsed['scheme'], $allowed_schemes)) {
-    redirect_header('form.php', 3, 'Only HTTP and HTTPS URLs are allowed');
+    redirect_header('form.php', 3, 'Apenas URLs HTTP e HTTPS são permitidas');
     exit();
 }
 ```
 
-### Validating Dates
+### Validando Datas
 
 ```php
 $date = $_POST['date'] ?? '';
 
-// Validate date format (YYYY-MM-DD)
+// Validar formato de data (AAAA-MM-DD)
 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
-    redirect_header('form.php', 3, 'Invalid date format');
+    redirect_header('form.php', 3, 'Formato de data inválido');
     exit();
 }
 
-// Validate actual date validity
+// Validar validade de data real
 $parts = explode('-', $date);
 if (!checkdate($parts[1], $parts[2], $parts[0])) {
-    redirect_header('form.php', 3, 'Invalid date');
+    redirect_header('form.php', 3, 'Data inválida');
     exit();
 }
 ```
 
-### Validating Filenames
+### Validando Nomes de Arquivo
 
 ```php
-// Remove all characters except alphanumeric, underscore, and hyphen
+// Remover todos os caracteres exceto alfanuméricos, sublinhado e hífen
 $filename = preg_replace('/[^a-zA-Z0-9_-]/', '', $_POST['filename']);
 
-// Or use a whitelist approach
+// Ou usar abordagem de whitelist
 $allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
 $filename = '';
 foreach (str_split($_POST['filename']) as $char) {
@@ -173,60 +173,60 @@ foreach (str_split($_POST['filename']) as $char) {
 }
 ```
 
-## Handling Different Input Types
+## Lidando com Diferentes Tipos de Entrada
 
-### String Input
+### Entrada de String
 
 ```php
 $myts = MyTextSanitizer::getInstance();
 
-// Short text (titles, names)
+// Texto curto (títulos, nomes)
 $title = $myts->htmlSpecialChars(trim($_POST['title']));
 
-// Limit length
+// Limitar comprimento
 if (strlen($title) > 255) {
     $title = substr($title, 0, 255);
 }
 
-// Check for empty required fields
+// Verificar campos obrigatórios vazios
 if (empty($title)) {
-    redirect_header('form.php', 3, 'Title is required');
+    redirect_header('form.php', 3, 'Título é obrigatório');
     exit();
 }
 ```
 
-### Numeric Input
+### Entrada Numérica
 
 ```php
-// Integer
+// Inteiro
 $count = (int)$_POST['count'];
-$count = max(0, min($count, 1000)); // Ensure range 0-1000
+$count = max(0, min($count, 1000)); // Garantir intervalo 0-1000
 
 // Float
 $price = (float)$_POST['price'];
-$price = round($price, 2); // Round to 2 decimal places
+$price = round($price, 2); // Arredondar para 2 casas decimais
 
-// Validate range
+// Validar intervalo
 if ($price < 0 || $price > 99999.99) {
-    redirect_header('form.php', 3, 'Invalid price');
+    redirect_header('form.php', 3, 'Preço inválido');
     exit();
 }
 ```
 
-### Boolean Input
+### Entrada Booleana
 
 ```php
-// Checkbox values
+// Valores de checkbox
 $is_active = isset($_POST['is_active']) ? 1 : 0;
 
-// Or with explicit value check
+// Ou com verificação de valor explícita
 $is_active = ($_POST['is_active'] ?? '') === '1' ? 1 : 0;
 ```
 
-### Array Input
+### Entrada de Array
 
 ```php
-// Validate array input (e.g., multiple checkboxes)
+// Validar entrada de array (por ex., múltiplos checkboxes)
 $selected_ids = [];
 if (isset($_POST['ids']) && is_array($_POST['ids'])) {
     foreach ($_POST['ids'] as $id) {
@@ -238,49 +238,49 @@ if (isset($_POST['ids']) && is_array($_POST['ids'])) {
 }
 ```
 
-### Select/Option Input
+### Entrada de Seleção/Opção
 
 ```php
-// Validate against allowed values
-$allowed_statuses = ['draft', 'published', 'archived'];
+// Validar contra valores permitidos
+$allowed_statuses = ['draft', 'publicado', 'arquivado'];
 $status = $_POST['status'] ?? '';
 
 if (!in_array($status, $allowed_statuses)) {
-    redirect_header('form.php', 3, 'Invalid status');
+    redirect_header('form.php', 3, 'Status inválido');
     exit();
 }
 ```
 
-## Request Object (XMF)
+## Objeto Request (XMF)
 
-When using XMF, the Request class provides cleaner input handling:
+Ao usar XMF, a classe Request fornece manipulação de entrada mais limpa:
 
 ```php
 use Xmf\Request;
 
-// Get integer
+// Obter inteiro
 $id = Request::getInt('id', 0);
 
-// Get string
+// Obter string
 $title = Request::getString('title', '');
 
-// Get array
+// Obter array
 $ids = Request::getArray('ids', []);
 
-// Get with method specification
+// Obter com especificação de método
 $id = Request::getInt('id', 0, 'POST');
 $search = Request::getString('q', '', 'GET');
 
-// Check request method
+// Verificar método de requisição
 if (Request::getMethod() !== 'POST') {
-    redirect_header('form.php', 3, 'Invalid request method');
+    redirect_header('form.php', 3, 'Método de requisição inválido');
     exit();
 }
 ```
 
-## Creating a Validation Class
+## Criando uma Classe de Validação
 
-For complex forms, create a dedicated validation class:
+Para formulários complexos, crie uma classe de validação dedicada:
 
 ```php
 <?php
@@ -294,24 +294,24 @@ class Validator
     {
         $this->errors = [];
 
-        // Title validation
+        // Validação de título
         if (empty($data['title'])) {
-            $this->errors['title'] = 'Title is required';
+            $this->errors['title'] = 'Título é obrigatório';
         } elseif (strlen($data['title']) > 255) {
-            $this->errors['title'] = 'Title must be 255 characters or less';
+            $this->errors['title'] = 'Título deve ter 255 caracteres ou menos';
         }
 
-        // Email validation
+        // Validação de email
         if (!empty($data['email'])) {
             if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $this->errors['email'] = 'Invalid email format';
+                $this->errors['email'] = 'Formato de email inválido';
             }
         }
 
-        // Status validation
+        // Validação de status
         $allowed = ['draft', 'published'];
         if (!in_array($data['status'], $allowed)) {
-            $this->errors['status'] = 'Invalid status';
+            $this->errors['status'] = 'Status inválido';
         }
 
         return empty($this->errors);
@@ -329,7 +329,7 @@ class Validator
 }
 ```
 
-Usage:
+Uso:
 
 ```php
 $validator = new Validator();
@@ -341,103 +341,103 @@ $data = [
 
 if (!$validator->validateItem($data)) {
     $errors = $validator->getErrors();
-    // Display errors to user
+    // Exibir erros para o usuário
 }
 ```
 
-## Sanitizing for Database Storage
+## Sanitizando para Armazenamento em Banco de Dados
 
-When storing data in the database:
+Ao armazenar dados no banco de dados:
 
 ```php
 $myts = MyTextSanitizer::getInstance();
 
-// For storage (will be processed again on display)
+// Para armazenamento (será processado novamente na exibição)
 $title = $myts->addSlashes($_POST['title']);
 
-// Better: Use prepared statements (see SQL Injection Prevention)
+// Melhor: Usar prepared statements (veja Prevenção de Injeção de SQL)
 $sql = "INSERT INTO " . $xoopsDB->prefix('mytable') . " (title) VALUES (?)";
 $result = $xoopsDB->query($sql, [$_POST['title']]);
 ```
 
-## Sanitizing for Display
+## Sanitizando para Exibição
 
-Different contexts require different escaping:
+Diferentes contextos exigem diferentes escapos:
 
 ```php
 $myts = MyTextSanitizer::getInstance();
 
-// HTML context
+// Contexto HTML
 echo $myts->htmlSpecialChars($title);
 
-// Within HTML attributes
+// Dentro de atributos HTML
 echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
-// JavaScript context
+// Contexto JavaScript
 echo json_encode($title);
 
-// URL parameter
+// Parâmetro de URL
 echo urlencode($title);
 
-// Full URL
+// URL completa
 echo htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
 ```
 
-## Common Pitfalls
+## Armadilhas Comuns
 
-### Double Encoding
+### Codificação Dupla
 
-**Problem**: Data gets encoded multiple times
+**Problema**: Dados são codificados várias vezes
 
 ```php
-// Wrong - double encoding
+// Errado - codificação dupla
 $title = $myts->htmlSpecialChars($myts->htmlSpecialChars($_POST['title']));
 
-// Right - encode once, at the appropriate time
-$title = $_POST['title']; // Store raw
-echo $myts->htmlSpecialChars($title); // Encode on output
+// Certo - codificar uma vez, no momento apropriado
+$title = $_POST['title']; // Armazenar bruto
+echo $myts->htmlSpecialChars($title); // Codificar na saída
 ```
 
-### Inconsistent Encoding
+### Codificação Inconsistente
 
-**Problem**: Some outputs are encoded, some are not
+**Problema**: Algumas saídas são codificadas, outras não
 
-**Solution**: Always use a consistent approach, preferably encoding on output:
+**Solução**: Sempre usar uma abordagem consistente, preferencialmente codificando na saída:
 
 ```php
-// Template assignment
+// Atribuição de template
 $GLOBALS['xoopsTpl']->assign('title', htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
 ```
 
-### Missing Validation
+### Validação Ausente
 
-**Problem**: Only sanitizing without validating
+**Problema**: Apenas sanitizar sem validar
 
-**Solution**: Always validate first, then sanitize:
+**Solução**: Sempre validar primeiro, depois sanitizar:
 
 ```php
-// First validate
+// Primeiro validar
 if (!preg_match('/^[a-z0-9_]+$/', $_POST['username'])) {
-    redirect_header('form.php', 3, 'Username contains invalid characters');
+    redirect_header('form.php', 3, 'Nome de usuário contém caracteres inválidos');
     exit();
 }
 
-// Then sanitize for storage/display
+// Então sanitizar para armazenamento/exibição
 $username = $myts->htmlSpecialChars($_POST['username']);
 ```
 
-## Best Practices Summary
+## Resumo de Boas Práticas
 
-1. **Use MyTextSanitizer** for text content processing
-2. **Use filter_var()** for specific format validation
-3. **Use type casting** for numeric values
-4. **Whitelist allowed values** for select inputs
-5. **Validate before sanitizing**
-6. **Escape on output**, not on input
-7. **Use prepared statements** for database queries
-8. **Create validation classes** for complex forms
-9. **Never trust client-side validation** - always validate server-side
+1. **Usar MyTextSanitizer** para processamento de conteúdo de texto
+2. **Usar filter_var()** para validação de formato específico
+3. **Usar conversão de tipo** para valores numéricos
+4. **Whitelist valores permitidos** para entradas de seleção
+5. **Validar antes de sanitizar**
+6. **Escapar na saída**, não na entrada
+7. **Usar prepared statements** para consultas de banco de dados
+8. **Criar classes de validação** para formulários complexos
+9. **Nunca confiar em validação do lado do cliente** - sempre validar no servidor
 
 ---
 
-#security #sanitization #validation #xoops #MyTextSanitizer #input-handling
+#segurança #sanitização #validação #xoops #MyTextSanitizer #manipulação-entrada

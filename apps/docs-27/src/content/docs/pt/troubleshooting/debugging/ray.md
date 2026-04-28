@@ -1,36 +1,36 @@
 ---
-title: "Using Ray Debugger"
-description: "Debugging XOOPS applications with Ray debugger"
+title: "Usando Ray Debugger"
+description: "Depurando aplicações XOOPS com Ray debugger"
 ---
 
-# Using Ray Debugger for XOOPS
+# Usando Ray Debugger para XOOPS
 
-> Modern debugging with Ray: inspect variables, log messages, track SQL queries, and profile performance in your XOOPS application.
+> Depuração moderna com Ray: inspecione variáveis, registre mensagens, rastreie queries SQL e perfil de performance na sua aplicação XOOPS.
 
 ---
 
-## What is Ray?
+## O que é Ray?
 
-Ray is a lightweight debugging tool that helps you inspect application state without stopping execution or using breakpoints. It's perfect for XOOPS development.
+Ray é uma ferramenta de depuração leve que ajuda você a inspecionar o estado da aplicação sem parar a execução ou usar pontos de interrupção. É perfeito para desenvolvimento do XOOPS.
 
-**Features:**
-- Log messages and variables
-- Inspect SQL queries
-- Track performance
-- Profile code
-- Group related logs
-- Visual timeline
+**Recursos:**
+- Registre mensagens e variáveis
+- Inspecione queries SQL
+- Rastreie performance
+- Perfil de código
+- Agrupe logs relacionados
+- Timeline visual
 
-**Requirements:**
+**Requisitos:**
 - PHP 7.4+
-- Ray application (free version available)
+- Aplicação Ray (versão gratuita disponível)
 - Composer
 
 ---
 
-## Installation
+## Instalação
 
-### Step 1: Install Ray Package
+### Passo 1: Instalar Pacote Ray
 
 ```bash
 cd /path/to/xoops
@@ -42,16 +42,16 @@ composer require spatie/ray
 composer global require spatie/ray
 ```
 
-### Step 2: Download Ray App
+### Passo 2: Baixar Aplicação Ray
 
-Download from [ray.so](https://ray.so):
+Baixar de [ray.so](https://ray.so):
 - Mac: Ray.app
 - Windows: Ray.exe
 - Linux: ray (AppImage)
 
-### Step 3: Configure Firewall (if needed)
+### Passo 3: Configurar Firewall (se necessário)
 
-Ray uses port 23517 by default:
+Ray usa porta 23517 por padrão:
 
 ```bash
 # UFW
@@ -63,9 +63,9 @@ sudo iptables -A INPUT -p udp --dport 23517 -j ACCEPT
 
 ---
 
-## Basic Usage
+## Uso Básico
 
-### Simple Logging
+### Registro Simples
 
 ```php
 <?php
@@ -87,7 +87,7 @@ $ray->label('User Data')->dump($user);
 ?>
 ```
 
-**Output in Ray app:**
+**Saída na aplicação Ray:**
 ```
 ℹ Page loaded
 👁 User Data: ['name' => 'John', 'email' => 'john@example.com']
@@ -95,7 +95,7 @@ $ray->label('User Data')->dump($user);
 
 ---
 
-### Different Log Levels
+### Diferentes Níveis de Log
 
 ```php
 <?php
@@ -123,7 +123,7 @@ $ray->notice('Notice message');
 
 ---
 
-### Dumping Variables
+### Despejando Variáveis
 
 ```php
 <?php
@@ -151,9 +151,9 @@ $ray->label('Configuration')->dump($config);
 
 ---
 
-## Advanced Features
+## Recursos Avançados
 
-### 1. SQL Query Tracking
+### 1. Rastreamento de Query SQL
 
 ```php
 <?php
@@ -175,7 +175,7 @@ $result = $GLOBALS['xoopsDB']->query($query);
 ?>
 ```
 
-### 2. Performance Profiling
+### 2. Perfil de Performance
 
 ```php
 <?php
@@ -198,7 +198,7 @@ $ray->measure(function() {
 ?>
 ```
 
-### 3. Conditional Debugging
+### 3. Depuração Condicional
 
 ```php
 <?php
@@ -221,7 +221,7 @@ if ($_GET['debug'] == 'module') {
 ?>
 ```
 
-### 4. Grouping Related Logs
+### 4. Agrupando Logs Relacionados
 
 ```php
 <?php
@@ -245,9 +245,9 @@ $ray->group('Database Operations', function($ray) {
 
 ---
 
-## XOOPS-Specific Debugging
+## Depuração Específica do XOOPS
 
-### Module Debugging
+### Depuração de Módulo
 
 ```php
 <?php
@@ -284,7 +284,7 @@ $ray->label('Module Settings')->dump($settings);
 ?>
 ```
 
-### Template Debugging
+### Depuração de Template
 
 ```php
 <?php
@@ -307,7 +307,7 @@ $ray->label('Smarty Config')->dump([
 ?>
 ```
 
-### Database Debugging
+### Depuração de Banco de Dados
 
 ```php
 <?php
@@ -340,9 +340,9 @@ $ray->groupEnd();
 
 ---
 
-## Custom Ray Functions
+## Funções Ray Customizadas
 
-### Create Helper Functions
+### Criar Funções Auxiliares
 
 ```php
 <?php
@@ -409,7 +409,7 @@ class RayHelper {
 ?>
 ```
 
-Usage:
+Uso:
 ```php
 <?php
 require 'class/rayhelper.php';
@@ -422,9 +422,9 @@ RayHelper::config('mymodule');
 
 ---
 
-## Performance Monitoring
+## Monitoramento de Performance
 
-### Query Performance
+### Performance de Query
 
 ```php
 <?php
@@ -451,7 +451,7 @@ $ray->groupEnd();
 ?>
 ```
 
-### Request Performance
+### Performance de Requisição
 
 ```php
 <?php
@@ -485,9 +485,9 @@ $ray->groupEnd();
 
 ---
 
-## Debugging Workflows
+## Fluxos de Trabalho de Depuração
 
-### Module Installation Debugging
+### Depuração de Instalação de Módulo
 
 ```php
 <?php
@@ -527,7 +527,7 @@ echo "Debug information sent to Ray";
 ?>
 ```
 
-### Template Error Debugging
+### Depuração de Erro de Template
 
 ```php
 <?php
@@ -557,7 +557,7 @@ $ray->groupEnd();
 
 ---
 
-## Best Practices
+## Boas Práticas
 
 ```mermaid
 graph TD
@@ -574,7 +574,7 @@ graph TD
     F --> F1["Use ray.measure()"]
 ```
 
-### Cleanup Script
+### Script de Limpeza
 
 ```php
 <?php
@@ -605,21 +605,21 @@ foreach ($files as $file) {
 
 ---
 
-## Troubleshooting Ray
+## Solução de Problemas com Ray
 
-### Q: Ray doesn't receive messages
+### P: Ray não recebe mensagens
 
-**A:**
-1. Check Ray app is running
-2. Check firewall allows port 23517
-3. Verify Ray is installed:
+**R:**
+1. Verificar se aplicação Ray está em execução
+2. Verificar firewall permite porta 23517
+3. Verificar se Ray está instalado:
 ```bash
 composer require spatie/ray
 ```
 
-### Q: Can't see SQL queries
+### P: Não consigo ver queries SQL
 
-**A:**
+**R:**
 ```php
 <?php
 // Log queries manually
@@ -636,9 +636,9 @@ if (!$result) {
 ?>
 ```
 
-### Q: Performance impact of Ray
+### P: Impacto de performance do Ray
 
-**A:** Ray has minimal overhead. For production, remove Ray calls or disable:
+**R:** Ray tem overhead mínimo. Para produção, remova chamadas Ray ou desative:
 ```php
 <?php
 // Disable Ray in production
@@ -654,12 +654,12 @@ if (defined('ENVIRONMENT') && ENVIRONMENT == 'production') {
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Enable Debug Mode
-- Database Debugging
-- Performance FAQ
-- Troubleshooting Guide
+- Ativar Modo Debug
+- Depuração de Banco de Dados
+- FAQ de Performance
+- Guia de Solução de Problemas
 
 ---
 

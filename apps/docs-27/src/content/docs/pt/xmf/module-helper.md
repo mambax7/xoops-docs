@@ -1,49 +1,49 @@
 ---
 title: "XMF Module Helper"
-description: 'Simplified module operations using the Xmf\Module\Helper class and related helpers'
+description: 'Operações de módulo simplificadas usando a classe Xmf\Module\Helper e helpers relacionados'
 ---
 
-The `Xmf\Module\Helper` class provides an easy way to access module-related information, configurations, handlers, and more. Using the module helper simplifies your code and reduces boilerplate.
+A classe `Xmf\Module\Helper` fornece uma maneira fácil de acessar informações relacionadas a módulo, configurações, handlers e muito mais. Usar o module helper simplifica seu código e reduz boilerplate.
 
-## Overview
+## Visão Geral
 
-The module helper provides:
+O module helper fornece:
 
-- Simplified configuration access
-- Module object retrieval
-- Handler instantiation
-- Path and URL resolution
-- Permission and session helpers
-- Cache management
+- Acesso simplificado a configuração
+- Recuperação de objeto de módulo
+- Instanciação de handler
+- Resolução de caminho e URL
+- Helpers de permissão e sessão
+- Gerenciamento de cache
 
-## Getting a Module Helper
+## Obtendo um Module Helper
 
-### Basic Usage
+### Uso Básico
 
 ```php
 use Xmf\Module\Helper;
 
-// Get helper for a specific module
+// Obter helper para um módulo específico
 $helper = Helper::getHelper('mymodule');
 
-// The helper is automatically associated with the module directory
+// O helper é automaticamente associado ao diretório do módulo
 ```
 
-### From Current Module
+### Do Módulo Atual
 
-If you don't specify a module name, it uses the current active module:
+Se você não especificar um nome de módulo, ele usa o módulo ativo atual:
 
 ```php
 $helper = Helper::getHelper('');
-// or
+// ou
 $helper = Helper::getHelper(basename(__DIR__));
 ```
 
-## Configuration Access
+## Acesso à Configuração
 
-### Traditional XOOPS Way
+### Forma Tradicional XOOPS
 
-Getting module configuration the old way is verbose:
+Obter configuração de módulo da forma antiga é verboso:
 
 ```php
 $module_handler = xoops_gethandler('module');
@@ -54,20 +54,20 @@ $value = isset($moduleConfig['foo']) ? $moduleConfig['foo'] : 'default';
 echo "The value of 'foo' is: " . $value;
 ```
 
-### XMF Way
+### Forma XMF
 
-With the module helper, the same task becomes simple:
+Com o module helper, a mesma tarefa fica simples:
 
 ```php
 $helper = \Xmf\Module\Helper::getHelper('mymodule');
 echo "The value of 'foo' is: " . $helper->getConfig('foo', 'default');
 ```
 
-## Helper Methods
+## Métodos do Helper
 
 ### getModule()
 
-Returns the XoopsModule object for the helper's module.
+Retorna o objeto XoopsModule para o módulo do helper.
 
 ```php
 $module = $helper->getModule();
@@ -78,33 +78,33 @@ $mid = $module->getVar('mid');
 
 ### getConfig($name, $default)
 
-Returns a module configuration value or all configs.
+Retorna um valor de configuração de módulo ou todas as configurações.
 
 ```php
-// Get single config with default
+// Obter configuração única com padrão
 $itemsPerPage = $helper->getConfig('items_per_page', 10);
 $enableCache = $helper->getConfig('enable_cache', true);
 
-// Get all configs as array
+// Obter todas as configurações como array
 $allConfigs = $helper->getConfig('');
 ```
 
 ### getHandler($name)
 
-Returns an object handler for the module.
+Retorna um object handler para o módulo.
 
 ```php
 $itemHandler = $helper->getHandler('items');
 $categoryHandler = $helper->getHandler('categories');
 
-// Use the handler
+// Usar o handler
 $item = $itemHandler->get($id);
 $items = $itemHandler->getObjects($criteria);
 ```
 
 ### loadLanguage($name)
 
-Loads a language file for the module.
+Carrega um arquivo de idioma para o módulo.
 
 ```php
 $helper->loadLanguage('main');
@@ -114,48 +114,48 @@ $helper->loadLanguage('modinfo');
 
 ### isCurrentModule()
 
-Checks if this module is the currently active module.
+Verifica se este é o módulo ativo atual.
 
 ```php
 if ($helper->isCurrentModule()) {
-    // We're in the module's own pages
+    // Estamos nas páginas do próprio módulo
 } else {
-    // Called from another module or location
+    // Chamado de outro módulo ou local
 }
 ```
 
 ### isUserAdmin()
 
-Checks if the current user has admin rights for this module.
+Verifica se o usuário atual tem direitos de admin para este módulo.
 
 ```php
 if ($helper->isUserAdmin()) {
-    // Show admin options
+    // Mostrar opções de admin
     echo '<a href="' . $helper->url('admin/index.php') . '">Admin</a>';
 }
 ```
 
-## Path and URL Methods
+## Métodos de Caminho e URL
 
 ### url($url)
 
-Returns an absolute URL for a module-relative path.
+Retorna uma URL absoluta para um caminho relativo ao módulo.
 
 ```php
 $logoUrl = $helper->url('images/logo.png');
-// Returns: https://example.com/modules/mymodule/images/logo.png
+// Retorna: https://example.com/modules/mymodule/images/logo.png
 
 $adminUrl = $helper->url('admin/index.php');
-// Returns: https://example.com/modules/mymodule/admin/index.php
+// Retorna: https://example.com/modules/mymodule/admin/index.php
 ```
 
 ### path($path)
 
-Returns an absolute filesystem path for a module-relative path.
+Retorna um caminho absoluto do sistema de arquivos para um caminho relativo ao módulo.
 
 ```php
 $templatePath = $helper->path('templates/view.tpl');
-// Returns: /var/www/html/modules/mymodule/templates/view.tpl
+// Retorna: /var/www/html/modules/mymodule/templates/view.tpl
 
 $includePath = $helper->path('include/functions.php');
 require_once $includePath;
@@ -163,7 +163,7 @@ require_once $includePath;
 
 ### uploadUrl($url)
 
-Returns an absolute URL for module upload files.
+Retorna uma URL absoluta para arquivos de upload de módulo.
 
 ```php
 $fileUrl = $helper->uploadUrl('documents/manual.pdf');
@@ -171,7 +171,7 @@ $fileUrl = $helper->uploadUrl('documents/manual.pdf');
 
 ### uploadPath($path)
 
-Returns an absolute filesystem path for module upload files.
+Retorna um caminho absoluto do sistema de arquivos para arquivos de upload de módulo.
 
 ```php
 $uploadDir = $helper->uploadPath('');
@@ -180,104 +180,104 @@ $filePath = $helper->uploadPath('images/photo.jpg');
 
 ### redirect($url, $time, $message)
 
-Redirects within the module to a module-relative URL.
+Redireciona dentro do módulo para uma URL relativa ao módulo.
 
 ```php
-$helper->redirect('index.php', 3, 'Item saved successfully');
-$helper->redirect('view.php?id=' . $newId, 2, 'Created!');
+$helper->redirect('index.php', 3, 'Item salvo com sucesso');
+$helper->redirect('view.php?id=' . $newId, 2, 'Criado!');
 ```
 
-## Debugging Support
+## Suporte de Depuração
 
 ### setDebug($bool)
 
-Enable or disable debug mode for the helper.
+Ativa ou desativa o modo debug para o helper.
 
 ```php
-$helper->setDebug(true);  // Enable
-$helper->setDebug(false); // Disable
-$helper->setDebug();      // Enable (default is true)
+$helper->setDebug(true);  // Ativar
+$helper->setDebug(false); // Desativar
+$helper->setDebug();      // Ativar (padrão é true)
 ```
 
 ### addLog($log)
 
-Add a message to the module log.
+Adiciona uma mensagem ao log do módulo.
 
 ```php
-$helper->addLog('Processing item ID: ' . $id);
-$helper->addLog('Cache miss, loading from database');
+$helper->addLog('Processando item ID: ' . $id);
+$helper->addLog('Cache miss, carregando do banco de dados');
 ```
 
-## Related Helper Classes
+## Classes Helper Relacionadas
 
-XMF provides specialized helpers that extend `Xmf\Module\Helper\AbstractHelper`:
+XMF fornece helpers especializados que estendem `Xmf\Module\Helper\AbstractHelper`:
 
 ### Permission Helper
 
-See ../Recipes/Permission-Helper for detailed documentation.
+Veja ../Recipes/Permission-Helper para documentação detalhada.
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission('mymodule');
 
-// Check permission
+// Verificar permissão
 if ($permHelper->checkPermission('view', $itemId)) {
-    // User has permission
+    // Usuário tem permissão
 }
 
-// Check and redirect if no permission
-$permHelper->checkPermissionRedirect('edit', $itemId, 'index.php', 3, 'Access denied');
+// Verificar e redirecionar se sem permissão
+$permHelper->checkPermissionRedirect('edit', $itemId, 'index.php', 3, 'Acesso negado');
 ```
 
 ### Session Helper
 
-Module-aware session storage with automatic key prefixing.
+Armazenamento de sessão consciente de módulo com prefixação automática de chave.
 
 ```php
 $session = new \Xmf\Module\Helper\Session('mymodule');
 
-// Store value
+// Armazenar valor
 $session->set('last_viewed', $itemId);
 
-// Retrieve value
+// Recuperar valor
 $lastViewed = $session->get('last_viewed', 0);
 
-// Delete value
+// Deletar valor
 $session->del('last_viewed');
 
-// Clear all module session data
+// Limpar todos os dados de sessão do módulo
 $session->destroy();
 ```
 
 ### Cache Helper
 
-Module-aware caching with automatic key prefixing.
+Cache consciente de módulo com prefixação automática de chave.
 
 ```php
 $cache = new \Xmf\Module\Helper\Cache('mymodule');
 
-// Write to cache (TTL in seconds)
+// Escrever para cache (TTL em segundos)
 $cache->write('item_' . $id, $itemData, 3600);
 
-// Read from cache
+// Ler do cache
 $data = $cache->read('item_' . $id, null);
 
-// Delete from cache
+// Deletar do cache
 $cache->delete('item_' . $id);
 
-// Read with automatic regeneration
+// Ler com regeneração automática
 $data = $cache->cacheRead(
     'expensive_data',
     function() {
-        // This runs only if cache miss
+        // Isto executa apenas se cache miss
         return computeExpensiveData();
     },
     3600
 );
 ```
 
-## Complete Example
+## Exemplo Completo
 
-Here's a comprehensive example using the module helper:
+Aqui está um exemplo abrangente usando o module helper:
 
 ```php
 <?php
@@ -288,19 +288,19 @@ use Xmf\Module\Helper\Session;
 
 require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 
-// Initialize helpers
+// Inicializar helpers
 $helper = Helper::getHelper('mymodule');
 $permHelper = new Permission('mymodule');
 $session = new Session('mymodule');
 
-// Load language
+// Carregar idioma
 $helper->loadLanguage('main');
 
-// Get configuration
+// Obter configuração
 $itemsPerPage = $helper->getConfig('items_per_page', 10);
 $enableComments = $helper->getConfig('enable_comments', true);
 
-// Handle request
+// Manipular requisição
 $op = Request::getCmd('op', 'list');
 $id = Request::getInt('id', 0);
 
@@ -308,23 +308,23 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 
 switch ($op) {
     case 'view':
-        // Check permission
+        // Verificar permissão
         if (!$permHelper->checkPermission('view', $id)) {
             redirect_header($helper->url('index.php'), 3, _NOPERM);
         }
 
-        // Track in session
+        // Rastrear em sessão
         $session->set('last_viewed', $id);
 
-        // Get handler and item
+        // Obter handler e item
         $itemHandler = $helper->getHandler('items');
         $item = $itemHandler->get($id);
 
         if (!$item) {
-            redirect_header($helper->url('index.php'), 3, 'Item not found');
+            redirect_header($helper->url('index.php'), 3, 'Item não encontrado');
         }
 
-        // Display item
+        // Exibir item
         $xoopsTpl->assign('item', $item->toArray());
         break;
 
@@ -340,7 +340,7 @@ switch ($op) {
         $items = $itemHandler->getObjects($criteria);
         $xoopsTpl->assign('items', $items);
 
-        // Show last viewed if exists
+        // Mostrar último visualizado se existe
         $lastViewed = $session->get('last_viewed', 0);
         if ($lastViewed > 0) {
             $xoopsTpl->assign('last_viewed', $lastViewed);
@@ -348,7 +348,7 @@ switch ($op) {
         break;
 }
 
-// Admin link if authorized
+// Link de admin se autorizado
 if ($helper->isUserAdmin()) {
     $xoopsTpl->assign('admin_url', $helper->url('admin/index.php'));
 }
@@ -356,9 +356,9 @@ if ($helper->isUserAdmin()) {
 require_once XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-## AbstractHelper Base Class
+## Classe Base AbstractHelper
 
-All XMF helper classes extend `Xmf\Module\Helper\AbstractHelper`, which provides:
+Todas as classes helper XMF estendem `Xmf\Module\Helper\AbstractHelper`, que fornece:
 
 ### Constructor
 
@@ -366,11 +366,11 @@ All XMF helper classes extend `Xmf\Module\Helper\AbstractHelper`, which provides
 public function __construct($dirname)
 ```
 
-Instantiates with a module directory name. If empty, uses the current module.
+Instancia com um nome de diretório de módulo. Se vazio, usa o módulo atual.
 
 ### dirname()
 
-Returns the module directory name associated with the helper.
+Retorna o nome do diretório de módulo associado ao helper.
 
 ```php
 $dirname = $helper->dirname();
@@ -378,11 +378,11 @@ $dirname = $helper->dirname();
 
 ### init()
 
-Called by the constructor after the module is loaded. Override in custom helpers for initialization logic.
+Chamado pelo construtor após o módulo ser carregado. Anule em helpers customizados para lógica de inicialização.
 
-## Creating Custom Helpers
+## Criando Helpers Customizados
 
-You can extend the helper for module-specific functionality:
+Você pode estender o helper para funcionalidade específica do módulo:
 
 ```php
 <?php
@@ -393,7 +393,7 @@ class Helper extends \Xmf\Module\Helper\GenericHelper
 {
     public function init()
     {
-        // Custom initialization
+        // Inicialização customizada
     }
 
     public function getItemUrl($id)
@@ -412,12 +412,12 @@ class Helper extends \Xmf\Module\Helper\GenericHelper
 }
 ```
 
-## See Also
+## Veja Também
 
-- Getting-Started-with-XMF - Basic XMF usage
-- XMF-Request - Request handling
-- ../Recipes/Permission-Helper - Permission management
-- ../Recipes/Module-Admin-Pages - Admin interface creation
+- Getting-Started-with-XMF - Uso básico de XMF
+- XMF-Request - Manipulação de requisições
+- ../Recipes/Permission-Helper - Gerenciamento de permissões
+- ../Recipes/Module-Admin-Pages - Criação de interface admin
 
 ---
 

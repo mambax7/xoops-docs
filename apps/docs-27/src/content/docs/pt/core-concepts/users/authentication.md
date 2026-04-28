@@ -1,72 +1,72 @@
 ---
-title: "Authentication"
-description: "Complete guide to XOOPS authentication system, login flow, session management, security, and advanced features"
+title: "Autenticação"
+description: "Guia completo do sistema de autenticação XOOPS, fluxo de login, gerenciamento de sessão, segurança e recursos avançados"
 ---
 
-# Authentication in XOOPS
+# Autenticação no XOOPS
 
-The XOOPS Authentication system provides secure user verification, session management, and advanced security features including two-factor authentication and OAuth integration. This document covers authentication flows, implementation, and best practices.
+O sistema de autenticação XOOPS fornece verificação segura de usuário, gerenciamento de sessão e recursos de segurança avançados, incluindo autenticação de dois fatores e integração OAuth. Este documento cobre fluxos de autenticação, implementação e boas práticas.
 
-## Authentication Flow
+## Fluxo de Autenticação
 
-### Login Sequence Diagram
+### Diagrama de Sequência de Login
 
 ```mermaid
 sequenceDiagram
-    participant User as User Browser
-    participant Server as XOOPS Server
-    participant DB as Database
-    participant Session as Session Manager
+    participant User as Navegador do Usuário
+    participant Server as Servidor XOOPS
+    participant DB as Banco de Dados
+    participant Session as Gerenciador de Sessão
     participant Cache as Cache/APCu
 
     User->>Server: POST /user.php?op=login
     note over User, Server: username/email + password
 
-    Server->>Server: Validate Input
-    note over Server: Check format, CSRF token
+    Server->>Server: Validar Entrada
+    note over Server: Verificar formato, token CSRF
 
-    alt Invalid Format
+    alt Formato Inválido
         Server-->>User: 400 Bad Request
-    else Valid Format
-        Server->>Cache: Check Account Lockout
-        Cache-->>Server: Lockout Status?
+    else Formato Válido
+        Server->>Cache: Verificar Bloqueio de Conta
+        Cache-->>Server: Status de Bloqueio?
 
-        alt Account Locked
-            Server-->>User: Account Temporarily Locked
-        else Not Locked
-            Server->>DB: Query User by Username/Email
-            DB-->>Server: User Record
+        alt Conta Bloqueada
+            Server-->>User: Conta Temporariamente Bloqueada
+        else Não Bloqueada
+            Server->>DB: Consultar Usuário por Nome de Usuário/Email
+            DB-->>Server: Registro de Usuário
 
-            alt User Not Found
-                Server->>Cache: Increment Failed Attempts
-                Server-->>User: Invalid Credentials
-            else User Found
-                Server->>Server: Verify Password Hash
+            alt Usuário Não Encontrado
+                Server->>Cache: Incrementar Tentativas Falhadas
+                Server-->>User: Credenciais Inválidas
+            else Usuário Encontrado
+                Server->>Server: Verificar Hash de Senha
                 note over Server: password_verify()
 
-                alt Password Incorrect
-                    Server->>Cache: Increment Failed Attempts
-                    Server-->>User: Invalid Credentials
-                else Password Correct
-                    Server->>Server: Check Account Status
-                    alt Account Inactive
-                        Server-->>User: Account Inactive
-                    else Account Active
-                        Server->>Cache: Clear Failed Attempts
-                        Server->>Session: Create Session
-                        note over Session: Generate token,<br/>store in DB
+                alt Senha Incorreta
+                    Server->>Cache: Incrementar Tentativas Falhadas
+                    Server-->>User: Credenciais Inválidas
+                else Senha Correta
+                    Server->>Server: Verificar Status da Conta
+                    alt Conta Inativa
+                        Server-->>User: Conta Inativa
+                    else Conta Ativa
+                        Server->>Cache: Limpar Tentativas Falhadas
+                        Server->>Session: Criar Sessão
+                        note over Session: Gerar token,<br/>armazenar no BD
 
-                        Server->>DB: Update Last Login
-                        DB-->>Server: Updated
+                        Server->>DB: Atualizar Último Login
+                        DB-->>Server: Atualizado
 
-                        alt Remember Me Checked
-                            Server->>Server: Generate Persistent Token
-                            Server->>User: Set Persistent Cookie
-                        else Remember Me Unchecked
-                            Server->>User: Set Session Cookie
+                        alt Lembrar-me Marcado
+                            Server->>Server: Gerar Token Persistente
+                            Server->>User: Definir Cookie Persistente
+                        else Lembrar-me Desmarcado
+                            Server->>User: Definir Cookie de Sessão
                         end
 
-                        Server-->>User: 302 Redirect to Dashboard
+                        Server-->>User: Redirecionamento 302 para Painel
                     end
                 end
             end
@@ -74,87 +74,86 @@ sequenceDiagram
     end
 ```
 
-### Login Process Detailed
+### Detalhes do Processo de Login
 
 ```mermaid
 graph TD
-    A["User Submits Login Form"] --> B["CSRF Token Validation"]
-    B --> C{"Token Valid?"}
-    C -->|No| D["Reject Request"]
-    C -->|Yes| E["Validate Input Format"]
-    E --> F{"Format Valid?"}
-    F -->|No| G["Show Validation Errors"]
-    F -->|Yes| H["Check Lockout Status"]
-    H --> I{"Account Locked?"}
-    I -->|Yes| J["Show Lockout Message"]
-    I -->|No| K["Query User Database"]
-    K --> L{"User Exists?"}
-    L -->|No| M["Record Attempt<br/>Show Error"]
-    L -->|Yes| N["Verify Password Hash"]
-    N --> O{"Match?"}
-    O -->|No| M
-    O -->|Yes| P["Check Account Status"]
-    P --> Q{"Active?"}
-    Q -->|No| R["Show Status Error"]
-    Q -->|Yes| S["Clear Failed Attempts"]
-    S --> T["Create Session"]
-    T --> U["Update Last Login"]
-    U --> V{"Remember Me?"}
-    V -->|Yes| W["Create Persistent Token<br/>Set Long-lived Cookie"]
-    V -->|No| X["Set Session Cookie"]
-    W --> Y["Redirect to Dashboard"]
+    A["Usuário Envia Formulário de Login"] --> B["Validação do Token CSRF"]
+    B --> C{"Token Válido?"}
+    C -->|Não| D["Rejeitar Requisição"]
+    C -->|Sim| E["Validar Formato de Entrada"]
+    E --> F{"Formato Válido?"}
+    F -->|Não| G["Mostrar Erros de Validação"]
+    F -->|Sim| H["Verificar Status de Bloqueio"]
+    H --> I{"Conta Bloqueada?"}
+    I -->|Sim| J["Mostrar Mensagem de Bloqueio"]
+    I -->|Não| K["Consultar Banco de Dados de Usuários"]
+    K --> L{"Usuário Existe?"}
+    L -->|Não| M["Registrar Tentativa<br/>Mostrar Erro"]
+    L -->|Sim| N["Verificar Hash de Senha"]
+    N --> O{"Corresponde?"}
+    O -->|Não| M
+    O -->|Sim| P["Verificar Status da Conta"]
+    P --> Q{"Ativa?"}
+    Q -->|Não| R["Mostrar Erro de Status"]
+    Q -->|Sim| S["Criar Sessão"]
+    S --> T["Atualizar Último Login"]
+    T --> U{"Lembrar-me?"}
+    U -->|Sim| W["Criar Token Persistente<br/>Definir Cookie Longo"]
+    U -->|Não| X["Definir Cookie de Sessão"]
+    W --> Y["Redirecionar para Painel"]
     X --> Y
 ```
 
-## Session Management
+## Gerenciamento de Sessão
 
-### Session Configuration
+### Configuração de Sessão
 
 ```php
 <?php
 /**
- * XOOPS Session Configuration
- * Typically in /include/session.php
+ * Configuração de Sessão XOOPS
+ * Tipicamente em /include/session.php
  */
 
-// Session cookie parameters for security
+// Parâmetros de cookie de sessão para segurança
 session_set_cookie_params([
-    'lifetime' => 0,           // Session cookie (deleted on browser close)
-    'path' => '/',             // Cookie path
-    'domain' => '',            // Cookie domain (empty = current domain)
-    'secure' => true,          // HTTPS only
-    'httponly' => true,        // Not accessible to JavaScript
-    'samesite' => 'Strict'     // CSRF protection
+    'lifetime' => 0,           // Cookie de sessão (deletado ao fechar navegador)
+    'path' => '/',             // Caminho do cookie
+    'domain' => '',            // Domínio do cookie (vazio = domínio atual)
+    'secure' => true,          // Apenas HTTPS
+    'httponly' => true,        // Não acessível a JavaScript
+    'samesite' => 'Strict'     // Proteção CSRF
 ]);
 
-// Set session configuration
+// Definir configuração de sessão
 ini_set('session.name', 'XOOPSPHPSESSID');
 ini_set('session.use_strict_mode', 1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
-ini_set('session.gc_maxlifetime', 28800);  // 8 hours
+ini_set('session.gc_maxlifetime', 28800);  // 8 horas
 
-// Start session
+// Iniciar sessão
 session_start();
 
-// Verify session fixation protection
+// Verificar proteção de fixação de sessão
 if (!isset($_SESSION['initiated'])) {
     session_regenerate_id();
     $_SESSION['initiated'] = true;
 }
 ```
 
-### Session Handler Implementation
+### Implementação de Manipulador de Sessão
 
 ```php
 <?php
 /**
- * XOOPS Session Handler
+ * Manipulador de Sessão XOOPS
  */
 class XoopsSessionHandler
 {
-    private $sessionTimeout = 28800; // 8 hours
+    private $sessionTimeout = 28800; // 8 horas
     private $sessionTokenLength = 32;
     private $db;
 
@@ -164,19 +163,19 @@ class XoopsSessionHandler
     }
 
     /**
-     * Create new session
+     * Criar nova sessão
      *
-     * @param XoopsUser $user User object
-     * @param bool $rememberMe Persistent login flag
-     * @return bool Success status
+     * @param XoopsUser $user Objeto de usuário
+     * @param bool $rememberMe Flag de login persistente
+     * @return bool Status de sucesso
      */
     public function createSession(XoopsUser $user, bool $rememberMe = false): bool
     {
         try {
-            // Generate secure token
+            // Gerar token seguro
             $token = bin2hex(random_bytes($this->sessionTokenLength));
 
-            // Store in session
+            // Armazenar em sessão
             $_SESSION['xoopsUserId'] = $user->getVar('uid');
             $_SESSION['xoopsUserName'] = $user->getVar('uname');
             $_SESSION['xoopsSessionToken'] = $token;
@@ -184,14 +183,14 @@ class XoopsSessionHandler
             $_SESSION['xoopsSessionIP'] = $this->getClientIP();
             $_SESSION['xoopsSessionUA'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-            // Store token in database
+            // Armazenar token em banco de dados
             $this->storeSessionToken(
                 $user->getVar('uid'),
                 $token,
                 $this->sessionTimeout
             );
 
-            // Handle persistent login
+            // Lidar com login persistente
             if ($rememberMe) {
                 $this->createPersistentLogin($user->getVar('uid'));
             }
@@ -204,32 +203,32 @@ class XoopsSessionHandler
     }
 
     /**
-     * Validate current session
+     * Validar sessão atual
      *
-     * @return bool Session valid
+     * @return bool Sessão válida
      */
     public function validateSession(): bool
     {
-        // Check session variables exist
+        // Verificar se variáveis de sessão existem
         if (!isset($_SESSION['xoopsUserId'], $_SESSION['xoopsSessionToken'])) {
             return false;
         }
 
-        // Verify session timeout
+        // Verificar timeout de sessão
         $created = $_SESSION['xoopsSessionCreated'] ?? 0;
         if (time() - $created > $this->sessionTimeout) {
             $this->destroySession();
             return false;
         }
 
-        // Verify IP address consistency
+        // Verificar consistência do endereço IP
         if ($this->getClientIP() !== ($_SESSION['xoopsSessionIP'] ?? '')) {
             error_log('Session IP mismatch - possible session hijacking');
             $this->destroySession();
             return false;
         }
 
-        // Verify User Agent consistency
+        // Verificar consistência do User Agent
         $currentUA = $_SERVER['HTTP_USER_AGENT'] ?? '';
         if ($currentUA !== ($_SESSION['xoopsSessionUA'] ?? '')) {
             error_log('Session UA mismatch - possible session hijacking');
@@ -237,7 +236,7 @@ class XoopsSessionHandler
             return false;
         }
 
-        // Verify token in database
+        // Verificar token em banco de dados
         if (!$this->verifySessionToken(
             $_SESSION['xoopsUserId'],
             $_SESSION['xoopsSessionToken']
@@ -249,7 +248,7 @@ class XoopsSessionHandler
     }
 
     /**
-     * Destroy session
+     * Destruir sessão
      */
     public function destroySession(): void
     {
@@ -260,10 +259,10 @@ class XoopsSessionHandler
             );
         }
 
-        // Clear session data
+        // Limpar dados de sessão
         $_SESSION = [];
 
-        // Delete session cookie
+        // Deletar cookie de sessão
         if (ini_get('session.use_cookies')) {
             $params = session_get_cookie_params();
             setcookie(
@@ -281,11 +280,11 @@ class XoopsSessionHandler
     }
 
     /**
-     * Store session token in database
+     * Armazenar token de sessão em banco de dados
      *
-     * @param int $uid User ID
-     * @param string $token Session token
-     * @param int $lifetime Token lifetime in seconds
+     * @param int $uid ID do Usuário
+     * @param string $token Token de sessão
+     * @param int $lifetime Duração do token em segundos
      */
     private function storeSessionToken(int $uid, string $token, int $lifetime): void
     {
@@ -301,11 +300,11 @@ class XoopsSessionHandler
     }
 
     /**
-     * Verify session token
+     * Verificar token de sessão
      *
-     * @param int $uid User ID
-     * @param string $token Session token
-     * @return bool Valid token
+     * @param int $uid ID do Usuário
+     * @param string $token Token de sessão
+     * @return bool Token válido
      */
     private function verifySessionToken(int $uid, string $token): bool
     {
@@ -321,10 +320,10 @@ class XoopsSessionHandler
     }
 
     /**
-     * Delete session token
+     * Deletar token de sessão
      *
-     * @param int $uid User ID
-     * @param string $token Session token (optional)
+     * @param int $uid ID do Usuário
+     * @param string $token Token de sessão (opcional)
      */
     private function deleteSessionToken(int $uid, string $token = ''): void
     {
@@ -335,7 +334,7 @@ class XoopsSessionHandler
                 array($uid, $tokenHash)
             );
         } else {
-            // Delete all sessions for user
+            // Deletar todas as sessões do usuário
             $this->db->query(
                 "DELETE FROM xoops_sessions WHERE uid = ?",
                 array($uid)
@@ -344,9 +343,9 @@ class XoopsSessionHandler
     }
 
     /**
-     * Get client IP address
+     * Obter endereço IP do cliente
      *
-     * @return string IP address
+     * @return string Endereço IP
      */
     private function getClientIP(): string
     {
@@ -369,19 +368,19 @@ class XoopsSessionHandler
 }
 ```
 
-## Remember Me Functionality
+## Funcionalidade Lembrar-me
 
-### Persistent Login Implementation
+### Implementação de Login Persistente
 
 ```php
 <?php
 /**
- * Remember Me (Persistent Login) Handler
+ * Manipulador de Lembrar-me (Login Persistente)
  */
 class PersistentLoginHandler
 {
     private $cookieName = 'xoops_persistent_login';
-    private $cookieLifetime = 1209600; // 14 days
+    private $cookieLifetime = 1209600; // 14 dias
     private $db;
 
     public function __construct()
@@ -390,18 +389,18 @@ class PersistentLoginHandler
     }
 
     /**
-     * Create persistent login token
+     * Criar token de login persistente
      *
-     * @param int $uid User ID
-     * @return string Cookie token
+     * @param int $uid ID do Usuário
+     * @return string Token do cookie
      */
     public function createPersistentToken(int $uid): string
     {
-        // Generate random token
+        // Gerar token aleatório
         $token = bin2hex(random_bytes(32));
         $tokenHash = hash('sha256', $token);
 
-        // Store in database
+        // Armazenar em banco de dados
         $expiresAt = time() + $this->cookieLifetime;
 
         $this->db->query(
@@ -410,7 +409,7 @@ class PersistentLoginHandler
             array($uid, $tokenHash, $expiresAt)
         );
 
-        // Set cookie
+        // Definir cookie
         setcookie(
             $this->cookieName,
             $token,
@@ -425,9 +424,9 @@ class PersistentLoginHandler
     }
 
     /**
-     * Validate persistent login cookie
+     * Validar cookie de login persistente
      *
-     * @return XoopsUser|false Authenticated user or false
+     * @return XoopsUser|false Usuário autenticado ou falso
      */
     public function validatePersistentToken()
     {
@@ -438,7 +437,7 @@ class PersistentLoginHandler
         $token = $_COOKIE[$this->cookieName];
         $tokenHash = hash('sha256', $token);
 
-        // Query database
+        // Consultar banco de dados
         $result = $this->db->query(
             "SELECT uid FROM xoops_persistent_tokens
              WHERE token_hash = ? AND expires_at > ?",
@@ -452,7 +451,7 @@ class PersistentLoginHandler
         $row = $this->db->fetchArray($result);
         $uid = $row['uid'];
 
-        // Get user
+        // Obter usuário
         $userHandler = xoops_getHandler('user');
         $user = $userHandler->getUser($uid);
 
@@ -460,45 +459,45 @@ class PersistentLoginHandler
             return false;
         }
 
-        // Refresh token (sliding window)
+        // Renovar token (janela deslizante)
         $this->refreshPersistentToken($uid, $token);
 
         return $user;
     }
 
     /**
-     * Refresh persistent token (sliding window)
+     * Renovar token de login persistente (janela deslizante)
      *
-     * @param int $uid User ID
-     * @param string $oldToken Old token
+     * @param int $uid ID do Usuário
+     * @param string $oldToken Token antigo
      */
     private function refreshPersistentToken(int $uid, string $oldToken): void
     {
-        // Delete old token
+        // Deletar token antigo
         $oldTokenHash = hash('sha256', $oldToken);
         $this->db->query(
             "DELETE FROM xoops_persistent_tokens WHERE token_hash = ?",
             array($oldTokenHash)
         );
 
-        // Create new token
+        // Criar novo token
         $this->createPersistentToken($uid);
     }
 
     /**
-     * Clear persistent login
+     * Limpar login persistente
      *
-     * @param int $uid User ID
+     * @param int $uid ID do Usuário
      */
     public function clearPersistentLogin(int $uid): void
     {
-        // Delete all tokens for user
+        // Deletar todos os tokens do usuário
         $this->db->query(
             "DELETE FROM xoops_persistent_tokens WHERE uid = ?",
             array($uid)
         );
 
-        // Delete cookie
+        // Deletar cookie
         setcookie(
             $this->cookieName,
             '',
@@ -512,22 +511,22 @@ class PersistentLoginHandler
 }
 ```
 
-## Password Hashing
+## Hash de Senha
 
-### Secure Password Handling
+### Manejo Seguro de Senha
 
 ```php
 <?php
 /**
- * Password hashing and verification
+ * Hash de senha e verificação
  */
 class PasswordManager
 {
     /**
-     * Hash password using bcrypt
+     * Hash de senha usando bcrypt
      *
-     * @param string $password Plain text password
-     * @return string Hashed password
+     * @param string $password Senha em texto plano
+     * @return string Senha com hash
      */
     public static function hash(string $password): string
     {
@@ -535,11 +534,11 @@ class PasswordManager
     }
 
     /**
-     * Verify password against hash
+     * Verificar senha contra hash
      *
-     * @param string $password Plain text password
-     * @param string $hash Password hash
-     * @return bool Match status
+     * @param string $password Senha em texto plano
+     * @param string $hash Hash da senha
+     * @return bool Status da correspondência
      */
     public static function verify(string $password, string $hash): bool
     {
@@ -547,10 +546,10 @@ class PasswordManager
     }
 
     /**
-     * Check if password needs rehashing (stronger algorithm available)
+     * Verificar se a senha precisa de rehash (algoritmo mais forte disponível)
      *
-     * @param string $hash Password hash
-     * @return bool Needs rehashing
+     * @param string $hash Hash da senha
+     * @return bool Precisa de rehash
      */
     public static function needsRehash(string $hash): bool
     {
@@ -558,38 +557,38 @@ class PasswordManager
     }
 
     /**
-     * Validate password strength
+     * Validar força da senha
      *
-     * @param string $password Password to validate
-     * @return array Validation result
+     * @param string $password Senha a validar
+     * @return array Resultado da validação
      */
     public static function validateStrength(string $password): array
     {
         $errors = [];
 
-        // Minimum length
+        // Comprimento mínimo
         if (strlen($password) < 8) {
-            $errors[] = 'Password must be at least 8 characters';
+            $errors[] = 'A senha deve ter pelo menos 8 caracteres';
         }
 
-        // Require uppercase
+        // Requer letra maiúscula
         if (!preg_match('/[A-Z]/', $password)) {
-            $errors[] = 'Password must contain uppercase letter';
+            $errors[] = 'A senha deve conter letra maiúscula';
         }
 
-        // Require lowercase
+        // Requer letra minúscula
         if (!preg_match('/[a-z]/', $password)) {
-            $errors[] = 'Password must contain lowercase letter';
+            $errors[] = 'A senha deve conter letra minúscula';
         }
 
-        // Require number
+        // Requer número
         if (!preg_match('/[0-9]/', $password)) {
-            $errors[] = 'Password must contain number';
+            $errors[] = 'A senha deve conter número';
         }
 
-        // Require special character
+        // Requer caractere especial
         if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-            $errors[] = 'Password must contain special character';
+            $errors[] = 'A senha deve conter caractere especial';
         }
 
         return [
@@ -599,10 +598,10 @@ class PasswordManager
     }
 
     /**
-     * Generate random password
+     * Gerar senha aleatória
      *
-     * @param int $length Password length
-     * @return string Random password
+     * @param int $length Comprimento da senha
+     * @return string Senha aleatória
      */
     public static function generateRandom(int $length = 12): string
     {
@@ -618,14 +617,14 @@ class PasswordManager
 }
 ```
 
-## Two-Factor Authentication
+## Autenticação de Dois Fatores
 
-### 2FA Implementation Overview
+### Visão Geral de Implementação de 2FA
 
 ```php
 <?php
 /**
- * Two-Factor Authentication Handler
+ * Manipulador de Autenticação de Dois Fatores
  */
 class TwoFactorAuthHandler
 {
@@ -639,20 +638,20 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Enable 2FA for user
+     * Habilitar 2FA para usuário
      *
-     * @param int $uid User ID
-     * @return array Setup data with secret and QR code
+     * @param int $uid ID do Usuário
+     * @return array Dados de configuração com segredo e código QR
      */
     public function enable2FA(int $uid): array
     {
-        // Generate secret
+        // Gerar segredo
         $secret = $this->generateSecret();
 
-        // Generate QR code
+        // Gerar código QR
         $qrCode = $this->generateQRCode($uid, $secret);
 
-        // Store secret temporarily (not yet confirmed)
+        // Armazenar segredo temporariamente (ainda não confirmado)
         $this->storeTempSecret($uid, $secret);
 
         return [
@@ -662,26 +661,26 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Confirm 2FA setup with TOTP code
+     * Confirmar configuração de 2FA com código TOTP
      *
-     * @param int $uid User ID
-     * @param string $code TOTP code
-     * @return bool Confirmation success
+     * @param int $uid ID do Usuário
+     * @param string $code Código TOTP
+     * @return bool Sucesso da confirmação
      */
     public function confirm2FA(int $uid, string $code): bool
     {
-        // Get temporary secret
+        // Obter segredo temporário
         $tempSecret = $this->getTempSecret($uid);
         if (!$tempSecret) {
             return false;
         }
 
-        // Verify TOTP code
+        // Verificar código TOTP
         if (!$this->verifyTOTP($code, $tempSecret)) {
             return false;
         }
 
-        // Make 2FA active
+        // Tornar 2FA ativo
         $this->db->query(
             "UPDATE xoops_user_2fa SET status = 'active' WHERE uid = ?",
             array($uid)
@@ -691,15 +690,15 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Verify TOTP code during login
+     * Verificar código TOTP durante login
      *
-     * @param int $uid User ID
-     * @param string $code TOTP code
-     * @return bool Valid code
+     * @param int $uid ID do Usuário
+     * @param string $code Código TOTP
+     * @return bool Código válido
      */
     public function verifyTOTP(int $uid, string $code): bool
     {
-        // Get active secret
+        // Obter segredo ativo
         $result = $this->db->query(
             "SELECT secret FROM xoops_user_2fa WHERE uid = ? AND status = 'active'",
             array($uid)
@@ -712,20 +711,20 @@ class TwoFactorAuthHandler
         $row = $this->db->fetchArray($result);
         $secret = $row['secret'];
 
-        // Verify TOTP
+        // Verificar TOTP
         return $this->verifyTOTPCode($code, $secret);
     }
 
     /**
-     * Verify TOTP code against secret
+     * Verificar código TOTP contra segredo
      *
-     * @param string $code TOTP code
-     * @param string $secret Shared secret
-     * @return bool Valid
+     * @param string $code Código TOTP
+     * @param string $secret Segredo compartilhado
+     * @return bool Válido
      */
     private function verifyTOTPCode(string $code, string $secret): bool
     {
-        // Allow for time drift (current, -1, +1)
+        // Permitir desvio de tempo (atual, -1, +1)
         $timeSlice = floor(time() / 30);
 
         for ($i = -1; $i <= 1; $i++) {
@@ -741,11 +740,11 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Generate TOTP code
+     * Gerar código TOTP
      *
-     * @param string $secret Shared secret
+     * @param string $secret Segredo compartilhado
      * @param int $timestamp Unix timestamp
-     * @return string TOTP code
+     * @return string Código TOTP
      */
     private function generateTOTP(string $secret, int $timestamp): string
     {
@@ -763,9 +762,9 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Generate random secret for 2FA
+     * Gerar segredo aleatório para 2FA
      *
-     * @return string Base32-encoded secret
+     * @return string Segredo codificado em Base32
      */
     private function generateSecret(): string
     {
@@ -774,10 +773,10 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Base32 encode
+     * Codificar Base32
      *
-     * @param string $data Data to encode
-     * @return string Base32-encoded string
+     * @param string $data Dados a codificar
+     * @return string String codificada em Base32
      */
     private function base32Encode(string $data): string
     {
@@ -805,10 +804,10 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Base32 decode
+     * Decodificar Base32
      *
-     * @param string $encoded Base32-encoded string
-     * @return string Decoded binary data
+     * @param string $encoded String codificada em Base32
+     * @return string Dados binários decodificados
      */
     private function base32Decode(string $encoded): string
     {
@@ -835,11 +834,11 @@ class TwoFactorAuthHandler
     }
 
     /**
-     * Generate QR code for 2FA setup
+     * Gerar código QR para configuração de 2FA
      *
-     * @param int $uid User ID
-     * @param string $secret TOTP secret
-     * @return string QR code data URL
+     * @param int $uid ID do Usuário
+     * @param string $secret Segredo TOTP
+     * @return string URL de dados do código QR
      */
     private function generateQRCode(int $uid, string $secret): string
     {
@@ -851,21 +850,21 @@ class TwoFactorAuthHandler
                       "?secret=" . urlencode($secret) .
                       "&issuer=" . urlencode($xoopsConfig['sitename']);
 
-        // Generate QR code using external library
-        // This example uses a placeholder - use actual QR code library
+        // Gerar código QR usando biblioteca externa
+        // Este exemplo usa um placeholder - use biblioteca QR real
         return "data:image/svg+xml,%3Csvg%3E...%3C/svg%3E";
     }
 }
 ```
 
-## OAuth Integration
+## Integração OAuth
 
-### OAuth2 Login Flow
+### Fluxo de Login OAuth2
 
 ```php
 <?php
 /**
- * OAuth2 Integration
+ * Integração OAuth2
  */
 class OAuth2Handler
 {
@@ -896,10 +895,10 @@ class OAuth2Handler
     }
 
     /**
-     * Get OAuth authorization URL
+     * Obter URL de autorização OAuth
      *
-     * @param string $provider OAuth provider
-     * @return string Authorization URL
+     * @param string $provider Provedor OAuth
+     * @return string URL de autorização
      */
     public function getAuthorizationUrl(string $provider): string
     {
@@ -910,7 +909,7 @@ class OAuth2Handler
         $config = $this->providers[$provider];
         $state = bin2hex(random_bytes(16));
 
-        // Store state for verification
+        // Armazenar estado para verificação
         $_SESSION['oauth_state'] = $state;
         $_SESSION['oauth_provider'] = $provider;
 
@@ -926,15 +925,15 @@ class OAuth2Handler
     }
 
     /**
-     * Handle OAuth callback
+     * Lidar com callback OAuth
      *
-     * @param string $provider OAuth provider
-     * @param string $code Authorization code
-     * @return XoopsUser|false Authenticated user or false
+     * @param string $provider Provedor OAuth
+     * @param string $code Código de autorização
+     * @return XoopsUser|false Usuário autenticado ou falso
      */
     public function handleCallback(string $provider, string $code)
     {
-        // Verify state
+        // Verificar estado
         if ($_SESSION['oauth_state'] !== ($_GET['state'] ?? '')) {
             throw new Exception('Invalid state parameter');
         }
@@ -945,7 +944,7 @@ class OAuth2Handler
 
         $config = $this->providers[$provider];
 
-        // Exchange code for token
+        // Trocar código por token
         $token = $this->exchangeCodeForToken(
             $provider,
             $code,
@@ -956,7 +955,7 @@ class OAuth2Handler
             return false;
         }
 
-        // Get user info
+        // Obter informações do usuário
         $userInfo = $this->getUserInfo(
             $provider,
             $token,
@@ -967,17 +966,17 @@ class OAuth2Handler
             return false;
         }
 
-        // Find or create user
+        // Encontrar ou criar usuário
         return $this->findOrCreateUser($provider, $userInfo);
     }
 
     /**
-     * Exchange authorization code for access token
+     * Trocar código de autorização por token de acesso
      *
-     * @param string $provider Provider name
-     * @param string $code Authorization code
-     * @param array $config Provider config
-     * @return array|false Token data
+     * @param string $provider Nome do provedor
+     * @param string $code Código de autorização
+     * @param array $config Configuração do provedor
+     * @return array|false Dados do token
      */
     private function exchangeCodeForToken(
         string $provider,
@@ -1006,12 +1005,12 @@ class OAuth2Handler
     }
 
     /**
-     * Get user info from provider
+     * Obter informações do usuário do provedor
      *
-     * @param string $provider Provider name
-     * @param array $token Access token
-     * @param array $config Provider config
-     * @return array|false User info
+     * @param string $provider Nome do provedor
+     * @param array $token Token de acesso
+     * @param array $config Configuração do provedor
+     * @return array|false Informações do usuário
      */
     private function getUserInfo(
         string $provider,
@@ -1033,15 +1032,15 @@ class OAuth2Handler
     }
 
     /**
-     * Find or create user from OAuth info
+     * Encontrar ou criar usuário a partir de informações OAuth
      *
-     * @param string $provider Provider name
-     * @param array $userInfo User info from provider
+     * @param string $provider Nome do provedor
+     * @param array $userInfo Informações do usuário do provedor
      * @return XoopsUser|false
      */
     private function findOrCreateUser(string $provider, array $userInfo)
     {
-        // Check if user already linked
+        // Verificar se o usuário já está vinculado
         $result = $this->db->query(
             "SELECT uid FROM xoops_oauth_users
              WHERE provider = ? AND provider_id = ?",
@@ -1053,11 +1052,11 @@ class OAuth2Handler
             return $this->userHandler->getUser($row['uid']);
         }
 
-        // Try to find user by email
+        // Tentar encontrar usuário por email
         if (isset($userInfo['email'])) {
             $user = $this->userHandler->getUserByEmail($userInfo['email']);
             if ($user) {
-                // Link existing user to OAuth account
+                // Vincular usuário existente a conta OAuth
                 $this->linkOAuthAccount(
                     $user->getVar('uid'),
                     $provider,
@@ -1067,25 +1066,25 @@ class OAuth2Handler
             }
         }
 
-        // Create new user
+        // Criar novo usuário
         $newUser = $this->createOAuthUser($provider, $userInfo);
         return $newUser;
     }
 
     /**
-     * Create new user from OAuth info
+     * Criar novo usuário a partir de informações OAuth
      *
-     * @param string $provider Provider name
-     * @param array $userInfo User info
+     * @param string $provider Nome do provedor
+     * @param array $userInfo Informações do usuário
      * @return XoopsUser|false
      */
     private function createOAuthUser(string $provider, array $userInfo)
     {
-        // Generate unique username from provider data
+        // Gerar nome de usuário único a partir de dados do provedor
         $baseUsername = preg_replace('/[^a-zA-Z0-9_-]/', '', $userInfo['name'] ?? '');
         $username = $baseUsername ?: 'oauth_' . substr($userInfo['id'], 0, 8);
 
-        // Make unique
+        // Tornar único
         $counter = 1;
         $originalUsername = $username;
         while ($this->userHandler->getUserByName($username)) {
@@ -1093,7 +1092,7 @@ class OAuth2Handler
             $counter++;
         }
 
-        // Create user
+        // Criar usuário
         $user = $this->userHandler->create();
         $user->setVar('uname', $username);
         $user->setVar('email', $userInfo['email'] ?? '');
@@ -1104,7 +1103,7 @@ class OAuth2Handler
             return false;
         }
 
-        // Link OAuth account
+        // Vincular conta OAuth
         $this->linkOAuthAccount(
             $user->getVar('uid'),
             $provider,
@@ -1115,11 +1114,11 @@ class OAuth2Handler
     }
 
     /**
-     * Link OAuth account to user
+     * Vincular conta OAuth a usuário
      *
-     * @param int $uid User ID
-     * @param string $provider Provider name
-     * @param string $providerId Provider user ID
+     * @param int $uid ID do Usuário
+     * @param string $provider Nome do provedor
+     * @param string $providerId ID do usuário do provedor
      */
     private function linkOAuthAccount(int $uid, string $provider, string $providerId): void
     {
@@ -1131,10 +1130,10 @@ class OAuth2Handler
     }
 
     /**
-     * Get OAuth callback URL
+     * Obter URL de callback OAuth
      *
-     * @param string $provider Provider name
-     * @return string Callback URL
+     * @param string $provider Nome do provedor
+     * @return string URL de callback
      */
     private function getCallbackUrl(string $provider): string
     {
@@ -1144,22 +1143,22 @@ class OAuth2Handler
 }
 ```
 
-## Security Best Practices
+## Boas Práticas de Segurança
 
-### Authentication Security Checklist
+### Lista de Verificação de Segurança de Autenticação
 
 ```php
 <?php
 /**
- * Security best practices
+ * Boas práticas de segurança
  */
 
-// 1. HTTPS enforced
+// 1. HTTPS obrigatório
 if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
     die('HTTPS required for authentication');
 }
 
-// 2. CSRF protection
+// 2. Proteção CSRF
 function generateCSRFToken() {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -1171,7 +1170,7 @@ function verifyCSRFToken($token) {
     return hash_equals($_SESSION['csrf_token'] ?? '', $token);
 }
 
-// 3. Rate limiting on login attempts
+// 3. Limitação de taxa de tentativas de login
 class RateLimiter {
     public static function checkLoginLimit($identifier) {
         $key = 'login_attempt_' . md5($identifier);
@@ -1181,17 +1180,17 @@ class RateLimiter {
             throw new Exception('Too many login attempts');
         }
 
-        apcu_store($key, $attempts + 1, 900); // 15 minute window
+        apcu_store($key, $attempts + 1, 900); // janela de 15 minutos
     }
 }
 
-// 4. Secure password requirements
+// 4. Requisitos de senha segura
 $passwordValidation = PasswordManager::validateStrength($password);
 if (!$passwordValidation['valid']) {
     throw new Exception(implode(', ', $passwordValidation['errors']));
 }
 
-// 5. Secure session cookie
+// 5. Cookie de sessão seguro
 header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
@@ -1199,7 +1198,7 @@ header('X-XSS-Protection: 1; mode=block');
 header('Content-Security-Policy: default-src \'self\'');
 ```
 
-## Related Links
+## Links Relacionados
 
 - User Management.md
 - Group System.md

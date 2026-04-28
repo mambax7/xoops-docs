@@ -1,60 +1,59 @@
 ---
-title: "Site Configuration"
+title: "Configuração de Site"
 ---
 
-This page collects the information used to set the intial state of your new XOOPS site. This includes things like titles and HTML meta tag values.
+Esta página coleta as informações usadas para definir o estado inicial do seu novo site XOOPS. Isto inclui coisas como títulos e valores de meta tag HTML.
 
-These are only the initial values for your site. The setting can be changed at any time in your new XOOPS site's administration preferences.
+Estas são apenas os valores iniciais para seu site. A configuração pode ser alterada a qualquer momento nas preferências de administração do seu novo site XOOPS.
 
-You may want to use these intial settings to limit what will be seen publicly until your site is fully set up.
+Você pode querer usar essas configurações iniciais para limitar o que será visto publicamente até que seu site esteja totalmente configurado.
 
-After entering the requested information and correcting any issues, select the "Continue" button to proceed.
+Após digitar as informações solicitadas e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Site Configuration](/xoops-docs/2.7/img/installation/installer-11.png)
+![Configuração de Site do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-11.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### General Settings
+### Configurações Gerais
 
-#### Site name
+#### Nome do site
 
-The name, or title, for your site.
+O nome ou título do seu site.
 
-#### Slogan for your site
+#### Slogan para seu site
 
-A slogan, or sub-title, for your site.
+Um slogan ou subtítulo para seu site.
 
-#### Debug mode
+#### Modo de depuração
 
-This allows you to enter your new site with debugging information displayed. While a running website should have this turned off, it can be very useful if there are any issues with the install. _Enable debug (inline mode)_ is the most commonly used value.
+Isto permite que você entre seu novo site com informações de depuração exibidas. Embora um site em execução deva ter isso desligado, pode ser muito útil se houver problemas com a instalação. _Habilitar depuração (modo inline)_ é o valor mais comumente usado.
 
-#### Turn your site off?
+#### Desligar seu site?
 
-Select _yes_ to turn your site off. In this state, immediately after install only the newly created admin account will be able to access the site. This will allow you to configure your site to your satisfaction before allowing public access.
+Selecione _sim_ para desligar seu site. Neste estado, imediatamente após a instalação, apenas a conta de administrador recém-criada poderá acessar o site. Isto permitirá que você configure seu site à sua satisfação antes de permitir acesso público.
 
-### Meta Tags and Footer
+### Meta Tags e Rodapé
 
-HTML meta tags contain data describing a site. Some modules may set page specific meta tags. The tag values entered here will be used if not overridden by page specific values.
+As meta tags HTML contêm dados descrevendo um site. Alguns módulos podem definir meta tags específicas da página. Os valores de tag inseridos aqui serão usados se não forem substituídos por valores específicos da página.
 
-#### Meta Keywords
+#### Palavras-chave Meta
 
-A list of key words related to the site content. These may play a role in SEO, but use carefully. "Spamming" with keywords can have a negative effect on search engine placement.
+Uma lista de palavras-chave relacionadas ao conteúdo do site. Estes podem desempenhar um papel no SEO, mas use com cuidado. "Spam" com palavras-chave pode ter um efeito negativo no posicionamento do mecanismo de busca.
 
-#### Meta Description
+#### Descrição Meta
 
-A brief description of your site.
+Uma breve descrição do seu site.
 
-#### Meta Author
+#### Meta Autor
 
-The default author of the site in the form of a name, email address, company name or URL.
+O autor padrão do site na forma de nome, endereço de email, nome da empresa ou URL.
 
 #### Meta Copyright
 
-A copyright statement for your site.
+Uma declaração de direitos autorais para seu site.
 
-### User Info Settings
+### Configurações de Informações de Usuário
 
-#### Allow new user registration?
+#### Permitir novo registro de usuário?
 
-Select yes to accept new user registrations, or no if registration will be private.
-
+Selecione sim para aceitar novos registros de usuários ou não se o registro for privado.

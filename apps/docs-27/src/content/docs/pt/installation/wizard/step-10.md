@@ -1,16 +1,15 @@
 ---
-title: "Data Insertion"
+title: "Inserção de Dados"
 ---
 
-This page displays the results of creating the XOOPS tables in the database.
+Esta página exibe os resultados da criação das tabelas XOOPS no banco de dados.
 
-After reviewing and correcting any issues, select the "Continue" button to proceed.
+Após revisar e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-## On Success
+## No Sucesso
 
-The _Saving your settings to the database_ section shows the number of entries inserted into the database by table.
+A seção _Salvando suas configurações no banco de dados_ mostra o número de entradas inseridas no banco de dados por tabela.
 
-Below this is the result of the license key generation.
+Abaixo disto está o resultado da geração de chave de licença.
 
-![XOOPS Installer Data Insertion](/xoops-docs/2.7/img/installation/installer-10.png)
-
+![Inserção de Dados do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-10.png)

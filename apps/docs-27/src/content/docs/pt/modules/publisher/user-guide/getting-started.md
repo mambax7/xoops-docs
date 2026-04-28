@@ -1,242 +1,242 @@
 ---
-title: "Publisher - Getting Started"
-description: "Quick start guide for the XOOPS Publisher module"
+title: "Publisher - Começando"
+description: "Guia de início rápido para o módulo XOOPS Publisher"
 ---
 
-# Getting Started with Publisher
+# Começando com o Publisher
 
-> A step-by-step guide to setting up and using the Publisher news/blog module.
+> Guia passo a passo para configurar e usar o módulo de notícias/blog Publisher.
 
 ---
 
-## What is Publisher?
+## O Que É Publisher?
 
-Publisher is the premier content management module for XOOPS, designed for:
+Publisher é o módulo de gerenciamento de conteúdo principal para XOOPS, projetado para:
 
-- **News Sites** - Publish articles with categories
-- **Blogs** - Personal or multi-author blogging``
-- **Documentation** - Organized knowledge bases
-- **Content Portals** - Mixed media content
+- **Sites de Notícias** - Publicar artigos com categorias
+- **Blogs** - Blogging pessoal ou multi-autor
+- **Documentação** - Bases de conhecimento organizadas
+- **Portais de Conteúdo** - Conteúdo de mídia mista
 
 ```mermaid
 graph LR
-    A[Authors] --> B[Publisher]
-    B --> C[Categories]
-    B --> D[Articles]
-    B --> E[Files]
-    D --> F[Readers]
+    A[Autores] --> B[Publisher]
+    B --> C[Categorias]
+    B --> D[Artigos]
+    B --> E[Arquivos]
+    D --> F[Leitores]
     E --> F
 ```
 
 ---
 
-## Quick Setup
+## Configuração Rápida
 
-### Step 1: Install Publisher
+### Etapa 1: Instalar Publisher
 
-1. Download from [GitHub](https://github.com/XoopsModules25x/publisher)
-2. Upload to `modules/publisher/`
-3. Go to Admin → Modules → Install
+1. Baixe de [GitHub](https://github.com/XoopsModules25x/publisher)
+2. Envie para `modules/publisher/`
+3. Vá para Admin → Módulos → Instalar
 
-### Step 2: Create Categories
+### Etapa 2: Criar Categorias
 
 ```mermaid
 graph TD
-    A[News] --> B[Technology]
-    A --> C[Sports]
-    A --> D[Entertainment]
-    B --> E[AI & ML]
-    B --> F[Web Development]
+    A[Notícias] --> B[Tecnologia]
+    A --> C[Esportes]
+    A --> D[Entretenimento]
+    B --> E[IA e ML]
+    B --> F[Desenvolvimento Web]
 ```
 
-1. Admin → Publisher → Categories
-2. Click "Add Category"
-3. Fill in:
-   - **Name**: Category name
-   - **Description**: What this category contains
-   - **Image**: Optional category image
-4. Set permissions (who can submit/view)
-5. Save
+1. Admin → Publisher → Categorias
+2. Clique em "Adicionar Categoria"
+3. Preencha:
+   - **Nome**: Nome da categoria
+   - **Descrição**: O que esta categoria contém
+   - **Imagem**: Imagem de categoria opcional
+4. Defina permissões (quem pode enviar/visualizar)
+5. Salve
 
-### Step 3: Configure Settings
+### Etapa 3: Configurar Configurações
 
-1. Admin → Publisher → Preferences
-2. Key settings to configure:
+1. Admin → Publisher → Preferências
+2. Principais configurações para definir:
 
-| Setting | Recommended | Description |
+| Configuração | Recomendado | Descrição |
 |---------|-------------|-------------|
-| Items per page | 10-20 | Articles on index |
-| Editor | TinyMCE/CKEditor | Rich text editor |
-| Allow ratings | Yes | Reader feedback |
-| Allow comments | Yes | Discussions |
-| Auto-approve | No | Editorial control |
+| Itens por página | 10-20 | Artigos no índice |
+| Editor | TinyMCE/CKEditor | Editor de texto rico |
+| Permitir avaliações | Sim | Feedback do leitor |
+| Permitir comentários | Sim | Discussões |
+| Aprovar automaticamente | Não | Controle editorial |
 
-### Step 4: Create Your First Article
+### Etapa 4: Criar Seu Primeiro Artigo
 
-1. Main menu → Publisher → Submit Article
-2. Fill in the form:
-   - **Title**: Article headline
-   - **Category**: Where it belongs
-   - **Summary**: Short description
-   - **Body**: Full article content
-3. Add optional elements:
-   - Featured image
-   - File attachments
-   - SEO settings
-4. Submit for review or publish
+1. Menu principal → Publisher → Enviar Artigo
+2. Preencha o formulário:
+   - **Título**: Manchete do artigo
+   - **Categoria**: Onde pertence
+   - **Resumo**: Descrição breve
+   - **Corpo**: Conteúdo completo do artigo
+3. Adicione elementos opcionais:
+   - Imagem em destaque
+   - Anexos de arquivo
+   - Configurações de SEO
+4. Envie para revisão ou publique
 
 ---
 
-## User Roles
+## Funções de Usuário
 
 ```mermaid
 flowchart TD
-    subgraph "Permissions"
-        A[Reader] --> |View| B[Published Content]
-        C[Author] --> |Submit| D[Articles]
-        E[Editor] --> |Approve| D
-        F[Admin] --> |Full Control| G[Everything]
+    subgraph "Permissões"
+        A[Leitor] --> |Visualizar| B[Conteúdo Publicado]
+        C[Autor] --> |Enviar| D[Artigos]
+        E[Editor] --> |Aprovar| D
+        F[Admin] --> |Controle Total| G[Tudo]
     end
 
     D --> E
     E --> B
 ```
 
-### Reader
-- View published articles
-- Rate and comment
-- Search content
+### Leitor
+- Visualizar artigos publicados
+- Avaliar e comentar
+- Pesquisar conteúdo
 
-### Author
-- Submit new articles
-- Edit own articles
-- Attach files
+### Autor
+- Enviar novos artigos
+- Editar próprios artigos
+- Anexar arquivos
 
 ### Editor
-- Approve/reject submissions
-- Edit any article
-- Manage categories
+- Aprovar/rejeitar envios
+- Editar qualquer artigo
+- Gerenciar categorias
 
-### Administrator
-- Full module control
-- Configure settings
-- Manage permissions
+### Administrador
+- Controle total do módulo
+- Configurar configurações
+- Gerenciar permissões
 
 ---
 
-## Writing Articles
+## Escrevendo Artigos
 
-### Article Editor
+### Editor de Artigos
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│ Title: [Your Article Title                        ] │
+│ Título: [Seu Título do Artigo                     ] │
 ├─────────────────────────────────────────────────────┤
-│ Category: [Select Category          ▼]              │
+│ Categoria: [Selecionar Categoria      ▼]            │
 ├─────────────────────────────────────────────────────┤
-│ Summary:                                            │
+│ Resumo:                                             │
 │ ┌─────────────────────────────────────────────────┐ │
-│ │ Brief description shown in listings...          │ │
+│ │ Descrição breve mostrada em listagens...        │ │
 │ └─────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────┤
-│ Body:                                               │
+│ Corpo:                                              │
 │ ┌─────────────────────────────────────────────────┐ │
-│ │ [B] [I] [U] [Link] [Image] [Code]               │ │
+│ │ [N] [I] [S] [Link] [Imagem] [Código]             │ │
 │ ├─────────────────────────────────────────────────┤ │
 │ │                                                  │ │
-│ │ Full article content goes here...               │ │
+│ │ Conteúdo completo do artigo vai aqui...         │ │
 │ │                                                  │ │
 │ └─────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────┤
-│ [Submit] [Preview] [Save Draft]                     │
+│ [Enviar] [Visualizar] [Salvar Rascunho]             │
 └─────────────────────────────────────────────────────┘
 ```
 
-### Best Practices
+### Melhores Práticas
 
-1. **Compelling titles** - Clear, engaging headlines
-2. **Good summaries** - Entice readers to click
-3. **Structured content** - Use headings, lists, images
-4. **Proper categorization** - Help readers find content
-5. **SEO optimization** - Keywords in title and content
+1. **Títulos atraentes** - Manchetes claras e envolventes
+2. **Bons resumos** - Atrair leitores para clicar
+3. **Conteúdo estruturado** - Usar cabeçalhos, listas, imagens
+4. **Categorização apropriada** - Ajudar leitores a encontrar conteúdo
+5. **Otimização de SEO** - Palavras-chave no título e conteúdo
 
 ---
 
-## Managing Content
+## Gerenciando Conteúdo
 
-### Article Status Flow
+### Fluxo de Status de Artigo
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft: Save Draft
-    Draft --> Submitted: Submit
-    Submitted --> Published: Approve
-    Submitted --> Rejected: Reject
-    Rejected --> Draft: Revise
-    Published --> Archived: Archive
-    Published --> Draft: Unpublish
-    Archived --> Published: Restore
+    [*] --> Rascunho: Salvar Rascunho
+    Rascunho --> Enviado: Enviar
+    Enviado --> Publicado: Aprovar
+    Enviado --> Rejeitado: Rejeitar
+    Rejeitado --> Rascunho: Revisar
+    Publicado --> Arquivado: Arquivar
+    Publicado --> Rascunho: Despu
+    Arquivado --> Publicado: Restaurar
 ```
 
-### Status Descriptions
+### Descrições de Status
 
-| Status | Description |
+| Status | Descrição |
 |--------|-------------|
-| Draft | Work in progress |
-| Submitted | Awaiting review |
-| Published | Live on site |
-| Expired | Past expiration date |
-| Rejected | Needs revision |
-| Archived | Removed from listings |
+| Rascunho | Trabalho em progresso |
+| Enviado | Aguardando revisão |
+| Publicado | Ativo no site |
+| Expirado | Passado a data de expiração |
+| Rejeitado | Precisa de revisão |
+| Arquivado | Removido de listagens |
 
 ---
 
-## Navigation
+## Navegação
 
-### Accessing Publisher
+### Acessar Publisher
 
-- **Main Menu** → Publisher
-- **Direct URL**: `yoursite.com/modules/publisher/`
+- **Menu Principal** → Publisher
+- **URL Direta**: `seusite.com/modules/publisher/`
 
-### Key Pages
+### Páginas Principais
 
-| Page | URL | Purpose |
+| Página | URL | Propósito |
 |------|-----|---------|
-| Index | `/modules/publisher/` | Article listings |
-| Category | `/modules/publisher/category.php?id=X` | Category articles |
-| Article | `/modules/publisher/item.php?itemid=X` | Single article |
-| Submit | `/modules/publisher/submit.php` | New article |
-| Search | `/modules/publisher/search.php` | Find articles |
+| Índice | `/modules/publisher/` | Listagens de artigos |
+| Categoria | `/modules/publisher/category.php?id=X` | Artigos da categoria |
+| Artigo | `/modules/publisher/item.php?itemid=X` | Artigo único |
+| Enviar | `/modules/publisher/submit.php` | Novo artigo |
+| Pesquisa | `/modules/publisher/search.php` | Encontrar artigos |
 
 ---
 
-## Blocks
+## Blocos
 
-Publisher provides several blocks for your site:
+O Publisher fornece vários blocos para seu site:
 
-### Recent Articles
-Displays latest published articles
+### Artigos Recentes
+Exibe os artigos publicados mais recentes
 
-### Category Menu
-Navigation by category
+### Menu de Categoria
+Navegação por categoria
 
-### Popular Articles
-Most viewed content
+### Artigos Populares
+Conteúdo mais visualizado
 
-### Random Article
-Showcase random content
+### Artigo Aleatório
+Conteúdo aleatório em destaque
 
-### Spotlight
-Featured articles
-
----
-
-## Related Documentation
-
-- Creating and Editing Articles
-- Managing Categories
-- Extending Publisher
+### Destaque
+Artigos em destaque
 
 ---
 
-#xoops #publisher #user-guide #getting-started #cms
+## Documentação Relacionada
+
+- Criando e Editando Artigos
+- Gerenciando Categorias
+- Estendendo o Publisher
+
+---
+
+#xoops #publisher #guia-do-usuario #começando #cms

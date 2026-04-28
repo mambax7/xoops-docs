@@ -1,65 +1,65 @@
 ---
-title: "Requirements"
+title: "Requisitos"
 ---
 
-## Software Environment (the Stack)
+## Ambiente de Software (a Pilha)
 
-Most XOOPS production sites run on a _LAMP_ stack (a **L**inux system running **A**pache, **M**ySQL and **P**HP) but, there are a lot of different possible stacks.
+A maioria dos sites de produção do XOOPS funciona em uma pilha _LAMP_ (um sistema **L**inux executando **A**pache, **M**ySQL e **P**HP) mas, existem muitas pilhas possíveis diferentes.
 
-It is often easiest to prototype a new site on a local machine. For this case, many XOOPS users choose a _WAMP_ stack (using **W**indows as the OS,) while others run _LAMP_ or _MAMP_ (**M**AC) stacks.
+Geralmente é mais fácil fazer protótipos de um novo site em uma máquina local. Para este caso, muitos usuários do XOOPS escolhem uma pilha _WAMP_ (usando **W**indows como o SO), enquanto outros executam pilhas _LAMP_ ou _MAMP_ (**M**AC).
 
 ### PHP
 
-Any PHP version &gt;= 8.2.0 (PHP 8.4 or higher is strongly recommended)
+Qualquer versão do PHP >= 8.2.0 (PHP 8.4 ou superior é fortemente recomendado)
 
-> **Important:** XOOPS 2.7.0 requires **PHP 8.2 or newer**. PHP 7.x and earlier are no longer supported. If you are upgrading an older site, confirm your host offers PHP 8.2+ before starting.
+> **Importante:** O XOOPS 2.7.0 requer **PHP 8.2 ou mais novo**. PHP 7.x e versões anteriores não são mais suportados. Se você estiver atualizando um site antigo, confirme que seu host oferece PHP 8.2+ antes de começar.
 
 ### MySQL
 
-MySQL server 5.7 or higher (MySQL Server 8.4 or higher is strongly recommended.) MySQL 9.0 is also supported. MariaDB is a backward compatible, binary drop-in replacement of MySQL, and also works fine with XOOPS.
+MySQL server 5.7 ou superior (MySQL Server 8.4 ou superior é fortemente recomendado.) MySQL 9.0 também é suportado. MariaDB é um substituto compatível com versões anteriores e compatível com binários do MySQL e também funciona bem com XOOPS.
 
-### Web server
+### Servidor Web
 
-A web server that supports running PHP scripts, such as Apache, NGINX, LiteSpeed, etc.
+Um servidor web que suporta a execução de scripts PHP, como Apache, NGINX, LiteSpeed, etc.
 
-### Required PHP Extensions
+### Extensões PHP Necessárias
 
-The XOOPS installer verifies the following extensions are loaded before allowing installation to proceed:
+O instalador do XOOPS verifica as seguintes extensões antes de permitir a continuação da instalação:
 
-* `mysqli` — MySQL database driver
-* `session` — session handling
-* `pcre` — Perl-compatible regular expressions
-* `filter` — input filtering and validation
-* `fileinfo` — MIME-type detection for uploads
+* `mysqli` — Driver de banco de dados MySQL
+* `session` — Manipulação de sessão
+* `pcre` — Expressões regulares compatíveis com Perl
+* `filter` — Filtragem e validação de entrada
+* `fileinfo` — Detecção de tipo MIME para uploads
 
-### Required PHP Settings
+### Configurações PHP Necessárias
 
-In addition to the extensions above, the installer verifies the following `php.ini` setting:
+Além das extensões acima, o instalador verifica a seguinte configuração `php.ini`:
 
-* `file_uploads` must be **On** — without it, XOOPS cannot accept uploaded files
+* `file_uploads` deve ser **On** — sem ela, o XOOPS não pode aceitar arquivos enviados
 
-### Recommended PHP Extensions
+### Extensões PHP Recomendadas
 
-The installer also checks for these extensions. They are not strictly required, but XOOPS and most modules rely on them for full functionality. Enable as many as your host allows:
+O instalador também verifica essas extensões. Eles não são estritamente necessários, mas o XOOPS e a maioria dos módulos contam com eles para funcionalidade completa. Habilite o máximo possível que seu host permite:
 
-* `mbstring` — multi-byte string handling
-* `intl` — internationalization
-* `iconv` — character set conversion
-* `xml` — XML parsing
-* `zlib` — compression
-* `gd` — image processing
-* `exif` — image metadata
-* `curl` — HTTP client for feeds and API calls
+* `mbstring` — Manipulação de strings multibyte
+* `intl` — Internacionalização
+* `iconv` — Conversão de conjunto de caracteres
+* `xml` — Análise de XML
+* `zlib` — Compressão
+* `gd` — Processamento de imagem
+* `exif` — Metadados de imagem
+* `curl` — Cliente HTTP para feeds e chamadas de API
 
-## Services
+## Serviços
 
-### File System Access (for Webmaster Access)
+### Acesso ao Sistema de Arquivos (para Acesso de Webmaster)
 
-You will need some method (FTP, SFTP, etc.) to transfer the XOOPS distribution files to the web server.
+Você precisará de algum método (FTP, SFTP, etc.) para transferir os arquivos de distribuição do XOOPS para o servidor web.
 
-### File System Access (for Web Server Process)
+### Acesso ao Sistema de Arquivos (para Processo do Servidor Web)
 
-To run XOOPS, the ability to create, read and delete files and directories is needed. The following paths must be writable by the web server process for a normal installation and for normal day-to-day operation:
+Para executar o XOOPS, a capacidade de criar, ler e excluir arquivos e diretórios é necessária. Os seguintes caminhos devem ser graváveis pelo processo do servidor web para uma instalação normal e operação normal do dia a dia:
 
 * `uploads/`
 * `uploads/avatars/`
@@ -67,7 +67,7 @@ To run XOOPS, the ability to create, read and delete files and directories is ne
 * `uploads/images/`
 * `uploads/ranks/`
 * `uploads/smilies/`
-* `mainfile.php` (writable during install and upgrade)
+* `mainfile.php` (gravável durante instalação e atualização)
 * `xoops_data/`
 * `xoops_data/caches/`
 * `xoops_data/caches/xoops_cache/`
@@ -79,27 +79,27 @@ To run XOOPS, the ability to create, read and delete files and directories is ne
 * `xoops_data/data/`
 * `xoops_data/protector/`
 
-### Database
+### Banco de Dados
 
-XOOPS will need to create, modify and query tables in MySQL. For this you will need:
+O XOOPS precisará criar, modificar e consultar tabelas no MySQL. Para isso você precisará de:
 
-* a MySQL user account and password
-* a MySQL database that user has all privileges on (or alternately, the user can have privilege to create such a database)
+* Uma conta de usuário e senha MySQL
+* Um banco de dados MySQL que o usuário tenha todos os privilégios (ou alternativamente, o usuário pode ter privilégio para criar tal banco de dados)
 
-### Email
+### E-mail
 
-For a live site, you will need a working email address that XOOPS can use for user communication, such as account activations and password resets. While not strictly required, it is recommended if possible to use an email address that matches the domain that your XOOPS runs on. That helps to avoid your communications ending up being rejected or marked as spam.
+Para um site em tempo real, você precisará de um endereço de e-mail funcionando que o XOOPS possa usar para comunicação do usuário, como ativações de conta e redefinições de senha. Embora não seja estritamente necessário, é recomendável, se possível, usar um endereço de e-mail que corresponda ao domínio em que seu XOOPS é executado. Isso ajuda a evitar que suas comunicações sejam rejeitadas ou marcadas como spam.
 
-## Tools
+## Ferramentas
 
-You may need some additional tools to setup and customize your XOOPS installation. These may include:
+Você pode precisar de algumas ferramentas adicionais para configurar e personalizar sua instalação do XOOPS. Estas podem incluir:
 
-* FTP Client Software
-* Text Editor
-* Archive Software to work with XOOPS release (_.zip_ or _.tar.gz_) files.
+* Software Cliente FTP
+* Editor de Texto
+* Software de Arquivo para trabalhar com versões do XOOPS (arquivos _.zip_ ou _.tar.gz_).
 
-See the [Tools of the Trade](../tools/tools.md) section for some suggestions for suitable tools and web server stacks if needed.
+Veja a seção [Ferramentas do Comércio](../tools/tools.md) para algumas sugestões de ferramentas adequadas e pilhas de servidor web, se necessário.
 
-## Special Topics
+## Tópicos Especiais
 
-Some specific system software combinations may require some additional configurations to work with XOOPS. If you are using an SELinux environment, or upgrading an older site with custom themes, please refer to [Special Topics](specialtopics.md) for more information.
+Algumas combinações específicas de software de sistema podem exigir configurações adicionais para funcionar com o XOOPS. Se você estiver usando um ambiente SELinux ou atualizando um site antigo com temas personalizados, consulte [Tópicos Especiais](specialtopics.md) para obter mais informações.

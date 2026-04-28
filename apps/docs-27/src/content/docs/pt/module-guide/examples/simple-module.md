@@ -1,13 +1,13 @@
 ---
-title: "Simple Module Example"
-description: "Complete working module with all necessary files"
+title: "Exemplo de Módulo Simples"
+description: "Módulo completo funcionando com todos os arquivos necessários"
 ---
 
-# Simple Module Example - Blog
+# Exemplo de Módulo Simples - Blog
 
-A complete, working simple module that demonstrates core XOOPS concepts.
+Um módulo simples e completo que demonstra conceitos centrais de XOOPS.
 
-## Module Structure
+## Estrutura do Módulo
 
 ```
 blog/
@@ -44,7 +44,7 @@ $modversion = [
 ?>
 ```
 
-## Database Schema
+## Esquema de Banco de Dados
 
 ```sql
 CREATE TABLE `xoops_blog_posts` (
@@ -59,7 +59,7 @@ CREATE TABLE `xoops_blog_posts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 ```
 
-## Handler Class
+## Classe Handler
 
 ```php
 <?php
@@ -192,7 +192,7 @@ $xoopsTheme->display(
 ?>
 ```
 
-## Admin Interface (admin.php)
+## Interface de Administrador (admin.php)
 
 ```php
 <?php
@@ -248,7 +248,7 @@ $posts = $blogHandler->getAll(999, 0);
 </table>
 ```
 
-## Frontend Templates
+## Templates de Frontend
 
 ### blog_index.html
 
@@ -288,7 +288,7 @@ $posts = $blogHandler->getAll(999, 0);
 </article>
 ```
 
-## CSS Styling
+## Estilo CSS
 
 ```css
 /* assets/css/style.css */
@@ -318,27 +318,27 @@ $posts = $blogHandler->getAll(999, 0);
 }
 ```
 
-## Key Features
+## Recursos Principais
 
-- Display published blog posts with pagination
-- View individual posts
-- Admin interface to create, edit, delete posts
-- Draft/Published status
+- Exibir postagens de blog publicadas com paginação
+- Visualizar postagens individuais
+- Interface de administrador para criar, editar, deletar postagens
+- Status rascunho/publicado
 - Timestamps
 
-## Testing
+## Testando
 
-1. Install module via XOOPS admin
-2. Access frontend at `modules/blog/`
-3. Visit admin at `modules/blog/admin.php`
-4. Create a test post and publish it
+1. Instalar módulo via admin XOOPS
+2. Acessar frontend em `modules/blog/`
+3. Visitar admin em `modules/blog/admin.php`
+4. Criar uma postagem de teste e publicá-la
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- ../Patterns/MVC-Pattern for patterns
-- ../Patterns/Repository-Pattern for data access
-- ../Best-Practices/Code-Organization for structure
+Veja também:
+- ../Patterns/MVC-Pattern para padrões
+- ../Patterns/Repository-Pattern para acesso de dados
+- ../Best-Practices/Code-Organization para estrutura
 
 ---
 

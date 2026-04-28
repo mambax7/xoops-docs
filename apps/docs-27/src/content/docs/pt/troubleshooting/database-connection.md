@@ -1,11 +1,11 @@
 ---
-title: "Database Connection Errors"
-description: "Troubleshooting guide for XOOPS database connection problems"
+title: "Erros de Conexão com Banco de Dados"
+description: "Guia de solução de problemas para problemas de conexão com banco de dados do XOOPS"
 ---
 
-Database connection errors are among the most common issues in XOOPS installations. This guide provides systematic troubleshooting steps to identify and resolve connection problems.
+Erros de conexão com banco de dados estão entre os problemas mais comuns em instalações do XOOPS. Este guia fornece etapas sistemáticas de solução de problemas para identificar e resolver problemas de conexão.
 
-## Common Error Messages
+## Mensagens de Erro Comuns
 
 ### "Can't connect to MySQL server"
 
@@ -13,7 +13,7 @@ Database connection errors are among the most common issues in XOOPS installatio
 Error: Can't connect to MySQL server on 'localhost' (111)
 ```
 
-This error typically indicates the MySQL server is not running or not accessible.
+Este erro normalmente indica que o servidor MySQL não está em execução ou não está acessível.
 
 ### "Access denied for user"
 
@@ -21,7 +21,7 @@ This error typically indicates the MySQL server is not running or not accessible
 Error: Access denied for user 'xoops_user'@'localhost' (using password: YES)
 ```
 
-This indicates incorrect database credentials in your configuration.
+Isto indica credenciais de banco de dados incorretas em sua configuração.
 
 ### "Unknown database"
 
@@ -29,19 +29,19 @@ This indicates incorrect database credentials in your configuration.
 Error: Unknown database 'xoops_db'
 ```
 
-The specified database doesn't exist on the MySQL server.
+O banco de dados especificado não existe no servidor MySQL.
 
-## Configuration Files
+## Arquivos de Configuração
 
-### XOOPS Configuration Location
+### Local de Configuração do XOOPS
 
-The main configuration file is located at:
+O arquivo de configuração principal está localizado em:
 
 ```
 /mainfile.php
 ```
 
-Key database settings:
+Configurações principais do banco de dados:
 
 ```php
 // Database Configuration
@@ -54,11 +54,11 @@ define('XOOPS_DB_NAME', 'xoops_db');
 define('XOOPS_DB_PREFIX', 'xoops_');
 ```
 
-## Troubleshooting Steps
+## Etapas de Solução de Problemas
 
-### Step 1: Verify MySQL Service is Running
+### Etapa 1: Verificar se o Serviço MySQL Está em Execução
 
-#### On Linux/Unix
+#### No Linux/Unix
 
 ```bash
 # Check if MySQL is running
@@ -71,9 +71,9 @@ sudo systemctl start mysql
 sudo systemctl restart mysql
 ```
 
-### Step 2: Test MySQL Connectivity
+### Etapa 2: Testar Conectividade MySQL
 
-#### Using Command Line
+#### Usando a Linha de Comando
 
 ```bash
 # Test connection with credentials
@@ -86,9 +86,9 @@ mysql -h localhost -u xoops_user -p xoops_db
 mysql> EXIT;
 ```
 
-### Step 3: Verify Database Credentials
+### Etapa 3: Verificar Credenciais do Banco de Dados
 
-#### Check XOOPS Configuration
+#### Verificar Configuração do XOOPS
 
 ```php
 // In mainfile.php, verify these constants:
@@ -98,7 +98,7 @@ echo "Port: " . XOOPS_DB_PORT . "\n";
 echo "Database: " . XOOPS_DB_NAME . "\n";
 ```
 
-### Step 4: Verify Database Exists
+### Etapa 4: Verificar se o Banco de Dados Existe
 
 ```bash
 # Connect to MySQL
@@ -117,7 +117,7 @@ CREATE DATABASE xoops_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 EXIT;
 ```
 
-### Step 5: Check User Permissions
+### Etapa 5: Verificar Permissões do Usuário
 
 ```bash
 # Connect as root
@@ -133,15 +133,15 @@ GRANT ALL PRIVILEGES ON xoops_db.* TO 'xoops_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-## Common Issues and Solutions
+## Problemas Comuns e Soluções
 
-### Issue 1: MySQL Not Running
+### Problema 1: MySQL Não Está em Execução
 
-**Symptoms:**
-- Connection refused error
-- Can't connect to localhost
+**Sintomas:**
+- Erro de conexão recusada
+- Não consegue conectar ao localhost
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Linux: Check and start MySQL
@@ -149,13 +149,13 @@ sudo systemctl status mysql
 sudo systemctl start mysql
 ```
 
-### Issue 2: Incorrect Credentials
+### Problema 2: Credenciais Incorretas
 
-**Symptoms:**
-- "Access denied" error
-- "using password: YES" or "using password: NO"
+**Sintomas:**
+- Erro "Access denied"
+- "using password: YES" ou "using password: NO"
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Reset password (as root)
@@ -168,13 +168,13 @@ ALTER USER 'xoops_user'@'localhost' IDENTIFIED BY 'new_password';
 define('XOOPS_DB_PASS', 'new_password');
 ```
 
-### Issue 3: Database Not Created
+### Problema 3: Banco de Dados Não Criado
 
-**Symptoms:**
-- "Unknown database" error
-- Installation failed at database creation
+**Sintomas:**
+- Erro "Unknown database"
+- Falha na instalação durante a criação do banco de dados
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Check if database exists
@@ -184,9 +184,9 @@ mysql -u root -p -e "SHOW DATABASES;"
 mysql -u root -p -e "CREATE DATABASE xoops_db CHARACTER SET utf8mb4;"
 ```
 
-## Diagnostic Script
+## Script de Diagnóstico
 
-Create a comprehensive diagnostic script:
+Crie um script de diagnóstico abrangente:
 
 ```php
 <?php
@@ -230,15 +230,15 @@ echo "\n=== End Diagnostic ===\n";
 ?>
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- White-Screen-of-Death - Common WSOD troubleshooting
-- ../../01-Getting-Started/Configuration/Performance-Optimization - Database performance tuning
-- ../../06-Publisher-Module/User-Guide/Basic-Configuration - Initial XOOPS setup
-- ../../04-API-Reference/Database/XoopsDatabase - Database API reference
+- Tela-Branca-da-Morte - Solução de problemas comuns de WSOD
+- ../../01-Getting-Started/Configuration/Performance-Optimization - Otimização de performance do banco de dados
+- ../../06-Publisher-Module/User-Guide/Basic-Configuration - Configuração inicial do XOOPS
+- ../../04-API-Reference/Database/XoopsDatabase - Referência da API de banco de dados
 
 ---
 
-**Last Updated:** 2026-01-31
-**Applies To:** XOOPS 2.5.7+
-**PHP Versions:** 7.4+
+**Última Atualização:** 2026-01-31
+**Aplicável A:** XOOPS 2.5.7+
+**Versões PHP:** 7.4+
