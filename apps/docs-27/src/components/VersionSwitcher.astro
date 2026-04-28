@@ -1,0 +1,14 @@
+---
+// packages/theme/src/components/VersionSwitcher.astro
+const versions = [
+  { label: 'XOOPS 2.7.x', base: '/2.7', current: import.meta.env.BASE_URL.startsWith('/2.7') },
+  { label: 'XOOPS 4.x', base: '/4.x', current: import.meta.env.BASE_URL.startsWith('/4.x') },
+];
+---
+<div class="version-switcher">
+  <select onchange="window.location = this.value">
+    {versions.map(v => (
+      <option value={v.base} selected={v.current}>{v.label}</option>
+    ))}
+  </select>
+</div>
