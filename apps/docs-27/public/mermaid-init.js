@@ -31,6 +31,29 @@ function extractSource(code) {
   return code.textContent.trim();
 }
 
+function assetExistsInHead(asset, attr) {
+  const value = asset.getAttribute(attr);
+  if (!value) return false;
+
+  return Array.from(document.head.querySelectorAll(asset.tagName.toLowerCase()))
+    .some(existing => existing.getAttribute(attr) === value);
+}
+
+function preserveExpressiveCodeAssets(container) {
+  if (!container?.classList?.contains('expressive-code')) return;
+
+  const assets = container.querySelectorAll(':scope > link[rel="stylesheet"], :scope > script[type="module"]');
+  for (const asset of assets) {
+    const attr = asset.tagName === 'LINK' ? 'href' : 'src';
+    if (assetExistsInHead(asset, attr)) {
+      asset.remove();
+      continue;
+    }
+
+    document.head.appendChild(asset);
+  }
+}
+
 async function renderMermaid() {
   const codeBlocks = document.querySelectorAll('pre[data-language="mermaid"] code');
   if (!codeBlocks.length) return;
@@ -41,6 +64,7 @@ async function renderMermaid() {
     const src = extractSource(code);
     // Replace the whole expressive-code wrapper, falling back to the <pre>
     const container = code.closest('.expressive-code') || code.closest('pre');
+    preserveExpressiveCodeAssets(container);
     const wrapper = document.createElement('div');
     wrapper.dataset.mermaidSrc = src;
     wrapper.className = 'mermaid-diagram not-content';
