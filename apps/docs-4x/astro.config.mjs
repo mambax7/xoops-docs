@@ -1,18 +1,21 @@
 // apps/docs-4x/astro.config.mjs
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import mermaid from 'astro-mermaid';
 
 export default defineConfig({
 	site: 'https://xoops.github.io',
 	base: '/xoops-docs/4.x',
 
 	integrations: [
-		// mermaid MUST come before starlight
-		mermaid({ autoTheme: true }),
-
 		starlight({
 			title: 'XOOPS 4.x Docs',
+
+			head: [
+				{
+					tag: 'script',
+					attrs: { type: 'module', src: '/xoops-docs/4.x/mermaid-init.js' },
+				},
+			],
 
 			locales: {
 				root: { label: 'English', lang: 'en' },
