@@ -1,26 +1,26 @@
 ---
-title: "Hooks and Events"
+title: "Ganchos e Eventos"
 ---
 
-## Overview
+## Visão Geral
 
-XOOPS provides hooks and events as extension points that allow modules to interact with core functionality and each other without direct dependencies.
+XOOPS fornece ganchos e eventos como pontos de extensão que permitem que módulos interajam com a funcionalidade principal e um com o outro sem dependências diretas.
 
-## Hooks vs Events
+## Ganchos vs Eventos
 
-| Aspect | Hooks | Events |
-|--------|-------|--------|
-| Purpose | Modify behavior/data | React to occurrences |
-| Return | Can return modified data | Typically void |
-| Timing | Before/during action | After action |
-| Pattern | Filter chain | Observer/pub-sub |
+| Aspecto | Ganchos | Eventos |
+|--------|-------|---------|
+| Propósito | Modificar comportamento/dados | Reagir a ocorrências |
+| Retorno | Pode retornar dados modificados | Tipicamente vazio |
+| Timing | Antes/durante ação | Depois da ação |
+| Padrão | Cadeia de filtros | Observer/pub-sub |
 
-## Hook System
+## Sistema de Ganchos
 
-### Registering Hooks
+### Registrando Ganchos
 
 ```php
-// Register a hook in xoops_version.php
+// Registrar um gancho em xoops_version.php
 $modversion['hooks'][] = [
     'name'     => 'user.profile.display',
     'callback' => 'mymodule_hook_user_profile',
@@ -28,7 +28,7 @@ $modversion['hooks'][] = [
 ];
 ```
 
-### Hook Callback
+### Callback de Gancho
 
 ```php
 // include/hooks.php
@@ -37,7 +37,7 @@ function mymodule_hook_user_profile(array $data): array
 {
     $userId = $data['user_id'];
 
-    // Add custom profile fields
+    // Adicionar campos de perfil personalizados
     $data['fields']['reputation'] = mymodule_get_user_reputation($userId);
     $data['fields']['badges'] = mymodule_get_user_badges($userId);
 
@@ -45,22 +45,22 @@ function mymodule_hook_user_profile(array $data): array
 }
 ```
 
-### Available Core Hooks
+### Ganchos Principais Disponíveis
 
-| Hook Name | Data | Description |
+| Nome do Gancho | Dados | Descrição |
 |-----------|------|-------------|
-| `user.profile.display` | User data array | Modify profile display |
-| `content.render` | Content HTML | Filter content output |
-| `form.submit` | Form data | Validate/modify form data |
-| `search.results` | Results array | Filter search results |
-| `menu.main` | Menu items | Modify main menu |
+| `user.profile.display` | Array de dados do usuário | Modificar exibição de perfil |
+| `content.render` | HTML de conteúdo | Filtrar saída de conteúdo |
+| `form.submit` | Dados de formulário | Validar/modificar dados de formulário |
+| `search.results` | Array de resultados | Filtrar resultados de busca |
+| `menu.main` | Itens de menu | Modificar menu principal |
 
-## Event System
+## Sistema de Eventos
 
-### Dispatching Events
+### Disparando Eventos
 
 ```php
-// In your module code
+// No código do seu módulo
 $eventHandler = xoops_getHandler('event');
 
 $eventHandler->trigger('mymodule.article.created', [
@@ -70,7 +70,7 @@ $eventHandler->trigger('mymodule.article.created', [
 ]);
 ```
 
-### Listening for Events
+### Ouvindo Eventos
 
 ```php
 // class/Preload.php
@@ -81,7 +81,7 @@ class MyModulePreload extends \Xmf\Module\Helper\AbstractHelper
     {
         $articleId = $args['article_id'];
 
-        // Notify subscribers
+        // Notificar inscritos
         $this->notifyNewArticle($articleId);
     }
 
@@ -89,32 +89,32 @@ class MyModulePreload extends \Xmf\Module\Helper\AbstractHelper
     {
         $userId = $args['userid'];
 
-        // Update last login for module
+        // Atualizar último login para módulo
         $this->updateUserActivity($userId);
     }
 }
 ```
 
-## Preload Events Reference
+## Referência de Eventos de Preload
 
-### Core Events
+### Eventos do Core
 
 ```php
-// Header/Footer
+// Cabeçalho/Rodapé
 public function eventCoreHeaderStart(array $args): void {}
 public function eventCoreHeaderEnd(array $args): void {}
 public function eventCoreFooterStart(array $args): void {}
 public function eventCoreFooterEnd(array $args): void {}
 
-// Includes
+// Inclusões
 public function eventCoreIncludeCommonStart(array $args): void {}
 public function eventCoreIncludeCommonEnd(array $args): void {}
 
-// Exceptions
+// Exceções
 public function eventCoreException(array $args): void {}
 ```
 
-### User Events
+### Eventos de Usuário
 
 ```php
 public function eventUserLogin(array $args): void {}
@@ -124,7 +124,7 @@ public function eventUserActivate(array $args): void {}
 public function eventUserDelete(array $args): void {}
 ```
 
-### Module Events
+### Eventos de Módulo
 
 ```php
 public function eventSystemModuleInstall(array $args): void {}
@@ -134,12 +134,12 @@ public function eventSystemModuleActivate(array $args): void {}
 public function eventSystemModuleDeactivate(array $args): void {}
 ```
 
-## Custom Module Events
+## Eventos de Módulo Personalizado
 
-### Defining Events
+### Definindo Eventos
 
 ```php
-// Define event constants
+// Definir constantes de evento
 class ArticleEvents
 {
     public const CREATED = 'mymodule.article.created';
@@ -149,7 +149,7 @@ class ArticleEvents
 }
 ```
 
-### Triggering Events
+### Disparando Eventos
 
 ```php
 class ArticleService
@@ -159,7 +159,7 @@ class ArticleService
         $article->publish();
         $this->repository->save($article);
 
-        // Trigger event
+        // Disparar evento
         $GLOBALS['xoopsPreload']->triggerEvent(
             ArticleEvents::PUBLISHED,
             ['article' => $article]
@@ -168,33 +168,33 @@ class ArticleService
 }
 ```
 
-### Listening to Module Events
+### Ouvindo Eventos de Módulo
 
 ```php
-// In another module's Preload.php
+// No arquivo Preload.php de outro módulo
 
 public function eventMymoduleArticlePublished(array $args): void
 {
     $article = $args['article'];
 
-    // Index for search
+    // Indexar para busca
     $this->searchIndexer->index($article);
 
-    // Update sitemap
+    // Atualizar sitemap
     $this->sitemapGenerator->addUrl($article->url());
 }
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Use Specific Names** - `module.entity.action` format
-2. **Pass Minimal Data** - Only what listeners need
-3. **Document Events** - List events in module docs
-4. **Avoid Side Effects** - Keep listeners focused
-5. **Handle Errors** - Don't let listener errors break flow
+1. **Use Nomes Específicos** - Formato `modulo.entidade.ação`
+2. **Passar Dados Mínimos** - Apenas o que ouvintes precisam
+3. **Documentar Eventos** - Listar eventos na documentação do módulo
+4. **Evitar Efeitos Colaterais** - Manter ouvintes focados
+5. **Lidar com Erros** - Não deixar erros de ouvinte quebrar fluxo
 
-## Related Documentation
+## Documentação Relacionada
 
-- Event-System - Detailed event documentation
-- ../03-Module-Development/Module-Development - Module development
-- ../07-XOOPS-4.0/Implementation-Guides/Event-System-Guide - PSR-14 events
+- Event-System - Documentação detalhada de evento
+- ../03-Module-Development/Module-Development - Desenvolvimento de módulo
+- ../07-XOOPS-4.0/Implementation-Guides/Event-System-Guide - Eventos PSR-14

@@ -1,13 +1,13 @@
 ---
-title: "White Screen of Death (WSOD)"
-description: "Diagnosing and fixing the white screen of death in XOOPS"
+title: "Tela Branca da Morte (WSOD)"
+description: "Diagnóstico e correção da tela branca de morte no XOOPS"
 ---
 
-> How to diagnose and fix blank white pages in XOOPS.
+> Como diagnosticar e corrigir páginas brancas em branco no XOOPS.
 
 ---
 
-## Diagnostic Flowchart
+## Fluxograma de Diagnóstico
 
 ```mermaid
 flowchart TD
@@ -37,11 +37,11 @@ flowchart TD
 
 ---
 
-## Quick Diagnosis
+## Diagnóstico Rápido
 
-### Step 1: Enable PHP Error Display
+### Passo 1: Ativar Exibição de Erro PHP
 
-Add to `mainfile.php` temporarily:
+Adicionar a `mainfile.php` temporariamente:
 
 ```php
 <?php
@@ -51,7 +51,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 ```
 
-### Step 2: Check PHP Error Log
+### Passo 2: Verificar Log de Erro PHP
 
 ```bash
 # Common log locations
@@ -63,7 +63,7 @@ tail -100 /var/log/nginx/error.log
 php -i | grep error_log
 ```
 
-### Step 3: Enable XOOPS Debug
+### Passo 3: Ativar Debug do XOOPS
 
 ```php
 // In mainfile.php
@@ -72,7 +72,7 @@ define('XOOPS_DEBUG_LEVEL', 2);
 
 ---
 
-## Common Causes & Solutions
+## Causas Comuns e Soluções
 
 ```mermaid
 pie title WSOD Common Causes
@@ -85,18 +85,18 @@ pie title WSOD Common Causes
     "Timeout" : 5
 ```
 
-### 1. Memory Limit Exceeded
+### 1. Limite de Memória Excedido
 
-**Symptoms:**
-- Blank page on large operations
-- Works for small data, fails for large
+**Sintomas:**
+- Página em branco em operações grandes
+- Funciona para dados pequenos, falha para grande
 
-**Error:**
+**Erro:**
 ```
 Fatal error: Allowed memory size of 134217728 bytes exhausted
 ```
 
-**Solutions:**
+**Soluções:**
 
 ```php
 // In mainfile.php
@@ -109,18 +109,18 @@ php_value memory_limit 256M
 memory_limit = 256M
 ```
 
-### 2. PHP Syntax Error
+### 2. Erro de Sintaxe PHP
 
-**Symptoms:**
-- WSOD after editing PHP file
-- Specific page fails, others work
+**Sintomas:**
+- WSOD após editar arquivo PHP
+- Página específica falha, outras funcionam
 
-**Error:**
+**Erro:**
 ```
 Parse error: syntax error, unexpected '}' in /path/file.php on line 123
 ```
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Check file for syntax errors
@@ -130,18 +130,18 @@ php -l /path/to/file.php
 find modules/mymodule -name "*.php" -exec php -l {} \;
 ```
 
-### 3. Missing Required File
+### 3. Arquivo Obrigatório Faltando
 
-**Symptoms:**
-- WSOD after upload/migration
-- Random pages fail
+**Sintomas:**
+- WSOD após upload/migração
+- Páginas aleatórias falham
 
-**Error:**
+**Erro:**
 ```
 Fatal error: require_once(): Failed opening required 'class/Helper.php'
 ```
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Re-upload missing files
@@ -152,18 +152,18 @@ diff -r /path/to/xoops /path/to/fresh-xoops
 ls -la class/
 ```
 
-### 4. Database Connection Failed
+### 4. Falha de Conexão com Banco de Dados
 
-**Symptoms:**
-- All pages show WSOD
-- Static files (images, CSS) work
+**Sintomas:**
+- Todas as páginas mostram WSOD
+- Arquivos estáticos (imagens, CSS) funcionam
 
-**Error:**
+**Erro:**
 ```
 Warning: mysqli_connect(): Access denied for user
 ```
 
-**Solutions:**
+**Soluções:**
 
 ```php
 // Verify credentials in mainfile.php
@@ -181,13 +181,13 @@ if ($conn->connect_error) {
 echo "Connected successfully";
 ```
 
-### 5. Permission Issues
+### 5. Problemas de Permissão
 
-**Symptoms:**
-- WSOD when writing files
-- Cache/compile errors
+**Sintomas:**
+- WSOD ao escrever arquivos
+- Erros de cache/compilação
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Fix directory permissions
@@ -199,13 +199,13 @@ chmod -R 777 uploads/
 chown -R www-data:www-data /path/to/xoops
 ```
 
-### 6. Smarty Template Error
+### 6. Erro de Template Smarty
 
-**Symptoms:**
-- WSOD on specific pages
-- Works after clearing cache
+**Sintomas:**
+- WSOD em páginas específicas
+- Funciona após limpar cache
 
-**Solutions:**
+**Soluções:**
 
 ```bash
 # Clear Smarty cache
@@ -215,18 +215,18 @@ rm -rf xoops_data/caches/smarty_compile/*
 # Check template syntax
 ```
 
-### 7. Maximum Execution Time
+### 7. Tempo Máximo de Execução
 
-**Symptoms:**
-- WSOD after ~30 seconds
-- Long operations fail
+**Sintomas:**
+- WSOD após ~30 segundos
+- Operações longas falham
 
-**Error:**
+**Erro:**
 ```
 Fatal error: Maximum execution time of 30 seconds exceeded
 ```
 
-**Solutions:**
+**Soluções:**
 
 ```php
 // In mainfile.php
@@ -238,9 +238,9 @@ php_value max_execution_time 300
 
 ---
 
-## Debug Script
+## Script de Debug
 
-Create `debug.php` in XOOPS root:
+Criar `debug.php` na raiz do XOOPS:
 
 ```php
 <?php
@@ -298,45 +298,22 @@ if (file_exists('mainfile.php')) {
         }
     }
 } else {
-    echo "mainfile.php not found";
+    echo "mainfile.php not found!";
 }
 
-// Memory info
-echo "<h2>Memory</h2>";
-echo "Memory Limit: " . ini_get('memory_limit') . "<br>";
-echo "Current Usage: " . round(memory_get_usage() / 1024 / 1024, 2) . " MB<br>";
-
-// Check error log location
-echo "<h2>Error Log</h2>";
-echo "Location: " . ini_get('error_log');
+echo "<p><strong>Delete this file after troubleshooting!</strong></p>";
+?>
 ```
 
 ---
 
-## Prevention
+## Documentação Relacionada
 
-```mermaid
-graph LR
-    A[Backup Before Changes] --> E[Stable Site]
-    B[Test in Development] --> E
-    C[Monitor Error Logs] --> E
-    D[Use Version Control] --> E
-```
-
-1. **Always backup** before making changes
-2. **Test locally** before deploying
-3. **Monitor error logs** regularly
-4. **Use git** for tracking changes
-5. **Keep PHP updated** within supported versions
+- Ativar Modo Debug
+- Erros de Conexão com Banco de Dados
+- Erros de Permissão Negada
+- Erros de Template
 
 ---
 
-## Related Documentation
-
-- Database Connection Errors
-- Permission Denied Errors
-- Enable Debug Mode
-
----
-
-#xoops #troubleshooting #wsod #debugging #errors
+#xoops #wsod #troubleshooting #debugging

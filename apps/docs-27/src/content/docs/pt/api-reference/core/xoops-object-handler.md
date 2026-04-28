@@ -1,11 +1,11 @@
 ---
-title: "XoopsObjectHandler Class"
-description: "Base handler class for CRUD operations on XoopsObject instances with database persistence"
+title: "Classe XoopsObjectHandler"
+description: "Classe manipuladora base para operações CRUD em instâncias de XoopsObject com persistência em banco de dados"
 ---
 
-The `XoopsObjectHandler` class and its extension `XoopsPersistableObjectHandler` provide a standardized interface for performing CRUD (Create, Read, Update, Delete) operations on `XoopsObject` instances. This implements the Data Mapper pattern, separating domain logic from database access.
+A classe `XoopsObjectHandler` e sua extensão `XoopsPersistableObjectHandler` fornecem uma interface padronizada para executar operações CRUD (Criar, Ler, Atualizar, Excluir) em instâncias de `XoopsObject`. Isso implementa o padrão Data Mapper, separando a lógica de domínio do acesso ao banco de dados.
 
-## Class Overview
+## Visão Geral da Classe
 
 ```php
 namespace Xoops\Core;
@@ -22,34 +22,34 @@ abstract class XoopsObjectHandler
 }
 ```
 
-## Class Hierarchy
+## Hierarquia de Classes
 
 ```
-XoopsObjectHandler (Abstract Base)
-└── XoopsPersistableObjectHandler (Extended Implementation)
+XoopsObjectHandler (Base Abstrata)
+└── XoopsPersistableObjectHandler (Implementação Estendida)
     ├── XoopsUserHandler
     ├── XoopsGroupHandler
     ├── XoopsModuleHandler
     ├── XoopsBlockHandler
     ├── XoopsConfigHandler
-    └── [Custom Module Handlers]
+    └── [Manipuladores de Módulos Personalizados]
 ```
 
 ## XoopsObjectHandler
 
-### Constructor
+### Construtor
 
 ```php
 public function __construct(XoopsDatabase $db)
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$db` | XoopsDatabase | Database connection instance |
+| `$db` | XoopsDatabase | Instância de conexão com o banco de dados |
 
-**Example:**
+**Exemplo:**
 ```php
 $db = XoopsDatabaseFactory::getDatabaseConnection();
 $handler = new MyObjectHandler($db);
@@ -59,21 +59,21 @@ $handler = new MyObjectHandler($db);
 
 ### create
 
-Creates a new object instance.
+Cria uma nova instância de objeto.
 
 ```php
 abstract public function create(bool $isNew = true): ?XoopsObject
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$isNew` | bool | Whether object is new (default: true) |
+| `$isNew` | bool | Se o objeto é novo (padrão: true) |
 
-**Returns:** `XoopsObject|null` - New object instance
+**Retorna:** `XoopsObject|null` - Nova instância de objeto
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 $user = $handler->create();
@@ -84,21 +84,21 @@ $user->setVar('uname', 'newuser');
 
 ### get
 
-Retrieves an object by its primary key.
+Recupera um objeto pela sua chave primária.
 
 ```php
 abstract public function get(int $id): ?XoopsObject
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$id` | int | Primary key value |
+| `$id` | int | Valor da chave primária |
 
-**Returns:** `XoopsObject|null` - Object instance or null if not found
+**Retorna:** `XoopsObject|null` - Instância de objeto ou nulo se não encontrado
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 $user = $handler->get(1);
@@ -111,7 +111,7 @@ if ($user) {
 
 ### insert
 
-Saves an object to the database (insert or update).
+Salva um objeto no banco de dados (inserir ou atualizar).
 
 ```php
 abstract public function insert(
@@ -120,16 +120,16 @@ abstract public function insert(
 ): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$obj` | XoopsObject | Object to save |
-| `$force` | bool | Force operation even if object unchanged |
+| `$obj` | XoopsObject | Objeto a ser salvo |
+| `$force` | bool | Força operação mesmo que o objeto não tenha mudado |
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro em caso de sucesso
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 $user = $handler->create();
@@ -137,9 +137,9 @@ $user->setVar('uname', 'testuser');
 $user->setVar('email', 'test@example.com');
 
 if ($handler->insert($user)) {
-    echo "User saved with ID: " . $user->getVar('uid');
+    echo "Usuário salvo com ID: " . $user->getVar('uid');
 } else {
-    echo "Save failed: " . implode(', ', $user->getErrors());
+    echo "Falha ao salvar: " . implode(', ', $user->getErrors());
 }
 ```
 
@@ -147,7 +147,7 @@ if ($handler->insert($user)) {
 
 ### delete
 
-Deletes an object from the database.
+Exclui um objeto do banco de dados.
 
 ```php
 abstract public function delete(
@@ -156,22 +156,22 @@ abstract public function delete(
 ): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$obj` | XoopsObject | Object to delete |
-| `$force` | bool | Force deletion |
+| `$obj` | XoopsObject | Objeto a ser excluído |
+| `$force` | bool | Forçar exclusão |
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro em caso de sucesso
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 $user = $handler->get(5);
 
 if ($user && $handler->delete($user)) {
-    echo "User deleted";
+    echo "Usuário excluído";
 }
 ```
 
@@ -179,9 +179,9 @@ if ($user && $handler->delete($user)) {
 
 ## XoopsPersistableObjectHandler
 
-The `XoopsPersistableObjectHandler` extends `XoopsObjectHandler` with additional methods for querying and bulk operations.
+O `XoopsPersistableObjectHandler` estende `XoopsObjectHandler` com métodos adicionais para consultas e operações em massa.
 
-### Constructor
+### Construtor
 
 ```php
 public function __construct(
@@ -193,17 +193,17 @@ public function __construct(
 )
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$db` | XoopsDatabase | Database connection |
-| `$table` | string | Table name (without prefix) |
-| `$className` | string | Full class name of the object |
-| `$keyName` | string | Primary key field name |
-| `$identifierName` | string | Human-readable identifier field |
+| `$db` | XoopsDatabase | Conexão com o banco de dados |
+| `$table` | string | Nome da tabela (sem prefixo) |
+| `$className` | string | Nome completo da classe do objeto |
+| `$keyName` | string | Nome do campo de chave primária |
+| `$identifierName` | string | Campo identificador legível |
 
-**Example:**
+**Exemplo:**
 ```php
 class ArticleHandler extends XoopsPersistableObjectHandler
 {
@@ -211,10 +211,10 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     {
         parent::__construct(
             $db,
-            'mymodule_articles',    // Table name
-            'Article',               // Class name
-            'article_id',            // Primary key
-            'title'                  // Identifier field
+            'mymodule_articles',    // Nome da tabela
+            'Article',               // Nome da classe
+            'article_id',            // Chave primária
+            'title'                  // Campo identificador
         );
     }
 }
@@ -224,7 +224,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
 
 ### getObjects
 
-Retrieves multiple objects matching criteria.
+Recupera múltiplos objetos correspondentes aos critérios.
 
 ```php
 public function getObjects(
@@ -234,29 +234,29 @@ public function getObjects(
 ): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$criteria` | CriteriaElement | Query criteria (optional) |
-| `$idAsKey` | bool | Use primary key as array key |
-| `$asObject` | bool | Return objects (true) or arrays (false) |
+| `$criteria` | CriteriaElement | Critérios de consulta (opcional) |
+| `$idAsKey` | bool | Usar chave primária como chave do array |
+| `$asObject` | bool | Retornar objetos (true) ou arrays (false) |
 
-**Returns:** `array` - Array of objects or associative arrays
+**Retorna:** `array` - Array de objetos ou arrays associativos
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 
-// Get all active users
+// Obter todos os usuários ativos
 $criteria = new Criteria('level', 0, '>');
 $users = $handler->getObjects($criteria);
 
-// Get users with ID as key
+// Obter usuários com ID como chave
 $users = $handler->getObjects($criteria, true);
-echo $users[1]->getVar('uname'); // Access by ID
+echo $users[1]->getVar('uname'); // Acessar por ID
 
-// Get as arrays instead of objects
+// Obter como arrays em vez de objetos
 $usersArray = $handler->getObjects($criteria, false, false);
 foreach ($usersArray as $userData) {
     echo $userData['uname'];
@@ -267,39 +267,39 @@ foreach ($usersArray as $userData) {
 
 ### getCount
 
-Counts objects matching criteria.
+Conta objetos correspondentes aos critérios.
 
 ```php
 public function getCount(CriteriaElement $criteria = null): int
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$criteria` | CriteriaElement | Query criteria (optional) |
+| `$criteria` | CriteriaElement | Critérios de consulta (opcional) |
 
-**Returns:** `int` - Count of matching objects
+**Retorna:** `int` - Contagem de objetos correspondentes
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 
-// Count all users
+// Contar todos os usuários
 $totalUsers = $handler->getCount();
 
-// Count active users
+// Contar usuários ativos
 $criteria = new Criteria('level', 0, '>');
 $activeUsers = $handler->getCount($criteria);
 
-echo "Total: $totalUsers, Active: $activeUsers";
+echo "Total: $totalUsers, Ativos: $activeUsers";
 ```
 
 ---
 
 ### getAll
 
-Retrieves all objects (alias for getObjects with no criteria).
+Recupera todos os objetos (alias para getObjects sem critérios).
 
 ```php
 public function getAll(
@@ -310,23 +310,23 @@ public function getAll(
 ): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$criteria` | CriteriaElement | Query criteria |
-| `$fields` | array | Specific fields to retrieve |
-| `$asObject` | bool | Return as objects |
-| `$idAsKey` | bool | Use ID as array key |
+| `$criteria` | CriteriaElement | Critérios de consulta |
+| `$fields` | array | Campos específicos a recuperar |
+| `$asObject` | bool | Retornar como objetos |
+| `$idAsKey` | bool | Usar ID como chave do array |
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('module');
 
-// Get all modules
+// Obter todos os módulos
 $modules = $handler->getAll();
 
-// Get only specific fields
+// Obter apenas campos específicos
 $modules = $handler->getAll(null, ['mid', 'name', 'dirname'], false);
 ```
 
@@ -334,48 +334,48 @@ $modules = $handler->getAll(null, ['mid', 'name', 'dirname'], false);
 
 ### getIds
 
-Retrieves only the primary keys of matching objects.
+Recupera apenas as chaves primárias dos objetos correspondentes.
 
 ```php
 public function getIds(CriteriaElement $criteria = null): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$criteria` | CriteriaElement | Query criteria |
+| `$criteria` | CriteriaElement | Critérios de consulta |
 
-**Returns:** `array` - Array of primary key values
+**Retorna:** `array` - Array de valores de chave primária
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('user');
 $criteria = new Criteria('level', 1);
 $adminIds = $handler->getIds($criteria);
-// [1, 5, 12, ...] - Array of admin user IDs
+// [1, 5, 12, ...] - Array de IDs de usuários administradores
 ```
 
 ---
 
 ### getList
 
-Retrieves a key-value list for dropdowns.
+Recupera uma lista chave-valor para dropdowns.
 
 ```php
 public function getList(CriteriaElement $criteria = null): array
 ```
 
-**Returns:** `array` - Associative array [id => identifier]
+**Retorna:** `array` - Array associativo [id => identificador]
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getHandler('group');
 $groups = $handler->getList();
-// [1 => 'Administrators', 2 => 'Registered Users', ...]
+// [1 => 'Administradores', 2 => 'Usuários Registrados', ...]
 
-// For a select dropdown
-$form->addElement(new XoopsFormSelect('Group', 'group_id', $default, 1, false));
+// Para um dropdown de seleção
+$form->addElement(new XoopsFormSelect('Grupo', 'group_id', $default, 1, false));
 $form->getElement('group_id')->addOptionArray($groups);
 ```
 
@@ -383,7 +383,7 @@ $form->getElement('group_id')->addOptionArray($groups);
 
 ### deleteAll
 
-Deletes all objects matching criteria.
+Exclui todos os objetos correspondentes aos critérios.
 
 ```php
 public function deleteAll(
@@ -393,25 +393,25 @@ public function deleteAll(
 ): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$criteria` | CriteriaElement | Criteria for objects to delete |
-| `$force` | bool | Force deletion |
-| `$asObject` | bool | Load objects before deleting (triggers events) |
+| `$criteria` | CriteriaElement | Critérios para objetos a excluir |
+| `$force` | bool | Forçar exclusão |
+| `$asObject` | bool | Carregar objetos antes de excluir (dispara eventos) |
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro em caso de sucesso
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getModuleHandler('comment', 'mymodule');
 
-// Delete all comments for a specific article
+// Excluir todos os comentários de um artigo específico
 $criteria = new Criteria('article_id', $articleId);
 $handler->deleteAll($criteria);
 
-// Delete with object loading (triggers delete events)
+// Excluir com carregamento de objeto (dispara eventos de exclusão)
 $handler->deleteAll($criteria, true, true);
 ```
 
@@ -419,7 +419,7 @@ $handler->deleteAll($criteria, true, true);
 
 ### updateAll
 
-Updates a field value for all matching objects.
+Atualiza um valor de campo para todos os objetos correspondentes.
 
 ```php
 public function updateAll(
@@ -430,35 +430,35 @@ public function updateAll(
 ): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$fieldname` | string | Field to update |
-| `$fieldvalue` | mixed | New value |
-| `$criteria` | CriteriaElement | Criteria for objects to update |
-| `$force` | bool | Force update |
+| `$fieldname` | string | Campo a atualizar |
+| `$fieldvalue` | mixed | Novo valor |
+| `$criteria` | CriteriaElement | Critérios para objetos a atualizar |
+| `$force` | bool | Forçar atualização |
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro em caso de sucesso
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getModuleHandler('article', 'mymodule');
 
-// Mark all articles by an author as draft
+// Marcar todos os artigos de um autor como rascunho
 $criteria = new Criteria('author_id', $authorId);
 $handler->updateAll('published', 0, $criteria);
 
-// Update view count
+// Atualizar contador de visualizações
 $criteria = new Criteria('article_id', $id);
 $handler->updateAll('views', $views + 1, $criteria);
 ```
 
 ---
 
-### insert (Extended)
+### insert (Estendido)
 
-The extended insert method with additional functionality.
+O método insert estendido com funcionalidade adicional.
 
 ```php
 public function insert(
@@ -467,49 +467,49 @@ public function insert(
 ): bool
 ```
 
-**Behavior:**
-- If object is new (`isNew() === true`): INSERT
-- If object exists (`isNew() === false`): UPDATE
-- Calls `cleanVars()` automatically
-- Sets auto-increment ID on new objects
+**Comportamento:**
+- Se o objeto é novo (`isNew() === true`): INSERT
+- Se o objeto existe (`isNew() === false`): UPDATE
+- Chama `cleanVars()` automaticamente
+- Define ID de auto-incremento em novos objetos
 
-**Example:**
+**Exemplo:**
 ```php
 $handler = xoops_getModuleHandler('article', 'mymodule');
 
-// Create new article
+// Criar novo artigo
 $article = $handler->create();
-$article->setVar('title', 'New Article');
-$article->setVar('content', 'Content here');
+$article->setVar('title', 'Novo Artigo');
+$article->setVar('content', 'Conteúdo aqui');
 $handler->insert($article);
-echo "Created with ID: " . $article->getVar('article_id');
+echo "Criado com ID: " . $article->getVar('article_id');
 
-// Update existing article
+// Atualizar artigo existente
 $article = $handler->get(5);
-$article->setVar('title', 'Updated Title');
+$article->setVar('title', 'Título Atualizado');
 $handler->insert($article);
 ```
 
 ---
 
-## Helper Functions
+## Funções Auxiliares
 
 ### xoops_getHandler
 
-Global function to retrieve a core handler.
+Função global para recuperar um manipulador central.
 
 ```php
 function xoops_getHandler(string $name, bool $optional = false): ?XoopsObjectHandler
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$name` | string | Handler name (user, module, group, etc.) |
-| `$optional` | bool | Return null instead of triggering error |
+| `$name` | string | Nome do manipulador (user, module, group, etc.) |
+| `$optional` | bool | Retornar nulo em vez de disparar erro |
 
-**Example:**
+**Exemplo:**
 ```php
 $userHandler = xoops_getHandler('user');
 $moduleHandler = xoops_getHandler('module');
@@ -522,7 +522,7 @@ $configHandler = xoops_getHandler('config');
 
 ### xoops_getModuleHandler
 
-Retrieves a module-specific handler.
+Recupera um manipulador específico do módulo.
 
 ```php
 function xoops_getModuleHandler(
@@ -532,29 +532,29 @@ function xoops_getModuleHandler(
 ): ?XoopsObjectHandler
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$name` | string | Handler name |
-| `$dirname` | string | Module directory name |
-| `$optional` | bool | Return null on failure |
+| `$name` | string | Nome do manipulador |
+| `$dirname` | string | Nome do diretório do módulo |
+| `$optional` | bool | Retornar nulo em caso de falha |
 
-**Example:**
+**Exemplo:**
 ```php
-// Get handler from current module
+// Obter manipulador do módulo atual
 $articleHandler = xoops_getModuleHandler('article');
 
-// Get handler from specific module
+// Obter manipulador de módulo específico
 $articleHandler = xoops_getModuleHandler('article', 'news');
 $storyHandler = xoops_getModuleHandler('story', 'news');
 ```
 
 ---
 
-## Creating Custom Handlers
+## Criando Manipuladores Personalizados
 
-### Basic Handler Implementation
+### Implementação Básica do Manipulador
 
 ```php
 <?php
@@ -567,12 +567,12 @@ use Criteria;
 use CriteriaCompo;
 
 /**
- * Handler for Article objects
+ * Manipulador para objetos Article
  */
 class ArticleHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * Constructor
+     * Construtor
      */
     public function __construct(XoopsDatabase $db = null)
     {
@@ -586,7 +586,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Get published articles
+     * Obter artigos publicados
      */
     public function getPublished(int $limit = 10, int $start = 0): array
     {
@@ -602,7 +602,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Get articles by author
+     * Obter artigos por autor
      */
     public function getByAuthor(int $authorId, bool $publishedOnly = true): array
     {
@@ -620,7 +620,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Get articles by category
+     * Obter artigos por categoria
      */
     public function getByCategory(int $categoryId, int $limit = 0): array
     {
@@ -638,7 +638,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Search articles
+     * Pesquisar artigos
      */
     public function search(string $query, array $fields = ['title', 'content']): array
     {
@@ -661,7 +661,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Get popular articles by view count
+     * Obter artigos populares pela contagem de visualizações
      */
     public function getPopular(int $limit = 5): array
     {
@@ -675,7 +675,7 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Increment view count
+     * Incrementar contagem de visualizações
      */
     public function incrementViews(int $articleId): bool
     {
@@ -689,14 +689,14 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Override insert for custom behavior
+     * Sobrescrever insert para comportamento personalizado
      */
     public function insert(\XoopsObject $obj, bool $force = false): bool
     {
-        // Set updated timestamp
+        // Definir timestamp atualizado
         $obj->setVar('updated', time());
 
-        // If new, set created timestamp
+        // Se novo, definir timestamp criado
         if ($obj->isNew()) {
             $obj->setVar('created', time());
         }
@@ -705,11 +705,11 @@ class ArticleHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Override delete for cascade operations
+     * Sobrescrever delete para operações em cascata
      */
     public function delete(\XoopsObject $obj, bool $force = false): bool
     {
-        // Delete associated comments
+        // Excluir comentários associados
         $commentHandler = xoops_getModuleHandler('comment', 'mymodule');
         $criteria = new Criteria('article_id', $obj->getVar('article_id'));
         $commentHandler->deleteAll($criteria);
@@ -719,17 +719,17 @@ class ArticleHandler extends XoopsPersistableObjectHandler
 }
 ```
 
-### Using the Custom Handler
+### Usando o Manipulador Personalizado
 
 ```php
-// Get the handler
+// Obter o manipulador
 $articleHandler = xoops_getModuleHandler('article', 'mymodule');
 
-// Create a new article
+// Criar um novo artigo
 $article = $articleHandler->create();
 $article->setVars([
-    'title' => 'My New Article',
-    'content' => 'Article content here...',
+    'title' => 'Meu Novo Artigo',
+    'content' => 'Conteúdo do artigo aqui...',
     'author_id' => $xoopsUser->getVar('uid'),
     'category_id' => 1,
     'published' => 1,
@@ -737,44 +737,44 @@ $article->setVars([
 ]);
 
 if ($articleHandler->insert($article)) {
-    redirect_header('article.php?id=' . $article->getVar('article_id'), 2, 'Article created');
+    redirect_header('article.php?id=' . $article->getVar('article_id'), 2, 'Artigo criado');
 }
 
-// Get published articles
+// Obter artigos publicados
 $articles = $articleHandler->getPublished(10);
 
-// Search articles
+// Pesquisar artigos
 $results = $articleHandler->search('xoops');
 
-// Get popular articles
+// Obter artigos populares
 $popular = $articleHandler->getPopular(5);
 
-// Update view count
+// Atualizar contagem de visualizações
 $articleHandler->incrementViews($articleId);
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Use Criteria for Queries**: Always use Criteria objects for type-safe queries
+1. **Use Critérios para Consultas**: Sempre use objetos Criteria para consultas type-safe
 
-2. **Extend for Custom Methods**: Add domain-specific query methods to handlers
+2. **Estenda para Métodos Personalizados**: Adicione métodos de consulta específicos do domínio aos manipuladores
 
-3. **Override insert/delete**: Add cascade operations and timestamps in overrides
+3. **Sobrescreva insert/delete**: Adicione operações em cascata e timestamps nas sobreposições
 
-4. **Use Transaction Where Needed**: Wrap complex operations in transactions
+4. **Use Transação Quando Necessário**: Encapsule operações complexas em transações
 
-5. **Leverage getList**: Use `getList()` for select dropdowns to reduce queries
+5. **Aproveite getList**: Use `getList()` para dropdowns de seleção para reduzir consultas
 
-6. **Index Keys**: Ensure database fields used in criteria are indexed
+6. **Índices de Chaves**: Certifique-se de que os campos usados nos critérios estão indexados
 
-7. **Limit Results**: Always use `setLimit()` for potentially large result sets
+7. **Limitar Resultados**: Sempre use `setLimit()` para conjuntos de resultados potencialmente grandes
 
-## Related Documentation
+## Documentação Relacionada
 
-- XoopsObject - Base object class
-- ../Database/Criteria - Building query criteria
-- ../Database/XoopsDatabase - Database operations
+- XoopsObject - Classe de objeto base
+- ../Database/Criteria - Construção de critérios de consulta
+- ../Database/XoopsDatabase - Operações de banco de dados
 
 ---
 
-*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore27/blob/master/htdocs/class/xoopsobject.php)*
+*Veja também: [Código Fonte XOOPS](https://github.com/XOOPS/XoopsCore27/blob/master/htdocs/class/xoopsobject.php)*

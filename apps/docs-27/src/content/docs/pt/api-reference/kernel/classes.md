@@ -1,11 +1,11 @@
 ---
-title: "XOOPS Kernel Classes"
-description: "Core kernel classes including XoopsKernel, system bootstrapping, configuration management, and core system components"
+title: "Classes do Kernel do XOOPS"
+description: "Classes principais do kernel incluindo XoopsKernel, inicialização de sistema, gerenciamento de configuração e componentes do sistema principal"
 ---
 
-The XOOPS Kernel provides the foundational framework for bootstrapping the system, managing configurations, handling system events, and providing core utilities. These classes form the backbone of the XOOPS application.
+O Kernel do XOOPS fornece a estrutura fundamental para inicializar o sistema, gerenciar configurações, processar eventos do sistema e fornecer utilitários principais. Essas classes formam a espinha dorsal da aplicação XOOPS.
 
-## System Architecture
+## Arquitetura do Sistema
 
 ```mermaid
 graph TD
@@ -27,11 +27,11 @@ graph TD
     E -->|registers| N[Database Service]
 ```
 
-## XoopsKernel Class
+## Classe XoopsKernel
 
-The main kernel class that initializes and manages the XOOPS system.
+A classe kernel principal que inicializa e gerencia o sistema XOOPS.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops;
@@ -46,55 +46,55 @@ class XoopsKernel
 }
 ```
 
-### Constructor
+### Construtor
 
 ```php
 private function __construct()
 ```
 
-Private constructor enforces singleton pattern.
+Construtor privado que força o padrão singleton.
 
 ### getInstance
 
-Retrieves the singleton kernel instance.
+Recupera a instância singleton do kernel.
 
 ```php
 public static function getInstance(): XoopsKernel
 ```
 
-**Returns:** `XoopsKernel` - The singleton kernel instance
+**Retorna:** `XoopsKernel` - A instância singleton do kernel
 
 **Example:**
 ```php
 $kernel = XoopsKernel::getInstance();
 ```
 
-### Boot Process
+### Processo de Boot
 
-The kernel boot process follows these steps:
+O processo de boot do kernel segue estas etapas:
 
-1. **Initialization** - Set error handlers, define constants
-2. **Configuration** - Load configuration files
-3. **Service Registration** - Register core services
-4. **Module Detection** - Scan and identify active modules
-5. **Database Initialization** - Connect to database
-6. **Cleanup** - Prepare for request handling
+1. **Inicialização** - Configurar manipuladores de erro, definir constantes
+2. **Configuração** - Carregar arquivos de configuração
+3. **Registro de Serviços** - Registrar serviços principais
+4. **Detecção de Módulos** - Escanear e identificar módulos ativos
+5. **Inicialização do Banco de Dados** - Conectar ao banco de dados
+6. **Limpeza** - Preparar para tratamento de requisições
 
 ```php
 public function boot(): void
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $kernel = XoopsKernel::getInstance();
 $kernel->boot();
 ```
 
-### Service Container Methods
+### Métodos do Container de Serviços
 
 #### registerService
 
-Registers a service in the service container.
+Registra um serviço no container de serviços.
 
 ```php
 public function registerService(
@@ -103,14 +103,14 @@ public function registerService(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | string | Service identifier |
-| `$definition` | callable\|object | Service factory or instance |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$name` | string | Identificador do serviço |
+| `$definition` | callable\|object | Factory do serviço ou instância |
 
-**Example:**
+**Exemplo:**
 ```php
 $kernel->registerService('custom.handler', function($c) {
     return new CustomHandler();
@@ -119,21 +119,21 @@ $kernel->registerService('custom.handler', function($c) {
 
 #### getService
 
-Retrieves a registered service.
+Recupera um serviço registrado.
 
 ```php
 public function getService(string $name): mixed
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | string | Service identifier |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$name` | string | Identificador do serviço |
 
-**Returns:** `mixed` - The requested service
+**Retorna:** `mixed` - O serviço solicitado
 
-**Example:**
+**Exemplo:**
 ```php
 $database = $kernel->getService('database');
 $logger = $kernel->getService('logger');
@@ -141,24 +141,24 @@ $logger = $kernel->getService('logger');
 
 #### hasService
 
-Checks if a service is registered.
+Verifica se um serviço está registrado.
 
 ```php
 public function hasService(string $name): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 if ($kernel->hasService('cache')) {
     $cache = $kernel->getService('cache');
 }
 ```
 
-## Configuration Manager
+## Gerenciador de Configuração
 
-Manages application configuration and module settings.
+Gerencia a configuração da aplicação e as definições do módulo.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops\Core;
@@ -175,43 +175,43 @@ class ConfigurationManager
 
 #### load
 
-Loads configuration from file or array.
+Carrega a configuração de um arquivo ou array.
 
 ```php
 public function load(string|array $source): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$source` | string\|array | Config file path or array |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$source` | string\|array | Caminho do arquivo de config ou array |
 
-**Example:**
+**Exemplo:**
 ```php
 $config = $kernel->getService('config');
 $config->load(XOOPS_ROOT_PATH . '/include/config.php');
-$config->load(['sitename' => 'My Site', 'admin_email' => 'admin@example.com']);
+$config->load(['sitename' => 'Meu Site', 'admin_email' => 'admin@example.com']);
 ```
 
 #### get
 
-Retrieves a configuration value.
+Recupera um valor de configuração.
 
 ```php
 public function get(string $key, mixed $default = null): mixed
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | string | Configuration key (dot notation) |
-| `$default` | mixed | Default value if not found |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$key` | string | Chave de configuração (notação de ponto) |
+| `$default` | mixed | Valor padrão se não encontrado |
 
-**Returns:** `mixed` - Configuration value
+**Retorna:** `mixed` - Valor de configuração
 
-**Example:**
+**Exemplo:**
 ```php
 $siteName = $config->get('sitename');
 $adminEmail = $config->get('admin.email', 'admin@example.com');
@@ -219,28 +219,28 @@ $adminEmail = $config->get('admin.email', 'admin@example.com');
 
 #### set
 
-Sets a configuration value.
+Define um valor de configuração.
 
 ```php
 public function set(string $key, mixed $value): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | string | Configuration key |
-| `$value` | mixed | Configuration value |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$key` | string | Chave de configuração |
+| `$value` | mixed | Valor de configuração |
 
-**Example:**
+**Exemplo:**
 ```php
-$config->set('sitename', 'New Site Name');
+$config->set('sitename', 'Novo Nome do Site');
 $config->set('features.cache_enabled', true);
 ```
 
 #### getModuleConfig
 
-Gets configuration for a specific module.
+Obtém a configuração de um módulo específico.
 
 ```php
 public function getModuleConfig(
@@ -248,24 +248,24 @@ public function getModuleConfig(
 ): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$moduleName` | string | Module directory name |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$moduleName` | string | Nome do diretório do módulo |
 
-**Returns:** `array` - Module configuration array
+**Retorna:** `array` - Array de configuração do módulo
 
-**Example:**
+**Exemplo:**
 ```php
 $publisherConfig = $config->getModuleConfig('publisher');
 ```
 
-## System Hooks
+## Ganchos de Sistema
 
-System hooks allow modules and plugins to execute code at specific points in the application lifecycle.
+Os ganchos de sistema permitem que módulos e plugins executem código em pontos específicos do ciclo de vida da aplicação.
 
-### HookManager Class
+### Classe HookManager
 
 ```php
 namespace Xoops\Core;
@@ -277,23 +277,23 @@ class HookManager
 }
 ```
 
-### Methods
+### Métodos
 
 #### addHook
 
-Registers a hook point.
+Registra um ponto de gancho.
 
 ```php
 public function addHook(string $name): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | string | Hook identifier |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$name` | string | Identificador do gancho |
 
-**Example:**
+**Exemplo:**
 ```php
 $hooks = $kernel->getService('hooks');
 $hooks->addHook('system.startup');
@@ -303,7 +303,7 @@ $hooks->addHook('module.install');
 
 #### listen
 
-Attaches a listener to a hook.
+Anexa um ouvinte a um gancho.
 
 ```php
 public function listen(
@@ -313,29 +313,29 @@ public function listen(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$hookName` | string | Hook identifier |
-| `$callback` | callable | Function to execute |
-| `$priority` | int | Execution priority (higher runs first) |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$hookName` | string | Identificador do gancho |
+| `$callback` | callable | Função a executar |
+| `$priority` | int | Prioridade de execução (maior executa primeiro) |
 
-**Example:**
+**Exemplo:**
 ```php
 $hooks->listen('user.login', function($user) {
-    error_log('User ' . $user->uname . ' logged in');
+    error_log('Usuário ' . $user->uname . ' conectou');
 }, 10);
 
 $hooks->listen('module.install', function($module) {
-    // Custom module installation logic
-    echo "Installing " . $module->getName();
+    // Lógica personalizada de instalação de módulo
+    echo "Instalando " . $module->getName();
 }, 5);
 ```
 
 #### trigger
 
-Executes all listeners for a hook.
+Executa todos os ouvintes de um gancho.
 
 ```php
 public function trigger(
@@ -344,154 +344,154 @@ public function trigger(
 ): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$hookName` | string | Hook identifier |
-| `$arguments` | mixed | Data to pass to listeners |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$hookName` | string | Identificador do gancho |
+| `$arguments` | mixed | Dados a passar para os ouvintes |
 
-**Returns:** `array` - Results from all listeners
+**Retorna:** `array` - Resultados de todos os ouvintes
 
-**Example:**
+**Exemplo:**
 ```php
 $results = $hooks->trigger('system.startup');
 $results = $hooks->trigger('user.created', $newUser);
 ```
 
-## Core Services Overview
+## Visão Geral dos Serviços Principais
 
-The kernel registers several core services during boot:
+O kernel registra vários serviços principais durante o boot:
 
-| Service | Class | Purpose |
-|---------|-------|---------|
-| `database` | XoopsDatabase | Database abstraction layer |
-| `config` | ConfigurationManager | Configuration management |
-| `logger` | Logger | Application logging |
-| `template` | XoopsTpl | Template engine |
-| `user` | UserManager | User management service |
-| `module` | ModuleManager | Module management |
-| `cache` | CacheManager | Caching layer |
-| `hooks` | HookManager | System event hooks |
+| Serviço | Classe | Objetivo |
+|---------|--------|----------|
+| `database` | XoopsDatabase | Camada de abstração do banco de dados |
+| `config` | ConfigurationManager | Gerenciamento de configuração |
+| `logger` | Logger | Registro de aplicação |
+| `template` | XoopsTpl | Mecanismo de template |
+| `user` | UserManager | Serviço de gerenciamento de usuários |
+| `module` | ModuleManager | Gerenciamento de módulos |
+| `cache` | CacheManager | Camada de cache |
+| `hooks` | HookManager | Ganchos de eventos do sistema |
 
-## Complete Usage Example
+## Exemplo de Uso Completo
 
 ```php
 <?php
 /**
- * Custom module boot process utilizing kernel
+ * Processo personalizado de boot do módulo utilizando o kernel
  */
 
-// Get kernel instance
+// Obter instância do kernel
 $kernel = XoopsKernel::getInstance();
 
-// Boot the system
+// Boot do sistema
 $kernel->boot();
 
-// Get services
+// Obter serviços
 $config = $kernel->getService('config');
 $database = $kernel->getService('database');
 $logger = $kernel->getService('logger');
 $hooks = $kernel->getService('hooks');
 
-// Access configuration
+// Acessar configuração
 $siteName = $config->get('sitename');
 $adminEmail = $config->get('admin.email');
 
-// Register module-specific hooks
+// Registrar ganchos específicos do módulo
 $hooks->listen('user.login', function($user) {
-    // Log user login
-    $logger->info('User login: ' . $user->uname);
+    // Registrar login do usuário
+    $logger->info('Login do usuário: ' . $user->uname);
 
-    // Track in database
+    // Rastrear no banco de dados
     $database->query(
         'INSERT INTO ' . $database->prefix('event_log') .
         ' (type, user_id, message, timestamp) VALUES (?, ?, ?, ?)',
-        ['login', $user->uid(), 'User login', time()]
+        ['login', $user->uid(), 'Login do usuário', time()]
     );
 });
 
 $hooks->listen('module.install', function($module) {
-    $logger->info('Module installed: ' . $module->getName());
+    $logger->info('Módulo instalado: ' . $module->getName());
 });
 
-// Trigger hooks
+// Disparar ganchos
 $hooks->trigger('system.startup');
 
-// Use database service
+// Usar serviço de banco de dados
 $result = $database->query(
     'SELECT * FROM ' . $database->prefix('users') .
     ' LIMIT 10'
 );
 
 while ($row = $database->fetchArray($result)) {
-    echo "User: " . htmlspecialchars($row['uname']) . "\n";
+    echo "Usuário: " . htmlspecialchars($row['uname']) . "\n";
 }
 
-// Register custom service
+// Registrar serviço personalizado
 $kernel->registerService('custom.repository', function($c) {
     return new CustomRepository($c->getService('database'));
 });
 
-// Later access custom service
+// Acessar serviço personalizado posteriormente
 $repo = $kernel->getService('custom.repository');
 ```
 
-## Core Constants
+## Constantes Principais
 
-The kernel defines several important constants during boot:
+O kernel define várias constantes importantes durante o boot:
 
 ```php
-// System paths
+// Caminhos do sistema
 define('XOOPS_ROOT_PATH', '/var/www/xoops');
 define('XOOPS_HTDOCS_PATH', XOOPS_ROOT_PATH . '/htdocs');
 define('XOOPS_MODULES_PATH', XOOPS_ROOT_PATH . '/htdocs/modules');
 define('XOOPS_THEMES_PATH', XOOPS_ROOT_PATH . '/htdocs/themes');
 
-// Web paths
+// Caminhos web
 define('XOOPS_URL', 'http://example.com');
 define('XOOPS_HTDOCS_URL', XOOPS_URL . '/htdocs');
 
-// Database
+// Banco de dados
 define('XOOPS_DB_PREFIX', 'xoops_');
 ```
 
-## Error Handling
+## Tratamento de Erros
 
-The kernel sets up error handlers during boot:
+O kernel configura manipuladores de erro durante o boot:
 
 ```php
-// Set custom error handler
+// Definir manipulador de erro personalizado
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
     $kernel->getService('logger')->error(
-        "Error: $errstr in $errfile:$errline"
+        "Erro: $errstr em $errfile:$errline"
     );
 });
 
-// Set exception handler
+// Definir manipulador de exceção
 set_exception_handler(function($exception) {
     $kernel->getService('logger')->critical(
-        "Exception: " . $exception->getMessage()
+        "Exceção: " . $exception->getMessage()
     );
 });
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Single Boot** - Call `boot()` only once during application startup
-2. **Use Service Container** - Register and retrieve services through the kernel
-3. **Handle Hooks Early** - Register hook listeners before triggering them
-4. **Log Important Events** - Use the logger service for debugging
-5. **Cache Configuration** - Load config once and reuse
-6. **Error Handling** - Always set up error handlers before processing requests
+1. **Boot Único** - Chamar `boot()` apenas uma vez durante a inicialização da aplicação
+2. **Usar Container de Serviços** - Registrar e recuperar serviços através do kernel
+3. **Lidar com Ganchos Cedo** - Registrar ouvintes de ganchos antes de dispará-los
+4. **Registrar Eventos Importantes** - Usar o serviço de logger para depuração
+5. **Cache de Configuração** - Carregar config uma vez e reutilizar
+6. **Tratamento de Erros** - Sempre configurar manipuladores de erro antes de processar requisições
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../Module/Module-System - Module system and lifecycle
-- ../Template/Template-System - Template engine integration
-- ../User/User-System - User authentication and management
-- ../Database/XoopsDatabase - Database layer
+- ../Module/Module-System - Sistema de módulo e ciclo de vida
+- ../Template/Template-System - Integração do mecanismo de template
+- ../User/User-System - Autenticação e gerenciamento de usuários
+- ../Database/XoopsDatabase - Camada de banco de dados
 
 ---
 
-*See also: [XOOPS Kernel Source](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class)*
+*Veja também: [Fonte do Kernel do XOOPS](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class)*

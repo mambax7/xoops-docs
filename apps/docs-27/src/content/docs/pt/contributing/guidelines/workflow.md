@@ -1,422 +1,422 @@
 ---
-title: "Contribution Workflow"
-description: "Step-by-step guide to contribute to XOOPS projects"
+title: "Fluxo de Contribuição"
+description: "Guia passo-a-passo para contribuir para projetos XOOPS"
 ---
 
-> This guide walks you through the complete process of contributing to XOOPS, from initial setup to merged pull request.
-
----
-
-## Prerequisites
-
-Before you start contributing, ensure you have:
-
-- **Git** installed and configured
-- **GitHub account** (free)
-- **PHP 7.4+** for XOOPS development
-- **Composer** for dependency management
-- Basic knowledge of Git workflows
-- Familiarity with Code of Conduct
+> Este guia o orienta através do processo completo de contribuição para XOOPS, desde a configuração inicial até a pull request mesclada.
 
 ---
 
-## Step 1: Fork the Repository
+## Pré-requisitos
 
-### On GitHub Web Interface
+Antes de começar a contribuir, certifique-se de ter:
 
-1. Navigate to the repository (e.g., `XOOPS/XoopsCore27`)
-2. Click the **Fork** button in the top-right corner
-3. Select where to fork (your personal account)
-4. Wait for the fork to complete
-
-### Why Fork?
-
-- You get your own copy to work on
-- Maintainers don't need to manage many branches
-- You have full control of your fork
-- Pull Requests reference your fork and the upstream repo
+- **Git** instalado e configurado
+- **Conta do GitHub** (gratuita)
+- **PHP 7.4+** para desenvolvimento XOOPS
+- **Composer** para gerenciamento de dependências
+- Conhecimento básico de fluxos de trabalho Git
+- Familiaridade com Código de Conduta
 
 ---
 
-## Step 2: Clone Your Fork Locally
+## Passo 1: Fazer Fork do Repositório
+
+### Na Interface Web do GitHub
+
+1. Navegue até o repositório (ex: `XOOPS/XoopsCore27`)
+2. Clique no botão **Fork** no canto superior direito
+3. Selecione onde fazer fork (sua conta pessoal)
+4. Aguarde o fork ser concluído
+
+### Por Que Fazer Fork?
+
+- Você obtém sua própria cópia para trabalhar
+- Mantenedores não precisam gerenciar muitas branches
+- Você tem controle total de seu fork
+- Pull Requests referenciam seu fork e o repositório upstream
+
+---
+
+## Passo 2: Clonar Seu Fork Localmente
 
 ```bash
-# Clone your fork (replace YOUR_USERNAME)
-git clone https://github.com/YOUR_USERNAME/XoopsCore27.git
+# Clone seu fork (substitua SEU_USUARIO)
+git clone https://github.com/SEU_USUARIO/XoopsCore27.git
 cd XoopsCore27
 
-# Add upstream remote to track original repository
+# Adicionar remote upstream para rastrear repositório original
 git remote add upstream https://github.com/XOOPS/XoopsCore27.git
 
-# Verify remotes are set correctly
+# Verificar se remotes estão configurados corretamente
 git remote -v
-# origin    https://github.com/YOUR_USERNAME/XoopsCore27.git (fetch)
-# origin    https://github.com/YOUR_USERNAME/XoopsCore27.git (push)
+# origin    https://github.com/SEU_USUARIO/XoopsCore27.git (fetch)
+# origin    https://github.com/SEU_USUARIO/XoopsCore27.git (push)
 # upstream  https://github.com/XOOPS/XoopsCore27.git (fetch)
 # upstream  https://github.com/XOOPS/XoopsCore27.git (nofetch)
 ```
 
 ---
 
-## Step 3: Set Up Development Environment
+## Passo 3: Configurar Ambiente de Desenvolvimento
 
-### Install Dependencies
+### Instalar Dependências
 
 ```bash
-# Install Composer dependencies
+# Instalar dependências do Composer
 composer install
 
-# Install development dependencies
+# Instalar dependências de desenvolvimento
 composer install --dev
 
-# For module development
+# Para desenvolvimento de módulo
 cd modules/mymodule
 composer install
 ```
 
-### Configure Git
+### Configurar Git
 
 ```bash
-# Set your Git identity
-git config user.name "Your Name"
-git config user.email "your.email@example.com"
+# Definir identidade de Git
+git config user.name "Seu Nome"
+git config user.email "seu.email@example.com"
 
-# Optional: Set global Git config
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+# Opcional: Definir configuração global de Git
+git config --global user.name "Seu Nome"
+git config --global user.email "seu.email@example.com"
 ```
 
-### Run Tests
+### Executar Testes
 
 ```bash
-# Make sure tests pass in clean state
+# Certificar-se de que testes passam em estado limpo
 ./vendor/bin/phpunit
 
-# Run specific test suite
+# Executar suite de teste específica
 ./vendor/bin/phpunit --testsuite unit
 ```
 
 ---
 
-## Step 4: Create Feature Branch
+## Passo 4: Criar Branch de Recurso
 
-### Branch Naming Convention
+### Convenção de Nomenclatura de Branch
 
-Follow this pattern: `<type>/<description>`
+Siga este padrão: `<tipo>/<descrição>`
 
-**Types:**
-- `feature/` - New feature
-- `fix/` - Bug fix
-- `docs/` - Documentation only
-- `refactor/` - Code refactoring
-- `test/` - Test additions
-- `chore/` - Maintenance, tooling
+**Tipos:**
+- `feature/` - Novo recurso
+- `fix/` - Correção de bug
+- `docs/` - Apenas documentação
+- `refactor/` - Refatoração de código
+- `test/` - Adições de teste
+- `chore/` - Manutenção, tooling
 
-**Examples:**
+**Exemplos:**
 ```bash
-# Feature branch
+# Branch de recurso
 git checkout -b feature/add-two-factor-auth
 
-# Bug fix branch
+# Branch de correção de bug
 git checkout -b fix/prevent-xss-in-forms
 
-# Documentation branch
+# Branch de documentação
 git checkout -b docs/update-api-guide
 
-# Always branch from upstream/main (or develop)
+# Sempre fazer branch a partir de upstream/main (ou develop)
 git checkout -b feature/my-feature upstream/main
 ```
 
-### Keep Branch Up to Date
+### Manter Branch Atualizada
 
 ```bash
-# Before you start work, sync with upstream
+# Antes de começar trabalho, sincronizar com upstream
 git fetch upstream
 git merge upstream/main
 
-# Later, if upstream has changed
+# Depois, se upstream mudou
 git fetch upstream
 git rebase upstream/main
 ```
 
 ---
 
-## Step 5: Make Your Changes
+## Passo 5: Fazer Suas Mudanças
 
-### Development Practices
+### Práticas de Desenvolvimento
 
-1. **Write code** following PHP Standards
-2. **Write tests** for new functionality
-3. **Update documentation** if needed
-4. **Run linters** and code formatters
+1. **Escrever código** seguindo Padrões de PHP
+2. **Escrever testes** para nova funcionalidade
+3. **Atualizar documentação** se necessário
+4. **Executar linters** e formatadores de código
 
-### Code Quality Checks
+### Verificações de Qualidade de Código
 
 ```bash
-# Run all tests
+# Executar todos os testes
 ./vendor/bin/phpunit
 
-# Run with coverage
+# Executar com cobertura
 ./vendor/bin/phpunit --coverage-html coverage/
 
-# Run PHP CS Fixer
+# Executar PHP CS Fixer
 ./vendor/bin/php-cs-fixer fix --dry-run
 
-# Run PHPStan static analysis
+# Executar análise estática PHPStan
 ./vendor/bin/phpstan analyse class/ src/
 ```
 
-### Commit Good Changes
+### Fazer Commit de Boas Mudanças
 
 ```bash
-# Check what you changed
+# Verificar o que você mudou
 git status
 git diff
 
-# Stage specific files
+# Preparar arquivos específicos
 git add class/MyClass.php
 git add tests/MyClassTest.php
 
-# Or stage all changes
+# Ou preparar todas as mudanças
 git add .
 
-# Commit with descriptive message
-git commit -m "feat(auth): add two-factor authentication support"
+# Fazer commit com mensagem descritiva
+git commit -m "feat(auth): adicionar suporte de autenticação de dois fatores"
 ```
 
 ---
 
-## Step 6: Keep Branch in Sync
+## Passo 6: Manter Branch em Sincronização
 
-While working on your feature, the main branch might advance:
+Enquanto trabalha em seu recurso, a branch principal pode avançar:
 
 ```bash
-# Fetch latest changes from upstream
+# Buscar últimas mudanças do upstream
 git fetch upstream
 
-# Option A: Rebase (preferred for clean history)
+# Opção A: Rebase (preferido para histórico limpo)
 git rebase upstream/main
 
-# Option B: Merge (simpler but adds merge commits)
+# Opção B: Merge (mais simples mas adiciona merge commits)
 git merge upstream/main
 
-# If conflicts occur, resolve them then:
+# Se conflitos ocorrem, resolvê-los então:
 git add .
-git rebase --continue  # or git merge --continue
+git rebase --continue  # ou git merge --continue
 ```
 
 ---
 
-## Step 7: Push to Your Fork
+## Passo 7: Push para Seu Fork
 
 ```bash
-# Push your branch to your fork
+# Push sua branch para seu fork
 git push origin feature/my-feature
 
-# On subsequent pushes
+# Em push subsequentes
 git push
 
-# If you rebased, you might need force push (use carefully!)
+# Se fez rebase, pode precisar force push (usar com cuidado!)
 git push --force-with-lease origin feature/my-feature
 ```
 
 ---
 
-## Step 8: Create Pull Request
+## Passo 8: Criar Pull Request
 
-### On GitHub Web Interface
+### Na Interface Web do GitHub
 
-1. Go to your fork on GitHub
-2. You'll see a notification to create a PR from your branch
-3. Click **"Compare & pull request"**
-4. Or manually click **"New pull request"** and select your branch
+1. Vá para seu fork no GitHub
+2. Você verá uma notificação para criar um PR de sua branch
+3. Clique em **"Compare & pull request"**
+4. Ou manualmente clique em **"New pull request"** e selecione sua branch
 
-### PR Title and Description
+### Título e Descrição de PR
 
-**Title Format:**
+**Formato de Título:**
 ```
-<type>(<scope>): <subject>
-```
-
-Examples:
-```
-feat(auth): add two-factor authentication
-fix(forms): prevent XSS in text input
-docs: update installation guide
-refactor(core): improve performance
+<tipo>(<escopo>): <assunto>
 ```
 
-**Description Template:**
+Exemplos:
+```
+feat(auth): adicionar autenticação de dois fatores
+fix(forms): prevenir XSS em entrada de texto
+docs: atualizar guia de instalação
+refactor(core): melhorar performance
+```
+
+**Modelo de Descrição:**
 
 ```markdown
-## Description
-Brief explanation of what this PR does.
+## Descrição
+Breve explicação do que este PR faz.
 
-## Changes
-- Changed X from A to B
-- Added feature Y
-- Fixed bug Z
+## Mudanças
+- Mudou X de A para B
+- Adicionou recurso Y
+- Corrigiu bug Z
 
-## Type of Change
-- [ ] New feature (adds new functionality)
-- [ ] Bug fix (fixes an issue)
-- [ ] Breaking change (API/behavior change)
-- [ ] Documentation update
+## Tipo de Mudança
+- [ ] Novo recurso (adiciona nova funcionalidade)
+- [ ] Correção de bug (corrige um problema)
+- [ ] Mudança quebra-compatibilidade (API/mudança de comportamento)
+- [ ] Atualização de documentação
 
-## Testing
-- [ ] Added tests for new functionality
-- [ ] All existing tests pass
-- [ ] Manual testing performed
+## Testes
+- [ ] Adicionados testes para nova funcionalidade
+- [ ] Todos os testes existentes passam
+- [ ] Teste manual realizado
 
-## Screenshots (if applicable)
-Include before/after screenshots for UI changes.
+## Capturas de Tela (se aplicável)
+Incluir capturas de tela antes/depois para mudanças de UI.
 
-## Related Issues
-Closes #123
-Related to #456
+## Problemas Relacionados
+Fecha #123
+Relacionado a #456
 
-## Checklist
-- [ ] Code follows style guidelines
-- [ ] Self-reviewed own code
-- [ ] Commented complex code
-- [ ] Updated documentation
-- [ ] No new warnings generated
-- [ ] Tests pass locally
+## Lista de Verificação
+- [ ] Código segue diretrizes de estilo
+- [ ] Autorrevisão do próprio código
+- [ ] Comentado código complexo
+- [ ] Documentação atualizada
+- [ ] Nenhum novo aviso gerado
+- [ ] Testes passam localmente
 ```
 
-### PR Review Checklist
+### Lista de Verificação de Revisão de PR
 
-Before submitting, ensure:
+Antes de submeter, certifique-se:
 
-- [ ] Code follows PHP Standards
-- [ ] Tests are included and pass
-- [ ] Documentation updated (if needed)
-- [ ] No merge conflicts
-- [ ] Commit messages are clear
-- [ ] Related issues are referenced
-- [ ] PR description is detailed
-- [ ] No debug code or console logs
+- [ ] Código segue Padrões de PHP
+- [ ] Testes incluídos e passam
+- [ ] Documentação atualizada (se necessário)
+- [ ] Nenhum conflito de merge
+- [ ] Mensagens de commit claras
+- [ ] Problemas relacionados referenciados
+- [ ] Descrição de PR é detalhada
+- [ ] Sem código de debug ou console logs
 
 ---
 
-## Step 9: Respond to Feedback
+## Passo 9: Responder ao Feedback
 
-### During Code Review
+### Durante Revisão de Código
 
-1. **Read comments carefully** - Understand the feedback
-2. **Ask questions** - If unclear, ask for clarification
-3. **Discuss alternatives** - Respectfully debate approaches
-4. **Make requested changes** - Update your branch
-5. **Force-push updated commits** - If rewriting history
+1. **Ler comentários cuidadosamente** - Entender o feedback
+2. **Fazer perguntas** - Se pouco claro, pedir esclarecimento
+3. **Discutir alternativas** - Respeitosamente debater abordagens
+4. **Fazer mudanças solicitadas** - Atualizar sua branch
+5. **Force-push commits atualizados** - Se reescrever histórico
 
 ```bash
-# Make changes
+# Fazer mudanças
 git add .
-git commit --amend  # Modify last commit
+git commit --amend  # Modificar último commit
 git push --force-with-lease origin feature/my-feature
 
-# Or add new commits
-git commit -m "Address feedback on PR review"
+# Ou adicionar novos commits
+git commit -m "Endereçar feedback de revisão de PR"
 git push origin feature/my-feature
 ```
 
-### Expect Iteration
+### Esperar Iteração
 
-- Most PRs require multiple review rounds
-- Be patient and constructive
-- View feedback as learning opportunity
-- Maintainers may suggest refactors
+- A maioria das PRs requer múltiplas rodadas de revisão
+- Ser paciente e construtivo
+- Ver feedback como oportunidade de aprendizado
+- Mantenedores podem sugerir refators
 
 ---
 
-## Step 10: Merge and Cleanup
+## Passo 10: Merge e Limpeza
 
-### After Approval
+### Após Aprovação
 
-Once maintainers approve and merge:
+Uma vez que mantenedores aprovam e mesclam:
 
-1. **GitHub auto-merges** or maintainer clicks merge
-2. **Your branch is deleted** (usually automatic)
-3. **Changes are in upstream**
+1. **GitHub auto-mescla** ou mantenedor clica merge
+2. **Sua branch é deletada** (geralmente automático)
+3. **Mudanças estão em upstream**
 
-### Local Cleanup
+### Limpeza Local
 
 ```bash
-# Switch to main branch
+# Mudar para branch principal
 git checkout main
 
-# Update main with merged changes
+# Atualizar main com mudanças mescladas
 git fetch upstream
 git merge upstream/main
 
-# Delete local feature branch
+# Deletar branch local de recurso
 git branch -d feature/my-feature
 
-# Delete from your fork (if not auto-deleted)
+# Deletar do seu fork (se não for auto-deletado)
 git push origin --delete feature/my-feature
 ```
 
 ---
 
-## Workflow Diagram
+## Diagrama de Fluxo
 
 ```mermaid
 graph LR
-    A[Fork Repository] --> B[Clone Fork]
-    B --> C[Create Branch]
-    C --> D[Make Changes]
+    A[Fazer Fork do Repositório] --> B[Clonar Fork]
+    B --> C[Criar Branch]
+    C --> D[Fazer Mudanças]
     D --> E[Commit & Push]
-    E --> F[Create PR]
-    F --> G{Review}
-    G -->|Approved| H[Merge]
-    G -->|Changes Needed| I[Update PR]
+    E --> F[Criar PR]
+    F --> G{Revisão}
+    G -->|Aprovado| H[Merge]
+    G -->|Mudanças Necessárias| I[Atualizar PR]
     I --> G
-    H --> J[Cleanup]
-    J --> K[Done]
+    H --> J[Limpeza]
+    J --> K[Concluído]
 ```
 
 ---
 
-## Common Scenarios
+## Cenários Comuns
 
-### Syncing Before Starting
+### Sincronizando Antes de Começar
 
 ```bash
-# Always start fresh
+# Sempre começar fresco
 git fetch upstream
 git checkout -b feature/new-thing upstream/main
 ```
 
-### Adding More Commits
+### Adicionando Mais Commits
 
 ```bash
-# Just push again
+# Apenas fazer push novamente
 git add .
-git commit -m "feat: additional changes"
+git commit -m "feat: mudanças adicionais"
 git push origin feature/new-thing
 ```
 
-### Fixing Mistakes
+### Corrigindo Erros
 
 ```bash
-# Last commit has wrong message
-git commit --amend -m "Correct message"
+# Último commit tem mensagem errada
+git commit --amend -m "Mensagem correta"
 git push --force-with-lease
 
-# Revert to previous state (careful!)
-git reset --soft HEAD~1  # Keep changes
-git reset --hard HEAD~1  # Discard changes
+# Reverter para estado anterior (cuidado!)
+git reset --soft HEAD~1  # Manter mudanças
+git reset --hard HEAD~1  # Descartar mudanças
 ```
 
-### Handling Merge Conflicts
+### Manipulando Conflitos de Merge
 
 ```bash
-# Rebase and resolve conflicts
+# Rebase e resolver conflitos
 git fetch upstream
 git rebase upstream/main
 
-# Edit conflicted files to resolve
-# Then continue
+# Editar arquivos conflitantes para resolver
+# Então continuar
 git add .
 git rebase --continue
 git push --force-with-lease
@@ -424,62 +424,62 @@ git push --force-with-lease
 
 ---
 
-## Best Practices
+## Melhores Práticas
 
-### Do
+### Faça
 
-- Keep branches focused on single issues
-- Make small, logical commits
-- Write descriptive commit messages
-- Update your branch frequently
-- Test before pushing
-- Document changes
-- Be responsive to feedback
+- Manter branches focadas em problemas únicos
+- Fazer commits pequenos e lógicos
+- Escrever mensagens de commit descritivas
+- Atualizar sua branch frequentemente
+- Testar antes de fazer push
+- Documentar mudanças
+- Ser responsivo ao feedback
 
-### Don't
+### Não Faça
 
-- Work directly on main/master branch
-- Mix unrelated changes in one PR
-- Commit generated files or node_modules
-- Force push after PR is public (use --force-with-lease)
-- Ignore code review feedback
-- Create huge PRs (break into smaller ones)
-- Commit sensitive data (API keys, passwords)
-
----
-
-## Tips for Success
-
-### Communicate
-
-- Ask questions in issues before starting work
-- Ask for guidance on complex changes
-- Discuss approach in the PR description
-- Respond to feedback promptly
-
-### Follow Standards
-
-- Review PHP Standards
-- Check Issue Reporting guidelines
-- Read Contributing Overview
-- Follow Pull Request Guidelines
-
-### Learn the Codebase
-
-- Read existing code patterns
-- Study similar implementations
-- Understand the architecture
-- Check Core Concepts
+- Trabalhar diretamente em branch main/master
+- Misturar mudanças não relacionadas em um PR
+- Fazer commit de arquivos gerados ou node_modules
+- Force push após PR ser público (use --force-with-lease)
+- Ignorar feedback de revisão de código
+- Criar PRs massivas (quebrar em menores)
+- Fazer commit de dados sensíveis (chaves de API, senhas)
 
 ---
 
-## Related Documentation
+## Dicas para Sucesso
 
-- Code of Conduct
-- Pull Request Guidelines
-- Issue Reporting
-- PHP Coding Standards
-- Contributing Overview
+### Comunicar
+
+- Fazer perguntas em problemas antes de começar trabalho
+- Pedir orientação sobre mudanças complexas
+- Discutir abordagem na descrição do PR
+- Responder ao feedback prontamente
+
+### Seguir Padrões
+
+- Revisar Padrões de PHP
+- Verificar diretrizes de Relatório de Problema
+- Ler Visão Geral de Contribuição
+- Seguir Diretrizes de Pull Request
+
+### Aprender o Codebase
+
+- Ler padrões de código existentes
+- Estudar implementações similares
+- Entender a arquitetura
+- Consultar Conceitos Principais
+
+---
+
+## Documentação Relacionada
+
+- Código de Conduta
+- Diretrizes de Pull Request
+- Relatório de Problema
+- Padrões de Codificação PHP
+- Visão Geral de Contribuição
 
 ---
 

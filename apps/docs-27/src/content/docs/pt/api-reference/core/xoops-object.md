@@ -1,11 +1,11 @@
 ---
-title: "XoopsObject Class"
-description: "Base class for all data objects in the XOOPS system providing property management, validation, and serialization"
+title: "Classe XoopsObject"
+description: "Classe base para todos os objetos de dados no sistema XOOPS, fornecendo gerenciamento de propriedades, validação e serialização"
 ---
 
-The `XoopsObject` class is the fundamental base class for all data objects in the XOOPS system. It provides a standardized interface for managing object properties, validation, dirty tracking, and serialization.
+A classe `XoopsObject` é a classe base fundamental para todos os objetos de dados no sistema XOOPS. Ela fornece uma interface padronizada para gerenciar propriedades de objetos, validação, rastreamento de alterações e serialização.
 
-## Class Overview
+## Visão Geral da Classe
 
 ```php
 namespace Xoops\Core;
@@ -19,7 +19,7 @@ class XoopsObject
 }
 ```
 
-## Class Hierarchy
+## Hierarquia de Classes
 
 ```
 XoopsObject
@@ -30,37 +30,37 @@ XoopsObject
 ├── XoopsComment
 ├── XoopsNotification
 ├── XoopsConfig
-└── [Custom Module Objects]
+└── [Objetos de Módulo Personalizados]
 ```
 
-## Properties
+## Propriedades
 
-| Property | Type | Visibility | Description |
+| Propriedade | Tipo | Visibilidade | Descrição |
 |----------|------|------------|-------------|
-| `$vars` | array | protected | Stores variable definitions and values |
-| `$cleanVars` | array | protected | Stores sanitized values for database operations |
-| `$isNew` | bool | protected | Indicates if object is new (not yet in database) |
-| `$errors` | array | protected | Stores validation and error messages |
+| `$vars` | array | protegida | Armazena definições e valores de variáveis |
+| `$cleanVars` | array | protegida | Armazena valores sanitizados para operações de banco de dados |
+| `$isNew` | bool | protegida | Indica se o objeto é novo (ainda não no banco de dados) |
+| `$errors` | array | protegida | Armazena validação e mensagens de erro |
 
-## Constructor
+## Construtor
 
 ```php
 public function __construct()
 ```
 
-Creates a new XoopsObject instance. The object is marked as new by default.
+Cria uma nova instância de XoopsObject. O objeto é marcado como novo por padrão.
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new XoopsObject();
-// Object is new and has no defined variables
+// Objeto é novo e não tem variáveis definidas
 ```
 
-## Core Methods
+## Métodos Principais
 
 ### initVar
 
-Initializes a variable definition for the object.
+Inicializa uma definição de variável para o objeto.
 
 ```php
 public function initVar(
@@ -73,37 +73,37 @@ public function initVar(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$key` | string | Variable name |
-| `$dataType` | int | Data type constant (see Data Types) |
-| `$value` | mixed | Default value |
-| `$required` | bool | Whether field is required |
-| `$maxlength` | int | Maximum length for string types |
-| `$options` | string | Additional options |
+| `$key` | string | Nome da variável |
+| `$dataType` | int | Constante de tipo de dados (veja Tipos de Dados) |
+| `$value` | mixed | Valor padrão |
+| `$required` | bool | Se o campo é obrigatório |
+| `$maxlength` | int | Comprimento máximo para tipos de string |
+| `$options` | string | Opções adicionais |
 
-**Data Types:**
+**Tipos de Dados:**
 
-| Constant | Value | Description |
+| Constante | Valor | Descrição |
 |----------|-------|-------------|
-| `XOBJ_DTYPE_TXTBOX` | 1 | Text box input |
-| `XOBJ_DTYPE_TXTAREA` | 2 | Textarea content |
-| `XOBJ_DTYPE_INT` | 3 | Integer value |
-| `XOBJ_DTYPE_URL` | 4 | URL string |
-| `XOBJ_DTYPE_EMAIL` | 5 | Email address |
-| `XOBJ_DTYPE_ARRAY` | 6 | Serialized array |
-| `XOBJ_DTYPE_OTHER` | 7 | Custom type |
-| `XOBJ_DTYPE_SOURCE` | 8 | Source code |
-| `XOBJ_DTYPE_STIME` | 9 | Short time format |
-| `XOBJ_DTYPE_MTIME` | 10 | Medium time format |
-| `XOBJ_DTYPE_LTIME` | 11 | Long time format |
-| `XOBJ_DTYPE_FLOAT` | 12 | Floating point |
-| `XOBJ_DTYPE_DECIMAL` | 13 | Decimal number |
-| `XOBJ_DTYPE_ENUM` | 14 | Enumeration |
+| `XOBJ_DTYPE_TXTBOX` | 1 | Entrada de caixa de texto |
+| `XOBJ_DTYPE_TXTAREA` | 2 | Conteúdo de textarea |
+| `XOBJ_DTYPE_INT` | 3 | Valor inteiro |
+| `XOBJ_DTYPE_URL` | 4 | String de URL |
+| `XOBJ_DTYPE_EMAIL` | 5 | Endereço de email |
+| `XOBJ_DTYPE_ARRAY` | 6 | Array serializado |
+| `XOBJ_DTYPE_OTHER` | 7 | Tipo personalizado |
+| `XOBJ_DTYPE_SOURCE` | 8 | Código-fonte |
+| `XOBJ_DTYPE_STIME` | 9 | Formato de hora curta |
+| `XOBJ_DTYPE_MTIME` | 10 | Formato de hora média |
+| `XOBJ_DTYPE_LTIME` | 11 | Formato de hora longa |
+| `XOBJ_DTYPE_FLOAT` | 12 | Ponto flutuante |
+| `XOBJ_DTYPE_DECIMAL` | 13 | Número decimal |
+| `XOBJ_DTYPE_ENUM` | 14 | Enumeração |
 
-**Example:**
+**Exemplo:**
 ```php
 class MyObject extends XoopsObject
 {
@@ -124,7 +124,7 @@ class MyObject extends XoopsObject
 
 ### setVar
 
-Sets the value of a variable.
+Define o valor de uma variável.
 
 ```php
 public function setVar(
@@ -134,21 +134,21 @@ public function setVar(
 ): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$key` | string | Variable name |
-| `$value` | mixed | Value to set |
-| `$notGpc` | bool | If true, value is not from GET/POST/COOKIE |
+| `$key` | string | Nome da variável |
+| `$value` | mixed | Valor a definir |
+| `$notGpc` | bool | Se verdadeiro, o valor não é de GET/POST/COOKIE |
 
-**Returns:** `bool` - True if successful, false otherwise
+**Retorna:** `bool` - Verdadeiro se bem-sucedido, falso caso contrário
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 $object->setVar('title', 'Hello World');
-$object->setVar('content', '<p>Content here</p>', true); // Not from user input
+$object->setVar('content', '<p>Content here</p>', true); // Não é da entrada do usuário
 $object->setVar('status', 1);
 ```
 
@@ -156,7 +156,7 @@ $object->setVar('status', 1);
 
 ### getVar
 
-Retrieves the value of a variable with optional formatting.
+Recupera o valor de uma variável com formatação opcional.
 
 ```php
 public function getVar(
@@ -165,44 +165,44 @@ public function getVar(
 ): mixed
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$key` | string | Variable name |
-| `$format` | string | Output format |
+| `$key` | string | Nome da variável |
+| `$format` | string | Formato de saída |
 
-**Format Options:**
+**Opções de Formato:**
 
-| Format | Description |
+| Formato | Descrição |
 |--------|-------------|
-| `'s'` | Show - HTML entities escaped for display |
-| `'e'` | Edit - For form input values |
-| `'p'` | Preview - Similar to show |
-| `'f'` | Form data - Raw for form processing |
-| `'n'` | None - Raw value, no formatting |
+| `'s'` | Mostrar - Entidades HTML escapadas para exibição |
+| `'e'` | Editar - Para valores de entrada de formulário |
+| `'p'` | Visualizar - Semelhante a mostrar |
+| `'f'` | Dados do formulário - Bruto para processamento de formulário |
+| `'n'` | Nenhum - Valor bruto, sem formatação |
 
-**Returns:** `mixed` - The formatted value
+**Retorna:** `mixed` - O valor formatado
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 $object->setVar('title', 'Hello <World>');
 
 echo $object->getVar('title', 's'); // "Hello &lt;World&gt;"
-echo $object->getVar('title', 'e'); // "Hello &lt;World&gt;" (for input value)
-echo $object->getVar('title', 'n'); // "Hello <World>" (raw)
+echo $object->getVar('title', 'e'); // "Hello &lt;World&gt;" (para valor de entrada)
+echo $object->getVar('title', 'n'); // "Hello <World>" (bruto)
 
-// For array data types
+// Para tipos de dados de array
 $object->setVar('options', ['a', 'b', 'c']);
-$options = $object->getVar('options', 'n'); // Returns array
+$options = $object->getVar('options', 'n'); // Retorna array
 ```
 
 ---
 
 ### setVars
 
-Sets multiple variables at once from an array.
+Define múltiplas variáveis de uma vez a partir de um array.
 
 ```php
 public function setVars(
@@ -211,14 +211,14 @@ public function setVars(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$values` | array | Associative array of key => value pairs |
-| `$notGpc` | bool | If true, values are not from GET/POST/COOKIE |
+| `$values` | array | Array associativo de pares chave => valor |
+| `$notGpc` | bool | Se verdadeiro, os valores não são de GET/POST/COOKIE |
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 $object->setVars([
@@ -227,7 +227,7 @@ $object->setVars([
     'status' => 1
 ]);
 
-// From database (not user input)
+// Do banco de dados (não é entrada do usuário)
 $object->setVars($row, true);
 ```
 
@@ -235,7 +235,7 @@ $object->setVars($row, true);
 
 ### getValues
 
-Retrieves all variable values.
+Recupera todos os valores das variáveis.
 
 ```php
 public function getValues(
@@ -245,27 +245,27 @@ public function getValues(
 ): array
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$keys` | array | Specific keys to retrieve (null for all) |
-| `$format` | string | Output format |
-| `$maxDepth` | int | Maximum depth for nested objects |
+| `$keys` | array | Chaves específicas a recuperar (null para todas) |
+| `$format` | string | Formato de saída |
+| `$maxDepth` | int | Profundidade máxima para objetos aninhados |
 
-**Returns:** `array` - Associative array of values
+**Retorna:** `array` - Array associativo de valores
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 
-// Get all values
+// Obter todos os valores
 $allValues = $object->getValues();
 
-// Get specific values
+// Obter valores específicos
 $subset = $object->getValues(['title', 'status']);
 
-// Get raw values for database
+// Obter valores brutos para o banco de dados
 $rawValues = $object->getValues(null, 'n');
 ```
 
@@ -273,7 +273,7 @@ $rawValues = $object->getValues(null, 'n');
 
 ### assignVar
 
-Assigns a value directly without validation (use with caution).
+Atribui um valor diretamente sem validação (usar com cuidado).
 
 ```php
 public function assignVar(
@@ -282,16 +282,16 @@ public function assignVar(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$key` | string | Variable name |
-| `$value` | mixed | Value to assign |
+| `$key` | string | Nome da variável |
+| `$value` | mixed | Valor a atribuir |
 
-**Example:**
+**Exemplo:**
 ```php
-// Direct assignment from trusted source (e.g., database)
+// Atribuição direta de fonte confiável (ex: banco de dados)
 $object->assignVar('id', $row['id']);
 $object->assignVar('created', $row['created']);
 ```
@@ -300,25 +300,25 @@ $object->assignVar('created', $row['created']);
 
 ### cleanVars
 
-Sanitizes all variables for database operations.
+Sanitiza todas as variáveis para operações de banco de dados.
 
 ```php
 public function cleanVars(): bool
 ```
 
-**Returns:** `bool` - True if all variables are valid
+**Retorna:** `bool` - Verdadeiro se todas as variáveis são válidas
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 $object->setVar('title', 'Test');
 $object->setVar('email', 'user@example.com');
 
 if ($object->cleanVars()) {
-    // Variables are sanitized and ready for database
+    // As variáveis estão sanitizadas e prontas para o banco de dados
     $cleanData = $object->cleanVars;
 } else {
-    // Validation errors occurred
+    // Erros de validação ocorreram
     $errors = $object->getErrors();
 }
 ```
@@ -327,7 +327,7 @@ if ($object->cleanVars()) {
 
 ### isNew
 
-Checks or sets whether the object is new.
+Verifica ou define se o objeto é novo.
 
 ```php
 public function isNew(): bool
@@ -335,7 +335,7 @@ public function setNew(): void
 public function unsetNew(): void
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 echo $object->isNew(); // true
@@ -349,17 +349,17 @@ echo $object->isNew(); // true
 
 ---
 
-## Error Handling Methods
+## Métodos de Tratamento de Erros
 
 ### setErrors
 
-Adds an error message.
+Adiciona uma mensagem de erro.
 
 ```php
 public function setErrors(string|array $error): void
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $object->setErrors('Title is required');
 $object->setErrors(['Field 1 error', 'Field 2 error']);
@@ -369,13 +369,13 @@ $object->setErrors(['Field 1 error', 'Field 2 error']);
 
 ### getErrors
 
-Retrieves all error messages.
+Recupera todas as mensagens de erro.
 
 ```php
 public function getErrors(): array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $errors = $object->getErrors();
 foreach ($errors as $error) {
@@ -387,13 +387,13 @@ foreach ($errors as $error) {
 
 ### getHtmlErrors
 
-Returns errors formatted as HTML.
+Retorna erros formatados como HTML.
 
 ```php
 public function getHtmlErrors(): string
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 if (!$object->cleanVars()) {
     echo '<div class="error">' . $object->getHtmlErrors() . '</div>';
@@ -402,17 +402,17 @@ if (!$object->cleanVars()) {
 
 ---
 
-## Utility Methods
+## Métodos Utilitários
 
 ### toArray
 
-Converts the object to an array.
+Converte o objeto em um array.
 
 ```php
 public function toArray(): array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $object = new MyObject();
 $object->setVar('title', 'Test');
@@ -424,13 +424,13 @@ $data = $object->toArray();
 
 ### getVars
 
-Returns the variable definitions.
+Retorna as definições de variáveis.
 
 ```php
 public function getVars(): array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $vars = $object->getVars();
 foreach ($vars as $key => $definition) {
@@ -440,30 +440,30 @@ foreach ($vars as $key => $definition) {
 
 ---
 
-## Complete Usage Example
+## Exemplo Completo de Uso
 
 ```php
 <?php
 /**
- * Custom Article Object
+ * Objeto de Artigo Personalizado
  */
 class Article extends XoopsObject
 {
     /**
-     * Constructor - Initialize all variables
+     * Construtor - Inicializar todas as variáveis
      */
     public function __construct()
     {
         parent::__construct();
 
-        // Primary key
+        // Chave primária
         $this->initVar('article_id', XOBJ_DTYPE_INT, null, false);
 
-        // Required fields
+        // Campos obrigatórios
         $this->initVar('title', XOBJ_DTYPE_TXTBOX, '', true, 255);
         $this->initVar('author_id', XOBJ_DTYPE_INT, 0, true);
 
-        // Optional fields
+        // Campos opcionais
         $this->initVar('summary', XOBJ_DTYPE_TXTAREA, '', false);
         $this->initVar('content', XOBJ_DTYPE_TXTAREA, '', false);
         $this->initVar('category_id', XOBJ_DTYPE_INT, 0, false);
@@ -472,16 +472,16 @@ class Article extends XoopsObject
         $this->initVar('created', XOBJ_DTYPE_INT, time(), false);
         $this->initVar('updated', XOBJ_DTYPE_INT, time(), false);
 
-        // Status flags
+        // Flags de status
         $this->initVar('published', XOBJ_DTYPE_INT, 0, false);
         $this->initVar('views', XOBJ_DTYPE_INT, 0, false);
 
-        // Metadata as array
+        // Metadados como array
         $this->initVar('meta', XOBJ_DTYPE_ARRAY, [], false);
     }
 
     /**
-     * Get formatted creation date
+     * Obter data de criação formatada
      */
     public function getCreatedDate(string $format = 'Y-m-d H:i:s'): string
     {
@@ -489,7 +489,7 @@ class Article extends XoopsObject
     }
 
     /**
-     * Check if article is published
+     * Verificar se o artigo está publicado
      */
     public function isPublished(): bool
     {
@@ -497,7 +497,7 @@ class Article extends XoopsObject
     }
 
     /**
-     * Increment view counter
+     * Incrementar contador de visualizações
      */
     public function incrementViews(): void
     {
@@ -506,13 +506,13 @@ class Article extends XoopsObject
     }
 
     /**
-     * Custom validation
+     * Validação personalizada
      */
     public function validate(): bool
     {
         $this->errors = [];
 
-        // Title validation
+        // Validação de título
         $title = trim($this->getVar('title', 'n'));
         if (empty($title)) {
             $this->setErrors('Title is required');
@@ -520,7 +520,7 @@ class Article extends XoopsObject
             $this->setErrors('Title must be at least 5 characters');
         }
 
-        // Author validation
+        // Validação de autor
         if ($this->getVar('author_id', 'n') <= 0) {
             $this->setErrors('Author is required');
         }
@@ -529,7 +529,7 @@ class Article extends XoopsObject
     }
 }
 
-// Usage
+// Uso
 $article = new Article();
 $article->setVar('title', 'My First Article');
 $article->setVar('author_id', 1);
@@ -540,7 +540,7 @@ $article->setVar('meta', [
 ]);
 
 if ($article->validate() && $article->cleanVars()) {
-    // Save to database via handler
+    // Salvar no banco de dados via handler
     $handler = xoops_getModuleHandler('article', 'mymodule');
     $handler->insert($article);
 
@@ -550,26 +550,26 @@ if ($article->validate() && $article->cleanVars()) {
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Always Initialize Variables**: Define all variables in the constructor using `initVar()`
+1. **Sempre Inicializar Variáveis**: Defina todas as variáveis no construtor usando `initVar()`
 
-2. **Use Appropriate Data Types**: Choose the correct `XOBJ_DTYPE_*` constant for validation
+2. **Use Tipos de Dados Apropriados**: Escolha a constante `XOBJ_DTYPE_*` correta para validação
 
-3. **Handle User Input Carefully**: Use `setVar()` with `$notGpc = false` for user input
+3. **Manipule Entrada do Usuário com Cuidado**: Use `setVar()` com `$notGpc = false` para entrada do usuário
 
-4. **Validate Before Saving**: Always call `cleanVars()` before database operations
+4. **Valide Antes de Salvar**: Sempre chame `cleanVars()` antes de operações de banco de dados
 
-5. **Use Format Parameters**: Use the appropriate format in `getVar()` for the context
+5. **Use Parâmetros de Formato**: Use o formato apropriado em `getVar()` para o contexto
 
-6. **Extend for Custom Logic**: Add domain-specific methods in subclasses
+6. **Estenda para Lógica Personalizada**: Adicione métodos específicos de domínio em subclasses
 
-## Related Documentation
+## Documentação Relacionada
 
-- XoopsObjectHandler - Handler pattern for object persistence
-- ../Database/Criteria - Query building with Criteria
-- ../Database/XoopsDatabase - Database operations
+- XoopsObjectHandler - Padrão de handler para persistência de objeto
+- ../Database/Criteria - Construção de consultas com Criteria
+- ../Database/XoopsDatabase - Operações de banco de dados
 
 ---
 
-*See also: [XOOPS Source Code](https://github.com/XOOPS/XoopsCore27/blob/master/htdocs/class/xoopsobject.php)*
+*Veja também: [Código-Fonte do XOOPS](https://github.com/XOOPS/XoopsCore27/blob/master/htdocs/class/xoopsobject.php)*

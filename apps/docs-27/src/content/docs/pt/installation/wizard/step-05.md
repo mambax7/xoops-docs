@@ -1,34 +1,33 @@
 ---
-title: "Database Connection"
+title: "Conexão de Banco de Dados"
 ---
 
-This page collects the information about about the database user account that XOOPS will use.
+Esta página coleta as informações sobre a conta de usuário do banco de dados que XOOPS usará.
 
-After entering the requested information and correcting any issues, select the "Continue" button to proceed.
+Após digitar as informações solicitadas e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Database Connection](/xoops-docs/2.7/img/installation/installer-05.png)
+![Conexão de Banco de Dados do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-05.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### Server connection
+### Conexão do servidor
 
-#### Database
+#### Banco de Dados
 
-Currently, _mysql_ is the only available option.
+Atualmente, _mysql_ é a única opção disponível.
 
-#### Server hostname
+#### Nome do host do servidor
 
-Hostname of the database server. If you are unsure, _localhost_ works in most cases.
+Nome do host do servidor de banco de dados. Se não tiver certeza, _localhost_ funciona na maioria dos casos.
 
-#### User name
+#### Nome de usuário
 
-The database user account that XOOPS should use to connect to the database server.
+A conta de usuário do banco de dados que XOOPS deve usar para conectar ao servidor de banco de dados.
 
-#### Password
+#### Senha
 
-Password of the database user account entered above.
+Senha da conta de usuário do banco de dados digitada acima.
 
-#### Use persistent connection
+#### Usar conexão persistente
 
-Default is 'No'. Leave this blank if you are unsure.
-
+O padrão é 'Não'. Deixe em branco se não tiver certeza.

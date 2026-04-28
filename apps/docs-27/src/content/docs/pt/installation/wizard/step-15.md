@@ -1,10 +1,9 @@
 ---
-title: "Cleanup"
+title: "Limpeza"
 ---
 
-For security purposes, you should remove the _install_ directory from your site. The installer will have renamed the directory to _installremove_ followed by some lengthy random string.
+Por razões de segurança, você deve remover o diretório _install_ do seu site. O instalador terá renomeado o diretório para _installremove_ seguido por uma longa string aleatória.
 
-You can use an FTP client, such as FileZilla to delete the directory.
+Você pode usar um cliente FTP, como FileZilla para deletar o diretório.
 
-![Cleaning Up After Installation](/xoops-docs/2.7/img/installation/filezilla-04-cleanup.png)
-
+![Limpeza Após Instalação](/xoops-docs/2.7/img/installation/filezilla-04-cleanup.png)

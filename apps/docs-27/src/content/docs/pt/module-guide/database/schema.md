@@ -1,27 +1,27 @@
 ---
-title: "Database Schema Design"
+title: "Design de Esquema de Banco de Dados"
 ---
 
-## Overview
+## Visão Geral
 
-Proper database schema design is crucial for XOOPS module performance and maintainability. This guide covers best practices for table design, relationships, indexing, and migrations.
+O design adequado de esquema de banco de dados é crucial para o desempenho e manutenibilidade do módulo XOOPS. Este guia cobre as melhores práticas para design de tabelas, relacionamentos, indexação e migrações.
 
-## Table Naming Conventions
+## Convenções de Nomenclatura de Tabelas
 
-### Standard Format
+### Formato Padrão
 
 ```
 {prefix}_{modulename}_{tablename}
 ```
 
-Examples:
+Exemplos:
 - `xoops_mymodule_articles`
 - `xoops_mymodule_categories`
-- `xoops_mymodule_article_category` (junction table)
+- `xoops_mymodule_article_category` (tabela de junção)
 
-### In Schema Files
+### Em Arquivos de Esquema
 
-Use `{PREFIX}` placeholder:
+Use espaço reservado `{PREFIX}`:
 
 ```sql
 CREATE TABLE `{PREFIX}_mymodule_articles` (
@@ -29,26 +29,26 @@ CREATE TABLE `{PREFIX}_mymodule_articles` (
 );
 ```
 
-## Column Types
+## Tipos de Coluna
 
-### Recommended Types
+### Tipos Recomendados
 
-| Data | MySQL Type | PHP Type | Description |
+| Dado | Tipo MySQL | Tipo PHP | Descrição |
 |------|-----------|----------|-------------|
-| ID (ULID) | `VARCHAR(26)` | `string` | ULID identifiers |
-| ID (Auto) | `INT UNSIGNED AUTO_INCREMENT` | `int` | Sequential IDs |
-| Short Text | `VARCHAR(n)` | `string` | Up to 255 chars |
-| Long Text | `TEXT` | `string` | Unlimited text |
-| Rich Text | `MEDIUMTEXT` | `string` | HTML content |
-| Boolean | `TINYINT(1)` | `bool` | True/false |
-| Enum | `ENUM(...)` | `string` | Fixed options |
-| Date | `DATE` | `DateTimeImmutable` | Date only |
-| DateTime | `DATETIME` | `DateTimeImmutable` | Date and time |
-| Timestamp | `INT UNSIGNED` | `int` | Unix timestamp |
-| Price | `DECIMAL(10,2)` | `float` | Currency values |
-| JSON | `JSON` | `array` | Structured data |
+| ID (ULID) | `VARCHAR(26)` | `string` | Identificadores ULID |
+| ID (Auto) | `INT UNSIGNED AUTO_INCREMENT` | `int` | IDs sequenciais |
+| Texto Curto | `VARCHAR(n)` | `string` | Até 255 caracteres |
+| Texto Longo | `TEXT` | `string` | Texto ilimitado |
+| Texto Rico | `MEDIUMTEXT` | `string` | Conteúdo HTML |
+| Booleano | `TINYINT(1)` | `bool` | Verdadeiro/falso |
+| Enum | `ENUM(...)` | `string` | Opções fixas |
+| Data | `DATE` | `DateTimeImmutable` | Apenas data |
+| DateTime | `DATETIME` | `DateTimeImmutable` | Data e hora |
+| Timestamp | `INT UNSIGNED` | `int` | Timestamp Unix |
+| Preço | `DECIMAL(10,2)` | `float` | Valores monetários |
+| JSON | `JSON` | `array` | Dados estruturados |
 
-### Entity Schema Example
+### Exemplo de Esquema de Entidade
 
 ```sql
 CREATE TABLE `{PREFIX}_mymodule_articles` (
@@ -83,18 +83,18 @@ CREATE TABLE `{PREFIX}_mymodule_articles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
-## Relationships
+## Relacionamentos
 
-### One-to-Many
+### Um-para-Muitos
 
 ```sql
--- Categories (one)
+-- Categorias (um)
 CREATE TABLE `{PREFIX}_mymodule_categories` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL
 );
 
--- Articles (many)
+-- Artigos (muitos)
 CREATE TABLE `{PREFIX}_mymodule_articles` (
     `id` VARCHAR(26) PRIMARY KEY,
     `category_id` INT UNSIGNED,
@@ -102,10 +102,10 @@ CREATE TABLE `{PREFIX}_mymodule_articles` (
 );
 ```
 
-### Many-to-Many
+### Muitos-para-Muitos
 
 ```sql
--- Articles
+-- Artigos
 CREATE TABLE `{PREFIX}_mymodule_articles` (
     `id` VARCHAR(26) PRIMARY KEY,
     `title` VARCHAR(255) NOT NULL
@@ -118,7 +118,7 @@ CREATE TABLE `{PREFIX}_mymodule_tags` (
     UNIQUE KEY (`name`)
 );
 
--- Junction table
+-- Tabela de junção
 CREATE TABLE `{PREFIX}_mymodule_article_tags` (
     `article_id` VARCHAR(26) NOT NULL,
     `tag_id` INT UNSIGNED NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE `{PREFIX}_mymodule_article_tags` (
 );
 ```
 
-### Self-Referencing (Hierarchy)
+### Auto-Referenciada (Hierarquia)
 
 ```sql
 CREATE TABLE `{PREFIX}_mymodule_categories` (
@@ -146,45 +146,45 @@ CREATE TABLE `{PREFIX}_mymodule_categories` (
 );
 ```
 
-## Indexing Strategy
+## Estratégia de Indexação
 
-### When to Index
+### Quando Indexar
 
-| Scenario | Index Type |
+| Cenário | Tipo de Índice |
 |----------|-----------|
-| Primary key | PRIMARY |
-| Unique constraint | UNIQUE |
-| Foreign key | Regular KEY |
-| WHERE clause column | Regular KEY |
-| ORDER BY column | Regular KEY |
-| Full-text search | FULLTEXT |
+| Chave primária | PRIMARY |
+| Restrição única | UNIQUE |
+| Chave estrangeira | Regular KEY |
+| Coluna em cláusula WHERE | Regular KEY |
+| Coluna em ORDER BY | Regular KEY |
+| Busca de texto completo | FULLTEXT |
 
-### Composite Indexes
+### Índices Compostos
 
-Order matters - most selective column first:
+A ordem importa - coluna mais seletiva primeiro:
 
 ```sql
--- Good: matches WHERE status = 'published' ORDER BY created_at
+-- Bom: combina WHERE status = 'published' ORDER BY created_at
 KEY `idx_status_created` (`status`, `created_at`)
 
--- Query optimization
+-- Otimização de consulta
 SELECT * FROM articles
 WHERE status = 'published'
 ORDER BY created_at DESC
 ```
 
-### Covering Indexes
+### Índices de Cobertura
 
-Include all queried columns to avoid table lookup:
+Inclua todas as colunas consultadas para evitar busca em tabela:
 
 ```sql
--- Covers: SELECT title, status FROM articles WHERE author_id = ?
+-- Cobre: SELECT title, status FROM articles WHERE author_id = ?
 KEY `idx_author_covering` (`author_id`, `title`, `status`)
 ```
 
-## Migrations
+## Migrações
 
-### Migration File Structure
+### Estrutura de Arquivo de Migração
 
 ```php
 // migrations/001_create_articles.php
@@ -213,7 +213,7 @@ return new class {
 };
 ```
 
-### Adding Columns
+### Adicionando Colunas
 
 ```php
 // migrations/002_add_status_column.php
@@ -225,19 +225,19 @@ public function up(\XoopsDatabase $db): void
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Use InnoDB** - Supports transactions and foreign keys
-2. **UTF8MB4** - Full Unicode support including emojis
-3. **NOT NULL** - Use defaults instead of nullable columns when possible
-4. **Appropriate Types** - Don't use TEXT for short strings
-5. **Index Sparingly** - Each index slows writes
-6. **Document Schema** - Add COMMENT to columns
-7. **Avoid Reserved Words** - Don't use `order`, `group`, `key` as column names
+1. **Use InnoDB** - Suporta transações e chaves estrangeiras
+2. **UTF8MB4** - Suporte Unicode completo incluindo emojis
+3. **NOT NULL** - Use padrões ao invés de colunas anuláveis quando possível
+4. **Tipos Apropriados** - Não use TEXT para cadeias curtas
+5. **Index com Moderação** - Cada índice desacelera escritas
+6. **Documente Esquema** - Adicione COMMENT às colunas
+7. **Evite Palavras Reservadas** - Não use `order`, `group`, `key` como nomes de coluna
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../Database-Operations - Query execution
-- ../../04-API-Reference/Database/Criteria - Query building
-- Migrations - Schema versioning
-- ../../01-Getting-Started/Configuration/Performance-Optimization - Query optimization
+- ../Database-Operations - Execução de consultas
+- ../../04-API-Reference/Database/Criteria - Construção de consultas
+- Migrations - Versionamento de esquema
+- ../../01-Getting-Started/Configuration/Performance-Optimization - Otimização de consultas

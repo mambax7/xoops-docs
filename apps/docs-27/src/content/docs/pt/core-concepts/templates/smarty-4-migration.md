@@ -1,32 +1,32 @@
 ---
-title: "Smarty 4 Migration"
-description: "Guide to upgrading XOOPS templates from Smarty 3 to Smarty 4"
+title: "Migração Smarty 4"
+description: "Guia para atualizar templates XOOPS de Smarty 3 para Smarty 4"
 ---
 
-This guide covers the changes and migration steps needed when upgrading from Smarty 3 to Smarty 4 in XOOPS. Understanding these differences is essential for maintaining compatibility with modern XOOPS installations.
+Este guia cobre as mudanças e etapas de migração necessárias ao atualizar de Smarty 3 para Smarty 4 no XOOPS. Entender essas diferenças é essencial para manter compatibilidade com instalações XOOPS modernas.
 
-## Related Documentation
+## Documentação Relacionada
 
-- Smarty-Basics - Fundamentals of Smarty in XOOPS
-- Theme-Development - Creating XOOPS themes
-- Template-Variables - Available variables in templates
+- Smarty-Basics - Fundamentos do Smarty no XOOPS
+- Theme-Development - Criando temas XOOPS
+- Template-Variables - Variáveis disponíveis em templates
 
-## Overview of Changes
+## Visão Geral das Mudanças
 
-Smarty 4 introduced several breaking changes from Smarty 3:
+Smarty 4 introduziu várias mudanças de ruptura do Smarty 3:
 
-1. Variable assignment behavior changed
-2. `{php}` tags completely removed
-3. Caching API changes
-4. Modifier handling updates
-5. Security policy changes
-6. Deprecated features removed
+1. Comportamento de atribuição de variável mudou
+2. Tags `{php}` completamente removidas
+3. Mudanças na API de cache
+4. Atualizações no tratamento de modificadores
+5. Mudanças na política de segurança
+6. Recursos deprecados removidos
 
-## Variable Access Changes
+## Mudanças de Acesso a Variável
 
-### The Problem
+### O Problema
 
-In Smarty 2/3, assigned values were directly accessible:
+Em Smarty 2/3, valores atribuídos eram diretamente acessíveis:
 
 ```php
 // PHP
@@ -34,11 +34,11 @@ $GLOBALS['xoopsTpl']->assign('mod_url', $helper->url());
 ```
 
 ```smarty
-{* Smarty 2/3 - worked fine *}
+{* Smarty 2/3 - funcionava bem *}
 <img src="<{$mod_url}>/assets/images/icon.png">
 ```
 
-In Smarty 4, variables are wrapped in `Smarty_Variable` objects:
+Em Smarty 4, variáveis são envoltas em objetos `Smarty_Variable`:
 
 ```
 Smarty_Variable Object
@@ -48,27 +48,27 @@ Smarty_Variable Object
 )
 ```
 
-### Solution 1: Access the Value Property
+### Solução 1: Acessar Propriedade de Valor
 
 ```smarty
-{* Smarty 4 - access the value property *}
+{* Smarty 4 - acessar propriedade de valor *}
 <img src="<{$mod_url->value}>/assets/images/icon.png">
 ```
 
-### Solution 2: Compatibility Mode
+### Solução 2: Modo de Compatibilidade
 
-Enable compatibility mode in PHP:
+Ativar modo de compatibilidade em PHP:
 
 ```php
 $smarty = new Smarty();
 $smarty->setCompatibilityMode(true);
 ```
 
-This allows direct variable access like Smarty 3.
+Isto permite acesso direto à variável como Smarty 3.
 
-### Solution 3: Conditional Version Check
+### Solução 3: Verificação de Versão Condicional
 
-Write templates that work in both versions:
+Escrever templates que funcionem em ambas as versões:
 
 ```smarty
 <{if $smarty.version|regex_replace:'[^0-9]':'' >= 4}>
@@ -78,66 +78,66 @@ Write templates that work in both versions:
 <{/if}>
 ```
 
-### Solution 4: Wrapper Function
+### Solução 4: Função Wrapper
 
-Create a helper function for assignments:
+Criar uma função auxiliar para atribuições:
 
 ```php
 function smartyAssign($smarty, $name, $value)
 {
     if (version_compare($smarty->version, '4.0.0', '>=')) {
-        // Smarty 4+ - assign normally, access via ->value in templates
+        // Smarty 4+ - atribuir normalmente, acessar via ->value em templates
         $smarty->assign($name, $value);
     } else {
-        // Smarty 3 - standard assignment
+        // Smarty 3 - atribuição padrão
         $smarty->assign($name, $value);
     }
 }
 ```
 
-## Removing {php} Tags
+## Removendo Tags {php}
 
-### The Problem
+### O Problema
 
-Smarty 3+ does not support `{php}` tags for security reasons:
+Smarty 3+ não suporta tags `{php}` por razões de segurança:
 
 ```smarty
-{* This NO LONGER works in Smarty 3+ *}
+{* Isto NÃO FUNCIONA MAIS em Smarty 3+ *}
 <{assign var="cid" value=$downloads.cid}>
 <{php}>
     $catid = $this->get_template_vars('cid');
 <{/php}>
 ```
 
-### Solution: Use Smarty Variables
+### Solução: Usar Variáveis Smarty
 
 ```smarty
-{* Use Smarty's built-in variable access *}
+{* Usar acesso à variável integrado do Smarty *}
 <{assign var="cid" value=$downloads.cid}>
 <{assign var="catid" value=$smarty.template_vars.cid}>
 ```
 
-### Solution: Move Logic to PHP
+### Solução: Mover Lógica para PHP
 
-Complex logic should be in PHP, not templates:
+Lógica complexa deve estar em PHP, não em templates:
 
 ```php
-// In PHP - do the processing
+// Em PHP - fazer o processamento
 $catid = $downloads['cid'];
 $categoryInfo = getCategoryInfo($catid);
 
-// Assign processed data to template
+// Atribuir dados processados ao template
 $GLOBALS['xoopsTpl']->assign('category', $categoryInfo);
 ```
 
 ```smarty
-{* In template - just display *}
+{* Em template - apenas exibir *}
 <h2><{$category.name}></h2>
 ```
 
-### Solution: Custom Plugins
+### Solução: Plugins Personalizados
 
-For reusable functionality, create Smarty plugins:
+Para funcionalidade reutilizável, criar plugins Smarty:
 
 ```php
 // /class/smarty/plugins/function.getcategory.php
@@ -154,111 +154,111 @@ function smarty_function_getcategory($params, $smarty)
 ```
 
 ```smarty
-{* In template *}
+{* Em template *}
 <{getcategory id=$cid assign="category"}>
 <h2><{$category.name}></h2>
 ```
 
-## Caching Changes
+## Mudanças de Cache
 
-### Smarty 3 Caching
+### Cache Smarty 3
 
 ```php
-// Smarty 3 style
+// Estilo Smarty 3
 $smarty->caching = true;
 $smarty->cache_lifetime = 3600;
 $smarty->cache_dir = '/path/to/cache';
 
-// Per-variable nocache
+// Nocache por variável
 $xoopsTpl->tpl_vars["mod_url"]->nocache = false;
 ```
 
-### Smarty 4 Caching
+### Cache Smarty 4
 
 ```php
-// Smarty 4 style
+// Estilo Smarty 4
 $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 $smarty->setCacheLifetime(3600);
 $smarty->setCacheDir('/path/to/cache');
 
-// Or using properties (still works)
+// Ou usando propriedades (ainda funciona)
 $smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
 $smarty->cache_lifetime = 3600;
 ```
 
-### Caching Constants
+### Constantes de Cache
 
 ```php
-// Caching modes
-Smarty::CACHING_OFF                  // No caching
-Smarty::CACHING_LIFETIME_CURRENT     // Use cache_lifetime
-Smarty::CACHING_LIFETIME_SAVED       // Use cached lifetime
+// Modos de cache
+Smarty::CACHING_OFF                  // Sem cache
+Smarty::CACHING_LIFETIME_CURRENT     // Usar cache_lifetime
+Smarty::CACHING_LIFETIME_SAVED       // Usar lifetime em cache
 ```
 
-### Nocache in Templates
+### Nocache em Templates
 
 ```smarty
-{* Mark content as never cached *}
+{* Marcar conteúdo como nunca cacheado *}
 <{nocache}>
     <p>Current time: <{$smarty.now|date_format:"%H:%M:%S"}></p>
 <{/nocache}>
 ```
 
-## Modifier Changes
+## Mudanças de Modificador
 
-### String Modifiers
+### Modificadores de String
 
-Some modifiers were renamed or deprecated:
+Alguns modificadores foram renomeados ou descontinuados:
 
 ```smarty
 {* Smarty 3 *}
 <{$text|escape:'htmlall'}>
 
-{* Smarty 4 - use 'html' instead *}
+{* Smarty 4 - usar 'html' em vez disso *}
 <{$text|escape:'html'}>
 ```
 
-### Array Modifiers
+### Modificadores de Array
 
-Array modifiers require `@` prefix:
+Modificadores de array requerem prefixo `@`:
 
 ```smarty
-{* Count array elements *}
+{* Contar elementos de array *}
 <{$items|@count}> items
 
-{* Join array *}
+{* Unir array *}
 <{$tags|@implode:', '}>
 
 {* JSON encode *}
 <{$data|@json_encode}>
 ```
 
-### Custom Modifiers
+### Modificadores Personalizados
 
-Custom modifiers must be registered:
+Modificadores personalizados devem ser registrados:
 
 ```php
-// Register a custom modifier
+// Registrar um modificador personalizado
 $smarty->registerPlugin('modifier', 'my_modifier', 'my_modifier_function');
 
 function my_modifier_function($string, $param1 = 'default')
 {
-    // Process and return
+    // Processar e retornar
     return processed_string($string, $param1);
 }
 ```
 
-## Security Policy Changes
+## Mudanças na Política de Segurança
 
-### Smarty 4 Security
+### Segurança Smarty 4
 
-Smarty 4 has stricter default security:
+Smarty 4 tem segurança padrão mais rigorosa:
 
 ```php
-// Configure security policy
+// Configurar política de segurança
 $smarty->enableSecurity('Smarty_Security');
 
-// Or create custom policy
+// Ou criar política personalizada
 class MySecurityPolicy extends Smarty_Security
 {
     public $php_functions = ['isset', 'empty', 'count'];
@@ -269,18 +269,18 @@ class MySecurityPolicy extends Smarty_Security
 $smarty->enableSecurity(new MySecurityPolicy($smarty));
 ```
 
-### Allowed Functions
+### Funções Permitidas
 
-By default, Smarty 4 restricts which PHP functions can be used:
+Por padrão, Smarty 4 restringe quais funções PHP podem ser usadas:
 
 ```smarty
-{* These may be restricted *}
+{* Estas podem ser restritas *}
 <{if isset($variable)}>
 <{if empty($array)}>
 <{$array|@count}>
 ```
 
-Configure allowed functions if needed:
+Configurar funções permitidas se necessário:
 
 ```php
 $smarty->security_policy->php_functions = [
@@ -289,14 +289,14 @@ $smarty->security_policy->php_functions = [
 ];
 ```
 
-## Template Inheritance Updates
+## Atualizações de Herança de Template
 
-### Block Syntax
+### Sintaxe de Bloco
 
-Block syntax remains similar but with some changes:
+A sintaxe de bloco permanece similar mas com algumas mudanças:
 
 ```smarty
-{* Parent template *}
+{* Template pai *}
 <html>
 <head>
     {block name=head}
@@ -310,11 +310,11 @@ Block syntax remains similar but with some changes:
 ```
 
 ```smarty
-{* Child template *}
+{* Template filho *}
 {extends file="parent.tpl"}
 
 {block name=head}
-    {$smarty.block.parent}  {* Include parent block content *}
+    {$smarty.block.parent}  {* Incluir conteúdo do bloco pai *}
     <meta name="custom" content="value">
 {/block}
 
@@ -323,117 +323,117 @@ Block syntax remains similar but with some changes:
 {/block}
 ```
 
-### Append and Prepend
+### Append e Prepend
 
 ```smarty
 {block name=head append}
-    {* This is added after parent content *}
+    {* Isto é adicionado após conteúdo pai *}
     <link rel="stylesheet" href="extra.css">
 {/block}
 
 {block name=scripts prepend}
-    {* This is added before parent content *}
+    {* Isto é adicionado antes do conteúdo pai *}
     <script src="early.js"></script>
 {/block}
 ```
 
-## Deprecated Features
+## Recursos Deprecados
 
-### Removed in Smarty 4
+### Removidos em Smarty 4
 
-| Feature | Alternative |
+| Recurso | Alternativa |
 |---------|-------------|
-| `{php}` tags | Move logic to PHP or use plugins |
-| `{include_php}` | Use registered plugins |
-| `$smarty.capture` | Still works but deprecated |
-| `{strip}` with spaces | Use minification tools |
+| Tags `{php}` | Mover lógica para PHP ou usar plugins |
+| `{include_php}` | Usar plugins registrados |
+| `$smarty.capture` | Ainda funciona mas deprecado |
+| `{strip}` com espaços | Usar ferramentas de minificação |
 
-### Use Alternatives
+### Usar Alternativas
 
 ```smarty
-{* Instead of {php} *}
-{* Move to PHP and assign result *}
+{* Em vez de {php} *}
+{* Mover para PHP e atribuir resultado *}
 
-{* Instead of include_php *}
+{* Em vez de include_php *}
 <{include file="db:mytemplate.tpl"}>
 
-{* Instead of capture (still works but consider) *}
+{* Em vez de capture (ainda funciona mas considere) *}
 <{capture name="sidebar"}>
     <h3>Sidebar</h3>
 <{/capture}>
 <div><{$smarty.capture.sidebar}></div>
 ```
 
-## Migration Checklist
+## Lista de Verificação de Migração
 
-### Before Migration
+### Antes da Migração
 
-1. [ ] Backup all templates
-2. [ ] List all `{php}` tag usage
-3. [ ] Document custom plugins
-4. [ ] Test current functionality
+1. [ ] Fazer backup de todos os templates
+2. [ ] Listar todo uso de tag `{php}`
+3. [ ] Documentar plugins personalizados
+4. [ ] Testar funcionalidade atual
 
-### During Migration
+### Durante a Migração
 
-1. [ ] Remove all `{php}` tags
-2. [ ] Update variable access syntax
-3. [ ] Check modifier usage
-4. [ ] Update caching configuration
-5. [ ] Review security settings
+1. [ ] Remover todas as tags `{php}`
+2. [ ] Atualizar sintaxe de acesso a variáveis
+3. [ ] Verificar uso de modificadores
+4. [ ] Atualizar configuração de cache
+5. [ ] Revisar configurações de segurança
 
-### After Migration
+### Após Migração
 
-1. [ ] Test all templates
-2. [ ] Check all forms work
-3. [ ] Verify caching works
-4. [ ] Test with different user roles
+1. [ ] Testar todos os templates
+2. [ ] Verificar se todos os formulários funcionam
+3. [ ] Verificar se cache funciona
+4. [ ] Testar com diferentes funções de usuário
 
-## Testing for Compatibility
+## Testando Compatibilidade
 
-### Version Detection
+### Detecção de Versão
 
 ```php
-// Check Smarty version in PHP
+// Verificar versão Smarty em PHP
 $version = Smarty::SMARTY_VERSION;
 
 if (version_compare($version, '4.0.0', '>=')) {
-    // Smarty 4+ specific code
+    // Código específico Smarty 4+
 } else {
-    // Smarty 3 code
+    // Código Smarty 3
 }
 ```
 
-### Template Version Check
+### Verificação de Versão de Template
 
 ```smarty
-{* Check version in template *}
+{* Verificar versão em template *}
 <{assign var="smarty_major" value=$smarty.version|regex_replace:'/\\..*$/':''}>
 
 <{if $smarty_major >= 4}>
-    {* Smarty 4+ template code *}
+    {* Código de template Smarty 4+ *}
 <{else}>
-    {* Smarty 3 template code *}
+    {* Código de template Smarty 3 *}
 <{/if}>
 ```
 
-## Writing Cross-Compatible Templates
+## Escrevendo Templates Compatíveis com Cruzada
 
-### Best Practices
+### Boas Práticas
 
-1. **Avoid `{php}` tags entirely** - They do not work in Smarty 3+
+1. **Evitar tags `{php}` inteiramente** - Elas não funcionam em Smarty 3+
 
-2. **Keep templates simple** - Complex logic belongs in PHP
+2. **Manter templates simples** - Lógica complexa pertence a PHP
 
-3. **Use standard modifiers** - Avoid deprecated ones
+3. **Usar modificadores padrão** - Evitar os descontinuados
 
-4. **Test in both versions** - If you need to support both
+4. **Testar em ambas as versões** - Se você precisa suportar ambas
 
-5. **Use plugins for complex operations** - More maintainable
+5. **Usar plugins para operações complexas** - Mais manutenível
 
-### Example: Cross-Compatible Template
+### Exemplo: Template Compatível com Cruzada
 
 ```smarty
-{* Works in both Smarty 3 and 4 *}
+{* Funciona em Smarty 3 e 4 *}
 <!DOCTYPE html>
 <html>
 <head>
@@ -453,31 +453,31 @@ if (version_compare($version, '4.0.0', '>=')) {
 </html>
 ```
 
-## Common Migration Issues
+## Problemas Comuns de Migração
 
-### Issue: Variables Return Empty
+### Problema: Variáveis Retornam Vazias
 
-**Problem**: `<{$mod_url}>` returns nothing in Smarty 4
+**Problema**: `<{$mod_url}>` retorna nada em Smarty 4
 
-**Solution**: Use `<{$mod_url->value}>` or enable compatibility mode
+**Solução**: Usar `<{$mod_url->value}>` ou ativar modo de compatibilidade
 
-### Issue: PHP Tag Errors
+### Problema: Erros de Tag PHP
 
-**Problem**: Template throws error on `{php}` tags
+**Problema**: Template lança erro em tags `{php}`
 
-**Solution**: Remove all PHP tags and move logic to PHP files
+**Solução**: Remover todas as tags PHP e mover lógica para arquivos PHP
 
-### Issue: Modifier Not Found
+### Problema: Modificador Não Encontrado
 
-**Problem**: Custom modifier throws "unknown modifier" error
+**Problema**: Modificador personalizado lança erro "unknown modifier"
 
-**Solution**: Register the modifier with `registerPlugin()`
+**Solução**: Registrar o modificador com `registerPlugin()`
 
-### Issue: Security Restriction
+### Problema: Restrição de Segurança
 
-**Problem**: Function not allowed in template
+**Problema**: Função não permitida em template
 
-**Solution**: Add function to security policy's allowed list
+**Solução**: Adicionar função à lista de permissões da política de segurança
 
 ---
 

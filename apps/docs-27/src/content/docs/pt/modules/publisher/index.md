@@ -1,212 +1,212 @@
 ---
-title: "Publisher Module"
-description: "Complete documentation for the Publisher news and blog module for XOOPS"
+title: "Módulo Publisher"
+description: "Documentação completa do módulo de notícias e blog Publisher para XOOPS"
 ---
 
-> The premier news and blog publishing module for XOOPS CMS.
+> O principal módulo de publicação de notícias e blog para XOOPS CMS.
 
 ---
 
-## Overview
+## Visão Geral
 
-Publisher is the definitive content management module for XOOPS, evolved from SmartSection to become the most feature-rich blog and news solution. It provides comprehensive tools for creating, organizing, and publishing content with full editorial workflow support.
+O Publisher é o módulo de gerenciamento de conteúdo definitivo para XOOPS, evoluído do SmartSection para se tornar a solução de blog e notícias mais completa em recursos. Fornece ferramentas abrangentes para criar, organizar e publicar conteúdo com suporte total ao fluxo de trabalho editorial.
 
-**Requirements:**
+**Requisitos:**
 - XOOPS 2.5.10+
-- PHP 7.1+ (PHP 8.x recommended)
+- PHP 7.1+ (PHP 8.x recomendado)
 
 ---
 
-## 🌟 Key Features
+## Recursos Principais
 
-### Content Management
-- **Categories & Subcategories** - Hierarchical content organization
-- **Rich Text Editing** - Multiple WYSIWYG editors supported
-- **File Attachments** - Attach files to articles
-- **Image Management** - Page and category images
-- **File Wrapping** - Wrap files as articles
+### Gerenciamento de Conteúdo
+- **Categorias e Subcategorias** - Organização hierárquica de conteúdo
+- **Edição de Texto Rico** - Múltiplos editores WYSIWYG suportados
+- **Anexos de Arquivo** - Anexar arquivos aos artigos
+- **Gerenciamento de Imagem** - Imagens de página e categoria
+- **Encapsulamento de Arquivo** - Envolver arquivos como artigos
 
-### Publishing Workflow
-- **Scheduled Publishing** - Set future publish dates
-- **Expiration Dates** - Auto-expire content
-- **Moderation** - Editorial approval workflow
-- **Draft Management** - Save work in progress
+### Fluxo de Trabalho de Publicação
+- **Publicação Agendada** - Definir datas futuras de publicação
+- **Datas de Expiração** - Auto-expirar conteúdo
+- **Moderação** - Fluxo de trabalho de aprovação editorial
+- **Gerenciamento de Rascunho** - Salvar trabalho em andamento
 
-### Display & Templates
-- **Four Base Templates** - Multiple display layouts
-- **Custom Templates** - Create your own designs
-- **SEO Optimization** - Search engine friendly URLs
-- **Responsive Design** - Mobile-ready output
+### Exibição e Templates
+- **Quatro Templates Base** - Múltiplos layouts de exibição
+- **Templates Personalizados** - Criar seus próprios designs
+- **Otimização SEO** - URLs amigáveis para mecanismos de busca
+- **Design Responsivo** - Saída pronta para celular
 
-### User Interaction
-- **Ratings** - Article rating system
-- **Comments** - Reader discussions
-- **Social Sharing** - Share to social networks
+### Interação do Usuário
+- **Classificações** - Sistema de classificação de artigos
+- **Comentários** - Discussões do leitor
+- **Compartilhamento Social** - Compartilhar em redes sociais
 
-### Permissions
-- **Submission Control** - Who can submit articles
-- **Field-Level Permissions** - Control form fields by group
-- **Category Permissions** - Access control per category
-- **Moderation Rights** - Global moderation settings
-
----
-
-## 🗂️ Section Contents
-
-### User Guide
-- Installation Guide
-- Basic Configuration
-- Creating Articles
-- Managing Categories
-- Setting Up Permissions
-
-### Developer Guide
-- Extending Publisher
-- Creating Custom Templates
-- API Reference
-- Hooks and Events
+### Permissões
+- **Controle de Envio** - Quem pode enviar artigos
+- **Permissões em Nível de Campo** - Controlar campos de formulário por grupo
+- **Permissões de Categoria** - Controle de acesso por categoria
+- **Direitos de Moderação** - Configurações globais de moderação
 
 ---
 
-## 🚀 Quick Start
+## Conteúdo da Seção
 
-### 1. Installation
+### Guia do Usuário
+- Guia de Instalação
+- Configuração Básica
+- Criando Artigos
+- Gerenciando Categorias
+- Configurando Permissões
+
+### Guia do Desenvolvedor
+- Estendendo o Publisher
+- Criando Templates Personalizados
+- Referência da API
+- Ganchos e Eventos
+
+---
+
+## Início Rápido
+
+### 1. Instalação
 
 ```bash
-# Download from GitHub
+# Baixar do GitHub
 git clone https://github.com/XoopsModules25x/publisher.git
 
-# Copy to modules directory
+# Copiar para diretório de módulos
 cp -r publisher /path/to/xoops/htdocs/modules/
 ```
 
-Then install via XOOPS Admin → Modules → Install.
+Então instale via XOOPS Admin → Módulos → Instalar.
 
-### 2. Create Your First Category
+### 2. Criar Sua Primeira Categoria
 
-1. Go to **Admin → Publisher → Categories**
-2. Click **Add Category**
-3. Fill in:
-   - **Name**: News
-   - **Description**: Latest news and updates
-   - **Image**: Upload category image
-4. Save
+1. Vá para **Admin → Publisher → Categorias**
+2. Clique **Adicionar Categoria**
+3. Preencha:
+   - **Nome**: Notícias
+   - **Descrição**: Últimas notícias e atualizações
+   - **Imagem**: Carregar imagem de categoria
+4. Salvar
 
-### 3. Create Your First Article
+### 3. Criar Seu Primeiro Artigo
 
-1. Go to **Admin → Publisher → Articles**
-2. Click **Add Article**
-3. Fill in:
-   - **Title**: Welcome to Our Site
-   - **Category**: News
-   - **Content**: Your article content
-4. Set **Status**: Published
-5. Save
+1. Vá para **Admin → Publisher → Artigos**
+2. Clique **Adicionar Artigo**
+3. Preencha:
+   - **Título**: Bem-vindo ao Nosso Site
+   - **Categoria**: Notícias
+   - **Conteúdo**: Seu conteúdo de artigo
+4. Definir **Status**: Publicado
+5. Salvar
 
 ---
 
-## ⚙️ Configuration Options
+## Opções de Configuração
 
-### General Settings
+### Configurações Gerais
 
-| Setting | Description | Default |
+| Configuração | Descrição | Padrão |
 |---------|-------------|---------|
-| Editor | WYSIWYG editor to use | XOOPS Default |
-| Items per page | Articles shown per page | 10 |
-| Show breadcrumb | Display navigation trail | Yes |
-| Allow ratings | Enable article ratings | Yes |
-| Allow comments | Enable article comments | Yes |
+| Editor | Editor WYSIWYG a usar | XOOPS Padrão |
+| Itens por página | Artigos mostrados por página | 10 |
+| Mostrar breadcrumb | Exibir trilha de navegação | Sim |
+| Permitir classificações | Habilitar classificações de artigos | Sim |
+| Permitir comentários | Habilitar comentários de artigos | Sim |
 
-### SEO Settings
+### Configurações de SEO
 
-| Setting | Description | Default |
+| Configuração | Descrição | Padrão |
 |---------|-------------|---------|
-| SEO URLs | Enable friendly URLs | No |
-| URL rewriting | Apache mod_rewrite | None |
-| Meta keywords | Auto-generate keywords | Yes |
+| URLs de SEO | Habilitar URLs amigáveis | Não |
+| Reescrita de URL | Apache mod_rewrite | Nenhum |
+| Palavras-chave de meta | Auto-gerar palavras-chave | Sim |
 
-### Permissions Matrix
+### Matriz de Permissões
 
-| Permission | Anonymous | Registered | Editor | Admin |
+| Permissão | Anônimo | Registrado | Editor | Admin |
 |------------|-----------|------------|--------|-------|
-| View articles | ✓ | ✓ | ✓ | ✓ |
-| Submit articles | ✗ | ✓ | ✓ | ✓ |
-| Edit own articles | ✗ | ✓ | ✓ | ✓ |
-| Edit all articles | ✗ | ✗ | ✓ | ✓ |
-| Approve articles | ✗ | ✗ | ✓ | ✓ |
-| Manage categories | ✗ | ✗ | ✗ | ✓ |
+| Ver artigos | ✓ | ✓ | ✓ | ✓ |
+| Enviar artigos | ✗ | ✓ | ✓ | ✓ |
+| Editar próprios artigos | ✗ | ✓ | ✓ | ✓ |
+| Editar todos os artigos | ✗ | ✗ | ✓ | ✓ |
+| Aprovar artigos | ✗ | ✗ | ✓ | ✓ |
+| Gerenciar categorias | ✗ | ✗ | ✗ | ✓ |
 
 ---
 
-## 📦 Module Structure
+## Estrutura do Módulo
 
 ```
 modules/publisher/
-├── admin/                  # Admin interface
+├── admin/                  # Interface de admin
 │   ├── index.php
 │   ├── category.php
 │   ├── item.php
 │   └── menu.php
-├── class/                  # PHP classes
+├── class/                  # Classes PHP
 │   ├── Category.php
 │   ├── CategoryHandler.php
 │   ├── Item.php
 │   ├── ItemHandler.php
 │   └── Helper.php
-├── include/                # Include files
+├── include/                # Arquivos de inclusão
 │   ├── common.php
 │   └── functions.php
-├── templates/              # Smarty templates
+├── templates/              # Templates Smarty
 │   ├── publisher_index.tpl
 │   ├── publisher_item.tpl
 │   └── publisher_category.tpl
-├── language/               # Translations
+├── language/               # Traduções
 │   └── english/
-├── sql/                    # Database schema
+├── sql/                    # Schema do banco de dados
 │   └── mysql.sql
-├── xoops_version.php       # Module info
-└── index.php               # Module entry
+├── xoops_version.php       # Informações do módulo
+└── index.php               # Entrada do módulo
 ```
 
 ---
 
-## 🔄 Migration
+## Migração
 
-### From SmartSection
+### Do SmartSection
 
-Publisher includes a built-in migration tool:
+O Publisher inclui ferramenta de migração integrada:
 
-1. Go to **Admin → Publisher → Import**
-2. Select **SmartSection** as source
-3. Choose import options:
-   - Categories
-   - Articles
-   - Comments
-4. Click **Import**
+1. Vá para **Admin → Publisher → Importar**
+2. Selecione **SmartSection** como fonte
+3. Escolha opções de importação:
+   - Categorias
+   - Artigos
+   - Comentários
+4. Clique **Importar**
 
-### From News Module
+### Do Módulo Notícias
 
-1. Go to **Admin → Publisher → Import**
-2. Select **News** as source
-3. Map categories
-4. Click **Import**
-
----
-
-## 🔗 Related Documentation
-
-- Module Development Guide
-- Smarty Templating
-- XMF Framework
+1. Vá para **Admin → Publisher → Importar**
+2. Selecione **Notícias** como fonte
+3. Mapeie categorias
+4. Clique **Importar**
 
 ---
 
-## 📚 Resources
+## Documentação Relacionada
 
-- [GitHub Repository](https://github.com/XoopsModules25x/publisher)
-- [Issue Tracker](https://github.com/XoopsModules25x/publisher/issues)
-- [Original Tutorial](https://xoops.gitbook.io/publisher-tutorial/)
+- Guia de Desenvolvimento de Módulo
+- Template Smarty
+- Framework XMF
 
 ---
 
-#xoops #publisher #module #blog #news #cms #content-management
+## Recursos
+
+- [Repositório GitHub](https://github.com/XoopsModules25x/publisher)
+- [Rastreador de Problemas](https://github.com/XoopsModules25x/publisher/issues)
+- [Tutorial Original](https://xoops.gitbook.io/publisher-tutorial/)
+
+---
+
+#xoops #publisher #módulo #blog #notícias #cms #gerenciamento-de-conteúdo

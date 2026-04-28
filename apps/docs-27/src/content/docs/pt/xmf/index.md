@@ -1,30 +1,30 @@
 ---
-title: "XMF Framework"
-description: "The XOOPS Module Framework - A comprehensive library for modern XOOPS module development"
+title: "Framework XMF"
+description: "O XOOPS Module Framework - Uma biblioteca abrangente para desenvolvimento moderno de módulos XOOPS"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-:::tip[The Bridge to Modern XOOPS]
-XMF works in **both XOOPS 2.5.x and XOOPS 4.0.x**. It's the recommended way to modernize your modules today while preparing for XOOPS 4.0. XMF provides PSR-4 autoloading, namespaces, and helpers that smooth the transition.
+:::tip[A Ponte para XOOPS Moderno]
+XMF funciona **tanto em XOOPS 2.5.x quanto em XOOPS 4.0.x**. É a forma recomendada de modernizar seus módulos hoje enquanto se prepara para XOOPS 4.0. XMF fornece autoloading PSR-4, namespaces e helpers que suavizam a transição.
 :::
 
-The **XOOPS Module Framework (XMF)** is a powerful library designed to simplify and standardize XOOPS module development. XMF provides modern PHP practices including namespaces, autoloading, and a comprehensive set of helper classes that reduce boilerplate code and improve maintainability.
+O **XOOPS Module Framework (XMF)** é uma biblioteca poderosa projetada para simplificar e padronizar o desenvolvimento de módulos XOOPS. XMF fornece práticas modernas de PHP incluindo namespaces, autoloading e um conjunto abrangente de classes helper que reduzem código boilerplate e melhoram a manutenibilidade.
 
-## What is XMF?
+## O que é XMF?
 
-XMF is a collection of classes and utilities that provide:
+XMF é uma coleção de classes e utilitários que fornecem:
 
-- **Modern PHP Support** - Full namespace support with PSR-4 autoloading
-- **Request Handling** - Secure input validation and sanitization
-- **Module Helpers** - Simplified access to module configurations and objects
-- **Permission System** - Easy-to-use permission management
-- **Database Utilities** - Schema migration and table management tools
-- **JWT Support** - JSON Web Token implementation for secure authentication
-- **Metadata Generation** - SEO and content extraction utilities
-- **Admin Interface** - Standardized module administration pages
+- **Suporte Modern PHP** - Suporte completo a namespaces com autoloading PSR-4
+- **Manipulação de Requisições** - Validação segura e sanitização de entrada
+- **Module Helpers** - Acesso simplificado a configurações de módulo e objetos
+- **Sistema de Permissões** - Gerenciamento fácil de permissões
+- **Utilitários de Banco de Dados** - Ferramentas de migração de schema e gerenciamento de tabelas
+- **Suporte JWT** - Implementação de JSON Web Token para autenticação segura
+- **Geração de Metadados** - Utilitários de SEO e extração de conteúdo
+- **Interface Admin** - Páginas de administração de módulo padronizadas
 
-### XMF Component Overview
+### Visão Geral de Componentes XMF
 
 ```mermaid
 graph TB
@@ -66,24 +66,24 @@ graph TB
     style Admin fill:#fce4ec,stroke:#c2185b
 ```
 
-## Key Features
+## Principais Características
 
-### Namespaces and Autoloading
+### Namespaces e Autoloading
 
-All XMF classes reside in the `Xmf` namespace. Classes are automatically loaded when referenced - no manual includes required.
+Todas as classes XMF residem no namespace `Xmf`. Classes são carregadas automaticamente quando referenciadas - nenhuma inclusão manual necessária.
 
 ```php
 use Xmf\Request;
 use Xmf\Module\Helper;
 
-// Classes load automatically when used
+// Classes carregam automaticamente quando usadas
 $input = Request::getString('input', '');
 $helper = Helper::getHelper('mymodule');
 ```
 
-### Secure Request Handling
+### Manipulação Segura de Requisições
 
-The [Request class](../05-XMF-Framework/Basics/XMF-Request.md) provides type-safe access to HTTP request data with built-in sanitization:
+A classe [Request](../05-XMF-Framework/Basics/XMF-Request.md) fornece acesso type-safe a dados de requisição HTTP com sanitização integrada:
 
 ```mermaid
 flowchart LR
@@ -127,71 +127,71 @@ $name = Request::getString('name', '');
 $email = Request::getEmail('email', '');
 ```
 
-### Module Helper System
+### Sistema de Helper de Módulo
 
-The [Module Helper](../05-XMF-Framework/Basics/XMF-Module-Helper.md) provides convenient access to module-related functionality:
+O [Module Helper](../05-XMF-Framework/Basics/XMF-Module-Helper.md) fornece acesso conveniente à funcionalidade relacionada a módulo:
 
 ```php
 $helper = \Xmf\Module\Helper::getHelper('mymodule');
 
-// Access module configuration
+// Acessar configuração do módulo
 $configValue = $helper->getConfig('setting_name', 'default');
 
-// Get module object
+// Obter objeto do módulo
 $module = $helper->getModule();
 
-// Access handlers
+// Acessar handlers
 $handler = $helper->getHandler('items');
 ```
 
-### Permission Management
+### Gerenciamento de Permissões
 
-The [Permission-Helper](../05-XMF-Framework/Recipes/Permission-Helper.md) simplifies XOOPS permission handling:
+O [Permission-Helper](../05-XMF-Framework/Recipes/Permission-Helper.md) simplifica o gerenciamento de permissões XOOPS:
 
 ```php
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-// Check user permission
+// Verificar permissão do usuário
 if ($permHelper->checkPermission('view', $itemId)) {
-    // User has permission
+    // Usuário tem permissão
 }
 ```
 
-## Documentation Structure
+## Estrutura da Documentação
 
 ### Basics
 
-- [Getting-Started-with-XMF](../05-XMF-Framework/Basics/Getting-Started-with-XMF.md) - Installation and basic usage
-- [XMF-Request](../05-XMF-Framework/Basics/XMF-Request.md) - Request handling and input validation
-- [XMF-Module-Helper](../05-XMF-Framework/Basics/XMF-Module-Helper.md) - Module helper class usage
+- [Getting-Started-with-XMF](../05-XMF-Framework/Basics/Getting-Started-with-XMF.md) - Instalação e uso básico
+- [XMF-Request](../05-XMF-Framework/Basics/XMF-Request.md) - Manipulação de requisições e validação de entrada
+- [XMF-Module-Helper](../05-XMF-Framework/Basics/XMF-Module-Helper.md) - Uso da classe module helper
 
 ### Recipes
 
-- [Permission-Helper](../05-XMF-Framework/Recipes/Permission-Helper.md) - Working with permissions
-- [Module-Admin-Pages](../05-XMF-Framework/Recipes/Module-Admin-Pages.md) - Creating standardized admin interfaces
+- [Permission-Helper](../05-XMF-Framework/Recipes/Permission-Helper.md) - Trabalhando com permissões
+- [Module-Admin-Pages](../05-XMF-Framework/Recipes/Module-Admin-Pages.md) - Criando interfaces administrativas padronizadas
 
 ### Reference
 
-- [JWT](../05-XMF-Framework/Reference/JWT.md) - JSON Web Token implementation
-- [Database](../05-XMF-Framework/Reference/Database.md) - Database utilities and schema management
-- [Metagen](Reference/Metagen.md) - Metadata and SEO utilities
+- [JWT](../05-XMF-Framework/Reference/JWT.md) - Implementação de JSON Web Token
+- [Database](../05-XMF-Framework/Reference/Database.md) - Utilitários de banco de dados e gerenciamento de schema
+- [Metagen](Reference/Metagen.md) - Utilitários de metadados e SEO
 
-## Requirements
+## Requisitos
 
-- XOOPS 2.5.8 or later
-- PHP 7.2 or later (PHP 8.x recommended)
+- XOOPS 2.5.8 ou posterior
+- PHP 7.2 ou posterior (PHP 8.x recomendado)
 
-## Installation
+## Instalação
 
-XMF is included with XOOPS 2.5.8 and later versions. For earlier versions or manual installation:
+XMF é incluído com XOOPS 2.5.8 e versões posteriores. Para versões anteriores ou instalação manual:
 
-1. Download the XMF package from the XOOPS repository
-2. Extract to your XOOPS `/class/xmf/` directory
-3. The autoloader will handle class loading automatically
+1. Faça download do pacote XMF do repositório XOOPS
+2. Extraia para seu diretório XOOPS `/class/xmf/`
+3. O autoloader cuidará do carregamento de classes automaticamente
 
-## Quick Start Example
+## Exemplo de Início Rápido
 
-Here is a complete example showing common XMF usage patterns:
+Aqui está um exemplo completo mostrando padrões comuns de uso de XMF:
 
 ```php
 <?php
@@ -199,40 +199,40 @@ use Xmf\Request;
 use Xmf\Module\Helper;
 use Xmf\Module\Helper\Permission;
 
-// Get module helper
+// Obter helper de módulo
 $helper = Helper::getHelper('mymodule');
 
-// Get configuration values
+// Obter valores de configuração
 $itemsPerPage = $helper->getConfig('items_per_page', 10);
 
-// Handle request input
+// Manipular entrada de requisição
 $op = Request::getCmd('op', 'list');
 $id = Request::getInt('id', 0);
 
-// Check permissions
+// Verificar permissões
 $permHelper = new Permission();
 if (!$permHelper->checkPermission('view', $id)) {
-    redirect_header('index.php', 3, 'Access denied');
+    redirect_header('index.php', 3, 'Acesso negado');
 }
 
-// Process based on operation
+// Processar baseado em operação
 switch ($op) {
     case 'view':
         $handler = $helper->getHandler('items');
         $item = $handler->get($id);
-        // ... display item
+        // ... exibir item
         break;
     case 'list':
     default:
-        // ... list items
+        // ... listar items
         break;
 }
 ```
 
-## Resources
+## Recursos
 
-- [XMF GitHub Repository](https://github.com/XOOPS/XMF)
-- [XOOPS Project Website](https://xoops.org)
+- [Repositório XMF GitHub](https://github.com/XOOPS/XMF)
+- [Website do Projeto XOOPS](https://xoops.org)
 
 ---
 

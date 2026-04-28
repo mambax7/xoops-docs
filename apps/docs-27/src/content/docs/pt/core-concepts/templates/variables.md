@@ -1,92 +1,92 @@
 ---
-title: "Template Variables"
-description: "Available Smarty variables in XOOPS templates"
+title: "Variáveis de Template"
+description: "Variáveis Smarty disponíveis em templates XOOPS"
 ---
 
-XOOPS automatically provides many variables to Smarty templates. This reference documents the available variables for theme and module template development.
+XOOPS fornece automaticamente muitas variáveis aos templates Smarty. Esta referência documenta as variáveis disponíveis para desenvolvimento de templates de tema e módulo.
 
-## Related Documentation
+## Documentação Relacionada
 
-- Smarty-Basics - Fundamentals of Smarty in XOOPS
-- Theme-Development - Creating XOOPS themes
-- Smarty-4-Migration - Upgrading from Smarty 3 to 4
+- Smarty-Basics - Fundamentos do Smarty no XOOPS
+- Theme-Development - Criando temas XOOPS
+- Smarty-4-Migration - Atualizando de Smarty 3 para 4
 
-## Global Theme Variables
+## Variáveis Globais de Tema
 
-These variables are available in theme templates (`theme.tpl`):
+Estas variáveis estão disponíveis em templates de tema (`theme.tpl`):
 
-### Site Information
+### Informações do Site
 
-| Variable | Description | Example |
+| Variável | Descrição | Exemplo |
 |----------|-------------|---------|
-| `$xoops_sitename` | Site name from preferences | `"My XOOPS Site"` |
-| `$xoops_pagetitle` | Current page title | `"Welcome"` |
-| `$xoops_slogan` | Site slogan | `"Just Use It!"` |
-| `$xoops_url` | Full XOOPS URL | `"https://example.com"` |
-| `$xoops_langcode` | Language code | `"en"` |
-| `$xoops_charset` | Character set | `"UTF-8"` |
+| `$xoops_sitename` | Nome do site de preferências | `"My XOOPS Site"` |
+| `$xoops_pagetitle` | Título da página atual | `"Welcome"` |
+| `$xoops_slogan` | Slogan do site | `"Just Use It!"` |
+| `$xoops_url` | URL completa do XOOPS | `"https://example.com"` |
+| `$xoops_langcode` | Código de idioma | `"en"` |
+| `$xoops_charset` | Conjunto de caracteres | `"UTF-8"` |
 
-### Meta Tags
+### Tags Meta
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_meta_keywords` | Meta keywords |
-| `$xoops_meta_description` | Meta description |
-| `$xoops_meta_robots` | Robots meta tag |
-| `$xoops_meta_rating` | Content rating |
-| `$xoops_meta_author` | Author meta tag |
-| `$xoops_meta_copyright` | Copyright notice |
+| `$xoops_meta_keywords` | Palavras-chave meta |
+| `$xoops_meta_description` | Descrição meta |
+| `$xoops_meta_robots` | Tag meta robots |
+| `$xoops_meta_rating` | Classificação de conteúdo |
+| `$xoops_meta_author` | Tag meta autor |
+| `$xoops_meta_copyright` | Aviso de copyright |
 
-### Theme Information
+### Informações de Tema
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_theme` | Current theme name |
-| `$xoops_imageurl` | Theme images directory URL |
-| `$xoops_themecss` | Main theme CSS file URL |
-| `$xoops_icons32_url` | 32x32 icons URL |
-| `$xoops_icons16_url` | 16x16 icons URL |
+| `$xoops_theme` | Nome do tema atual |
+| `$xoops_imageurl` | URL do diretório de imagens do tema |
+| `$xoops_themecss` | URL do arquivo CSS principal do tema |
+| `$xoops_icons32_url` | URL dos ícones 32x32 |
+| `$xoops_icons16_url` | URL dos ícones 16x16 |
 
-### Page Content
+### Conteúdo da Página
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_contents` | Main page content |
-| `$xoops_module_header` | Module-specific head content |
-| `$xoops_footer` | Footer content |
-| `$xoops_js` | JavaScript to include |
+| `$xoops_contents` | Conteúdo principal da página |
+| `$xoops_module_header` | Conteúdo head específico do módulo |
+| `$xoops_footer` | Conteúdo do rodapé |
+| `$xoops_js` | JavaScript para incluir |
 
-### Navigation and Menus
+### Navegação e Menus
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_mainmenu` | Main navigation menu |
-| `$xoops_usermenu` | User menu |
+| `$xoops_mainmenu` | Menu de navegação principal |
+| `$xoops_usermenu` | Menu do usuário |
 
-### Block Variables
+### Variáveis de Bloco
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_lblocks` | Array of left blocks |
-| `$xoops_rblocks` | Array of right blocks |
-| `$xoops_cblocks` | Array of center blocks |
-| `$xoops_showlblock` | Show left blocks (boolean) |
-| `$xoops_showrblock` | Show right blocks (boolean) |
-| `$xoops_showcblock` | Show center blocks (boolean) |
+| `$xoops_lblocks` | Array de blocos esquerdos |
+| `$xoops_rblocks` | Array de blocos direitos |
+| `$xoops_cblocks` | Array de blocos centrais |
+| `$xoops_showlblock` | Mostrar blocos esquerdos (boolean) |
+| `$xoops_showrblock` | Mostrar blocos direitos (boolean) |
+| `$xoops_showcblock` | Mostrar blocos centrais (boolean) |
 
-## User Variables
+## Variáveis do Usuário
 
-When a user is logged in:
+Quando um usuário está logado:
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_isuser` | User is logged in (boolean) |
-| `$xoops_isadmin` | User is admin (boolean) |
-| `$xoops_userid` | User ID |
-| `$xoops_uname` | Username |
-| `$xoops_isowner` | User owns current content (boolean) |
+| `$xoops_isuser` | Usuário está logado (boolean) |
+| `$xoops_isadmin` | Usuário é administrador (boolean) |
+| `$xoops_userid` | ID do usuário |
+| `$xoops_uname` | Nome de usuário |
+| `$xoops_isowner` | Usuário é proprietário do conteúdo atual (boolean) |
 
-### Access User Object Properties
+### Acessando Propriedades do Objeto Usuário
 
 ```smarty
 <{if $xoops_isuser}>
@@ -98,44 +98,44 @@ When a user is logged in:
 <{/if}>
 ```
 
-## Module Variables
+## Variáveis do Módulo
 
-In module templates:
+Em templates de módulo:
 
-| Variable | Description |
+| Variável | Descrição |
 |----------|-------------|
-| `$xoops_dirname` | Module directory name |
-| `$xoops_modulename` | Module display name |
-| `$mod_url` | Module URL (when assigned) |
+| `$xoops_dirname` | Nome do diretório do módulo |
+| `$xoops_modulename` | Nome de exibição do módulo |
+| `$mod_url` | URL do módulo (quando atribuído) |
 
-### Common Module Template Pattern
+### Padrão Comum de Template de Módulo
 
 ```php
-// In PHP
+// Em PHP
 $helper = \XoopsModules\MyModule\Helper::getInstance();
 $GLOBALS['xoopsTpl']->assign('mod_url', $helper->url());
 $GLOBALS['xoopsTpl']->assign('mod_name', $helper->getModule()->getVar('name'));
 ```
 
 ```smarty
-{* In template *}
+{* Em template *}
 <a href="<{$mod_url}>">Back to <{$mod_name}></a>
 ```
 
-## Block Variables
+## Variáveis de Bloco
 
-Each block in `$xoops_lblocks`, `$xoops_rblocks`, and `$xoops_cblocks` has:
+Cada bloco em `$xoops_lblocks`, `$xoops_rblocks` e `$xoops_cblocks` tem:
 
-| Property | Description |
+| Propriedade | Descrição |
 |----------|-------------|
-| `$block.id` | Block ID |
-| `$block.title` | Block title |
-| `$block.content` | Block HTML content |
-| `$block.template` | Block template name |
-| `$block.module` | Module name |
-| `$block.weight` | Block weight/order |
+| `$block.id` | ID do bloco |
+| `$block.title` | Título do bloco |
+| `$block.content` | Conteúdo HTML do bloco |
+| `$block.template` | Nome do template do bloco |
+| `$block.module` | Nome do módulo |
+| `$block.weight` | Peso/ordem do bloco |
 
-### Block Display Example
+### Exemplo de Exibição de Bloco
 
 ```smarty
 <{foreach item=block from=$xoops_lblocks}>
@@ -150,9 +150,9 @@ Each block in `$xoops_lblocks`, `$xoops_rblocks`, and `$xoops_cblocks` has:
 <{/foreach}>
 ```
 
-## Form Variables
+## Variáveis de Formulário
 
-When using XoopsForm classes:
+Ao usar classes XoopsForm:
 
 ```php
 // PHP
@@ -168,7 +168,7 @@ $GLOBALS['xoopsTpl']->assign('form', $form->render());
 </div>
 ```
 
-## Pagination Variables
+## Variáveis de Paginação
 
 ```php
 // PHP
@@ -186,9 +186,9 @@ $GLOBALS['xoopsTpl']->assign('page_nav', $pagenav->renderNav());
 <{/if}>
 ```
 
-## Assigning Custom Variables
+## Atribuindo Variáveis Personalizadas
 
-### Simple Values
+### Valores Simples
 
 ```php
 $GLOBALS['xoopsTpl']->assign('my_title', 'Custom Title');
@@ -222,26 +222,26 @@ $GLOBALS['xoopsTpl']->assign('items', $items);
 </ul>
 ```
 
-### Objects
+### Objetos
 
 ```php
 $item = $itemHandler->get($itemId);
 $GLOBALS['xoopsTpl']->assign('item', $item->toArray());
 
-// Or for XoopsObject
+// Ou para XoopsObject
 $GLOBALS['xoopsTpl']->assign('item_obj', $item);
 ```
 
 ```smarty
-{* Array access *}
+{* Acesso a array *}
 <h2><{$item.title}></h2>
 <p><{$item.content}></p>
 
-{* Object method access *}
+{* Acesso a método de objeto *}
 <h2><{$item_obj->getVar('title')}></h2>
 ```
 
-### Nested Arrays
+### Arrays Aninhados
 
 ```php
 $category = [
@@ -264,11 +264,11 @@ $GLOBALS['xoopsTpl']->assign('category', $category);
 </ul>
 ```
 
-## Smarty Built-in Variables
+## Variáveis Integradas Smarty
 
 ### $smarty.now
 
-Current timestamp:
+Timestamp atual:
 
 ```smarty
 <p>Current year: <{$smarty.now|date_format:"%Y"}></p>
@@ -278,7 +278,7 @@ Current timestamp:
 
 ### $smarty.const
 
-Access PHP constants:
+Acessar constantes PHP:
 
 ```smarty
 <p>XOOPS URL: <{$smarty.const.XOOPS_URL}></p>
@@ -288,10 +288,10 @@ Access PHP constants:
 
 ### $smarty.get, $smarty.post, $smarty.request
 
-Access request variables (use with caution):
+Acessar variáveis de requisição (use com cuidado):
 
 ```smarty
-{* Only for reading, always escape output! *}
+{* Apenas para leitura, sempre escapar saída! *}
 <{if $smarty.get.page}>
     Page: <{$smarty.get.page|escape}>
 <{/if}>
@@ -299,7 +299,7 @@ Access request variables (use with caution):
 
 ### $smarty.server
 
-Server variables:
+Variáveis de servidor:
 
 ```smarty
 <p>Server: <{$smarty.server.SERVER_NAME}></p>
@@ -308,7 +308,7 @@ Server variables:
 
 ### $smarty.foreach
 
-Loop information:
+Informações de loop:
 
 ```smarty
 <{foreach $items as $item name=itemloop}>
@@ -329,12 +329,12 @@ Loop information:
 <{/foreach}>
 ```
 
-## XMF Helper Variables
+## Variáveis de Ajudante XMF
 
-When using XMF, additional helpers are available:
+Ao usar XMF, ajudantes adicionais estão disponíveis:
 
 ```php
-// In PHP
+// Em PHP
 use Xmf\Module\Helper;
 
 $helper = Helper::getInstance();
@@ -344,34 +344,34 @@ $GLOBALS['xoopsTpl']->assign('mod_path', $helper->path());
 ```
 
 ```smarty
-{* In template *}
+{* Em template *}
 <a href="<{$mod_url}>">Module Home</a>
 <{if $mod_config.show_breadcrumb}>
     {* Breadcrumb HTML *}
 <{/if}>
 ```
 
-## Image and Asset URLs
+## URLs de Imagem e Recurso
 
 ```smarty
-{* Theme images *}
+{* Imagens do tema *}
 <img src="<{$xoops_imageurl}>images/logo.png" alt="Logo">
 
-{* Module images *}
+{* Imagens do módulo *}
 <img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/assets/images/icon.png">
 
-{* Upload directory *}
+{* Diretório de upload *}
 <img src="<{$xoops_url}>/uploads/mymodule/<{$item.image}>">
 
-{* Using icons *}
+{* Usando ícones *}
 <img src="<{$xoops_icons32_url}>edit.png" alt="Edit">
 <img src="<{$xoops_icons16_url}>delete.png" alt="Delete">
 ```
 
-## Conditional Display Based on User
+## Exibição Condicional Baseada em Usuário
 
 ```smarty
-{* Show only to logged-in users *}
+{* Mostrar apenas para usuários logados *}
 <{if $xoops_isuser}>
     <a href="<{$xoops_url}>/modules/profile/">My Profile</a>
     <a href="<{$xoops_url}>/user.php?op=logout">Logout</a>
@@ -380,53 +380,53 @@ $GLOBALS['xoopsTpl']->assign('mod_path', $helper->path());
     <a href="<{$xoops_url}>/register.php">Register</a>
 <{/if}>
 
-{* Show only to admins *}
+{* Mostrar apenas para administradores *}
 <{if $xoops_isadmin}>
     <a href="<{$xoops_url}>/admin.php">Admin Panel</a>
 <{/if}>
 
-{* Show only to content owner *}
+{* Mostrar apenas para proprietário do conteúdo *}
 <{if $xoops_isowner || $xoops_isadmin}>
     <a href="edit.php?id=<{$item.id}>">Edit</a>
     <a href="delete.php?id=<{$item.id}>">Delete</a>
 <{/if}>
 ```
 
-## Language Variables
+## Variáveis de Idioma
 
 ```php
-// In PHP - load language file
+// Em PHP - carregar arquivo de idioma
 xoops_loadLanguage('main', 'mymodule');
 
-// Assign language constants
+// Atribuir constantes de idioma
 $GLOBALS['xoopsTpl']->assign('lang_title', _MD_MYMODULE_TITLE);
 $GLOBALS['xoopsTpl']->assign('lang_submit', _SUBMIT);
 ```
 
 ```smarty
-{* In template *}
+{* Em template *}
 <h1><{$lang_title}></h1>
 <button type="submit"><{$lang_submit}></button>
 ```
 
-Or use constants directly:
+Ou usar constantes diretamente:
 
 ```smarty
 <h1><{$smarty.const._MD_MYMODULE_TITLE}></h1>
 ```
 
-## Debugging Variables
+## Depurando Variáveis
 
-To see all available variables:
+Para ver todas as variáveis disponíveis:
 
 ```smarty
-{* Display debug console *}
+{* Exibir console de debug *}
 <{debug}>
 
-{* Print specific variable *}
+{* Imprimir variável específica *}
 <pre><{$myvar|@print_r}></pre>
 
-{* Export variable *}
+{* Exportar variável *}
 <pre><{$myvar|@var_export}></pre>
 ```
 

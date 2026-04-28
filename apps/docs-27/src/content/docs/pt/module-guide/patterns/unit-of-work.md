@@ -1,21 +1,21 @@
 ---
-title: "Unit of Work Pattern"
+title: "Padrão Unidade de Trabalho"
 ---
 
-## Overview
+## Visão Geral
 
-The Unit of Work pattern maintains a list of objects affected by a business transaction and coordinates writing out changes. It ensures all related changes are committed together or rolled back on failure.
+O padrão Unidade de Trabalho mantém uma lista de objetos afetados por uma transação de negócio e coordena a escrita de mudanças. Garante que todas as mudanças relacionadas sejam confirmadas juntas ou revertidas em caso de falha.
 
-## Purpose
+## Objetivo
 
-1. **Transaction Management** - Group related operations
-2. **Change Tracking** - Track modified entities
-3. **Batch Operations** - Optimize database writes
-4. **Consistency** - Ensure data integrity
+1. **Gerenciamento de Transação** - Agrupar operações relacionadas
+2. **Rastreamento de Mudanças** - Rastrear entidades modificadas
+3. **Operações em Lote** - Otimizar escritas de banco de dados
+4. **Consistência** - Garantir integridade de dados
 
-## Implementation
+## Implementação
 
-### Unit of Work Interface
+### Interface da Unidade de Trabalho
 
 ```php
 <?php
@@ -35,7 +35,7 @@ interface UnitOfWorkInterface
 }
 ```
 
-### Basic Implementation
+### Implementação Básica
 
 ```php
 <?php
@@ -148,7 +148,7 @@ final class UnitOfWork implements UnitOfWorkInterface
 }
 ```
 
-## Usage in Services
+## Uso em Serviços
 
 ```php
 final class ArticleService
@@ -166,16 +166,16 @@ final class ArticleService
         $this->unitOfWork->begin();
 
         try {
-            // Mark article as modified
+            // Marcar artigo como modificado
             $article->publish();
             $this->unitOfWork->registerDirty($article);
 
-            // Add new comments
+            // Adicionar novos comentários
             foreach ($comments as $comment) {
                 $this->unitOfWork->registerNew($comment);
             }
 
-            // Commit all changes together
+            // Confirmar todas as mudanças juntas
             $this->unitOfWork->commit();
 
         } catch (\Exception $e) {
@@ -186,7 +186,7 @@ final class ArticleService
 }
 ```
 
-## With Repository Integration
+## Com Integração de Repositório
 
 ```php
 final class ArticleRepository implements ArticleRepositoryInterface
@@ -218,17 +218,17 @@ final class ArticleRepository implements ArticleRepositoryInterface
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Short Transactions** - Keep transactions brief
-2. **Single Responsibility** - One unit of work per business operation
-3. **Clear Boundaries** - Define transaction scope clearly
-4. **Error Handling** - Always handle rollback scenarios
-5. **Avoid Nested** - Don't nest units of work
+1. **Transações Curtas** - Mantenha transações breves
+2. **Responsabilidade Única** - Uma unidade de trabalho por operação de negócio
+3. **Limites Claros** - Defina escopo de transação claramente
+4. **Tratamento de Erro** - Sempre manipule cenários de rollback
+5. **Evite Aninhamento** - Não aninhe unidades de trabalho
 
-## Related Documentation
+## Documentação Relacionada
 
-- Repository-Layer - Repository pattern
-- Service-Layer - Service pattern
-- ../Database/Database-Schema - Database operations
-- Domain-Model - Domain entities
+- Repository-Layer - Padrão repositório
+- Service-Layer - Padrão de serviço
+- ../Database/Database-Schema - Operações de banco de dados
+- Domain-Model - Entidades de domínio

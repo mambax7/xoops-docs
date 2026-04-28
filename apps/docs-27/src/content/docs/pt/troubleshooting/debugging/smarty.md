@@ -1,13 +1,13 @@
 ---
-title: "Smarty Template Debugging"
-description: "Advanced template debugging and troubleshooting techniques for XOOPS"
+title: "Depuração de Template Smarty"
+description: "Técnicas avançadas de depuração e solução de problemas de template no XOOPS"
 ---
 
-> Advanced techniques for debugging Smarty templates in XOOPS themes and modules.
+> Técnicas avançadas para depurar templates Smarty em temas e módulos do XOOPS.
 
 ---
 
-## Diagnostic Flowchart
+## Fluxograma de Diagnóstico
 
 ```mermaid
 flowchart TD
@@ -44,17 +44,17 @@ flowchart TD
 
 ---
 
-## Enable Smarty Debug Mode
+## Ativar Modo Debug do Smarty
 
-### Method 1: Admin Panel
+### Método 1: Painel Admin
 
-XOOPS Admin > Settings > Performance:
-- Enable "Debug Output"
-- Set "Debug Level" to 2
+XOOPS Admin > Configurações > Performance:
+- Ativar "Saída de Debug"
+- Definir "Nível de Debug" para 2
 
 ---
 
-### Method 2: Code Configuration
+### Método 2: Configuração de Código
 
 ```php
 <?php
@@ -76,20 +76,20 @@ $tpl->display('file:template.html');
 
 ---
 
-### Method 3: Debug Popup in Browser
+### Método 3: Popup de Debug no Navegador
 
 ```smarty
 {* Add to template to enable debug in footer *}
 {debug}
 ```
 
-This shows a popup with all assigned variables.
+Isto mostra um popup com todas as variáveis atribuídas.
 
 ---
 
-## Common Smarty Debug Techniques
+## Técnicas Comuns de Debug Smarty
 
-### Dump All Variables
+### Despejar Todas as Variáveis
 
 ```php
 <?php
@@ -105,7 +105,7 @@ echo "</pre>";
 ?>
 ```
 
-In template:
+No template:
 ```smarty
 {* Display debug info *}
 <div style="border: 1px red solid; background: #ffffcc; padding: 10px;">
@@ -116,7 +116,7 @@ In template:
 
 ---
 
-### Log Specific Variable
+### Registrar Variável Específica
 
 ```php
 <?php
@@ -135,7 +135,7 @@ if ($user === null) {
 
 ---
 
-### Check Variable in Template
+### Verificar Variável no Template
 
 ```smarty
 {* Dump variable for debugging *}
@@ -159,9 +159,9 @@ User Data:
 
 ---
 
-## View Compiled Templates
+## Visualizar Templates Compilados
 
-Smarty compiles templates to PHP for performance. Debug by viewing compiled code:
+Smarty compila templates para PHP para performance. Depure visualizando código compilado:
 
 ```bash
 # Find compiled templates
@@ -193,7 +193,7 @@ if ($files) {
 
 ---
 
-## Analyze Template Compilation
+## Analisar Compilação de Template
 
 ```php
 <?php
@@ -235,9 +235,9 @@ $ray->groupEnd();
 
 ---
 
-## Debug Specific Issues
+## Depurar Problemas Específicos
 
-### Issue 1: Variable Shows as Empty
+### Problema 1: Variável Aparece Vazia
 
 ```php
 <?php
@@ -258,7 +258,7 @@ if ($user === null) {
 ?>
 ```
 
-Template debug:
+Debug de template:
 ```smarty
 {if !isset($user)}
     <span style="color: red;">ERROR: user variable not set</span>
@@ -271,7 +271,7 @@ Template debug:
 
 ---
 
-### Issue 2: Array Key Not Found
+### Problema 2: Chave de Array Não Encontrada
 
 ```smarty
 {* Use safe array access *}
@@ -290,7 +290,7 @@ Template debug:
 {$array.key|default:'key not found'}
 ```
 
-Debug in PHP:
+Depuração em PHP:
 ```php
 <?php
 $array = $tpl->get_template_var('array');
@@ -303,7 +303,7 @@ if (!isset($array['key'])) {
 
 ---
 
-### Issue 3: Plugin/Modifier Not Found
+### Problema 3: Plugin/Modificador Não Encontrado
 
 ```php
 <?php
@@ -317,7 +317,7 @@ function smarty_modifier_debug($var) {
 ?>
 ```
 
-Register in code:
+Registrar em código:
 ```php
 <?php
 $tpl = new XoopsTpl();
@@ -326,14 +326,14 @@ $tpl->register_modifier('debug', 'smarty_modifier_debug');
 ?>
 ```
 
-Use in template:
+Usar no template:
 ```smarty
 {$data|debug}
 ```
 
 ---
 
-### Issue 4: Nested Array Display
+### Problema 4: Exibição de Array Aninhado
 
 ```smarty
 {* Debug nested arrays *}
@@ -359,7 +359,7 @@ Use in template:
 
 ---
 
-## Create Debug Template
+## Criar Template de Debug
 
 ```smarty
 {* Create themes/mytheme/debug.html *}
@@ -398,9 +398,9 @@ Use in template:
 
 ---
 
-## Performance Debugging
+## Depuração de Performance
 
-### Measure Template Rendering
+### Medir Renderização de Template
 
 ```php
 <?php
@@ -418,7 +418,7 @@ if ($render_time > 100) {
 ?>
 ```
 
-### Check Cache Effectiveness
+### Verificar Efetividade do Cache
 
 ```php
 <?php
@@ -454,7 +454,7 @@ echo "Oldest cached: " . date('Y-m-d H:i:s', $oldest_cache);
 
 ---
 
-## Clear and Rebuild Cache
+## Limpar e Reconstruir Cache
 
 ```php
 <?php
@@ -490,9 +490,9 @@ $tpl->force_compile = false;
 
 ---
 
-## Debugging Workflow
+## Fluxo de Trabalho de Depuração
 
-### Step-by-Step Debug Process
+### Processo de Debug Passo a Passo
 
 ```mermaid
 graph TD
@@ -511,7 +511,7 @@ graph TD
 
 ---
 
-## Debug Helper Functions
+## Funções Auxiliares de Debug
 
 ```php
 <?php
@@ -573,7 +573,7 @@ class TemplateDebugger {
 ?>
 ```
 
-Usage:
+Uso:
 ```php
 <?php
 TemplateDebugger::init($tpl);
@@ -585,12 +585,12 @@ error_log(TemplateDebugger::getReport());
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Enable Debug Mode
-- Template Errors
-- Using Ray Debugger
-- Smarty Templating
+- Ativar Modo Debug
+- Erros de Template
+- Usando Ray Debugger
+- Modelo Smarty
 
 ---
 

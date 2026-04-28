@@ -1,33 +1,33 @@
 ---
-title: "Module FAQ"
-description: "Frequently asked questions about XOOPS modules"
+title: "FAQ de Módulos"
+description: "Perguntas frequentes sobre módulos do XOOPS"
 ---
 
-# Module Frequently Asked Questions
+# Perguntas Frequentes sobre Módulos
 
-> Common questions and answers about XOOPS modules, installation, and management.
-
----
-
-## Installation & Activation
-
-### Q: How do I install a module in XOOPS?
-
-**A:**
-1. Download the module zip file
-2. Go to XOOPS Admin > Modules > Manage Modules
-3. Click "Browse" and select the zip file
-4. Click "Upload"
-5. The module appears in the list (usually deactivated)
-6. Click the activation icon to enable it
-
-Alternatively, extract the zip directly into `/xoops_root/modules/` and navigate to the admin panel.
+> Perguntas e respostas comuns sobre módulos do XOOPS, instalação e gerenciamento.
 
 ---
 
-### Q: Module upload fails with "Permission denied"
+## Instalação e Ativação
 
-**A:** This is a file permission issue:
+### P: Como instalo um módulo no XOOPS?
+
+**R:**
+1. Baixar arquivo zip do módulo
+2. Ir para XOOPS Admin > Módulos > Gerenciar Módulos
+3. Clicar em "Procurar" e selecionar arquivo zip
+4. Clicar em "Enviar"
+5. O módulo aparece na lista (geralmente desativado)
+6. Clicar no ícone de ativação para ativá-lo
+
+Alternativamente, extrair o zip diretamente em `/xoops_root/modules/` e navegar para o painel admin.
+
+---
+
+### P: Upload de módulo falha com "Permissão negada"
+
+**R:** Este é um problema de permissão de arquivo:
 
 ```bash
 # Fix module directory permissions
@@ -40,18 +40,18 @@ chmod 777 /path/to/xoops/uploads
 chown -R www-data:www-data /path/to/xoops
 ```
 
-See Module Installation Failures for more details.
+Veja Falhas de Instalação de Módulo para mais detalhes.
 
 ---
 
-### Q: Why can't I see the module in the admin panel after installation?
+### P: Por que não consigo ver o módulo no painel admin após a instalação?
 
-**A:** Check the following:
+**R:** Verifique o seguinte:
 
-1. **Module not activated** - Click the eye icon in Modules list
-2. **Missing admin page** - Module must have `hasAdmin = 1` in xoopsversion.php
-3. **Language files missing** - Need `language/english/admin.php`
-4. **Cache not cleared** - Clear cache and refresh browser
+1. **Módulo não ativado** - Clicar no ícone de olho na lista de Módulos
+2. **Página de admin faltando** - Módulo deve ter `hasAdmin = 1` em xoopsversion.php
+3. **Arquivos de idioma faltando** - Necessário `language/english/admin.php`
+4. **Cache não limpo** - Limpar cache e atualizar navegador
 
 ```bash
 # Clear XOOPS cache
@@ -60,13 +60,13 @@ rm -rf /path/to/xoops/xoops_data/caches/*
 
 ---
 
-### Q: How do I uninstall a module?
+### P: Como desinstalo um módulo?
 
-**A:**
-1. Go to XOOPS Admin > Modules > Manage Modules
-2. Deactivate the module (click the eye icon)
-3. Click the trash/delete icon
-4. Manually delete the module folder if you want complete removal:
+**R:**
+1. Ir para XOOPS Admin > Módulos > Gerenciar Módulos
+2. Desativar o módulo (clicar no ícone de olho)
+3. Clicar no ícone de lixeira/exclusão
+4. Manualmente deletar a pasta do módulo se você quer remoção completa:
 
 ```bash
 rm -rf /path/to/xoops/modules/modulename
@@ -74,24 +74,24 @@ rm -rf /path/to/xoops/modules/modulename
 
 ---
 
-## Module Management
+## Gerenciamento de Módulos
 
-### Q: What's the difference between disabling and uninstalling?
+### P: Qual é a diferença entre desabilitar e desinstalar?
 
-**A:**
-- **Disable**: Deactivate the module (click eye icon). Database tables remain.
-- **Uninstall**: Remove the module. Deletes database tables and removes from list.
+**R:**
+- **Desabilitar**: Desativar o módulo (clicar no ícone de olho). Tabelas do banco de dados permanecem.
+- **Desinstalar**: Remover o módulo. Deleta tabelas do banco de dados e remove da lista.
 
-To truly remove, also delete the folder:
+Para remover completamente, também delete a pasta:
 ```bash
 rm -rf modules/modulename
 ```
 
 ---
 
-### Q: How do I check if a module is properly installed?
+### P: Como verificar se um módulo está corretamente instalado?
 
-**A:** Use the debug script:
+**R:** Use o script de debug:
 
 ```php
 <?php
@@ -120,30 +120,30 @@ foreach ($modules as $module) {
 
 ---
 
-### Q: Can I run multiple versions of the same module?
+### P: Posso executar várias versões do mesmo módulo?
 
-**A:** No, XOOPS doesn't support this natively. However, you can:
+**R:** Não, XOOPS não suporta isto nativamente. Contudo, você pode:
 
-1. Create a copy with a different directory name: `mymodule` and `mymodule2`
-2. Update the dirname in both modules' xoopsversion.php
-3. Ensure unique database table names
+1. Criar uma cópia com um nome de diretório diferente: `mymodule` e `mymodule2`
+2. Atualizar dirname em xoopsversion.php de ambos os módulos
+3. Garantir nomes únicos de tabela de banco de dados
 
-This is not recommended as they share the same code.
+Isto não é recomendado pois eles compartilham o mesmo código.
 
 ---
 
-## Module Configuration
+## Configuração de Módulo
 
-### Q: Where do I configure module settings?
+### P: Onde configuro as configurações do módulo?
 
-**A:**
-1. Go to XOOPS Admin > Modules
-2. Click the settings/gear icon next to the module
-3. Configure preferences
+**R:**
+1. Ir para XOOPS Admin > Módulos
+2. Clicar no ícone de configurações/engrenagem próximo ao módulo
+3. Configurar preferências
 
-Settings are stored in the `xoops_config` table.
+As configurações são armazenadas na tabela `xoops_config`.
 
-**Access in code:**
+**Acessar em código:**
 ```php
 <?php
 $module_handler = xoops_getHandler('module');
@@ -159,9 +159,9 @@ foreach ($settings as $setting) {
 
 ---
 
-### Q: How do I define module configuration options?
+### P: Como defino opções de configuração de módulo?
 
-**A:** In xoopsversion.php:
+**R:** Em xoopsversion.php:
 
 ```php
 <?php
@@ -188,11 +188,11 @@ $modversion['config'] = [
 
 ---
 
-## Module Features
+## Recursos de Módulo
 
-### Q: How do I add an admin page to my module?
+### P: Como adiciono uma página de admin ao meu módulo?
 
-**A:** Create the structure:
+**R:** Criar a estrutura:
 
 ```
 modules/mymodule/
@@ -202,7 +202,7 @@ modules/mymodule/
 │   └── menu_en.php
 ```
 
-In xoopsversion.php:
+Em xoopsversion.php:
 ```php
 <?php
 $modversion['hasAdmin'] = 1;
@@ -210,7 +210,7 @@ $modversion['adminindex'] = 'admin/index.php';
 ?>
 ```
 
-Create `admin/index.php`:
+Criar `admin/index.php`:
 ```php
 <?php
 require_once XOOPS_ROOT_PATH . '/kernel/admin.php';
@@ -223,10 +223,10 @@ xoops_cp_footer();
 
 ---
 
-### Q: How do I add search functionality to my module?
+### P: Como adiciono funcionalidade de busca ao meu módulo?
 
-**A:**
-1. Set in xoopsversion.php:
+**R:**
+1. Definir em xoopsversion.php:
 ```php
 <?php
 $modversion['hasSearch'] = 1;
@@ -234,7 +234,7 @@ $modversion['search'] = 'search.php';
 ?>
 ```
 
-2. Create `search.php`:
+2. Criar `search.php`:
 ```php
 <?php
 function mymodule_search($queryArray, $andor, $limit, $offset) {
@@ -247,10 +247,10 @@ function mymodule_search($queryArray, $andor, $limit, $offset) {
 
 ---
 
-### Q: How do I add notifications to my module?
+### P: Como adiciono notificações ao meu módulo?
 
-**A:**
-1. Set in xoopsversion.php:
+**R:**
+1. Definir em xoopsversion.php:
 ```php
 <?php
 $modversion['hasNotification'] = 1;
@@ -263,7 +263,7 @@ $modversion['notifications'] = [
 ?>
 ```
 
-2. Trigger notification in code:
+2. Disparar notificação em código:
 ```php
 <?php
 $notification_handler = xoops_getHandler('notification');
@@ -278,17 +278,17 @@ $notification_handler->triggerEvent(
 
 ---
 
-## Module Permissions
+## Permissões de Módulo
 
-### Q: How do I set module permissions?
+### P: Como defino permissões de módulo?
 
-**A:**
-1. Go to XOOPS Admin > Modules > Module Permissions
-2. Select the module
-3. Choose user/group and permission level
-4. Save
+**R:**
+1. Ir para XOOPS Admin > Módulos > Permissões de Módulo
+2. Selecionar o módulo
+3. Escolher usuário/grupo e nível de permissão
+4. Salvar
 
-**In code:**
+**Em código:**
 ```php
 <?php
 // Check if user can access module
@@ -309,11 +309,11 @@ if (!$mperm_handler->userCanAccess($module->mid())) {
 
 ---
 
-## Module Database
+## Banco de Dados de Módulo
 
-### Q: Where are module database tables stored?
+### P: Onde as tabelas de banco de dados do módulo estão armazenadas?
 
-**A:** All in the main XOOPS database, prefixed with your table prefix (usually `xoops_`):
+**R:** Tudo no banco de dados principal do XOOPS, prefixado com seu prefixo de tabela (geralmente `xoops_`):
 
 ```bash
 # List all module tables
@@ -332,9 +332,9 @@ while ($row = $result->fetch_assoc()) {
 
 ---
 
-### Q: How do I update module database tables?
+### P: Como atualizo tabelas de banco de dados de módulo?
 
-**A:** Create an update script in your module:
+**R:** Criar um script de atualização no seu módulo:
 
 ```php
 <?php
@@ -359,11 +359,11 @@ if ($GLOBALS['xoopsDB']->query($sql)) {
 
 ---
 
-## Module Dependencies
+## Dependências de Módulo
 
-### Q: How do I check if required modules are installed?
+### P: Como verifico se módulos necessários estão instalados?
 
-**A:**
+**R:**
 ```php
 <?php
 $module_handler = xoops_getHandler('module');
@@ -379,9 +379,9 @@ if (!$module || !$module->getVar('isactive')) {
 
 ---
 
-### Q: Can modules depend on other modules?
+### P: Módulos podem depender de outros módulos?
 
-**A:** Yes, declare in xoopsversion.php:
+**R:** Sim, declare em xoopsversion.php:
 
 ```php
 <?php
@@ -398,35 +398,35 @@ $modversion['dependencies'] = [
 
 ---
 
-## Troubleshooting
+## Solução de Problemas
 
-### Q: Module appears in list but won't activate
+### P: Módulo aparece na lista mas não se ativa
 
-**A:** Check:
-1. xoopsversion.php syntax - Use PHP linter:
+**R:** Verifique:
+1. Sintaxe xoopsversion.php - Use PHP linter:
 ```bash
 php -l modules/mymodule/xoopsversion.php
 ```
 
-2. Database SQL file:
+2. Arquivo SQL de banco de dados:
 ```bash
 # Check SQL syntax
 grep -n "CREATE TABLE" modules/mymodule/sql/mysql.sql
 ```
 
-3. Language files:
+3. Arquivos de idioma:
 ```bash
 ls -la modules/mymodule/language/english/
 ```
 
-See Module Installation Failures for detailed diagnostics.
+Veja Falhas de Instalação de Módulo para diagnósticos detalhados.
 
 ---
 
-### Q: Module activated but doesn't show in main site
+### P: Módulo ativado mas não aparece no site principal
 
-**A:**
-1. Set `hasMain = 1` in xoopsversion.php:
+**R:**
+1. Definir `hasMain = 1` em xoopsversion.php:
 ```php
 <?php
 $modversion['hasMain'] = 1;
@@ -434,7 +434,7 @@ $modversion['main_file'] = 'index.php';
 ?>
 ```
 
-2. Create `modules/mymodule/index.php`:
+2. Criar `modules/mymodule/index.php`:
 ```php
 <?php
 require_once '../../mainfile.php';
@@ -448,9 +448,9 @@ include_once XOOPS_ROOT_PATH . '/footer.php';
 
 ---
 
-### Q: Module causes "white screen of death"
+### P: Módulo causa "tela branca de morte"
 
-**A:** Enable debugging to find the error:
+**R:** Ativar depuração para encontrar o erro:
 
 ```php
 <?php
@@ -461,23 +461,23 @@ define('XOOPS_DEBUG_LEVEL', 2);
 ?>
 ```
 
-Check the error log:
+Verificar o log de erros:
 ```bash
 tail -100 /var/log/php/error.log
 tail -100 /var/log/apache2/error.log
 ```
 
-See White Screen of Death for solutions.
+Veja Tela Branca da Morte para soluções.
 
 ---
 
 ## Performance
 
-### Q: Module is slow, how do I optimize?
+### P: Módulo é lento, como otimizar?
 
-**A:**
-1. **Check database queries** - Use query logging
-2. **Cache data** - Use XOOPS cache:
+**R:**
+1. **Verificar queries de banco de dados** - Use logging de query
+2. **Cachear dados** - Use cache do XOOPS:
 ```php
 <?php
 $cache = xoops_cache_handler::getInstance();
@@ -489,30 +489,30 @@ if ($data === false) {
 ?>
 ```
 
-3. **Optimize templates** - Avoid loops in templates
-4. **Enable PHP opcode cache** - APCu, XDebug, etc.
+3. **Otimizar templates** - Evitar loops em templates
+4. **Ativar PHP opcode cache** - APCu, XDebug, etc.
 
-See Performance FAQ for more details.
-
----
-
-## Module Development
-
-### Q: Where can I find module development documentation?
-
-**A:** See:
-- Module Development Guide
-- Module Structure
-- Creating Your First Module
+Veja FAQ de Performance para mais detalhes.
 
 ---
 
-## Related Documentation
+## Desenvolvimento de Módulo
 
-- Module Installation Failures
-- Module Structure
-- Performance FAQ
-- Enable Debug Mode
+### P: Onde posso encontrar documentação de desenvolvimento de módulo?
+
+**R:** Ver:
+- Guia de Desenvolvimento de Módulo
+- Estrutura de Módulo
+- Criar Seu Primeiro Módulo
+
+---
+
+## Documentação Relacionada
+
+- Falhas de Instalação de Módulo
+- Estrutura de Módulo
+- FAQ de Performance
+- Ativar Modo Debug
 
 ---
 

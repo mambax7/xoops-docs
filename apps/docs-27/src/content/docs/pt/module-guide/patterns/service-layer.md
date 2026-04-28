@@ -1,52 +1,52 @@
 ---
-title: "Service Layer Pattern in XOOPS"
-description: "Business logic abstraction and dependency injection"
+title: "Padrão Camada de Serviço em XOOPS"
+description: "Abstração de lógica de negócio e injeção de dependência"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-:::note[Not sure if this is the right pattern?]
-See [Choosing a Data Access Pattern](../Choosing-Data-Access-Pattern.md) for a decision tree comparing handlers, repositories, services, and CQRS.
+:::note[Não tem certeza se este é o padrão certo?]
+Veja [Choosing a Data Access Pattern](../Choosing-Data-Access-Pattern.md) para árvore de decisão comparando handlers, repositórios, serviços e CQRS.
 :::
 
-:::tip[Works Today & Tomorrow]
-The Service Layer pattern **works in both XOOPS 2.5.x and XOOPS 4.0.x**. The concepts are universal—only the syntax differs:
+:::tip[Funciona Hoje e Amanhã]
+O padrão Service Layer **funciona em XOOPS 2.5.x e XOOPS 4.0.x**. Os conceitos são universais—apenas a sintaxe difere:
 
-| Feature | XOOPS 2.5.x | XOOPS 4.0 |
+| Recurso | XOOPS 2.5.x | XOOPS 4.0 |
 |---------|-------------|------------|
-| PHP Version | 7.4+ | 8.2+ |
-| Constructor Injection | ✅ Manual wiring | ✅ Container autowiring |
-| Typed Properties | `@var` docblocks | Native type declarations |
-| Readonly Properties | ❌ Not available | ✅ `readonly` keyword |
+| Versão PHP | 7.4+ | 8.2+ |
+| Constructor Injection | ✅ Fiação manual | ✅ Autowiring de container |
+| Typed Properties | `@var` docblocks | Declarações de tipo nativas |
+| Readonly Properties | ❌ Não disponível | ✅ Palavra-chave `readonly` |
 
-Code examples below use PHP 8.2+ syntax. For 2.5.x, omit `readonly` and use traditional property declarations.
+Os exemplos de código abaixo usam sintaxe PHP 8.2+. Para 2.5.x, omita `readonly` e use declarações de propriedade tradicionais.
 :::
 
-The Service Layer Pattern encapsulates business logic in dedicated service classes, providing a clear separation between controllers and data access layers. This pattern promotes code reusability, testability, and maintainability.
+O Padrão Service Layer encapsula lógica de negócio em classes de serviço dedicadas, fornecendo uma separação clara entre controladores e camadas de acesso de dados. Este padrão promove reusabilidade de código, testabilidade e manutenibilidade.
 
-## Service Layer Concept
+## Conceito de Camada de Serviço
 
-### Purpose
-The Service Layer:
-- Contains domain business logic
-- Coordinates multiple repositories
-- Handles complex operations
-- Manages transactions
-- Performs validation and authorization
-- Provides high-level operations to controllers
+### Objetivo
+A Camada de Serviço:
+- Contém lógica de negócio de domínio
+- Coordena múltiplos repositórios
+- Lida com operações complexas
+- Gerencia transações
+- Realiza validação e autorização
+- Fornece operações de alto nível para controladores
 
-### Benefits
-- Reusable business logic across multiple controllers
-- Easy to test in isolation
-- Centralized business rule implementation
-- Clear separation of concerns
-- Simplified controller code
+### Benefícios
+- Lógica de negócio reutilizável em múltiplos controladores
+- Fácil de testar isoladamente
+- Implementação centralizada de regra de negócio
+- Separação clara de responsabilidades
+- Código de controlador simplificado
 
-## Dependency Injection
+## Injeção de Dependência
 
 ```php
 <?php
-// Service with injected dependencies
+// Serviço com dependências injetadas
 class UserService
 {
     private $userRepository;
@@ -62,19 +62,19 @@ class UserService
     
     public function registerUser($username, $email, $password)
     {
-        // Validate
+        // Validar
         $this->validate($username, $email, $password);
         
-        // Create user
+        // Criar usuário
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPassword($password);
         
-        // Save
+        // Salvar
         $userId = $this->userRepository->save($user);
         
-        // Send welcome email
+        // Enviar email de boas-vindas
         $this->emailService->sendWelcome($email, $username);
         
         return $userId;
@@ -104,7 +104,7 @@ class UserService
 ?>
 ```
 
-## Service Container
+## Container de Serviço
 
 ```php
 <?php
@@ -114,10 +114,10 @@ class ServiceContainer
     
     public function __construct($db)
     {
-        // Register repositories
+        // Registrar repositórios
         $this->services['userRepository'] = new UserRepository($db);
         
-        // Register services
+        // Registrar serviços
         $this->services['userService'] = new UserService(
             $this->services['userRepository']
         );
@@ -134,7 +134,7 @@ class ServiceContainer
 ?>
 ```
 
-## Usage in Controllers
+## Uso em Controladores
 
 ```php
 <?php
@@ -175,23 +175,23 @@ class UserController
 ?>
 ```
 
-## Best Practices
+## Melhores Práticas
 
-- Each service handles one domain concern
-- Services depend on interfaces, not implementations
-- Use constructor injection for dependencies
-- Services should be testable in isolation
-- Throw domain-specific exceptions
-- Services should not depend on HTTP request details
-- Keep services focused and cohesive
+- Cada serviço lida com uma preocupação de domínio
+- Serviços dependem de interfaces, não implementações
+- Use injeção de construtor para dependências
+- Serviços devem ser testáveis isoladamente
+- Lance exceções específicas de domínio
+- Serviços não devem depender de detalhes de solicitação HTTP
+- Mantenha serviços focados e coesos
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- [MVC-Pattern](../Patterns/MVC-Pattern.md) for controller integration
-- [Repository-Pattern](../Patterns/Repository-Pattern.md) for data access
-- [DTO-Pattern](DTO-Pattern.md) for data transfer objects
-- [Testing](../Best-Practices/Testing.md) for service testing
+Veja também:
+- [MVC-Pattern](../Patterns/MVC-Pattern.md) para integração de controlador
+- [Repository-Pattern](../Patterns/Repository-Pattern.md) para acesso de dados
+- [DTO-Pattern](DTO-Pattern.md) para data transfer objects
+- [Testing](../Best-Practices/Testing.md) para teste de serviço
 
 ---
 

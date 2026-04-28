@@ -1,30 +1,29 @@
 ---
-title: "Database Configuration"
+title: "Configuração de Banco de Dados"
 ---
 
-This page collects the information about the database that XOOPS will use.
+Esta página coleta as informações sobre o banco de dados que XOOPS usará.
 
-After entering the requested information and correcting any issues, select the "Continue" button to proceed.
+Após digitar as informações solicitadas e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Database Configuration](/xoops-docs/2.7/img/installation/installer-06.png)
+![Configuração de Banco de Dados do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-06.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### Database
+### Banco de Dados
 
-#### Database name
+#### Nome do banco de dados
 
-The name of database on the host that XOOPS should use. The database user entered in the previous step should have all privileges on this database. The installer will attempt to create this database if does not exist.
+O nome do banco de dados no host que XOOPS deve usar. O usuário do banco de dados digitado na etapa anterior deve ter todos os privilégios neste banco de dados. O instalador tentará criar este banco de dados se não existir.
 
-#### Table prefix
+#### Prefixo de tabela
 
-This prefix will be added to the names of all new tables created by XOOPS. This helps avoid name conflicts if the database is shared with other applications. A unique prefix also makes is more difficult to guess table names, which has security benefits. If you are unsure, just keep the default
+Este prefixo será adicionado aos nomes de todas as novas tabelas criadas pelo XOOPS. Isto ajuda a evitar conflitos de nome se o banco de dados for compartilhado com outros aplicativos. Um prefixo único também torna mais difícil adivinhar nomes de tabela, o que tem benefícios de segurança. Se não tiver certeza, apenas mantenha o padrão
 
-#### Database character set
+#### Conjunto de caracteres do banco de dados
 
-The installer defaults to `utf8mb4`, which supports the full Unicode range including emoji and supplementary characters. You can select a different character set here, but `utf8mb4` is recommended for virtually all languages and locales and should be left as-is unless you have a specific reason to change it.
+O instalador assume como padrão `utf8mb4`, que suporta o intervalo Unicode completo, incluindo emoji e caracteres suplementares. Você pode selecionar um conjunto de caracteres diferente aqui, mas `utf8mb4` é recomendado para virtualmente todos os idiomas e locales e deve ser deixado como está, a menos que tenha uma razão específica para alterá-lo.
 
-#### Database collation
+#### Colação do banco de dados
 
-The collation field is left blank by default. When blank, MySQL applies the default collation for whichever character set was selected above (for `utf8mb4` this is typically `utf8mb4_general_ci` or `utf8mb4_0900_ai_ci`, depending on the MySQL version). If you need a specific collation — for example to match an existing database — select it here. Otherwise, leaving it blank is the recommended choice.
-
+O campo colação é deixado em branco por padrão. Quando em branco, MySQL aplica a colação padrão para qualquer conjunto de caracteres selecionado acima (para `utf8mb4` isso é tipicamente `utf8mb4_general_ci` ou `utf8mb4_0900_ai_ci`, dependendo da versão MySQL). Se você precisar de uma colação específica — por exemplo, para corresponder a um banco de dados existente — selecione-a aqui. Caso contrário, deixar em branco é a escolha recomendada.

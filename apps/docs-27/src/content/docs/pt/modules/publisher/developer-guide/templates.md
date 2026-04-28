@@ -1,90 +1,91 @@
 ---
-title: "Templates and Blocks"
+title: "Templates e Blocos"
+description: "Visão geral de templates e blocos do Publisher para exibição de conteúdo"
 ---
 
-## Overview
+## Visão Geral
 
-Publisher provides customizable templates for displaying articles and blocks for sidebar/widget integration. This guide covers template customization and block configuration.
+O Publisher oferece templates personalizáveis para exibir artigos e blocos para integração em sidebar/widget. Este guia abrange personalização de template e configuração de bloco.
 
-## Template Files
+## Arquivos de Template
 
-### Core Templates
+### Templates Principais
 
-| Template | Purpose |
+| Template | Propósito |
 |----------|---------|
-| `publisher_index.tpl` | Module homepage |
-| `publisher_item.tpl` | Single article view |
-| `publisher_category.tpl` | Category listing |
-| `publisher_archive.tpl` | Archive page |
-| `publisher_search.tpl` | Search results |
-| `publisher_submit.tpl` | Article submission form |
-| `publisher_print.tpl` | Print-friendly view |
+| `publisher_index.tpl` | Página inicial do módulo |
+| `publisher_item.tpl` | Visualização de artigo único |
+| `publisher_category.tpl` | Listagem de categoria |
+| `publisher_archive.tpl` | Página de arquivo |
+| `publisher_search.tpl` | Resultados de busca |
+| `publisher_submit.tpl` | Formulário de envio de artigo |
+| `publisher_print.tpl` | Visualização impressão-amigável |
 
-### Block Templates
+### Templates de Bloco
 
-| Template | Purpose |
+| Template | Propósito |
 |----------|---------|
-| `publisher_block_latest.tpl` | Latest articles block |
-| `publisher_block_spotlight.tpl` | Featured article block |
-| `publisher_block_category.tpl` | Category list block |
-| `publisher_block_author.tpl` | Author articles block |
+| `publisher_block_latest.tpl` | Bloco de artigos recentes |
+| `publisher_block_spotlight.tpl` | Bloco de artigo em destaque |
+| `publisher_block_category.tpl` | Bloco de listagem de categoria |
+| `publisher_block_author.tpl` | Bloco de artigos do autor |
 
-## Template Variables
+## Variáveis de Template
 
-### Article Variables
+### Variáveis de Artigo
 
 ```smarty
-{* Available in publisher_item.tpl *}
-<{$item.title}>           {* Article title *}
-<{$item.body}>            {* Full content *}
-<{$item.summary}>         {* Summary/excerpt *}
-<{$item.author}>          {* Author name *}
-<{$item.authorid}>        {* Author user ID *}
-<{$item.datesub}>         {* Publication date *}
-<{$item.datemodified}>    {* Last modified date *}
-<{$item.counter}>         {* View count *}
-<{$item.rating}>          {* Average rating *}
-<{$item.votes}>           {* Number of votes *}
-<{$item.categoryname}>    {* Category name *}
-<{$item.categorylink}>    {* Category URL *}
-<{$item.itemurl}>         {* Article URL *}
-<{$item.image}>           {* Featured image *}
+{* Disponível em publisher_item.tpl *}
+<{$item.title}>           {* Título do artigo *}
+<{$item.body}>            {* Conteúdo completo *}
+<{$item.summary}>         {* Resumo/trecho *}
+<{$item.author}>          {* Nome do autor *}
+<{$item.authorid}>        {* ID de usuário do autor *}
+<{$item.datesub}>         {* Data de publicação *}
+<{$item.datemodified}>    {* Data de última modificação *}
+<{$item.counter}>         {* Contagem de visualizações *}
+<{$item.rating}>          {* Classificação média *}
+<{$item.votes}>           {* Número de votos *}
+<{$item.categoryname}>    {* Nome da categoria *}
+<{$item.categorylink}>    {* URL da categoria *}
+<{$item.itemurl}>         {* URL do artigo *}
+<{$item.image}>           {* Imagem em destaque *}
 ```
 
-### Category Variables
+### Variáveis de Categoria
 
 ```smarty
-{* Available in publisher_category.tpl *}
-<{$category.name}>        {* Category name *}
-<{$category.description}> {* Category description *}
-<{$category.image}>       {* Category image *}
-<{$category.total}>       {* Article count *}
-<{$category.link}>        {* Category URL *}
+{* Disponível em publisher_category.tpl *}
+<{$category.name}>        {* Nome da categoria *}
+<{$category.description}> {* Descrição da categoria *}
+<{$category.image}>       {* Imagem da categoria *}
+<{$category.total}>       {* Contagem de artigos *}
+<{$category.link}>        {* URL da categoria *}
 ```
 
-## Customizing Templates
+## Personalizando Templates
 
-### Override Location
+### Local de Sobrescrita
 
-Copy templates to your theme to customize:
+Copie os templates para seu tema para personalizar:
 
 ```
-themes/mytheme/modules/publisher/
+themes/meumtema/modules/publisher/
 ├── publisher_index.tpl
 ├── publisher_item.tpl
 └── blocks/
     └── publisher_block_latest.tpl
 ```
 
-### Example: Custom Article Template
+### Exemplo: Template de Artigo Personalizado
 
 ```smarty
-{* themes/mytheme/modules/publisher/publisher_item.tpl *}
+{* themes/meumtema/modules/publisher/publisher_item.tpl *}
 <article class="publisher-article">
     <header>
         <h1><{$item.title}></h1>
         <div class="meta">
-            <span class="author">By <{$item.author}></span>
+            <span class="author">Por <{$item.author}></span>
             <span class="date"><{$item.datesub}></span>
             <span class="category">
                 <a href="<{$item.categorylink}>"><{$item.categoryname}></a>
@@ -110,45 +111,45 @@ themes/mytheme/modules/publisher/
         <div class="actions">
             <{if $can_edit}>
                 <a href="<{$xoops_url}>/modules/publisher/submit.php?itemid=<{$item.itemid}>">
-                    Edit Article
+                    Editar Artigo
                 </a>
             <{/if}>
-            <a href="<{$item.printlink}>" target="_blank">Print</a>
+            <a href="<{$item.printlink}>" target="_blank">Imprimir</a>
             <a href="<{$item.maillink}>">Email</a>
         </div>
     </footer>
 </article>
 ```
 
-## Blocks
+## Blocos
 
-### Available Blocks
+### Blocos Disponíveis
 
-| Block | Description |
+| Bloco | Descrição |
 |-------|-------------|
-| Latest News | Shows recent articles |
-| Spotlight | Featured article highlight |
-| Category Menu | Category navigation |
-| Archives | Archive links |
-| Top Authors | Most active writers |
-| Popular Items | Most viewed articles |
+| Notícias Recentes | Mostra artigos recentes |
+| Destaque | Destaque de artigo em destaque |
+| Menu de Categoria | Navegação de categoria |
+| Arquivos | Links de arquivo |
+| Top Autores | Escritores mais ativos |
+| Itens Populares | Artigos mais visualizados |
 
-### Block Options
+### Opções de Bloco
 
-#### Latest News Block
+#### Bloco de Notícias Recentes
 
-| Option | Description |
+| Opção | Descrição |
 |--------|-------------|
-| Items to display | Number of articles |
-| Category filter | Limit to specific categories |
-| Show summary | Display article excerpt |
-| Title length | Truncate titles |
-| Template | Block template file |
+| Itens a exibir | Número de artigos |
+| Filtro de categoria | Limitar a categorias específicas |
+| Mostrar resumo | Exibir trecho de artigo |
+| Comprimento do título | Truncar títulos |
+| Template | Arquivo de template do bloco |
 
-### Custom Block Template
+### Template de Bloco Personalizado
 
 ```smarty
-{* themes/mytheme/modules/publisher/blocks/publisher_block_latest.tpl *}
+{* themes/meumtema/modules/publisher/blocks/publisher_block_latest.tpl *}
 <div class="publisher-latest-block">
     <{foreach item=item from=$block.items}>
     <article class="block-item">
@@ -160,47 +161,47 @@ themes/mytheme/modules/publisher/
         <{/if}>
         <div class="block-meta">
             <span class="date"><{$item.date}></span>
-            <span class="views"><{$item.counter}> views</span>
+            <span class="views"><{$item.counter}> visualizações</span>
         </div>
     </article>
     <{/foreach}>
 </div>
 ```
 
-## Template Tricks
+## Truques de Template
 
-### Conditional Display
+### Exibição Condicional
 
 ```smarty
-{* Show different content for different users *}
+{* Mostrar conteúdo diferente para usuários diferentes *}
 <{if $xoops_isadmin}>
-    <a href="admin/item.php?op=edit&itemid=<{$item.itemid}>">Admin Edit</a>
+    <a href="admin/item.php?op=edit&itemid=<{$item.itemid}>">Edição de Admin</a>
 <{elseif $item.uid == $xoops_userid}>
-    <a href="submit.php?itemid=<{$item.itemid}>">Edit Your Article</a>
+    <a href="submit.php?itemid=<{$item.itemid}>">Editar Seu Artigo</a>
 <{/if}>
 ```
 
-### Custom CSS Class
+### Classe CSS Personalizada
 
 ```smarty
-{* Add status-based styling *}
+{* Adicionar estilo baseado em status *}
 <article class="article <{$item.status}>">
-    {* Content *}
+    {* Conteúdo *}
 </article>
 ```
 
-### Date Formatting
+### Formatação de Data
 
 ```smarty
-{* Format dates with Smarty *}
+{* Formatar datas com Smarty *}
 <time datetime="<{$item.datesub|date_format:'%Y-%m-%d'}>">
     <{$item.datesub|date_format:$xoops_config.dateformat}>
 </time>
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../User-Guide/Basic-Configuration - Module settings
-- ../User-Guide/Creating-Articles - Content management
-- ../../04-API-Reference/Template/Template-System - XOOPS template engine
-- ../../02-Core-Concepts/Themes/Theme-Development - Theme customization
+- ../User-Guide/Basic-Configuration - Configurações do módulo
+- ../User-Guide/Creating-Articles - Gerenciamento de conteúdo
+- ../../04-API-Reference/Template/Template-System - Motor de template XOOPS
+- ../../02-Core-Concepts/Themes/Theme-Development - Personalização de tema

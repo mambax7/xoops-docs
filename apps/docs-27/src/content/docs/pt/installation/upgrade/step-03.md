@@ -1,35 +1,34 @@
 ---
-title: "Troubleshooting"
+title: "Solução de Problemas"
 ---
 
-## Smarty 4 Template Errors
+## Erros de Template Smarty 4
 
-The most common class of problems when upgrading from XOOPS 2.5.x to 2.7.0 is Smarty 4 template incompatibility. If you skipped or did not complete the [Preflight Check](preflight.md), you may see template errors on the front end or in the admin area after the upgrade.
+A classe mais comum de problemas ao atualizar do XOOPS 2.5.x para 2.7.0 é incompatibilidade de template Smarty 4. Se você pular ou não completar a [Verificação de Pré-voo](preflight.md), você pode ver erros de template no frontend ou na área de administração após a atualização.
 
-To recover:
+Para se recuperar:
 
-1. **Re-run the preflight scanner** at `/upgrade/preflight.php`. Apply any automatic repairs it offers, or fix flagged templates manually.
-2. **Clear the compiled template cache.** Remove everything except `index.html` from `xoops_data/caches/smarty_compile/`. Smarty 3 compiled templates are not compatible with Smarty 4 and stale files can cause confusing errors.
-3. **Switch to a shipped theme temporarily.** From the admin area, select `xbootstrap5` or `default` as the active theme. This will confirm whether the problem is limited to a custom theme or is site-wide.
-4. **Validate any custom themes and module templates** before switching production traffic back on. Pay particular attention to templates that use `{php}` blocks, deprecated modifiers, or non-standard delimiter syntax — these are the most common Smarty 4 breakages.
+1. **Re-execute o scanner de pré-voo** em `/upgrade/preflight.php`. Aplique qualquer reparo automático que oferece ou corrija manualmente os templates marcados.
+2. **Limpe o cache de template compilado.** Remova tudo exceto `index.html` de `xoops_data/caches/smarty_compile/`. Os templates compilados Smarty 3 não são compatíveis com Smarty 4 e arquivos obsoletos podem causa erros confusos.
+3. **Mude para um tema enviado temporariamente.** Na área de administração, selecione `xbootstrap5` ou `default` como tema ativo. Isto confirmará se o problema está limitado a um tema personalizado ou é em todo o site.
+4. **Valide qualquer tema personalizado e templates de módulo** antes de mudar o tráfego de produção de volta. Preste atenção particular aos templates que usam blocos `{php}`, modificadores descontinuados ou sintaxe de delimitador não padrão — estes são os breaks Smarty 4 mais comuns.
 
-See also the Smarty 4 section in [Special Topics](../../installation/specialtopics.md).
+Veja também a seção Smarty 4 em [Tópicos Especiais](../../installation/specialtopics.md).
 
-## Permission Issues
+## Problemas de Permissão
 
-The XOOPS Upgrade may need to write to files that have previously been made read-only. If this is the case, you will see a message like this:
+O Upgrade do XOOPS pode precisar escrever em arquivos que foram feitos somente leitura. Se for este o caso, você verá uma mensagem assim:
 
-![XOOPS Upgrade Make Writable Error](/xoops-docs/2.7/img/installation/upgrade-03-make-writable.png)
+![Erro de Tornar Gravável de Upgrade XOOPS](/xoops-docs/2.7/img/installation/upgrade-03-make-writable.png)
 
-The solution is to change the permissions. You can change permissions using FTP if you do not have more direct access. Here is an example using FileZilla:
+A solução é alterar as permissões. Você pode alterar permissões usando FTP se não tiver acesso mais direto. Aqui está um exemplo usando FileZilla:
 
-![FileZilla Change Permission](/xoops-docs/2.7/img/installation/upgrade-04-change-permissions.png)
+![Alteração de Permissão de FileZilla](/xoops-docs/2.7/img/installation/upgrade-04-change-permissions.png)
 
-## Debugging Output
+## Saída de Depuração
 
-You can enable extra debugging output in the logger by adding a debug parameter to the URL used to launch the Upgrade:
+Você pode habilitar saída de depuração extra no logger adicionando um parâmetro de depuração à URL usada para iniciar o Upgrade:
 
 ```text
 http://example.com/upgrade/?debug=1
 ```
-

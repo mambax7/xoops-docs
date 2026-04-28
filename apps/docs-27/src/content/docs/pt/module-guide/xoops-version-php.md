@@ -1,12 +1,12 @@
 ---
-title: "xoops_version.php - Module Manifest"
+title: "xoops_version.php - Manifesto do Módulo"
 ---
 
-## Overview
+## Visão Geral
 
-The `xoops_version.php` file is the heart of every XOOPS module. It defines module metadata, database tables, templates, blocks, configuration options, and installation hooks.
+O arquivo `xoops_version.php` é o coração de cada módulo XOOPS. Ele define metadados do módulo, tabelas de banco de dados, templates, blocos, opções de configuração e hooks de instalação.
 
-## Basic Structure
+## Estrutura Básica
 
 ```php
 <?php
@@ -44,21 +44,21 @@ $modversion = [
 ];
 ```
 
-## Complete Reference
+## Referência Completa
 
-### Module Identity
+### Identidade do Módulo
 
-| Key | Type | Description |
+| Chave | Tipo | Descrição |
 |-----|------|-------------|
-| `name` | string | Display name (use language constant) |
-| `version` | string | Semantic version (MAJOR.MINOR.PATCH) |
-| `description` | string | Module description |
-| `author` | string | Primary author name |
-| `credits` | string | Additional contributors |
-| `license` | string | License name |
-| `dirname` | string | Module directory name |
+| `name` | string | Nome de exibição (usar constante de idioma) |
+| `version` | string | Versão semântica (MAJOR.MINOR.PATCH) |
+| `description` | string | Descrição do módulo |
+| `author` | string | Nome do autor principal |
+| `credits` | string | Colaboradores adicionais |
+| `license` | string | Nome da licença |
+| `dirname` | string | Nome do diretório do módulo |
 
-### Database Tables
+### Tabelas de Banco de Dados
 
 ```php
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
@@ -80,7 +80,7 @@ $modversion['templates'] = [
 ];
 ```
 
-### Blocks
+### Blocos
 
 ```php
 $modversion['blocks'][] = [
@@ -90,12 +90,12 @@ $modversion['blocks'][] = [
     'show_func'   => 'mymodule_recent_show',
     'edit_func'   => 'mymodule_recent_edit',
     'template'    => 'mymodule_block_recent.tpl',
-    'options'     => '10|0',  // default options
+    'options'     => '10|0',  // opções padrão
     'can_clone'   => true,
 ];
 ```
 
-### Configuration Options
+### Opções de Configuração
 
 ```php
 $modversion['config'][] = [
@@ -130,25 +130,25 @@ $modversion['config'][] = [
 ];
 ```
 
-### Form Types
+### Tipos de Formulário
 
-| formtype | valuetype | Description |
+| formtype | valuetype | Descrição |
 |----------|-----------|-------------|
-| `textbox` | `text`/`int` | Single-line input |
-| `textarea` | `text` | Multi-line input |
-| `yesno` | `int` | Yes/No radio |
-| `select` | `text` | Dropdown select |
-| `select_multi` | `array` | Multi-select |
-| `group` | `int` | Group selector |
-| `group_multi` | `array` | Multi-group selector |
-| `user` | `int` | User selector |
-| `color` | `text` | Color picker |
-| `hidden` | `text` | Hidden field |
+| `textbox` | `text`/`int` | Entrada de linha única |
+| `textarea` | `text` | Entrada multi-linha |
+| `yesno` | `int` | Rádio Sim/Não |
+| `select` | `text` | Seleção dropdown |
+| `select_multi` | `array` | Multi-seleção |
+| `group` | `int` | Seletor de grupo |
+| `group_multi` | `array` | Seletor multi-grupo |
+| `user` | `int` | Seletor de usuário |
+| `color` | `text` | Seletor de cor |
+| `hidden` | `text` | Campo oculto |
 
-### Menu Items
+### Itens de Menu
 
 ```php
-// Main menu
+// Menu principal
 $modversion['sub'][] = [
     'name' => _MI_MYMODULE_SMENU_INDEX,
     'url'  => 'index.php',
@@ -160,7 +160,7 @@ $modversion['sub'][] = [
 ];
 ```
 
-### Installation Hooks
+### Hooks de Instalação
 
 ```php
 $modversion['onInstall'] = 'include/oninstall.php';
@@ -168,7 +168,7 @@ $modversion['onUpdate']  = 'include/onupdate.php';
 $modversion['onUninstall'] = 'include/onuninstall.php';
 ```
 
-### Search Integration
+### Integração de Busca
 
 ```php
 $modversion['hasSearch'] = 1;
@@ -178,7 +178,7 @@ $modversion['search'] = [
 ];
 ```
 
-### Comments Integration
+### Integração de Comentários
 
 ```php
 $modversion['hasComments'] = 1;
@@ -188,7 +188,7 @@ $modversion['comments'] = [
 ];
 ```
 
-### Notifications
+### Notificações
 
 ```php
 $modversion['hasNotification'] = 1;
@@ -223,9 +223,9 @@ $modversion['notification'] = [
 ];
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- Module-Development - Complete module guide
-- Module-Structure - Directory structure
-- Block-Development - Creating blocks
-- Database-Operations - Database setup
+- Module-Development - Guia completo de módulo
+- Module-Structure - Estrutura de diretório
+- Block-Development - Criação de blocos
+- Database-Operations - Configuração de banco de dados

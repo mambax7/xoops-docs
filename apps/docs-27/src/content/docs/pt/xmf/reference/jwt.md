@@ -1,104 +1,104 @@
 ---
 title: "JWT - JSON Web Tokens"
-description: "XMF JWT implementation for secure token-based authentication and AJAX protection"
+description: "Implementação XMF JWT para autenticação baseada em token segura e proteção AJAX"
 ---
 
-The `Xmf\Jwt` namespace provides JSON Web Token (JWT) support for XOOPS modules. JWTs enable secure, stateless authentication and are particularly useful for protecting AJAX requests.
+O namespace `Xmf\Jwt` fornece suporte a JSON Web Token (JWT) para módulos XOOPS. JWTs permitem autenticação segura e stateless e são particularmente úteis para proteger requisições AJAX.
 
-## What are JSON Web Tokens?
+## O que são JSON Web Tokens?
 
-JSON Web Tokens are a standard way to publish a set of *claims* (data) as a text string, with cryptographic verification that the claims have not been tampered with. For detailed specifications, see:
+JSON Web Tokens são uma forma padrão de publicar um conjunto de *claims* (dados) como uma cadeia de texto, com verificação criptográfica que os claims não foram adulterados. Para especificações detalhadas, veja:
 
 - [jwt.io](https://jwt.io/)
 - [RFC 7519](https://tools.ietf.org/html/rfc7519)
 
-### Key Characteristics
+### Características Principais
 
-- **Signed**: Tokens are cryptographically signed to detect tampering
-- **Self-contained**: All necessary information is in the token itself
-- **Stateless**: No server-side session storage required
-- **Expirable**: Tokens can include expiration times
+- **Assinado**: Tokens são assinados criptograficamente para detectar adulteração
+- **Auto-contido**: Todas as informações necessárias estão no token em si
+- **Stateless**: Nenhum armazenamento de sessão server-side necessário
+- **Expirável**: Tokens podem incluir tempos de expiração
 
-> **Note:** JWTs are signed, not encrypted. The data is Base64 encoded and visible. Use JWTs for integrity verification, not for hiding sensitive data.
+> **Nota:** JWTs são assinados, não criptografados. Os dados são codificados em Base64 e visíveis. Use JWTs para verificação de integridade, não para ocultar dados sensíveis.
 
-## Why Use JWT in XOOPS?
+## Por Que Usar JWT em XOOPS?
 
-### The AJAX Token Problem
+### O Problema do Token AJAX
 
-XOOPS forms use nonce tokens for CSRF protection. However, nonces work poorly with AJAX because:
+Formulários XOOPS usam tokens nonce para proteção CSRF. Porém, nonces funcionam mal com AJAX porque:
 
-1. **Single Use**: Nonces are typically valid for one submission
-2. **Asynchronous Issues**: Multiple AJAX requests may arrive out of order
-3. **Refresh Complexity**: No reliable way to refresh tokens asynchronously
-4. **Context Binding**: Standard tokens don't verify which script issued them
+1. **Uso Único**: Nonces tipicamente são válidos para uma submissão
+2. **Problemas Assíncronos**: Múltiplas requisições AJAX podem chegar fora de ordem
+3. **Complexidade de Atualização**: Sem forma confiável de atualizar tokens assincronamente
+4. **Binding de Contexto**: Tokens padrão não verificam qual script os emitiu
 
-### JWT Advantages
+### Vantagens JWT
 
-JWTs solve these problems by:
+JWTs resolvem estes problemas ao:
 
-- Including an expiration time (`exp` claim) for time-limited validity
-- Supporting custom claims to bind tokens to specific scripts
-- Enabling multiple requests within the validity period
-- Providing cryptographic verification of token origin
+- Incluir tempo de expiração (claim `exp`) para validade limitada de tempo
+- Suportar claims customizados para vincular tokens a scripts específicos
+- Permitir múltiplas requisições dentro do período de validade
+- Fornecer verificação criptográfica da origem do token
 
-## Core Classes
+## Classes Principais
 
 ### JsonWebToken
 
-The `Xmf\Jwt\JsonWebToken` class handles token creation and decoding.
+A classe `Xmf\Jwt\JsonWebToken` manipula criação e decodificação de token.
 
 ```php
 use Xmf\Jwt\JsonWebToken;
 use Xmf\Jwt\KeyFactory;
 
-// Create a key
+// Criar uma chave
 $key = KeyFactory::build('my_application_key');
 
-// Create a JsonWebToken instance
+// Criar instância JsonWebToken
 $jwt = new JsonWebToken($key, 'HS256');
 
-// Create a token
+// Criar um token
 $payload = ['user_id' => 123, 'aud' => 'myaction'];
-$token = $jwt->create($payload, 300); // Expires in 300 seconds
+$token = $jwt->create($payload, 300); // Expira em 300 segundos
 
-// Decode and verify a token
+// Decodificar e verificar um token
 $assertClaims = ['aud' => 'myaction'];
 $decoded = $jwt->decode($tokenString, $assertClaims);
 ```
 
-#### Methods
+#### Métodos
 
 **`new JsonWebToken($key, $algorithm)`**
 
-Creates a new JWT handler.
-- `$key`: A `Xmf\Key\KeyAbstract` object
-- `$algorithm`: Signing algorithm (default: 'HS256')
+Cria novo manipulador JWT.
+- `$key`: Um objeto `Xmf\Key\KeyAbstract`
+- `$algorithm`: Algoritmo de assinatura (padrão: 'HS256')
 
 **`create($payload, $expirationOffset)`**
 
-Creates a signed token string.
-- `$payload`: Array of claims
-- `$expirationOffset`: Seconds until expiration (optional)
+Cria cadeia de token assinado.
+- `$payload`: Array de claims
+- `$expirationOffset`: Segundos até expiração (opcional)
 
 **`decode($jwtString, $assertClaims)`**
 
-Decodes and validates a token.
-- `$jwtString`: The token to decode
-- `$assertClaims`: Claims to verify (empty array for none)
-- Returns: stdClass payload or false if invalid
+Decodifica e valida um token.
+- `$jwtString`: O token a decodificar
+- `$assertClaims`: Claims a verificar (array vazio para nenhum)
+- Retorna: stdClass payload ou false se inválido
 
 **`setAlgorithm($algorithm)`**
 
-Changes the signing/verification algorithm.
+Muda o algoritmo de assinatura/verificação.
 
 ### TokenFactory
 
-The `Xmf\Jwt\TokenFactory` provides a convenient way to create tokens.
+O `Xmf\Jwt\TokenFactory` fornece uma forma conveniente de criar tokens.
 
 ```php
 use Xmf\Jwt\TokenFactory;
 
-// Create a token with automatic key handling
+// Criar token com manipulação automática de chave
 $claims = [
     'aud' => 'myaction.php',
     'user_id' => $userId,
@@ -106,63 +106,63 @@ $claims = [
 ];
 
 $token = TokenFactory::build('my_key', $claims, 120);
-// Token expires in 120 seconds
+// Token expira em 120 segundos
 ```
 
 **`TokenFactory::build($key, $payload, $expirationOffset)`**
 
-- `$key`: Key name string or KeyAbstract object
-- `$payload`: Array of claims
-- `$expirationOffset`: Expiration in seconds
+- `$key`: Cadeia de nome de chave ou objeto KeyAbstract
+- `$payload`: Array de claims
+- `$expirationOffset`: Expiração em segundos
 
-Throws exceptions on failure: `DomainException`, `InvalidArgumentException`, `UnexpectedValueException`
+Lança exceções em falha: `DomainException`, `InvalidArgumentException`, `UnexpectedValueException`
 
 ### TokenReader
 
-The `Xmf\Jwt\TokenReader` class simplifies reading tokens from various sources.
+A classe `Xmf\Jwt\TokenReader` simplifica leitura de tokens de várias fontes.
 
 ```php
 use Xmf\Jwt\TokenReader;
 
 $assertClaims = ['aud' => 'myaction.php'];
 
-// From a string
+// De uma cadeia
 $payload = TokenReader::fromString('my_key', $tokenString, $assertClaims);
 
-// From a cookie
+// De um cookie
 $payload = TokenReader::fromCookie('my_key', 'token_cookie', $assertClaims);
 
-// From a request parameter
+// De um parâmetro de requisição
 $payload = TokenReader::fromRequest('my_key', 'token', $assertClaims);
 
-// From Authorization header (Bearer token)
+// Do cabeçalho de Autorização (Bearer token)
 $payload = TokenReader::fromHeader('my_key', $assertClaims);
 ```
 
-All methods return the payload as `stdClass` or `false` if invalid.
+Todos os métodos retornam payload como `stdClass` ou `false` se inválido.
 
 ### KeyFactory
 
-The `Xmf\Jwt\KeyFactory` creates and manages cryptographic keys.
+O `Xmf\Jwt\KeyFactory` cria e gerencia chaves criptográficas.
 
 ```php
 use Xmf\Jwt\KeyFactory;
 
-// Build a key (creates if it doesn't exist)
+// Construir uma chave (cria se não existir)
 $key = KeyFactory::build('my_application_key');
 
-// With custom storage
+// Com armazenamento customizado
 $storage = new \Xmf\Key\FileStorage('/custom/path');
 $key = KeyFactory::build('my_key', $storage);
 ```
 
-Keys are stored persistently. The default storage uses the file system.
+Chaves são armazenadas persistentemente. O armazenamento padrão usa o sistema de arquivos.
 
-## AJAX Protection Example
+## Exemplo de Proteção AJAX
 
-Here is a complete example demonstrating JWT-protected AJAX.
+Aqui está um exemplo completo demonstrando AJAX protegido por JWT.
 
-### Page Script (Generates Token)
+### Script de Página (Gera Token)
 
 ```php
 <?php
@@ -173,17 +173,17 @@ use Xmf\Request;
 
 require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 
-// Claims to include and verify
+// Claims a incluir e verificar
 $assertClaims = ['aud' => basename(__FILE__)];
 
-// Check if this is an AJAX request
+// Verificar se isto é uma requisição AJAX
 $isAjax = (0 === strcasecmp(Request::getHeader('X-Requested-With', ''), 'XMLHttpRequest'));
 
 if ($isAjax) {
-    // Handle AJAX request
+    // Manipular requisição AJAX
     $GLOBALS['xoopsLogger']->activated = false;
 
-    // Verify the token from the Authorization header
+    // Verificar token do cabeçalho de Autorização
     $token = TokenReader::fromHeader('ajax_key', $assertClaims);
 
     if (false === $token) {
@@ -192,11 +192,11 @@ if ($isAjax) {
         exit;
     }
 
-    // Token is valid - process the request
+    // Token é válido - processar a requisição
     $action = Request::getCmd('action', '');
     $itemId = isset($token->item_id) ? $token->item_id : 0;
 
-    // Your AJAX logic here
+    // Sua lógica AJAX aqui
     $response = ['success' => true, 'item_id' => $itemId];
 
     http_response_code(200);
@@ -205,21 +205,21 @@ if ($isAjax) {
     exit;
 }
 
-// Regular page request - generate token and display page
+// Requisição de página normal - gerar token e exibir página
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 $helper = Helper::getHelper(basename(__DIR__));
 
-// Create token with claims
+// Criar token com claims
 $claims = array_merge($assertClaims, [
     'item_id' => 42,
     'user_id' => $GLOBALS['xoopsUser']->getVar('uid')
 ]);
 
-// Token valid for 2 minutes
+// Token válido por 2 minutos
 $token = TokenFactory::build('ajax_key', $claims, 120);
 
-// JavaScript for AJAX calls
+// JavaScript para chamadas AJAX
 $script = <<<JS
 <script>
 function performAction(action) {
@@ -234,7 +234,7 @@ function performAction(action) {
         success: function(data) {
             if (data.success) {
                 console.log('Action completed:', data);
-                // Update UI
+                // Atualizar UI
             }
         },
         error: function(xhr, status, error) {
@@ -256,44 +256,44 @@ echo '<button onclick="performAction(\'delete\')">Delete Item</button>';
 require_once XOOPS_ROOT_PATH . '/footer.php';
 ```
 
-## Best Practices
+## Melhores Práticas
 
-### Token Expiration
+### Expiração de Token
 
-Set appropriate expiration times based on use case:
+Defina tempos de expiração apropriados baseado em caso de uso:
 
 ```php
-// Short-lived for sensitive operations (2 minutes)
+// Curta duração para operações sensíveis (2 minutos)
 $token = TokenFactory::build('key', $claims, 120);
 
-// Longer for general page interactions (30 minutes)
+// Mais tempo para interações de página geral (30 minutos)
 $token = TokenFactory::build('key', $claims, 1800);
 ```
 
-### Claim Verification
+### Verificação de Claim
 
-Always verify the `aud` (audience) claim to ensure tokens are used with the intended script:
+Sempre verifique o claim `aud` (audience) para garantir tokens são usados com o script pretendido:
 
 ```php
-// When creating
+// Ao criar
 $claims = ['aud' => 'process_order.php', 'order_id' => 123];
 
-// When verifying
+// Ao verificar
 $assertClaims = ['aud' => 'process_order.php'];
 $token = TokenReader::fromHeader('key', $assertClaims);
 ```
 
-### Key Naming
+### Nomeação de Chave
 
-Use descriptive key names for different purposes:
+Use nomes de chave descritivos para propósitos diferentes:
 
 ```php
-// Separate keys for different features
+// Chaves separadas para diferentes recursos
 $orderToken = TokenFactory::build('order_processing', $orderClaims, 300);
 $commentToken = TokenFactory::build('comment_system', $commentClaims, 600);
 ```
 
-### Error Handling
+### Manipulação de Erro
 
 ```php
 use Xmf\Jwt\TokenFactory;
@@ -302,26 +302,26 @@ use Xmf\Jwt\TokenReader;
 try {
     $token = TokenFactory::build('my_key', $claims, 300);
 } catch (\DomainException $e) {
-    // Invalid algorithm
+    // Algoritmo inválido
     error_log('JWT Error: ' . $e->getMessage());
 } catch (\InvalidArgumentException $e) {
-    // Invalid argument
+    // Argumento inválido
     error_log('JWT Error: ' . $e->getMessage());
 } catch (\UnexpectedValueException $e) {
-    // Unexpected value
+    // Valor inesperado
     error_log('JWT Error: ' . $e->getMessage());
 }
 
-// Reading tokens returns false on failure (no exception)
+// Ler tokens retorna false em falha (sem exceção)
 $payload = TokenReader::fromHeader('my_key', $assertClaims);
 if ($payload === false) {
-    // Token invalid, expired, or tampered
+    // Token inválido, expirado ou adulterado
 }
 ```
 
-## Token Transport Methods
+## Métodos de Transporte de Token
 
-### Authorization Header (Recommended)
+### Cabeçalho de Autorização (Recomendado)
 
 ```javascript
 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -334,14 +334,14 @@ $payload = TokenReader::fromHeader('key', $assertClaims);
 ### Cookie
 
 ```php
-// Set cookie with token
+// Definir cookie com token
 setcookie('api_token', $token, time() + 300, '/', '', true, true);
 
-// Read from cookie
+// Ler de cookie
 $payload = TokenReader::fromCookie('key', 'api_token', $assertClaims);
 ```
 
-### Request Parameter
+### Parâmetro de Requisição
 
 ```javascript
 $.ajax({
@@ -354,51 +354,51 @@ $.ajax({
 $payload = TokenReader::fromRequest('key', 'token', $assertClaims);
 ```
 
-## Security Considerations
+## Considerações de Segurança
 
-1. **Use HTTPS**: Always use HTTPS to prevent token interception
-2. **Short Expiration**: Use the shortest practical expiration time
-3. **Specific Claims**: Include claims that tie tokens to specific contexts
-4. **Server-Side Validation**: Always validate tokens server-side
-5. **Don't Store Sensitive Data**: Remember tokens are readable (not encrypted)
+1. **Use HTTPS**: Sempre use HTTPS para prevenir interceptação de token
+2. **Expiração Curta**: Use o tempo de expiração mais curto praticável
+3. **Claims Específicos**: Inclua claims que vinculem tokens a contextos específicos
+4. **Validação Server-Side**: Sempre valide tokens server-side
+5. **Não Armazene Dados Sensíveis**: Lembre que tokens são legíveis (não criptografados)
 
-## API Reference
+## Referência da API
 
 ### Xmf\Jwt\JsonWebToken
 
-| Method | Description |
-|--------|-------------|
-| `__construct($key, $algorithm)` | Create JWT handler |
-| `setAlgorithm($algorithm)` | Set signing algorithm |
-| `create($payload, $expiration)` | Create signed token |
-| `decode($token, $assertClaims)` | Decode and verify token |
+| Método | Descrição |
+|--------|-----------|
+| `__construct($key, $algorithm)` | Criar manipulador JWT |
+| `setAlgorithm($algorithm)` | Definir algoritmo de assinatura |
+| `create($payload, $expiration)` | Criar token assinado |
+| `decode($token, $assertClaims)` | Decodificar e verificar token |
 
 ### Xmf\Jwt\TokenFactory
 
-| Method | Description |
-|--------|-------------|
-| `build($key, $payload, $expiration)` | Create token string |
+| Método | Descrição |
+|--------|-----------|
+| `build($key, $payload, $expiration)` | Criar cadeia de token |
 
 ### Xmf\Jwt\TokenReader
 
-| Method | Description |
-|--------|-------------|
-| `fromString($key, $token, $claims)` | Decode from string |
-| `fromCookie($key, $name, $claims)` | Decode from cookie |
-| `fromRequest($key, $name, $claims)` | Decode from request |
-| `fromHeader($key, $claims, $header)` | Decode from header |
+| Método | Descrição |
+|--------|-----------|
+| `fromString($key, $token, $claims)` | Decodificar de cadeia |
+| `fromCookie($key, $name, $claims)` | Decodificar de cookie |
+| `fromRequest($key, $name, $claims)` | Decodificar de requisição |
+| `fromHeader($key, $claims, $header)` | Decodificar de cabeçalho |
 
 ### Xmf\Jwt\KeyFactory
 
-| Method | Description |
-|--------|-------------|
-| `build($name, $storage)` | Get or create key |
+| Método | Descrição |
+|--------|-----------|
+| `build($name, $storage)` | Obter ou criar chave |
 
-## See Also
+## Veja Também
 
-- ../Basics/XMF-Request - Request handling
-- ../XMF-Framework - Framework overview
-- Database - Database utilities
+- ../Basics/XMF-Request - Manipulação de requisições
+- ../XMF-Framework - Visão geral do framework
+- Database - Utilitários de banco de dados
 
 ---
 

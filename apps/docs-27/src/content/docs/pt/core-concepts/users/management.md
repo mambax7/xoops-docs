@@ -1,17 +1,17 @@
 ---
-title: "User Management"
-description: "Comprehensive guide to XOOPS user system, registration, authentication, and profile management"
+title: "Gerenciamento de Usuários"
+description: "Guia abrangente para o sistema de usuários XOOPS, registro, autenticação e gerenciamento de perfil"
 ---
 
-# User Management in XOOPS
+# Gerenciamento de Usuários no XOOPS
 
-The XOOPS User Management system provides a complete framework for handling user registration, authentication, profile management, and user preferences. This document covers the user object structure, registration flows, and practical implementation examples.
+O sistema de Gerenciamento de Usuários do XOOPS fornece um framework completo para lidar com registro de usuários, autenticação, gerenciamento de perfil e preferências do usuário. Este documento cobre a estrutura do objeto de usuário, fluxos de registro e exemplos de implementação prática.
 
-## User Object Structure
+## Estrutura do Objeto de Usuário
 
-The core user object in XOOPS is the `XoopsUser` class, which encapsulates all user data and methods.
+O objeto de usuário principal no XOOPS é a classe `XoopsUser`, que encapsula todos os dados do usuário e métodos.
 
-### Database Schema
+### Esquema de Banco de Dados
 
 ```sql
 CREATE TABLE xoops_users (
@@ -40,7 +40,7 @@ CREATE TABLE xoops_users (
 );
 ```
 
-### XoopsUser Class Properties
+### Propriedades da Classe XoopsUser
 
 ```php
 class XoopsUser
@@ -70,55 +70,55 @@ class XoopsUser
 }
 ```
 
-## User Registration Flow
+## Fluxo de Registro de Usuário
 
-### Registration Sequence Diagram
+### Diagrama de Sequência de Registro
 
 ```mermaid
 sequenceDiagram
-    participant User as Web User
+    participant User as Usuário Web
     participant Browser
-    participant Server as XOOPS Server
-    participant DB as Database
-    participant Email as Email Service
+    participant Server as Servidor XOOPS
+    participant DB as Banco de Dados
+    participant Email as Serviço de Email
 
-    User->>Browser: Fill Registration Form
+    User->>Browser: Preencher Formulário de Registro
     Browser->>Server: POST /register
 
-    Server->>Server: Validate Input
-    note over Server: Check username,<br/>email, password<br/>requirements
+    Server->>Server: Validar Entrada
+    note over Server: Verificar nome de usuário,<br/>email, requisitos<br/>de senha
 
-    alt Validation Fails
-        Server-->>Browser: Show Errors
-    else Validation Passes
-        Server->>Server: Hash Password
-        Server->>DB: Insert User Record
-        DB-->>Server: Success (uid)
+    alt Validação Falha
+        Server-->>Browser: Mostrar Erros
+    else Validação Passa
+        Server->>Server: Hash de Senha
+        Server->>DB: Inserir Registro de Usuário
+        DB-->>Server: Sucesso (uid)
 
-        Server->>Server: Generate Verification Token
-        Server->>Email: Send Activation Email
-        Email-->>User: Activation Link
+        Server->>Server: Gerar Token de Verificação
+        Server->>Email: Enviar Email de Ativação
+        Email-->>User: Link de Ativação
 
-        Server-->>Browser: Registration Confirmation
+        Server-->>Browser: Confirmação de Registro
 
-        User->>Email: Click Activation Link
-        Email-->>Browser: Redirect to Activate URL
+        User->>Email: Clicar no Link de Ativação
+        Email-->>Browser: Redirecionar para URL de Ativação
         Browser->>Server: GET /activate?token=xxx
 
-        Server->>DB: Mark User as Active
-        DB-->>Server: Confirmed
+        Server->>DB: Marcar Usuário como Ativo
+        DB-->>Server: Confirmado
 
-        Server-->>Browser: Account Activated
-        Browser-->>User: Show Success Message
+        Server-->>Browser: Conta Ativada
+        Browser-->>User: Mostrar Mensagem de Sucesso
     end
 ```
 
-### Registration Implementation
+### Implementação de Registro
 
 ```php
 <?php
 /**
- * User Registration Handler
+ * Manipulador de Registro de Usuário
  */
 class RegistrationHandler
 {
@@ -132,68 +132,68 @@ class RegistrationHandler
     }
 
     /**
-     * Validate registration input
+     * Validar entrada de registro
      *
-     * @param array $data Registration form data
-     * @return array Validation errors, empty if valid
+     * @param array $data Dados do formulário de registro
+     * @return array Erros de validação, vazio se válido
      */
     public function validateInput(array $data): array
     {
         $errors = [];
 
-        // Username validation
+        // Validação de nome de usuário
         if (empty($data['uname'])) {
-            $errors[] = 'Username is required';
+            $errors[] = 'Nome de usuário é obrigatório';
         } elseif (strlen($data['uname']) < 3) {
-            $errors[] = 'Username must be at least 3 characters';
+            $errors[] = 'Nome de usuário deve ter pelo menos 3 caracteres';
         } elseif (!preg_match('/^[a-zA-Z0-9_-]+$/', $data['uname'])) {
-            $errors[] = 'Username contains invalid characters';
+            $errors[] = 'Nome de usuário contém caracteres inválidos';
         } elseif ($this->userHandler->getUserByName($data['uname'])) {
-            $errors[] = 'Username already exists';
+            $errors[] = 'Nome de usuário já existe';
         }
 
-        // Email validation
+        // Validação de email
         if (empty($data['email'])) {
-            $errors[] = 'Email is required';
+            $errors[] = 'Email é obrigatório';
         } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'Invalid email format';
+            $errors[] = 'Formato de email inválido';
         } elseif ($this->userHandler->getUserByEmail($data['email'])) {
-            $errors[] = 'Email already registered';
+            $errors[] = 'Email já foi registrado';
         }
 
-        // Password validation
+        // Validação de senha
         if (empty($data['password'])) {
-            $errors[] = 'Password is required';
+            $errors[] = 'Senha é obrigatória';
         } elseif (strlen($data['password']) < 8) {
-            $errors[] = 'Password must be at least 8 characters';
+            $errors[] = 'Senha deve ter pelo menos 8 caracteres';
         } elseif ($data['password'] !== $data['password_confirm']) {
-            $errors[] = 'Passwords do not match';
+            $errors[] = 'As senhas não coincidem';
         }
 
         return $errors;
     }
 
     /**
-     * Register new user
+     * Registrar novo usuário
      *
-     * @param array $data Registration data
-     * @return XoopsUser|false User object or false on failure
+     * @param array $data Dados de registro
+     * @return XoopsUser|false Objeto de usuário ou falso em caso de falha
      */
     public function registerUser(array $data)
     {
-        // Validate input
+        // Validar entrada
         $errors = $this->validateInput($data);
         if (!empty($errors)) {
             return false;
         }
 
-        // Create user object
+        // Criar objeto de usuário
         $user = $this->userHandler->create();
         $user->setVar('uname', $data['uname']);
         $user->setVar('email', $data['email']);
         $user->setVar('user_regdate', time());
 
-        // Hash password using bcrypt
+        // Hash de senha usando bcrypt
         $hashedPassword = password_hash(
             $data['password'],
             PASSWORD_BCRYPT,
@@ -201,19 +201,19 @@ class RegistrationHandler
         );
         $user->setVar('pass', $hashedPassword);
 
-        // Set default preferences
+        // Definir preferências padrão
         $user->setVar('user_theme', $this->configHandler->getConfig('default_theme'));
         $user->setVar('user_language', $this->configHandler->getConfig('default_language'));
 
-        // Save user
+        // Salvar usuário
         if ($this->userHandler->insertUser($user)) {
             $uid = $user->getVar('uid');
 
-            // Generate verification token
+            // Gerar token de verificação
             $token = bin2hex(random_bytes(32));
             $this->saveVerificationToken($uid, $token);
 
-            // Send verification email
+            // Enviar email de verificação
             $this->sendVerificationEmail($user, $token);
 
             return $user;
@@ -223,22 +223,22 @@ class RegistrationHandler
     }
 
     /**
-     * Save verification token
+     * Salvar token de verificação
      *
-     * @param int $uid User ID
-     * @param string $token Verification token
+     * @param int $uid ID do Usuário
+     * @param string $token Token de verificação
      */
     private function saveVerificationToken(int $uid, string $token): void
     {
         $tokenHandler = xoops_getHandler('usertoken');
-        $tokenHandler->saveToken($uid, $token, 'email_verification', 24); // 24 hours
+        $tokenHandler->saveToken($uid, $token, 'email_verification', 24); // 24 horas
     }
 
     /**
-     * Send verification email
+     * Enviar email de verificação
      *
-     * @param XoopsUser $user User object
-     * @param string $token Verification token
+     * @param XoopsUser $user Objeto de usuário
+     * @param string $token Token de verificação
      */
     private function sendVerificationEmail(XoopsUser $user, string $token): void
     {
@@ -247,12 +247,12 @@ class RegistrationHandler
         $siteUrl = $xoopsConfig['siteurl'];
         $activationUrl = $siteUrl . '/user.php?op=activate&token=' . $token;
 
-        $subject = 'Email Verification - ' . $xoopsConfig['sitename'];
-        $body = "Hello " . $user->getVar('uname') . ",\n\n";
-        $body .= "Please click the link below to verify your email:\n";
+        $subject = 'Verificação de Email - ' . $xoopsConfig['sitename'];
+        $body = "Olá " . $user->getVar('uname') . ",\n\n";
+        $body .= "Por favor clique no link abaixo para verificar seu email:\n";
         $body .= $activationUrl . "\n\n";
-        $body .= "This link will expire in 24 hours.\n\n";
-        $body .= "Regards,\n" . $xoopsConfig['sitename'];
+        $body .= "Este link expirará em 24 horas.\n\n";
+        $body .= "Atenciosamente,\n" . $xoopsConfig['sitename'];
 
         $mailHandler = xoops_getHandler('mail');
         $mailHandler->send($user->getVar('email'), $subject, $body);
@@ -260,50 +260,50 @@ class RegistrationHandler
 }
 ```
 
-## User Authentication Process
+## Processo de Autenticação de Usuário
 
-### Authentication Flow Diagram
+### Diagrama de Fluxo de Autenticação
 
 ```mermaid
 graph TD
-    A["Login Form"] --> B["Username/Email & Password"]
-    B --> C{"Input Validation"}
-    C -->|Invalid| D["Show Error"]
-    C -->|Valid| E["Query User Database"]
-    E --> F{"User Found?"}
-    F -->|No| G["Invalid Credentials"]
-    G --> H["Log Failed Attempt"]
-    H --> I{"Max Attempts?"}
-    I -->|Yes| J["Account Locked"]
-    I -->|No| D
-    F -->|Yes| K["Verify Password Hash"]
-    K --> L{"Hash Match?"}
-    L -->|No| H
-    L -->|Yes| M["Check Account Status"]
-    M --> N{"Account Active?"}
-    N -->|No| O["Account Inactive/Suspended"]
-    N -->|Yes| P["Create Session"]
-    P --> Q["Store Session Token"]
-    Q --> R{"Remember Me?"}
-    R -->|Yes| S["Set Long-lived Cookie"]
-    R -->|No| T["Set Session Cookie"]
-    S --> U["Update Last Login"]
+    A["Formulário de Login"] --> B["Nome de Usuário/Email e Senha"]
+    B --> C{"Validação de Entrada"}
+    C -->|Inválida| D["Mostrar Erro"]
+    C -->|Válida| E["Consultar Banco de Dados de Usuários"]
+    E --> F{"Usuário Encontrado?"}
+    F -->|Não| G["Credenciais Inválidas"]
+    G --> H["Registrar Tentativa Falhada"]
+    H --> I{"Máximo de Tentativas?"}
+    I -->|Sim| J["Conta Bloqueada"]
+    I -->|Não| D
+    F -->|Sim| K["Verificar Hash de Senha"]
+    K --> L{"Hash Corresponde?"}
+    L -->|Não| H
+    L -->|Sim| M["Verificar Status da Conta"]
+    M --> N{"Conta Ativa?"}
+    N -->|Não| O["Conta Inativa/Suspensa"]
+    N -->|Sim| P["Criar Sessão"]
+    P --> Q["Armazenar Token de Sessão"]
+    Q --> R{"Lembrar-me?"}
+    R -->|Sim| S["Definir Cookie de Longa Duração"]
+    R -->|Não| T["Definir Cookie de Sessão"]
+    S --> U["Atualizar Último Login"]
     T --> U
-    U --> V["Redirect to Dashboard"]
+    U --> V["Redirecionar para Painel"]
 ```
 
-### Authentication Implementation
+### Implementação de Autenticação
 
 ```php
 <?php
 /**
- * Authentication Handler
+ * Manipulador de Autenticação
  */
 class AuthenticationHandler
 {
     private $userHandler;
     private $maxLoginAttempts = 5;
-    private $lockoutDuration = 900; // 15 minutes
+    private $lockoutDuration = 900; // 15 minutos
 
     public function __construct()
     {
@@ -311,12 +311,12 @@ class AuthenticationHandler
     }
 
     /**
-     * Authenticate user by username/email and password
+     * Autenticar usuário por nome de usuário/email e senha
      *
-     * @param string $username Username or email
-     * @param string $password Plain text password
-     * @param bool $rememberMe Remember login
-     * @return XoopsUser|false Authenticated user or false
+     * @param string $username Nome de usuário ou email
+     * @param string $password Senha em texto plano
+     * @param bool $rememberMe Lembrar login
+     * @return XoopsUser|false Usuário autenticado ou falso
      */
     public function authenticate(
         string $username,
@@ -324,12 +324,12 @@ class AuthenticationHandler
         bool $rememberMe = false
     )
     {
-        // Check account lockout
+        // Verificar bloqueio de conta
         if ($this->isAccountLocked($username)) {
-            throw new Exception('Account temporarily locked due to failed login attempts');
+            throw new Exception('Conta temporariamente bloqueada devido a tentativas de login falhadas');
         }
 
-        // Find user by username or email
+        // Encontrar usuário por nome de usuário ou email
         $user = $this->userHandler->getUserByName($username);
         if (!$user) {
             $user = $this->userHandler->getUserByEmail($username);
@@ -340,39 +340,39 @@ class AuthenticationHandler
             return false;
         }
 
-        // Verify password
+        // Verificar senha
         if (!password_verify($password, $user->getVar('pass'))) {
             $this->recordFailedAttempt($username);
             return false;
         }
 
-        // Check account status
+        // Verificar status da conta
         if ($user->getVar('level') == 0) {
-            throw new Exception('Account is inactive');
+            throw new Exception('Conta está inativa');
         }
 
-        // Clear failed attempts
+        // Limpar tentativas falhadas
         $this->clearFailedAttempts($user->getVar('uid'));
 
-        // Update last login
+        // Atualizar último login
         $user->setVar('last_login', date('Y-m-d H:i:s'));
         $this->userHandler->insertUser($user);
 
-        // Create session
+        // Criar sessão
         $this->createSession($user, $rememberMe);
 
         return $user;
     }
 
     /**
-     * Create authenticated session
+     * Criar sessão autenticada
      *
-     * @param XoopsUser $user User object
-     * @param bool $rememberMe Enable persistent login
+     * @param XoopsUser $user Objeto de usuário
+     * @param bool $rememberMe Habilitar login persistente
      */
     private function createSession(XoopsUser $user, bool $rememberMe = false): void
     {
-        // Generate session token
+        // Gerar token de sessão
         $token = bin2hex(random_bytes(32));
 
         $_SESSION['xoopsUserId'] = $user->getVar('uid');
@@ -380,11 +380,11 @@ class AuthenticationHandler
         $_SESSION['xoopsSessionToken'] = $token;
         $_SESSION['xoopsSessionCreated'] = time();
 
-        // Store token in database for validation
+        // Armazenar token em banco de dados para validação
         $this->storeSessionToken($user->getVar('uid'), $token);
 
         if ($rememberMe) {
-            // Create persistent login cookie (14 days)
+            // Criar cookie de login persistente (14 dias)
             $cookieToken = bin2hex(random_bytes(32));
             setcookie(
                 'xoops_persistent_login',
@@ -396,7 +396,7 @@ class AuthenticationHandler
                 true   // HttpOnly
             );
 
-            // Store cookie token hash
+            // Armazenar hash do token do cookie
             $this->storePersistentToken(
                 $user->getVar('uid'),
                 hash('sha256', $cookieToken)
@@ -405,9 +405,9 @@ class AuthenticationHandler
     }
 
     /**
-     * Record failed login attempt
+     * Registrar tentativa de login falhada
      *
-     * @param string $username Username or email
+     * @param string $username Nome de usuário ou email
      */
     private function recordFailedAttempt(string $username): void
     {
@@ -417,10 +417,10 @@ class AuthenticationHandler
     }
 
     /**
-     * Check if account is locked
+     * Verificar se conta está bloqueada
      *
-     * @param string $username Username or email
-     * @return bool True if locked
+     * @param string $username Nome de usuário ou email
+     * @return bool Verdadeiro se bloqueada
      */
     private function isAccountLocked(string $username): bool
     {
@@ -430,9 +430,9 @@ class AuthenticationHandler
     }
 
     /**
-     * Clear failed attempts
+     * Limpar tentativas falhadas
      *
-     * @param int $uid User ID
+     * @param int $uid ID do Usuário
      */
     private function clearFailedAttempts(int $uid): void
     {
@@ -442,19 +442,19 @@ class AuthenticationHandler
     }
 
     /**
-     * Store session token
+     * Armazenar token de sessão
      *
-     * @param int $uid User ID
-     * @param string $token Session token
+     * @param int $uid ID do Usuário
+     * @param string $token Token de sessão
      */
     private function storeSessionToken(int $uid, string $token): void
     {
-        // Store in database or cache
+        // Armazenar em banco de dados ou cache
         $tokenData = [
             'uid' => $uid,
             'token' => hash('sha256', $token),
             'created' => time(),
-            'expires' => time() + (8 * 60 * 60) // 8 hours
+            'expires' => time() + (8 * 60 * 60) // 8 horas
         ];
 
         $db = XoopsDatabaseFactory::getDatabaseConnection();
@@ -465,14 +465,14 @@ class AuthenticationHandler
 }
 ```
 
-## Profile Management
+## Gerenciamento de Perfil
 
-### Profile Update Implementation
+### Implementação de Atualização de Perfil
 
 ```php
 <?php
 /**
- * User Profile Management
+ * Gerenciamento de Perfil de Usuário
  */
 class ProfileManager
 {
@@ -486,11 +486,11 @@ class ProfileManager
     }
 
     /**
-     * Update user profile
+     * Atualizar perfil do usuário
      *
-     * @param int $uid User ID
-     * @param array $data Profile data
-     * @return bool Success status
+     * @param int $uid ID do Usuário
+     * @param array $data Dados do perfil
+     * @return bool Status de sucesso
      */
     public function updateProfile(int $uid, array $data): bool
     {
@@ -499,12 +499,12 @@ class ProfileManager
             return false;
         }
 
-        // Update profile fields
+        // Atualizar campos do perfil
         if (isset($data['email'])) {
-            // Verify email is unique (excluding current user)
+            // Verificar se email é único (excluindo usuário atual)
             $existingUser = $this->userHandler->getUserByEmail($data['email']);
             if ($existingUser && $existingUser->getVar('uid') !== $uid) {
-                throw new Exception('Email already in use');
+                throw new Exception('Email já está em uso');
             }
             $user->setVar('email', $data['email']);
         }
@@ -520,7 +520,7 @@ class ProfileManager
         if (isset($data['user_sig'])) {
             $sig = $data['user_sig'];
             if (strlen($sig) > 500) {
-                throw new Exception('Signature too long');
+                throw new Exception('Assinatura muito longa');
             }
             $user->setVar('user_sig', $sig);
         }
@@ -549,12 +549,12 @@ class ProfileManager
     }
 
     /**
-     * Change user password
+     * Alterar senha do usuário
      *
-     * @param int $uid User ID
-     * @param string $currentPassword Current password
-     * @param string $newPassword New password
-     * @return bool Success status
+     * @param int $uid ID do Usuário
+     * @param string $currentPassword Senha atual
+     * @param string $newPassword Nova senha
+     * @return bool Status de sucesso
      */
     public function changePassword(
         int $uid,
@@ -567,17 +567,17 @@ class ProfileManager
             return false;
         }
 
-        // Verify current password
+        // Verificar senha atual
         if (!password_verify($currentPassword, $user->getVar('pass'))) {
-            throw new Exception('Current password is incorrect');
+            throw new Exception('Senha atual está incorreta');
         }
 
-        // Validate new password
+        // Validar nova senha
         if (strlen($newPassword) < 8) {
-            throw new Exception('New password must be at least 8 characters');
+            throw new Exception('Nova senha deve ter pelo menos 8 caracteres');
         }
 
-        // Hash new password
+        // Hash da nova senha
         $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]);
         $user->setVar('pass', $hashedPassword);
 
@@ -585,10 +585,10 @@ class ProfileManager
     }
 
     /**
-     * Get user profile data
+     * Obter dados do perfil do usuário
      *
-     * @param int $uid User ID
-     * @return array Profile data
+     * @param int $uid ID do Usuário
+     * @return array Dados do perfil
      */
     public function getProfile(int $uid): array
     {
@@ -616,14 +616,14 @@ class ProfileManager
 }
 ```
 
-## Avatar Handling
+## Manejo de Avatar
 
-### Avatar Management
+### Gerenciamento de Avatar
 
 ```php
 <?php
 /**
- * User Avatar Handler
+ * Manipulador de Avatar de Usuário
  */
 class AvatarHandler
 {
@@ -632,41 +632,41 @@ class AvatarHandler
     private $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
     /**
-     * Upload user avatar
+     * Fazer upload de avatar do usuário
      *
-     * @param int $uid User ID
-     * @param array $file $_FILES array
-     * @return string|false Avatar filename or false
+     * @param int $uid ID do Usuário
+     * @param array $file Array $_FILES
+     * @return string|false Nome do arquivo de avatar ou falso
      */
     public function uploadAvatar(int $uid, array $file)
     {
-        // Validate file
+        // Validar arquivo
         if ($file['error'] !== UPLOAD_ERR_OK) {
-            throw new Exception('File upload error: ' . $file['error']);
+            throw new Exception('Erro no upload de arquivo: ' . $file['error']);
         }
 
         if ($file['size'] > $this->maxSize) {
-            throw new Exception('File too large (max 2MB)');
+            throw new Exception('Arquivo muito grande (máx 2MB)');
         }
 
         if (!in_array($file['type'], $this->allowedTypes)) {
-            throw new Exception('Invalid file type');
+            throw new Exception('Tipo de arquivo inválido');
         }
 
-        // Verify MIME type
+        // Verificar tipo MIME
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $file['tmp_name']);
         finfo_close($finfo);
 
         if (!in_array($mimeType, $this->allowedTypes)) {
-            throw new Exception('Invalid file content');
+            throw new Exception('Conteúdo do arquivo inválido');
         }
 
-        // Generate unique filename
+        // Gerar nome de arquivo único
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $filename = 'avatar_' . $uid . '_' . time() . '.' . $extension;
 
-        // Create upload directory
+        // Criar diretório de upload
         $uploadDir = XOOPS_ROOT_PATH . $this->avatarPath;
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -674,19 +674,19 @@ class AvatarHandler
 
         $filepath = $uploadDir . $filename;
 
-        // Move uploaded file
+        // Mover arquivo enviado
         if (!move_uploaded_file($file['tmp_name'], $filepath)) {
-            throw new Exception('Failed to move uploaded file');
+            throw new Exception('Falha ao mover arquivo enviado');
         }
 
-        // Resize image to standard size (150x150)
+        // Redimensionar imagem para tamanho padrão (150x150)
         $this->resizeImage($filepath, 150, 150);
 
-        // Update user avatar
+        // Atualizar avatar do usuário
         $userHandler = xoops_getHandler('user');
         $user = $userHandler->getUser($uid);
 
-        // Delete old avatar if exists
+        // Deletar avatar antigo se existir
         $oldAvatar = $user->getVar('user_avatar');
         if ($oldAvatar && $oldAvatar !== 'blank.gif') {
             $oldPath = $uploadDir . $oldAvatar;
@@ -695,7 +695,7 @@ class AvatarHandler
             }
         }
 
-        // Save new avatar
+        // Salvar novo avatar
         $user->setVar('user_avatar', $filename);
         $userHandler->insertUser($user);
 
@@ -703,16 +703,16 @@ class AvatarHandler
     }
 
     /**
-     * Resize image to specified dimensions
+     * Redimensionar imagem para dimensões especificadas
      *
-     * @param string $filepath Path to image file
-     * @param int $width Target width
-     * @param int $height Target height
+     * @param string $filepath Caminho para arquivo de imagem
+     * @param int $width Largura alvo
+     * @param int $height Altura alvo
      */
     private function resizeImage(string $filepath, int $width, int $height): void
     {
         if (!extension_loaded('gd')) {
-            return; // GD not available, skip resizing
+            return; // GD não disponível, pular redimensionamento
         }
 
         $image = imagecreatefromstring(file_get_contents($filepath));
@@ -722,7 +722,7 @@ class AvatarHandler
 
         $resized = imagecreatetruecolor($width, $height);
 
-        // Preserve transparency for PNG and GIF
+        // Preservar transparência para PNG e GIF
         $format = mime_content_type($filepath);
         if ($format === 'image/png' || $format === 'image/gif') {
             imagealphablending($resized, false);
@@ -736,7 +736,7 @@ class AvatarHandler
             imagesx($image), imagesy($image)
         );
 
-        // Save resized image
+        // Salvar imagem redimensionada
         $ext = pathinfo($filepath, PATHINFO_EXTENSION);
         if (strtolower($ext) === 'png') {
             imagepng($resized, $filepath, 9);
@@ -749,10 +749,10 @@ class AvatarHandler
     }
 
     /**
-     * Delete user avatar
+     * Deletar avatar do usuário
      *
-     * @param int $uid User ID
-     * @return bool Success status
+     * @param int $uid ID do Usuário
+     * @return bool Status de sucesso
      */
     public function deleteAvatar(int $uid): bool
     {
@@ -777,14 +777,14 @@ class AvatarHandler
 }
 ```
 
-## User Preferences
+## Preferências do Usuário
 
-### Preference System
+### Sistema de Preferências
 
 ```php
 <?php
 /**
- * User Preferences Handler
+ * Manipulador de Preferências do Usuário
  */
 class UserPreferencesHandler
 {
@@ -797,23 +797,23 @@ class UserPreferencesHandler
     }
 
     /**
-     * Get user preference
+     * Obter preferência do usuário
      *
-     * @param int $uid User ID
-     * @param string $prefKey Preference key
-     * @param mixed $default Default value
-     * @return mixed Preference value
+     * @param int $uid ID do Usuário
+     * @param string $prefKey Chave de preferência
+     * @param mixed $default Valor padrão
+     * @return mixed Valor da preferência
      */
     public function getPreference(int $uid, string $prefKey, $default = null)
     {
-        // Try cache first
+        // Tentar cache primeiro
         $cacheKey = $this->prefixCache . $uid . '_' . $prefKey;
         $cached = apcu_fetch($cacheKey);
         if ($cached !== false) {
             return $cached;
         }
 
-        // Get from database
+        // Obter do banco de dados
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $result = $db->query(
             "SELECT pref_value FROM xoops_user_preferences
@@ -824,7 +824,7 @@ class UserPreferencesHandler
         if ($result && $db->getRowCount($result) > 0) {
             $row = $db->fetchArray($result);
             $value = unserialize($row['pref_value']);
-            apcu_store($cacheKey, $value, 3600); // Cache for 1 hour
+            apcu_store($cacheKey, $value, 3600); // Cache por 1 hora
             return $value;
         }
 
@@ -832,18 +832,18 @@ class UserPreferencesHandler
     }
 
     /**
-     * Set user preference
+     * Definir preferência do usuário
      *
-     * @param int $uid User ID
-     * @param string $prefKey Preference key
-     * @param mixed $prefValue Preference value
-     * @return bool Success status
+     * @param int $uid ID do Usuário
+     * @param string $prefKey Chave de preferência
+     * @param mixed $prefValue Valor da preferência
+     * @return bool Status de sucesso
      */
     public function setPreference(int $uid, string $prefKey, $prefValue): bool
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
 
-        // Check if preference exists
+        // Verificar se preferência existe
         $result = $db->query(
             "SELECT id FROM xoops_user_preferences
              WHERE uid = ? AND pref_key = ?",
@@ -853,7 +853,7 @@ class UserPreferencesHandler
         $serialized = serialize($prefValue);
 
         if ($db->getRowCount($result) > 0) {
-            // Update existing preference
+            // Atualizar preferência existente
             $success = $db->query(
                 "UPDATE xoops_user_preferences
                  SET pref_value = ?
@@ -861,7 +861,7 @@ class UserPreferencesHandler
                 array($serialized, $uid, $prefKey)
             );
         } else {
-            // Insert new preference
+            // Inserir nova preferência
             $success = $db->query(
                 "INSERT INTO xoops_user_preferences (uid, pref_key, pref_value)
                  VALUES (?, ?, ?)",
@@ -870,7 +870,7 @@ class UserPreferencesHandler
         }
 
         if ($success) {
-            // Clear cache
+            // Limpar cache
             $cacheKey = $this->prefixCache . $uid . '_' . $prefKey;
             apcu_delete($cacheKey);
         }
@@ -879,10 +879,10 @@ class UserPreferencesHandler
     }
 
     /**
-     * Get all user preferences
+     * Obter todas as preferências do usuário
      *
-     * @param int $uid User ID
-     * @return array All preferences
+     * @param int $uid ID do Usuário
+     * @return array Todas as preferências
      */
     public function getAllPreferences(int $uid): array
     {
@@ -901,11 +901,11 @@ class UserPreferencesHandler
     }
 
     /**
-     * Delete user preference
+     * Deletar preferência do usuário
      *
-     * @param int $uid User ID
-     * @param string $prefKey Preference key
-     * @return bool Success status
+     * @param int $uid ID do Usuário
+     * @param string $prefKey Chave de preferência
+     * @return bool Status de sucesso
      */
     public function deletePreference(int $uid, string $prefKey): bool
     {
@@ -925,44 +925,44 @@ class UserPreferencesHandler
 }
 ```
 
-## User Operations Examples
+## Exemplos de Operações do Usuário
 
-### Common User Operations
+### Operações Comuns de Usuário
 
 ```php
 <?php
 /**
- * Common user operations examples
+ * Exemplos de operações comuns com usuários
  */
 
-// Get current logged-in user
+// Obter usuário logado atual
 $xoopsUser = $GLOBALS['xoopsUser'];
 if ($xoopsUser instanceof XoopsUser) {
     $userId = $xoopsUser->getVar('uid');
     $username = $xoopsUser->getVar('uname');
 }
 
-// Get user by ID
+// Obter usuário por ID
 $userHandler = xoops_getHandler('user');
 $user = $userHandler->getUser(1);
 echo $user->getVar('uname');
 
-// Get user by username
+// Obter usuário por nome de usuário
 $user = $userHandler->getUserByName('admin');
 if ($user) {
     echo $user->getVar('email');
 }
 
-// Get user by email
+// Obter usuário por email
 $user = $userHandler->getUserByEmail('user@example.com');
 
-// Get all users in a group
+// Obter todos os usuários em um grupo
 $users = $userHandler->getUsersByGroup(1);
 foreach ($users as $user) {
     echo $user->getVar('uname') . "\n";
 }
 
-// Create new user
+// Criar novo usuário
 $user = $userHandler->create();
 $user->setVar('uname', 'newuser');
 $user->setVar('email', 'newuser@example.com');
@@ -970,13 +970,13 @@ $user->setVar('pass', password_hash('password', PASSWORD_BCRYPT));
 $user->setVar('user_regdate', time());
 
 if ($userHandler->insertUser($user)) {
-    echo "User created: " . $user->getVar('uid');
+    echo "Usuário criado: " . $user->getVar('uid');
 }
 
-// Delete user
+// Deletar usuário
 $userHandler->deleteUser(123);
 
-// Get user object from ID
+// Obter objeto de usuário de ID
 $user = $userHandler->getUser(5);
 $profile = [
     'username' => $user->getVar('uname'),
@@ -986,43 +986,43 @@ $profile = [
 ];
 ```
 
-## Security Best Practices
+## Boas Práticas de Segurança
 
-### Password Security
+### Segurança de Senha
 
-- Always use `password_hash()` with `PASSWORD_BCRYPT` algorithm
-- Use cost parameter of 12 for bcrypt
-- Never store plain text passwords
-- Implement password expiration policies
-- Require password changes for compromised accounts
+- Sempre usar `password_hash()` com algoritmo `PASSWORD_BCRYPT`
+- Usar parâmetro cost de 12 para bcrypt
+- Nunca armazenar senhas em texto plano
+- Implementar políticas de expiração de senha
+- Exigir mudança de senha para contas comprometidas
 
-### Session Security
+### Segurança de Sessão
 
 ```php
 <?php
-// Session configuration
+// Configuração de sessão
 session_set_cookie_params([
-    'lifetime' => 0,           // Session cookie (deleted on browser close)
+    'lifetime' => 0,           // Cookie de sessão (deletado ao fechar navegador)
     'path' => '/',
     'domain' => '',
     'secure' => true,          // HTTPS only
-    'httponly' => true,        // Inaccessible to JavaScript
-    'samesite' => 'Strict'     // CSRF protection
+    'httponly' => true,        // Não acessível a JavaScript
+    'samesite' => 'Strict'     // Proteção CSRF
 ]);
 
 session_start();
 
-// Regenerate session ID after login
+// Regenerar ID de sessão após login
 session_regenerate_id(true);
 
-// Validate session token
+// Validar token de sessão
 if (!isset($_SESSION['xoopsSessionToken'])) {
     session_destroy();
     redirect('login');
 }
 ```
 
-## Related Links
+## Links Relacionados
 
 - Group System.md
 - Permission System.md

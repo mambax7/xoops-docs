@@ -1,77 +1,77 @@
 ---
 title: "XMF Request"
-description: 'Secure HTTP request handling and input validation with the Xmf\Request class'
+description: 'Manipulação segura de requisições HTTP e validação de entrada com a classe Xmf\Request'
 ---
 
-The `Xmf\Request` class provides controlled access to HTTP request variables with built-in sanitization and type conversion. It protects against potentially harmful injections by default while conforming input to specified types.
+A classe `Xmf\Request` fornece acesso controlado a variáveis de requisição HTTP com sanitização integrada e conversão de tipo. Ela protege contra injeções potencialmente prejudiciais por padrão enquanto conforma entrada aos tipos especificados.
 
-## Overview
+## Visão Geral
 
-Request handling is one of the most security-critical aspects of web development. The XMF Request class:
+Manipulação de requisição é um dos aspectos mais críticos de segurança do desenvolvimento web. A classe XMF Request:
 
-- Automatically sanitizes input to prevent XSS attacks
-- Provides type-safe accessors for common data types
-- Supports multiple request sources (GET, POST, COOKIE, etc.)
-- Offers consistent default value handling
+- Sanitiza automaticamente entrada para prevenir ataques XSS
+- Fornece acessadores type-safe para tipos de dados comuns
+- Suporta múltiplas fontes de requisição (GET, POST, COOKIE, etc.)
+- Oferece manipulação consistente de valor padrão
 
-## Basic Usage
+## Uso Básico
 
 ```php
 use Xmf\Request;
 
-// Get string input
+// Obter entrada string
 $name = Request::getString('name', '');
 
-// Get integer input
+// Obter entrada inteira
 $id = Request::getInt('id', 0);
 
-// Get from specific source
+// Obter de fonte específica
 $postData = Request::getString('data', '', 'POST');
 ```
 
-## Request Methods
+## Métodos de Requisição
 
 ### getMethod()
 
-Returns the HTTP request method for the current request.
+Retorna o método de requisição HTTP para a requisição atual.
 
 ```php
 $method = Request::getMethod();
-// Returns: 'GET', 'HEAD', 'POST', or 'PUT'
+// Retorna: 'GET', 'HEAD', 'POST', ou 'PUT'
 ```
 
 ### getVar($name, $default, $hash, $type, $mask)
 
-The core method that most other `get*()` methods invoke. Fetches and returns a named variable from request data.
+O método principal que a maioria dos outros métodos `get*()` invocam. Obtém e retorna uma variável nomeada dos dados de requisição.
 
-**Parameters:**
-- `$name` - Variable name to fetch
-- `$default` - Default value if variable doesn't exist
-- `$hash` - Source hash: GET, POST, FILES, COOKIE, ENV, SERVER, METHOD, or REQUEST (default)
-- `$type` - Data type for cleaning (see FilterInput types below)
-- `$mask` - Bitmask for cleaning options
+**Parâmetros:**
+- `$name` - Nome da variável a obter
+- `$default` - Valor padrão se variável não existir
+- `$hash` - Hash de fonte: GET, POST, FILES, COOKIE, ENV, SERVER, METHOD, ou REQUEST (padrão)
+- `$type` - Tipo de dados para limpeza (veja tipos FilterInput abaixo)
+- `$mask` - Bitmask para opções de limpeza
 
-**Mask Values:**
+**Valores de Mask:**
 
-| Mask Constant | Effect |
+| Constante de Mask | Efeito |
 |---------------|--------|
-| `MASK_NO_TRIM` | Do not trim leading/trailing whitespace |
-| `MASK_ALLOW_RAW` | Skip cleaning, allow raw input |
-| `MASK_ALLOW_HTML` | Allow a limited "safe" set of HTML markup |
+| `MASK_NO_TRIM` | Não aparar espaço em branco de início/fim |
+| `MASK_ALLOW_RAW` | Pular limpeza, permitir entrada bruta |
+| `MASK_ALLOW_HTML` | Permitir conjunto "seguro" limitado de marcação HTML |
 
 ```php
-// Get raw input without cleaning
+// Obter entrada bruta sem limpeza
 $rawHtml = Request::getVar('content', '', 'POST', 'STRING', Request::MASK_ALLOW_RAW);
 
-// Allow safe HTML
+// Permitir HTML seguro
 $content = Request::getVar('body', '', 'POST', 'STRING', Request::MASK_ALLOW_HTML);
 ```
 
-## Type-Specific Methods
+## Métodos Type-Específicos
 
 ### getInt($name, $default, $hash)
 
-Returns an integer value. Only digits are allowed.
+Retorna um valor inteiro. Apenas dígitos são permitidos.
 
 ```php
 $id = Request::getInt('id', 0);
@@ -80,7 +80,7 @@ $page = Request::getInt('page', 1, 'GET');
 
 ### getFloat($name, $default, $hash)
 
-Returns a float value. Only digits and periods allowed.
+Retorna um valor float. Apenas dígitos e períodos permitidos.
 
 ```php
 $price = Request::getFloat('price', 0.0);
@@ -89,7 +89,7 @@ $rate = Request::getFloat('rate', 1.0, 'POST');
 
 ### getBool($name, $default, $hash)
 
-Returns a boolean value.
+Retorna um valor booleano.
 
 ```php
 $enabled = Request::getBool('enabled', false);
@@ -98,7 +98,7 @@ $subscribe = Request::getBool('subscribe', false, 'POST');
 
 ### getWord($name, $default, $hash)
 
-Returns a string with only letters and underscores `[A-Za-z_]`.
+Retorna uma string com apenas letras e underscores `[A-Za-z_]`.
 
 ```php
 $action = Request::getWord('action', 'view');
@@ -106,28 +106,28 @@ $action = Request::getWord('action', 'view');
 
 ### getCmd($name, $default, $hash)
 
-Returns a command string with only `[A-Za-z0-9.-_]`, forced to lowercase.
+Retorna uma cadeia de comando com apenas `[A-Za-z0-9.-_]`, forçada para minúsculas.
 
 ```php
 $op = Request::getCmd('op', 'list');
-// Input "View_Item" becomes "view_item"
+// Entrada "View_Item" torna-se "view_item"
 ```
 
 ### getString($name, $default, $hash, $mask)
 
-Returns a cleaned string with bad HTML code removed (unless overridden by mask).
+Retorna uma cadeia limpa com código HTML ruim removido (a menos que sobrescrito por mask).
 
 ```php
 $title = Request::getString('title', '');
 $description = Request::getString('description', '', 'POST');
 
-// Allow some HTML
+// Permitir algum HTML
 $content = Request::getString('content', '', 'POST', Request::MASK_ALLOW_HTML);
 ```
 
 ### getArray($name, $default, $hash)
 
-Returns an array, recursively processed to remove XSS and bad code.
+Retorna um array, processado recursivamente para remover XSS e código ruim.
 
 ```php
 $items = Request::getArray('items', [], 'POST');
@@ -136,7 +136,7 @@ $selectedIds = Request::getArray('selected', []);
 
 ### getText($name, $default, $hash)
 
-Returns raw text without cleaning. Use with caution.
+Retorna texto bruto sem limpeza. Use com cuidado.
 
 ```php
 $rawContent = Request::getText('raw_content', '');
@@ -144,7 +144,7 @@ $rawContent = Request::getText('raw_content', '');
 
 ### getUrl($name, $default, $hash)
 
-Returns a validated web URL (relative, http, or https schemes only).
+Retorna uma URL web validada (apenas esquemas relativos, http ou https).
 
 ```php
 $website = Request::getUrl('website', '');
@@ -153,7 +153,7 @@ $returnUrl = Request::getUrl('return', 'index.php');
 
 ### getPath($name, $default, $hash)
 
-Returns a validated filesystem or web path.
+Retorna um caminho validado de sistema de arquivos ou web.
 
 ```php
 $filePath = Request::getPath('file', '');
@@ -161,7 +161,7 @@ $filePath = Request::getPath('file', '');
 
 ### getEmail($name, $default, $hash)
 
-Returns a validated email address or the default.
+Retorna um endereço de email validado ou o padrão.
 
 ```php
 $email = Request::getEmail('email', '');
@@ -170,7 +170,7 @@ $contactEmail = Request::getEmail('contact', 'default@example.com');
 
 ### getIP($name, $default, $hash)
 
-Returns a validated IPv4 or IPv6 address.
+Retorna um endereço IPv4 ou IPv6 validado.
 
 ```php
 $userIp = Request::getIP('client_ip', '');
@@ -178,7 +178,7 @@ $userIp = Request::getIP('client_ip', '');
 
 ### getHeader($headerName, $default)
 
-Returns an HTTP request header value.
+Retorna um valor de cabeçalho de requisição HTTP.
 
 ```php
 $contentType = Request::getHeader('Content-Type', '');
@@ -186,52 +186,52 @@ $userAgent = Request::getHeader('User-Agent', '');
 $authHeader = Request::getHeader('Authorization', '');
 ```
 
-## Utility Methods
+## Métodos Utilitários
 
 ### hasVar($name, $hash)
 
-Check if a variable exists in the specified hash.
+Verificar se uma variável existe no hash especificado.
 
 ```php
 if (Request::hasVar('submit', 'POST')) {
-    // Form was submitted
+    // Formulário foi submetido
 }
 
 if (Request::hasVar('id', 'GET')) {
-    // ID parameter exists
+    // Parâmetro ID existe
 }
 ```
 
 ### setVar($name, $value, $hash, $overwrite)
 
-Set a variable in the specified hash. Returns the previous value or null.
+Definir uma variável no hash especificado. Retorna valor anterior ou null.
 
 ```php
-// Set a value
+// Definir um valor
 $oldValue = Request::setVar('processed', true, 'POST');
 
-// Only set if not already exists
+// Apenas definir se ainda não existir
 Request::setVar('default_op', 'list', 'GET', false);
 ```
 
 ### get($hash, $mask)
 
-Returns a cleaned copy of an entire hash array.
+Retorna cópia limpa de um array hash inteiro.
 
 ```php
-// Get all POST data cleaned
+// Obter todos os dados POST limpos
 $postData = Request::get('POST');
 
-// Get all GET data
+// Obter todos os dados GET
 $getData = Request::get('GET');
 
-// Get REQUEST data with no trimming
+// Obter dados REQUEST sem aparagem
 $requestData = Request::get('REQUEST', Request::MASK_NO_TRIM);
 ```
 
 ### set($array, $hash, $overwrite)
 
-Sets multiple variables from an array.
+Defina múltiplas variáveis de um array.
 
 ```php
 $defaults = [
@@ -239,39 +239,39 @@ $defaults = [
     'limit' => 10,
     'sort' => 'date'
 ];
-Request::set($defaults, 'GET', false); // Don't overwrite existing
+Request::set($defaults, 'GET', false); // Não sobrescrever existentes
 ```
 
-## FilterInput Integration
+## Integração FilterInput
 
-The Request class uses `Xmf\FilterInput` for cleaning. Available filter types:
+A classe Request usa `Xmf\FilterInput` para limpeza. Tipos de filtro disponíveis:
 
-| Type | Description |
-|------|-------------|
-| ALPHANUM / ALNUM | Alphanumeric only |
-| ARRAY | Recursively clean each element |
-| BASE64 | Base64 encoded string |
-| BOOLEAN / BOOL | True or false |
-| CMD | Command - A-Z, 0-9, underscore, dash, period (lowercase) |
-| EMAIL | Valid email address |
-| FLOAT / DOUBLE | Floating point number |
-| INTEGER / INT | Integer value |
-| IP | Valid IP address |
-| PATH | Filesystem or web path |
-| STRING | General string (default) |
-| USERNAME | Username format |
-| WEBURL | Web URL |
-| WORD | Letters A-Z and underscore only |
+| Tipo | Descrição |
+|------|-----------|
+| ALPHANUM / ALNUM | Apenas alfanumérico |
+| ARRAY | Limpar recursivamente cada elemento |
+| BASE64 | Cadeia codificada em Base64 |
+| BOOLEAN / BOOL | Verdadeiro ou falso |
+| CMD | Comando - A-Z, 0-9, underscore, dash, período (minúscula) |
+| EMAIL | Endereço de email válido |
+| FLOAT / DOUBLE | Número de ponto flutuante |
+| INTEGER / INT | Valor inteiro |
+| IP | Endereço IP válido |
+| PATH | Caminho de sistema de arquivos ou web |
+| STRING | Cadeia geral (padrão) |
+| USERNAME | Formato de nome de usuário |
+| WEBURL | URL web |
+| WORD | Apenas letras A-Z e underscore |
 
-## Practical Examples
+## Exemplos Práticos
 
-### Form Processing
+### Processamento de Formulário
 
 ```php
 use Xmf\Request;
 
 if ('POST' === Request::getMethod()) {
-    // Validate form submission
+    // Validar submissão de formulário
     $title = Request::getString('title', '');
     $content = Request::getString('content', '', 'POST', Request::MASK_ALLOW_HTML);
     $categoryId = Request::getInt('category_id', 0);
@@ -279,21 +279,21 @@ if ('POST' === Request::getMethod()) {
     $published = Request::getBool('published', false);
 
     if (empty($title)) {
-        $errors[] = 'Title is required';
+        $errors[] = 'Título é obrigatório';
     }
 
     if ($categoryId <= 0) {
-        $errors[] = 'Please select a category';
+        $errors[] = 'Por favor selecione uma categoria';
     }
 }
 ```
 
-### AJAX Handler
+### Manipulador AJAX
 
 ```php
 use Xmf\Request;
 
-// Verify AJAX request
+// Verificar requisição AJAX
 $isAjax = (Request::getHeader('X-Requested-With', '') === 'XMLHttpRequest');
 
 if ($isAjax) {
@@ -302,17 +302,17 @@ if ($isAjax) {
 
     switch ($action) {
         case 'delete':
-            // Handle delete
+            // Manipular delete
             break;
         case 'update':
             $data = Request::getArray('data', []);
-            // Handle update
+            // Manipular update
             break;
     }
 }
 ```
 
-### Pagination
+### Paginação
 
 ```php
 use Xmf\Request;
@@ -322,7 +322,7 @@ $limit = Request::getInt('limit', 20);
 $sort = Request::getCmd('sort', 'date');
 $order = Request::getWord('order', 'DESC');
 
-// Validate ranges
+// Validar intervalos
 $page = max(1, $page);
 $limit = min(100, max(10, $limit));
 $order = in_array($order, ['ASC', 'DESC']) ? $order : 'DESC';
@@ -330,7 +330,7 @@ $order = in_array($order, ['ASC', 'DESC']) ? $order : 'DESC';
 $offset = ($page - 1) * $limit;
 ```
 
-### Search Form
+### Formulário de Busca
 
 ```php
 use Xmf\Request;
@@ -340,7 +340,7 @@ $category = Request::getInt('cat', 0);
 $dateFrom = Request::getString('from', '');
 $dateTo = Request::getString('to', '');
 
-// Build search criteria
+// Construir critério de busca
 $criteria = new CriteriaCompo();
 
 if (!empty($query)) {
@@ -352,31 +352,31 @@ if ($category > 0) {
 }
 ```
 
-## Security Best Practices
+## Melhores Práticas de Segurança
 
-1. **Always use type-specific methods** - Use `getInt()` for IDs, `getEmail()` for emails, etc.
+1. **Sempre use métodos type-específicos** - Use `getInt()` para IDs, `getEmail()` para emails, etc.
 
-2. **Provide sensible defaults** - Never assume input exists
+2. **Forneça padrões sensatos** - Nunca assuma que entrada existe
 
-3. **Validate after sanitization** - Sanitization removes bad data, validation ensures correct data
+3. **Valide após sanitização** - Sanitização remove dados ruins, validação garante dados corretos
 
-4. **Use appropriate hash** - Specify POST for form data, GET for query parameters
+4. **Use hash apropriado** - Especifique POST para dados de formulário, GET para parâmetros de query
 
-5. **Avoid raw input** - Only use `getText()` or `MASK_ALLOW_RAW` when absolutely necessary
+5. **Evite entrada bruta** - Use apenas `getText()` ou `MASK_ALLOW_RAW` quando absolutamente necessário
 
 ```php
-// Good - type-specific with default
+// Bom - type-specific com padrão
 $id = Request::getInt('id', 0);
 
-// Bad - using getString for numeric data
+// Ruim - usando getString para dados numéricos
 $id = (int) Request::getString('id', '0');
 ```
 
-## See Also
+## Veja Também
 
-- Getting-Started-with-XMF - Basic XMF concepts
-- XMF-Module-Helper - Module helper class
-- ../XMF-Framework - Framework overview
+- Getting-Started-with-XMF - Conceitos básicos de XMF
+- XMF-Module-Helper - Classe module helper
+- ../XMF-Framework - Visão geral do framework
 
 ---
 

@@ -1,65 +1,65 @@
 ---
-title: "Form Validation"
+title: "Validação de Formulário"
 ---
 
-## Overview
+## Visão Geral
 
-XOOPS provides both client-side and server-side validation for form inputs. This guide covers validation techniques, built-in validators, and custom validation implementation.
+XOOPS fornece validação tanto do lado do cliente quanto do servidor para entradas de formulário. Este guia cobre técnicas de validação, validadores integrados e implementação de validação personalizada.
 
-## Validation Architecture
+## Arquitetura de Validação
 
 ```mermaid
 flowchart TB
-    A[Form Submission] --> B{Client-Side Validation}
-    B -->|Pass| C[Server Request]
-    B -->|Fail| D[Show Client Errors]
-    C --> E{Server-Side Validation}
-    E -->|Pass| F[Process Data]
-    E -->|Fail| G[Return Errors]
-    G --> H[Display Server Errors]
+    A[Envio de Formulário] --> B{Validação do Cliente}
+    B -->|Passar| C[Requisição do Servidor]
+    B -->|Falhar| D[Mostrar Erros do Cliente]
+    C --> E{Validação do Servidor}
+    E -->|Passar| F[Processar Dados]
+    E -->|Falhar| G[Retornar Erros]
+    G --> H[Exibir Erros do Servidor]
 ```
 
-## Server-Side Validation
+## Validação do Lado do Servidor
 
-### Using XoopsFormValidator
+### Usando XoopsFormValidator
 
 ```php
 use Xoops\Core\Form\Validator;
 
 $validator = new Validator();
 
-$validator->addRule('username', 'required', 'Username is required');
-$validator->addRule('username', 'minLength:3', 'Username must be at least 3 characters');
-$validator->addRule('username', 'maxLength:50', 'Username cannot exceed 50 characters');
-$validator->addRule('email', 'email', 'Please enter a valid email address');
-$validator->addRule('password', 'minLength:8', 'Password must be at least 8 characters');
+$validator->addRule('username', 'required', 'Nome de usuário é obrigatório');
+$validator->addRule('username', 'minLength:3', 'Nome de usuário deve ter pelo menos 3 caracteres');
+$validator->addRule('username', 'maxLength:50', 'Nome de usuário não pode exceder 50 caracteres');
+$validator->addRule('email', 'email', 'Por favor, digite um endereço de email válido');
+$validator->addRule('password', 'minLength:8', 'Senha deve ter pelo menos 8 caracteres');
 
 if (!$validator->validate($_POST)) {
     $errors = $validator->getErrors();
-    // Handle errors
+    // Lidar com erros
 }
 ```
 
-### Built-in Validation Rules
+### Regras de Validação Embutidas
 
-| Rule | Description | Example |
+| Regra | Descrição | Exemplo |
 |------|-------------|---------|
-| `required` | Field must not be empty | `required` |
-| `email` | Valid email format | `email` |
-| `url` | Valid URL format | `url` |
-| `numeric` | Numeric value only | `numeric` |
-| `integer` | Integer value only | `integer` |
-| `minLength` | Minimum string length | `minLength:3` |
-| `maxLength` | Maximum string length | `maxLength:100` |
-| `min` | Minimum numeric value | `min:1` |
-| `max` | Maximum numeric value | `max:100` |
-| `regex` | Custom regex pattern | `regex:/^[a-z]+$/` |
-| `in` | Value in list | `in:draft,published,archived` |
-| `date` | Valid date format | `date` |
-| `alpha` | Letters only | `alpha` |
-| `alphanumeric` | Letters and numbers | `alphanumeric` |
+| `required` | Campo não deve estar vazio | `required` |
+| `email` | Formato de email válido | `email` |
+| `url` | Formato de URL válido | `url` |
+| `numeric` | Somente valor numérico | `numeric` |
+| `integer` | Somente valor inteiro | `integer` |
+| `minLength` | Comprimento mínimo de string | `minLength:3` |
+| `maxLength` | Comprimento máximo de string | `maxLength:100` |
+| `min` | Valor numérico mínimo | `min:1` |
+| `max` | Valor numérico máximo | `max:100` |
+| `regex` | Padrão regex personalizado | `regex:/^[a-z]+$/` |
+| `in` | Valor em lista | `in:draft,published,archived` |
+| `date` | Formato de data válido | `date` |
+| `alpha` | Apenas letras | `alpha` |
+| `alphanumeric` | Letras e números | `alphanumeric` |
 
-### Custom Validation Rules
+### Regras de Validação Personalizadas
 
 ```php
 $validator->addCustomRule('unique_username', function($value) {
@@ -67,70 +67,70 @@ $validator->addCustomRule('unique_username', function($value) {
     $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('uname', $value));
     return $memberHandler->getUserCount($criteria) === 0;
-}, 'Username already exists');
+}, 'Nome de usuário já existe');
 
 $validator->addRule('username', 'unique_username');
 ```
 
-## Request Validation
+## Validação de Requisição
 
-### Sanitizing Input
+### Sanitizando Entrada
 
 ```php
 use Xoops\Core\Request;
 
-// Get sanitized values
+// Obter valores sanitizados
 $username = Request::getString('username', '', 'POST');
 $email = Request::getEmail('email', '', 'POST');
 $age = Request::getInt('age', 0, 'POST');
 $price = Request::getFloat('price', 0.0, 'POST');
 $tags = Request::getArray('tags', [], 'POST');
 
-// With validation
+// Com validação
 $username = Request::getString('username', '', 'POST', [
     'minLength' => 3,
     'maxLength' => 50
 ]);
 ```
 
-### XSS Prevention
+### Prevenção de XSS
 
 ```php
 use Xoops\Core\Text\Sanitizer;
 
 $sanitizer = Sanitizer::getInstance();
 
-// Sanitize HTML content
+// Sanitizar conteúdo HTML
 $cleanContent = $sanitizer->sanitizeForDisplay($userContent);
 
-// Strip all HTML
+// Remover todo HTML
 $plainText = $sanitizer->stripHtml($userContent);
 
-// Allow specific tags
+// Permitir tags específicas
 $content = $sanitizer->sanitizeForDisplay($userContent, [
     'allowedTags' => '<p><br><strong><em><a>'
 ]);
 ```
 
-## Client-Side Validation
+## Validação do Lado do Cliente
 
-### HTML5 Validation Attributes
+### Atributos de Validação HTML5
 
 ```php
-// Required field
+// Campo obrigatório
 $element->setExtra('required');
 
-// Pattern validation
-$element->setExtra('pattern="[a-zA-Z0-9]+" title="Alphanumeric only"');
+// Validação de padrão
+$element->setExtra('pattern="[a-zA-Z0-9]+" title="Apenas alfanumérico"');
 
-// Length constraints
+// Restrições de comprimento
 $element->setExtra('minlength="3" maxlength="50"');
 
-// Numeric constraints
+// Restrições numéricas
 $element->setExtra('min="1" max="100"');
 ```
 
-### JavaScript Validation
+### Validação JavaScript
 
 ```javascript
 document.getElementById('myForm').addEventListener('submit', function(e) {
@@ -138,11 +138,11 @@ document.getElementById('myForm').addEventListener('submit', function(e) {
     const errors = [];
 
     if (username.length < 3) {
-        errors.push('Username must be at least 3 characters');
+        errors.push('Nome de usuário deve ter pelo menos 3 caracteres');
     }
 
     if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-        errors.push('Username can only contain letters, numbers, and underscores');
+        errors.push('Nome de usuário pode conter apenas letras, números e sublinhados');
     }
 
     if (errors.length > 0) {
@@ -152,32 +152,32 @@ document.getElementById('myForm').addEventListener('submit', function(e) {
 });
 ```
 
-## CSRF Protection
+## Proteção CSRF
 
-### Token Generation
+### Geração de Token
 
 ```php
-// Generate token in form
+// Gerar token no formulário
 $form->addElement(new \XoopsFormHiddenToken());
 
-// This adds a hidden field with security token
+// Isso adiciona um campo oculto com token de segurança
 ```
 
-### Token Verification
+### Verificação de Token
 
 ```php
 use Xoops\Core\Security;
 
 if (!Security::checkReferer()) {
-    die('Invalid request origin');
+    die('Origem da requisição inválida');
 }
 
 if (!Security::checkToken()) {
-    die('Invalid security token');
+    die('Token de segurança inválido');
 }
 ```
 
-## File Upload Validation
+## Validação de Upload de Arquivo
 
 ```php
 use Xoops\Core\Uploader;
@@ -199,23 +199,23 @@ if ($uploader->fetchMedia('image_upload')) {
 }
 ```
 
-## Error Display
+## Exibição de Erro
 
-### Collecting Errors
+### Coletando Erros
 
 ```php
 $errors = [];
 
 if (empty($username)) {
-    $errors['username'] = 'Username is required';
+    $errors['username'] = 'Nome de usuário é obrigatório';
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors['email'] = 'Invalid email format';
+    $errors['email'] = 'Formato de email inválido';
 }
 
 if (!empty($errors)) {
-    // Store in session for display after redirect
+    // Armazenar em sessão para exibição após redirecionamento
     $_SESSION['form_errors'] = $errors;
     $_SESSION['form_data'] = $_POST;
     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -223,7 +223,7 @@ if (!empty($errors)) {
 }
 ```
 
-### Displaying Errors
+### Exibindo Erros
 
 ```smarty
 {if $errors}
@@ -237,17 +237,17 @@ if (!empty($errors)) {
 {/if}
 ```
 
-## Best Practices
+## Boas Práticas
 
-1. **Always validate server-side** - Client-side validation can be bypassed
-2. **Use parameterized queries** - Prevent SQL injection
-3. **Sanitize output** - Prevent XSS attacks
-4. **Validate file uploads** - Check MIME types and sizes
-5. **Use CSRF tokens** - Prevent cross-site request forgery
-6. **Rate limit submissions** - Prevent abuse
+1. **Sempre validar no lado do servidor** - Validação do lado do cliente pode ser contornada
+2. **Usar consultas parametrizadas** - Prevenir injeção de SQL
+3. **Sanitizar saída** - Prevenir ataques XSS
+4. **Validar uploads de arquivo** - Verificar tipos MIME e tamanhos
+5. **Usar tokens CSRF** - Prevenir falsificação de requisição entre sites
+6. **Limitar taxa de envios** - Prevenir abuso
 
-## Related Documentation
+## Documentação Relacionada
 
-- Form Elements Reference
-- Forms Overview
-- Security Best Practices
+- Referência de Elementos de Formulário
+- Visão Geral de Formulários
+- Boas Práticas de Segurança

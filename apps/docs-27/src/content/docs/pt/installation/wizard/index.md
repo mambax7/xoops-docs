@@ -1,36 +1,36 @@
 ---
-title: "Installation Wizard"
-description: "Step-by-step walkthrough of the XOOPS installation wizard — 15 screens explained."
+title: "Assistente de Instalação"
+description: "Guia passo a passo do assistente de instalação XOOPS — 15 telas explicadas."
 ---
 
-The XOOPS installation wizard guides you through a 15-step process that configures your database, creates the admin account, and prepares your site for first use.
+O assistente de instalação XOOPS o orienta através de um processo de 15 etapas que configura seu banco de dados, cria a conta de administrador e prepara seu site para o primeiro uso.
 
-## Before you start
+## Antes de começar
 
-- You have [uploaded XOOPS to your server](/xoops-docs/2.7/installation/ftp-upload/) or set up a local environment
-- You have [verified the requirements](/xoops-docs/2.7/installation/requirements/)
-- You have your database credentials ready
+- Você [fez upload do XOOPS para seu servidor](/xoops-docs/2.7/installation/ftp-upload/) ou configurou um ambiente local
+- Você [verificou os requisitos](/xoops-docs/2.7/installation/requirements/)
+- Você tem suas credenciais de banco de dados prontas
 
-## Wizard steps
+## Etapas do Assistente
 
-| Step | Screen | What happens |
+| Etapa | Tela | O que acontece |
 |------|--------|--------------|
-| 1 | [Language Selection](./step-01/) | Choose installation language |
-| 2 | [Welcome](./step-02/) | License agreement |
-| 3 | [Configuration Check](./step-03/) | PHP/server environment check |
-| 4 | [Path Setting](./step-04/) | Set root path and URL |
-| 5 | [Database Connection](./step-05/) | Enter database host, user, password |
-| 6 | [Database Configuration](./step-06/) | Set database name and table prefix |
-| 7 | [Save Configuration](./step-07/) | Write mainfile.php |
-| 8 | [Table Creation](./step-08/) | Create the database schema |
-| 9 | [Initial Settings](./step-09/) | Site name, admin email |
-| 10 | [Data Insertion](./step-10/) | Populate default data |
-| 11 | [Site Configuration](./step-11/) | URL, time zone, language |
-| 12 | [Select Theme](./step-12/) | Choose a default theme |
-| 13 | [Module Installation](./step-13/) | Install bundled modules |
-| 14 | [Welcome](./step-14/) | Installation complete message |
-| 15 | [Cleanup](./step-15/) | Remove the install folder |
+| 1 | [Seleção de Idioma](./step-01/) | Escolha idioma de instalação |
+| 2 | [Bem-vindo](./step-02/) | Acordo de licença |
+| 3 | [Verificação de Configuração](./step-03/) | Verificação do ambiente PHP/servidor |
+| 4 | [Configuração de Caminho](./step-04/) | Defina caminho raiz e URL |
+| 5 | [Conexão de Banco de Dados](./step-05/) | Digite host, usuário, senha do banco de dados |
+| 6 | [Configuração de Banco de Dados](./step-06/) | Defina nome do banco de dados e prefixo de tabela |
+| 7 | [Salvar Configuração](./step-07/) | Escrever mainfile.php |
+| 8 | [Criação de Tabela](./step-08/) | Criar o esquema do banco de dados |
+| 9 | [Configurações Iniciais](./step-09/) | Nome do site, email do administrador |
+| 10 | [Inserção de Dados](./step-10/) | Preencher dados padrão |
+| 11 | [Configuração de Site](./step-11/) | URL, fuso horário, idioma |
+| 12 | [Selecionar Tema](./step-12/) | Escolha um tema padrão |
+| 13 | [Instalação de Módulo](./step-13/) | Instalar módulos agrupados |
+| 14 | [Bem-vindo](./step-14/) | Mensagem de instalação completa |
+| 15 | [Limpeza](./step-15/) | Remover pasta de instalação |
 
-:::caution[Security]
-After completing the wizard, **delete or rename the `install/` folder** — step 15 guides you through this. Leaving it accessible is a security risk.
+:::caution[Segurança]
+Após concluir o assistente, **delete ou renomeie a pasta `install/`** — a etapa 15 o orienta através disso. Deixar acessível é um risco de segurança.
 :::

@@ -1,39 +1,39 @@
 ---
-title: "XOOPS Query Builder"
-description: "Modern fluent query builder API for building SELECT, INSERT, UPDATE, DELETE queries with a chainable interface"
+title: "Construtor de Consultas do XOOPS"
+description: "API moderna de construtor de consultas fluente para construir consultas SELECT, INSERT, UPDATE, DELETE com uma interface encadeável"
 ---
 
-The XOOPS Query Builder provides a modern, fluent interface for building SQL queries. It helps prevent SQL injection, improves readability, and provides database abstraction for multiple database systems.
+O Construtor de Consultas do XOOPS fornece uma interface fluente e moderna para construir consultas SQL. Ajuda a prevenir injeção de SQL, melhora a legibilidade e fornece abstração de banco de dados para múltiplos sistemas de banco de dados.
 
-## Query Builder Architecture
+## Arquitetura do Construtor de Consultas
 
 ```mermaid
 graph TD
-    A[QueryBuilder] -->|builds| B[SELECT Queries]
-    A -->|builds| C[INSERT Queries]
-    A -->|builds| D[UPDATE Queries]
-    A -->|builds| E[DELETE Queries]
+    A[QueryBuilder] -->|constrói| B[Consultas SELECT]
+    A -->|constrói| C[Consultas INSERT]
+    A -->|constrói| D[Consultas UPDATE]
+    A -->|constrói| E[Consultas DELETE]
 
-    F[Table] -->|chains| G[select]
-    F -->|chains| H[where]
-    F -->|chains| I[orderBy]
-    F -->|chains| J[limit]
+    F[Table] -->|encadeia| G[select]
+    F -->|encadeia| H[where]
+    F -->|encadeia| I[orderBy]
+    F -->|encadeia| J[limit]
 
-    G -->|chains| K[join]
-    G -->|chains| H
-    H -->|chains| I
-    I -->|chains| J
+    G -->|encadeia| K[join]
+    G -->|encadeia| H
+    H -->|encadeia| I
+    I -->|encadeia| J
 
-    L[Execute Methods] -->|returns| M[Results]
-    L -->|returns| N[Count]
-    L -->|returns| O[First/Last]
+    L[Métodos de Execução] -->|retorna| M[Resultados]
+    L -->|retorna| N[Contagem]
+    L -->|retorna| O[Primeiro/Último]
 ```
 
-## QueryBuilder Class
+## Classe QueryBuilder
 
-The main query builder class with fluent interface.
+A classe construtora de consultas principal com interface fluente.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops\Database;
@@ -52,66 +52,66 @@ class QueryBuilder
 }
 ```
 
-### Static Methods
+### Métodos Estáticos
 
 #### table
 
-Creates a new query builder for a table.
+Cria um novo construtor de consultas para uma tabela.
 
 ```php
 public static function table(string $table): QueryBuilder
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$table` | string | Table name (with or without prefix) |
+| `$table` | string | Nome da tabela (com ou sem prefixo) |
 
-**Returns:** `QueryBuilder` - Query builder instance
+**Retorna:** `QueryBuilder` - Instância do construtor de consultas
 
-**Example:**
+**Exemplo:**
 ```php
 $query = QueryBuilder::table('users');
-$query = QueryBuilder::table('xoops_users'); // With prefix
+$query = QueryBuilder::table('xoops_users'); // Com prefixo
 ```
 
-## SELECT Queries
+## Consultas SELECT
 
 ### select
 
-Specifies columns to select.
+Especifica as colunas a selecionar.
 
 ```php
 public function select(...$columns): self
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `...$columns` | array | Column names or expressions |
+| `...$columns` | array | Nomes de colunas ou expressões |
 
-**Returns:** `self` - For method chaining
+**Retorna:** `self` - Para encadeamento de método
 
-**Example:**
+**Exemplo:**
 ```php
-// Simple select
+// Seleção simples
 QueryBuilder::table('users')
     ->select('id', 'username', 'email')
     ->get();
 
-// Select with aliases
+// Seleção com aliases
 QueryBuilder::table('users')
     ->select('id as user_id', 'username as name')
     ->get();
 
-// Select all columns
+// Selecionar todas as colunas
 QueryBuilder::table('users')
     ->select('*')
     ->get();
 
-// Select with expressions
+// Seleção com expressões
 QueryBuilder::table('orders')
     ->select('id', 'COUNT(*) as total_items')
     ->groupBy('id')
@@ -120,67 +120,67 @@ QueryBuilder::table('orders')
 
 ### where
 
-Adds a WHERE condition.
+Adiciona uma condição WHERE.
 
 ```php
 public function where(string $column, string $operator = '=', mixed $value = null): self
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$column` | string | Column name |
-| `$operator` | string | Comparison operator |
-| `$value` | mixed | Value to compare |
+| `$column` | string | Nome da coluna |
+| `$operator` | string | Operador de comparação |
+| `$value` | mixed | Valor a comparar |
 
-**Returns:** `self` - For method chaining
+**Retorna:** `self` - Para encadeamento de método
 
-**Operators:**
+**Operadores:**
 
-| Operator | Description | Example |
+| Operador | Descrição | Exemplo |
 |----------|-------------|---------|
-| `=` | Equal | `->where('status', '=', 'active')` |
-| `!=` or `<>` | Not equal | `->where('status', '!=', 'deleted')` |
-| `>` | Greater than | `->where('price', '>', 100)` |
-| `<` | Less than | `->where('price', '<', 100)` |
-| `>=` | Greater or equal | `->where('age', '>=', 18)` |
-| `<=` | Less or equal | `->where('age', '<=', 65)` |
-| `LIKE` | Pattern match | `->where('name', 'LIKE', '%john%')` |
-| `IN` | In list | `->where('status', 'IN', ['active', 'pending'])` |
-| `NOT IN` | Not in list | `->where('id', 'NOT IN', [1, 2, 3])` |
-| `BETWEEN` | Range | `->where('age', 'BETWEEN', [18, 65])` |
-| `IS NULL` | Is null | `->where('deleted_at', 'IS NULL')` |
-| `IS NOT NULL` | Not null | `->where('deleted_at', 'IS NOT NULL')` |
+| `=` | Igual | `->where('status', '=', 'active')` |
+| `!=` ou `<>` | Não igual | `->where('status', '!=', 'deleted')` |
+| `>` | Maior que | `->where('price', '>', 100)` |
+| `<` | Menor que | `->where('price', '<', 100)` |
+| `>=` | Maior ou igual | `->where('age', '>=', 18)` |
+| `<=` | Menor ou igual | `->where('age', '<=', 65)` |
+| `LIKE` | Correspondência de padrão | `->where('name', 'LIKE', '%john%')` |
+| `IN` | Na lista | `->where('status', 'IN', ['active', 'pending'])` |
+| `NOT IN` | Não na lista | `->where('id', 'NOT IN', [1, 2, 3])` |
+| `BETWEEN` | Intervalo | `->where('age', 'BETWEEN', [18, 65])` |
+| `IS NULL` | É nulo | `->where('deleted_at', 'IS NULL')` |
+| `IS NOT NULL` | Não é nulo | `->where('deleted_at', 'IS NOT NULL')` |
 
-**Example:**
+**Exemplo:**
 ```php
-// Single condition
+// Condição única
 QueryBuilder::table('users')
     ->select('*')
     ->where('status', '=', 'active')
     ->get();
 
-// Multiple conditions (AND)
+// Múltiplas condições (AND)
 QueryBuilder::table('users')
     ->select('*')
     ->where('status', '=', 'active')
     ->where('age', '>=', 18)
     ->get();
 
-// IN operator
+// Operador IN
 QueryBuilder::table('products')
     ->select('*')
     ->where('category_id', 'IN', [1, 2, 3])
     ->get();
 
-// LIKE operator
+// Operador LIKE
 QueryBuilder::table('users')
     ->select('*')
     ->where('email', 'LIKE', '%@example.com')
     ->get();
 
-// NULL check
+// Verificação NULL
 QueryBuilder::table('users')
     ->select('*')
     ->where('deleted_at', 'IS NULL')
@@ -189,13 +189,13 @@ QueryBuilder::table('users')
 
 ### orWhere
 
-Adds an OR condition.
+Adiciona uma condição OR.
 
 ```php
 public function orWhere(string $column, string $operator = '=', mixed $value = null): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('users')
     ->select('*')
@@ -207,14 +207,14 @@ QueryBuilder::table('users')
 
 ### whereIn / whereNotIn
 
-Convenience methods for IN/NOT IN.
+Métodos de conveniência para IN/NOT IN.
 
 ```php
 public function whereIn(string $column, array $values): self
 public function whereNotIn(string $column, array $values): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('posts')
     ->select('*')
@@ -229,14 +229,14 @@ QueryBuilder::table('comments')
 
 ### whereNull / whereNotNull
 
-Convenience methods for NULL checks.
+Métodos de conveniência para verificações NULL.
 
 ```php
 public function whereNull(string $column): self
 public function whereNotNull(string $column): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('users')
     ->select('*')
@@ -246,13 +246,13 @@ QueryBuilder::table('users')
 
 ### whereBetween
 
-Checks if value is between two values.
+Verifica se o valor está entre dois valores.
 
 ```php
 public function whereBetween(string $column, array $values): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('products')
     ->select('*')
@@ -267,7 +267,7 @@ QueryBuilder::table('orders')
 
 ### join
 
-Adds an INNER JOIN.
+Adiciona um INNER JOIN.
 
 ```php
 public function join(
@@ -278,7 +278,7 @@ public function join(
 ): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('posts')
     ->select('posts.*', 'users.username', 'categories.name')
@@ -290,7 +290,7 @@ QueryBuilder::table('posts')
 
 ### leftJoin / rightJoin
 
-Alternative join types.
+Tipos de join alternativos.
 
 ```php
 public function leftJoin(
@@ -308,7 +308,7 @@ public function rightJoin(
 ): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('users')
     ->select('users.*', 'COUNT(posts.id) as post_count')
@@ -319,13 +319,13 @@ QueryBuilder::table('users')
 
 ### groupBy
 
-Groups results by column(s).
+Agrupa resultados por coluna(s).
 
 ```php
 public function groupBy(...$columns): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('orders')
     ->select('user_id', 'COUNT(*) as order_count', 'SUM(total) as total_spent')
@@ -340,13 +340,13 @@ QueryBuilder::table('sales')
 
 ### having
 
-Adds a HAVING condition.
+Adiciona uma condição HAVING.
 
 ```php
 public function having(string $column, string $operator = '=', mixed $value = null): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('orders')
     ->select('user_id', 'COUNT(*) as order_count')
@@ -357,35 +357,35 @@ QueryBuilder::table('orders')
 
 ### orderBy
 
-Orders results.
+Ordena os resultados.
 
 ```php
 public function orderBy(string $column, string $direction = 'ASC'): self
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$column` | string | Column to order by |
-| `$direction` | string | `ASC` or `DESC` |
+| `$column` | string | Coluna para ordenar por |
+| `$direction` | string | `ASC` ou `DESC` |
 
-**Example:**
+**Exemplo:**
 ```php
-// Single order
+// Ordem única
 QueryBuilder::table('users')
     ->select('*')
     ->orderBy('created_at', 'DESC')
     ->get();
 
-// Multiple orders
+// Múltiplas ordens
 QueryBuilder::table('posts')
     ->select('*')
     ->orderBy('category_id', 'ASC')
     ->orderBy('created_at', 'DESC')
     ->get();
 
-// Random order
+// Ordem aleatória
 QueryBuilder::table('quotes')
     ->select('*')
     ->orderBy('RAND()')
@@ -394,22 +394,22 @@ QueryBuilder::table('quotes')
 
 ### limit / offset
 
-Limits and offsets results.
+Limita e offset de resultados.
 
 ```php
 public function limit(int $limit): self
 public function offset(int $offset): self
 ```
 
-**Example:**
+**Exemplo:**
 ```php
-// Simple limit
+// Limite simples
 QueryBuilder::table('posts')
     ->select('*')
     ->limit(10)
     ->get();
 
-// Pagination
+// Paginação
 $page = 2;
 $perPage = 20;
 $offset = ($page - 1) * $perPage;
@@ -421,19 +421,19 @@ QueryBuilder::table('posts')
     ->get();
 ```
 
-## Execution Methods
+## Métodos de Execução
 
 ### get
 
-Executes query and returns all results.
+Executa a consulta e retorna todos os resultados.
 
 ```php
 public function get(): array
 ```
 
-**Returns:** `array` - Array of result rows
+**Retorna:** `array` - Array de linhas de resultado
 
-**Example:**
+**Exemplo:**
 ```php
 $users = QueryBuilder::table('users')
     ->select('id', 'username', 'email')
@@ -448,15 +448,15 @@ foreach ($users as $user) {
 
 ### first
 
-Gets the first result.
+Obtém o primeiro resultado.
 
 ```php
 public function first(): ?array
 ```
 
-**Returns:** `?array` - First row or null
+**Retorna:** `?array` - Primeira linha ou null
 
-**Example:**
+**Exemplo:**
 ```php
 $user = QueryBuilder::table('users')
     ->select('*')
@@ -464,19 +464,19 @@ $user = QueryBuilder::table('users')
     ->first();
 
 if ($user) {
-    echo 'Found: ' . $user['username'];
+    echo 'Encontrado: ' . $user['username'];
 }
 ```
 
 ### last
 
-Gets the last result.
+Obtém o último resultado.
 
 ```php
 public function last(): ?array
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $latestPost = QueryBuilder::table('posts')
     ->select('*')
@@ -486,49 +486,49 @@ $latestPost = QueryBuilder::table('posts')
 
 ### count
 
-Gets the count of results.
+Obtém a contagem de resultados.
 
 ```php
 public function count(): int
 ```
 
-**Returns:** `int` - Number of rows
+**Retorna:** `int` - Número de linhas
 
-**Example:**
+**Exemplo:**
 ```php
 $activeUsers = QueryBuilder::table('users')
     ->where('status', '=', 'active')
     ->count();
 
-echo "Active users: $activeUsers";
+echo "Usuários ativos: $activeUsers";
 ```
 
 ### exists
 
-Checks if query returns any results.
+Verifica se a consulta retorna resultados.
 
 ```php
 public function exists(): bool
 ```
 
-**Returns:** `bool` - True if results exist
+**Retorna:** `bool` - Verdadeiro se existirem resultados
 
-**Example:**
+**Exemplo:**
 ```php
 if (QueryBuilder::table('users')->where('email', '=', 'test@example.com')->exists()) {
-    echo 'User already exists';
+    echo 'Usuário já existe';
 }
 ```
 
 ### aggregate
 
-Gets aggregate values.
+Obtém valores agregados.
 
 ```php
 public function aggregate(string $function, string $column): mixed
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $maxPrice = QueryBuilder::table('products')
     ->aggregate('MAX', 'price');
@@ -540,17 +540,17 @@ $totalSales = QueryBuilder::table('orders')
     ->aggregate('SUM', 'total');
 ```
 
-## INSERT Queries
+## Consultas INSERT
 
 ### insert
 
-Inserts a row.
+Insere uma linha.
 
 ```php
 public function insert(array $values): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('users')->insert([
     'username' => 'john',
@@ -562,13 +562,13 @@ QueryBuilder::table('users')->insert([
 
 ### insertMany
 
-Inserts multiple rows.
+Insere múltiplas linhas.
 
 ```php
 public function insertMany(array $rows): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 QueryBuilder::table('log_entries')->insertMany([
     ['action' => 'login', 'user_id' => 1, 'timestamp' => time()],
@@ -577,21 +577,21 @@ QueryBuilder::table('log_entries')->insertMany([
 ]);
 ```
 
-## UPDATE Queries
+## Consultas UPDATE
 
 ### update
 
-Updates rows.
+Atualiza linhas.
 
 ```php
 public function update(array $values): int
 ```
 
-**Returns:** `int` - Number of affected rows
+**Retorna:** `int` - Número de linhas afetadas
 
-**Example:**
+**Exemplo:**
 ```php
-// Update single user
+// Atualizar usuário único
 QueryBuilder::table('users')
     ->where('id', '=', 123)
     ->update([
@@ -599,7 +599,7 @@ QueryBuilder::table('users')
         'updated_at' => date('Y-m-d H:i:s')
     ]);
 
-// Update multiple rows
+// Atualizar múltiplas linhas
 QueryBuilder::table('posts')
     ->where('status', '=', 'draft')
     ->where('created_at', '<', date('Y-m-d', strtotime('-30 days')))
@@ -610,46 +610,46 @@ QueryBuilder::table('posts')
 
 ### increment / decrement
 
-Increments or decrements a column.
+Incrementa ou decrementa uma coluna.
 
 ```php
 public function increment(string $column, int $amount = 1): int
 public function decrement(string $column, int $amount = 1): int
 ```
 
-**Example:**
+**Exemplo:**
 ```php
-// Increment view count
+// Incrementar contagem de visualizações
 QueryBuilder::table('posts')
     ->where('id', '=', 123)
     ->increment('views');
 
-// Decrement stock
+// Decrementar estoque
 QueryBuilder::table('products')
     ->where('id', '=', 456)
     ->decrement('stock', 5);
 ```
 
-## DELETE Queries
+## Consultas DELETE
 
 ### delete
 
-Deletes rows.
+Deleta linhas.
 
 ```php
 public function delete(): int
 ```
 
-**Returns:** `int` - Number of deleted rows
+**Retorna:** `int` - Número de linhas deletadas
 
-**Example:**
+**Exemplo:**
 ```php
-// Delete single record
+// Deletar registro único
 QueryBuilder::table('comments')
     ->where('id', '=', 789)
     ->delete();
 
-// Delete multiple records
+// Deletar múltiplos registros
 QueryBuilder::table('log_entries')
     ->where('created_at', '<', date('Y-m-d', strtotime('-30 days')))
     ->delete();
@@ -657,21 +657,21 @@ QueryBuilder::table('log_entries')
 
 ### truncate
 
-Deletes all rows from table.
+Deleta todas as linhas da tabela.
 
 ```php
 public function truncate(): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
-// Clear all sessions
+// Limpar todas as sessões
 QueryBuilder::table('sessions')->truncate();
 ```
 
-## Advanced Features
+## Recursos Avançados
 
-### Raw Expressions
+### Expressões Brutos
 
 ```php
 QueryBuilder::table('products')
@@ -679,7 +679,7 @@ QueryBuilder::table('products')
     ->get();
 ```
 
-### Subqueries
+### Subconsultas
 
 ```php
 $recentPostIds = QueryBuilder::table('posts')
@@ -693,13 +693,13 @@ $comments = QueryBuilder::table('comments')
     ->get();
 ```
 
-### Getting the SQL
+### Obtendo o SQL
 
 ```php
 public function toSql(): string
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $sql = QueryBuilder::table('users')
     ->select('id', 'username')
@@ -710,14 +710,14 @@ echo $sql;
 // SELECT id, username FROM xoops_users WHERE status = ?
 ```
 
-## Complete Examples
+## Exemplos Completos
 
-### Complex Select with Joins
+### SELECT Complexa com Joins
 
 ```php
 <?php
 /**
- * Get posts with author and category info
+ * Obter posts com informações de autor e categoria
  */
 
 $posts = QueryBuilder::table('posts')
@@ -739,30 +739,30 @@ $posts = QueryBuilder::table('posts')
 foreach ($posts as $post) {
     echo '<article>';
     echo '<h2>' . htmlspecialchars($post['title']) . '</h2>';
-    echo '<p class="meta">By ' . htmlspecialchars($post['author']) . ' in ' . htmlspecialchars($post['category']) . '</p>';
+    echo '<p class="meta">Por ' . htmlspecialchars($post['author']) . ' em ' . htmlspecialchars($post['category']) . '</p>';
     echo '<p>' . htmlspecialchars($post['content']) . '</p>';
     echo '</article>';
 }
 ```
 
-### Pagination with QueryBuilder
+### Paginação com QueryBuilder
 
 ```php
 <?php
 /**
- * Paginated results
+ * Resultados paginados
  */
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $perPage = 20;
 $offset = ($page - 1) * $perPage;
 
-// Get total count
+// Obter contagem total
 $total = QueryBuilder::table('articles')
     ->where('status', '=', 'published')
     ->count();
 
-// Get page results
+// Obter resultados da página
 $articles = QueryBuilder::table('articles')
     ->select('*')
     ->where('status', '=', 'published')
@@ -771,15 +771,15 @@ $articles = QueryBuilder::table('articles')
     ->offset($offset)
     ->get();
 
-// Calculate pagination
+// Calcular paginação
 $pages = ceil($total / $perPage);
 
-// Display results
+// Exibir resultados
 foreach ($articles as $article) {
     echo '<div class="article">' . htmlspecialchars($article['title']) . '</div>';
 }
 
-// Display pagination links
+// Exibir links de paginação
 if ($pages > 1) {
     echo '<nav class="pagination">';
     for ($i = 1; $i <= $pages; $i++) {
@@ -793,15 +793,15 @@ if ($pages > 1) {
 }
 ```
 
-### Data Analysis with Aggregates
+### Análise de Dados com Agregados
 
 ```php
 <?php
 /**
- * Sales analysis
+ * Análise de vendas
  */
 
-// Total sales by region
+// Vendas totais por região
 $regionSales = QueryBuilder::table('orders')
     ->select('region', QueryBuilder::raw('SUM(total) as total_sales'), QueryBuilder::raw('COUNT(*) as order_count'))
     ->groupBy('region')
@@ -809,34 +809,34 @@ $regionSales = QueryBuilder::table('orders')
     ->get();
 
 foreach ($regionSales as $region) {
-    echo $region['region'] . ': $' . number_format($region['total_sales'], 2) . ' (' . $region['order_count'] . ' orders)' . "\n";
+    echo $region['region'] . ': $' . number_format($region['total_sales'], 2) . ' (' . $region['order_count'] . ' pedidos)' . "\n";
 }
 
-// Average order value
+// Valor médio de pedido
 $avgOrderValue = QueryBuilder::table('orders')
     ->aggregate('AVG', 'total');
 
-echo 'Average order value: $' . number_format($avgOrderValue, 2);
+echo 'Valor médio de pedido: $' . number_format($avgOrderValue, 2);
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Use Parameterized Queries** - QueryBuilder handles parameter binding automatically
-2. **Chain Methods** - Leverage fluent interface for readable code
-3. **Test SQL Output** - Use `toSql()` to verify generated queries
-4. **Use Indexes** - Ensure frequently queried columns are indexed
-5. **Limit Results** - Always use `limit()` for large datasets
-6. **Use Aggregates** - Let database do counting/summing instead of PHP
-7. **Escape Output** - Always escape displayed data with `htmlspecialchars()`
-8. **Index Performance** - Monitor slow queries and optimize accordingly
+1. **Use Consultas Parametrizadas** - QueryBuilder manipula ligação de parâmetros automaticamente
+2. **Encadeie Métodos** - Aproveite a interface fluente para código legível
+3. **Teste Saída SQL** - Use `toSql()` para verificar consultas geradas
+4. **Use Índices** - Garanta que colunas consultadas frequentemente sejam indexadas
+5. **Limite Resultados** - Sempre use `limit()` para conjuntos de dados grandes
+6. **Use Agregados** - Deixe o banco de dados fazer contagem/soma em vez de PHP
+7. **Escape de Saída** - Sempre escape dados exibidos com `htmlspecialchars()`
+8. **Desempenho de Índices** - Monitore consultas lentas e otimize conforme necessário
 
-## Related Documentation
+## Documentação Relacionada
 
-- XoopsDatabase - Database layer and connections
-- Criteria - Legacy Criteria-based query system
-- ../Core/XoopsObject - Data object persistence
-- ../Module/Module-System - Module database operations
+- XoopsDatabase - Camada de banco de dados e conexões
+- Criteria - Sistema legado de consultas baseado em Criteria
+- ../Core/XoopsObject - Persistência de objeto de dados
+- ../Module/Module-System - Operações de banco de dados de módulo
 
 ---
 
-*See also: [XOOPS Database API](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class)*
+*Veja também: [API de Banco de Dados do XOOPS](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class)*

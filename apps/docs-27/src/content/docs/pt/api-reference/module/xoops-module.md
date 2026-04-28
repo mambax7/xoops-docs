@@ -1,31 +1,31 @@
 ---
-title: "XoopsModule API Reference"
-description: "Complete API reference for XoopsModule and module system classes"
+title: "Referência da API XoopsModule"
+description: "Referência completa da API para XoopsModule e classes do sistema de módulos"
 ---
 
-> Complete API documentation for the XOOPS module system.
+> Documentação completa da API para o sistema de módulos XOOPS.
 
 ---
 
-## Module System Architecture
+## Arquitetura do Sistema de Módulos
 
 ```mermaid
 graph TB
-    subgraph "Module Loading"
-        A[Request] --> B[Router]
-        B --> C{Module Exists?}
-        C -->|Yes| D[Load xoops_version.php]
-        C -->|No| E[404 Error]
-        D --> F[Initialize Module]
-        F --> G[Check Permissions]
-        G --> H[Execute Controller]
+    subgraph "Carregamento de Módulo"
+        A[Requisição] --> B[Roteador]
+        B --> C{Módulo Existe?}
+        C -->|Sim| D[Carregar xoops_version.php]
+        C -->|Não| E[Erro 404]
+        D --> F[Inicializar Módulo]
+        F --> G[Verificar Permissões]
+        G --> H[Executar Controlador]
     end
 
-    subgraph "Module Components"
+    subgraph "Componentes do Módulo"
         I[XoopsModule] --> J[Config]
         I --> K[Templates]
-        I --> L[Blocks]
-        I --> M[Handlers]
+        I --> L[Blocos]
+        I --> M[Manipuladores]
         I --> N[Preloads]
     end
 
@@ -34,18 +34,18 @@ graph TB
 
 ---
 
-## XoopsModule Class
+## Classe XoopsModule
 
-### Class Definition
+### Definição de Classe
 
 ```php
 class XoopsModule extends XoopsObject
 {
-    // Properties
-    public $modinfo;      // Module info array
-    public $adminmenu;    // Admin menu items
+    // Propriedades
+    public $modinfo;      // Array de informações do módulo
+    public $adminmenu;    // Itens do menu admin
 
-    // Methods
+    // Métodos
     public function __construct();
     public function loadInfo(string $dirname, bool $verbose = true): bool;
     public function getInfo(string $name = null): mixed;
@@ -59,46 +59,46 @@ class XoopsModule extends XoopsObject
 }
 ```
 
-### Properties
+### Propriedades
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `mid` | int | Module ID |
-| `name` | string | Display name |
-| `version` | string | Version number |
-| `dirname` | string | Directory name |
-| `isactive` | int | Active status (0/1) |
-| `hasmain` | int | Has main area |
-| `hasadmin` | int | Has admin area |
-| `hassearch` | int | Has search function |
-| `hasconfig` | int | Has configuration |
-| `hascomments` | int | Has comments |
-| `hasnotification` | int | Has notifications |
+| Propriedade | Tipo | Descrição |
+|-------------|------|-----------|
+| `mid` | int | ID do módulo |
+| `name` | string | Nome de exibição |
+| `version` | string | Número da versão |
+| `dirname` | string | Nome do diretório |
+| `isactive` | int | Status ativo (0/1) |
+| `hasmain` | int | Tem área principal |
+| `hasadmin` | int | Tem área de administração |
+| `hassearch` | int | Tem função de busca |
+| `hasconfig` | int | Tem configuração |
+| `hascomments` | int | Tem comentários |
+| `hasnotification` | int | Tem notificações |
 
-### Key Methods
+### Métodos Principais
 
 ```php
-// Get module instance
+// Obter instância do módulo
 $module = $GLOBALS['xoopsModule'];
 
-// Or load by dirname
+// Ou carregar por dirname
 $moduleHandler = xoops_getHandler('module');
 $module = $moduleHandler->getByDirname('mymodule');
 
-// Get module info
+// Obter informações do módulo
 $version = $module->getVar('version');
 $name = $module->getVar('name');
 $dirname = $module->getVar('dirname');
 
-// Get module config
+// Obter config do módulo
 $config = $module->getConfig();
 $specificConfig = $module->getConfig('items_per_page');
 
-// Check if module has feature
+// Verificar se o módulo tem recurso
 $hasAdmin = $module->getVar('hasadmin');
 $hasSearch = $module->getVar('hassearch');
 
-// Get module path
+// Obter caminho do módulo
 $modulePath = XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname');
 $moduleUrl = XOOPS_URL . '/modules/' . $module->getVar('dirname');
 ```
@@ -107,7 +107,7 @@ $moduleUrl = XOOPS_URL . '/modules/' . $module->getVar('dirname');
 
 ## XoopsModuleHandler
 
-### Class Definition
+### Definição de Classe
 
 ```php
 class XoopsModuleHandler extends XoopsPersistableObjectHandler
@@ -122,65 +122,65 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
 }
 ```
 
-### Usage Examples
+### Exemplos de Uso
 
 ```php
-// Get handler
+// Obter handler
 $moduleHandler = xoops_getHandler('module');
 
-// Get all active modules
+// Obter todos os módulos ativos
 $criteria = new Criteria('isactive', 1);
 $activeModules = $moduleHandler->getObjects($criteria);
 
-// Get module by dirname
+// Obter módulo por dirname
 $publisherModule = $moduleHandler->getByDirname('publisher');
 
-// Get modules with admin
+// Obter módulos com administração
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('isactive', 1));
 $criteria->add(new Criteria('hasadmin', 1));
 $adminModules = $moduleHandler->getObjects($criteria);
 
-// Check if module is installed
+// Verificar se o módulo está instalado
 $module = $moduleHandler->getByDirname('mymodule');
 if ($module && $module->getVar('isactive')) {
-    // Module is installed and active
+    // Módulo está instalado e ativo
 }
 ```
 
 ---
 
-## Module Lifecycle
+## Ciclo de Vida do Módulo
 
 ```mermaid
 stateDiagram-v2
     [*] --> Uninstalled
 
-    Uninstalled --> Installing: Install Module
-    Installing --> Installed: Success
-    Installing --> Uninstalled: Failure
+    Uninstalled --> Installing: Instalar Módulo
+    Installing --> Installed: Sucesso
+    Installing --> Uninstalled: Falha
 
-    Installed --> Active: Activate
-    Installed --> Uninstalling: Uninstall
+    Installed --> Active: Ativar
+    Installed --> Uninstalling: Desinstalar
 
-    Active --> Inactive: Deactivate
-    Active --> Updating: Update Available
+    Active --> Inactive: Desativar
+    Active --> Updating: Atualização Disponível
 
-    Inactive --> Active: Activate
-    Inactive --> Uninstalling: Uninstall
+    Inactive --> Active: Ativar
+    Inactive --> Uninstalling: Desinstalar
 
-    Updating --> Active: Update Success
-    Updating --> Active: Update Failure
+    Updating --> Active: Atualização com Sucesso
+    Updating --> Active: Falha na Atualização
 
-    Uninstalling --> Uninstalled: Success
-    Uninstalling --> Installed: Failure
+    Uninstalling --> Uninstalled: Sucesso
+    Uninstalling --> Installed: Falha
 
     Uninstalled --> [*]
 ```
 
 ---
 
-## xoops_version.php Structure
+## Estrutura do xoops_version.php
 
 ```php
 <?php
@@ -299,7 +299,7 @@ $modversion['notification'] = [
 
 ---
 
-## Module Helper Pattern
+## Padrão de Helper de Módulo
 
 ```php
 <?php
@@ -332,7 +332,7 @@ class Helper extends \Xmf\Module\Helper
     }
 }
 
-// Usage
+// Uso
 $helper = Helper::getInstance();
 $itemHandler = $helper->getHandler('Item');
 $perPage = $helper->getConfig('items_per_page');
@@ -340,7 +340,7 @@ $perPage = $helper->getConfig('items_per_page');
 
 ---
 
-## Module Installation Flow
+## Fluxo de Instalação do Módulo
 
 ```mermaid
 sequenceDiagram
@@ -349,32 +349,32 @@ sequenceDiagram
     participant Database
     participant FileSystem
 
-    Admin->>System: Install Module
-    System->>FileSystem: Read xoops_version.php
-    FileSystem-->>System: Module Config
+    Admin->>System: Instalar Módulo
+    System->>FileSystem: Ler xoops_version.php
+    FileSystem-->>System: Config do Módulo
 
-    System->>Database: Create tables (mysql.sql)
-    Database-->>System: Tables created
+    System->>Database: Criar tabelas (mysql.sql)
+    Database-->>System: Tabelas criadas
 
-    System->>Database: Insert module record
-    System->>Database: Insert config options
-    System->>Database: Insert templates
-    System->>Database: Insert blocks
+    System->>Database: Inserir registro de módulo
+    System->>Database: Inserir opções de config
+    System->>Database: Inserir templates
+    System->>Database: Inserir blocos
 
-    System->>FileSystem: Compile templates
-    FileSystem-->>System: Templates compiled
+    System->>FileSystem: Compilar templates
+    FileSystem-->>System: Templates compilados
 
-    System->>Database: Set module active
-    System-->>Admin: Installation complete
+    System->>Database: Definir módulo como ativo
+    System-->>Admin: Instalação completa
 ```
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- XoopsObject API
-- Module Development Guide
-- XOOPS Architecture
+- API XoopsObject
+- Guia de Desenvolvimento de Módulo
+- Arquitetura XOOPS
 
 ---
 

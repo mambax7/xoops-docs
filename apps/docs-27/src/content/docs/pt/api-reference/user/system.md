@@ -1,39 +1,39 @@
 ---
-title: "XOOPS User System"
-description: "XoopsUser class, XoopsGroup management, user authentication, session handling, and access control"
+title: "Sistema de Usuário do XOOPS"
+description: "Classe XoopsUser, gerenciamento de XoopsGroup, autenticação de usuário, manipulação de sessão e controle de acesso"
 ---
 
-The XOOPS User System manages user accounts, authentication, authorization, group membership, and session management. It provides a robust framework for securing your application and controlling user access.
+O Sistema de Usuário do XOOPS gerencia contas de usuário, autenticação, autorização, associação de grupo e gerenciamento de sessão. Ele fornece uma estrutura robusta para proteger sua aplicação e controlar o acesso do usuário.
 
-## User System Architecture
+## Arquitetura do Sistema de Usuário
 
 ```mermaid
 graph TD
-    A[User System] -->|manages| B[XoopsUser]
-    A -->|manages| C[XoopsGroup]
-    A -->|handles| D[Authentication]
-    A -->|handles| E[Sessions]
+    A[Sistema de Usuário] -->|gerencia| B[XoopsUser]
+    A -->|gerencia| C[XoopsGroup]
+    A -->|processa| D[Autenticação]
+    A -->|processa| E[Sessões]
 
-    D -->|validates| F[Username/Password]
-    D -->|validates| G[Email/Token]
-    D -->|triggers| H[Post-Login Hooks]
+    D -->|valida| F[Usuário/Senha]
+    D -->|valida| G[Email/Token]
+    D -->|dispara| H[Ganchos Pós-Login]
 
-    E -->|manages| I[Session Data]
-    E -->|manages| J[Session Cookies]
+    E -->|gerencia| I[Dados da Sessão]
+    E -->|gerencia| J[Cookies de Sessão]
 
-    B -->|belongs to| C
-    B -->|has| K[Permissions]
-    B -->|has| L[Profile Data]
+    B -->|pertence a| C
+    B -->|tem| K[Permissões]
+    B -->|tem| L[Dados de Perfil]
 
-    C -->|defines| M[Access Levels]
-    C -->|contains| N[Multiple Users]
+    C -->|define| M[Níveis de Acesso]
+    C -->|contém| N[Múltiplos Usuários]
 ```
 
-## XoopsUser Class
+## Classe XoopsUser
 
-The main user object class representing a user account.
+A classe de objeto de usuário principal que representa uma conta de usuário.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops\Core\User;
@@ -51,56 +51,56 @@ class XoopsUser extends XoopsObject
 }
 ```
 
-### Constructor
+### Construtor
 
 ```php
 public function __construct(int $uid = null)
 ```
 
-Creates a new user object, optionally loading from database by ID.
+Cria um novo objeto de usuário, opcionalmente carregando do banco de dados por ID.
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uid` | int | User ID to load (optional) |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$uid` | int | ID do usuário a carregar (opcional) |
 
-**Example:**
+**Exemplo:**
 ```php
-// Create new user
+// Criar novo usuário
 $user = new XoopsUser();
 
-// Load existing user
+// Carregar usuário existente
 $user = new XoopsUser(123);
 ```
 
-### Core Properties
+### Propriedades Principais
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `uid` | int | User ID |
-| `uname` | string | Username |
-| `email` | string | Email address |
-| `pass` | string | Password hash |
-| `uregdate` | int | Registration timestamp |
-| `ulevel` | int | User level (9=admin, 1=user) |
-| `groups` | array | Group IDs |
-| `permissions` | array | Permission flags |
+| Propriedade | Tipo | Descrição |
+|-------------|------|-----------|
+| `uid` | int | ID do usuário |
+| `uname` | string | Nome de usuário |
+| `email` | string | Endereço de email |
+| `pass` | string | Hash de senha |
+| `uregdate` | int | Timestamp de registro |
+| `ulevel` | int | Nível de usuário (9=admin, 1=usuário) |
+| `groups` | array | IDs de grupo |
+| `permissions` | array | Flags de permissão |
 
-### Core Methods
+### Métodos Principais
 
 #### getID / getUid
 
-Gets the user's ID.
+Obtém o ID do usuário.
 
 ```php
 public function getID(): int
 public function getUid(): int  // Alias
 ```
 
-**Returns:** `int` - User ID
+**Retorna:** `int` - ID do usuário
 
-**Example:**
+**Exemplo:**
 ```php
 $user = new XoopsUser(1);
 echo $user->getID(); // 1
@@ -109,124 +109,124 @@ echo $user->getUid(); // 1
 
 #### getUnameReal
 
-Gets the user's display name.
+Obtém o nome de exibição do usuário.
 
 ```php
 public function getUnameReal(): string
 ```
 
-**Returns:** `string` - User's real name
+**Retorna:** `string` - Nome real do usuário
 
-**Example:**
+**Exemplo:**
 ```php
 $realName = $user->getUnameReal();
-echo "Hello, $realName";
+echo "Olá, $realName";
 ```
 
 #### getEmail
 
-Gets the user's email address.
+Obtém o endereço de email do usuário.
 
 ```php
 public function getEmail(): string
 ```
 
-**Returns:** `string` - Email address
+**Retorna:** `string` - Endereço de email
 
-**Example:**
+**Exemplo:**
 ```php
 $email = $user->getEmail();
-mail($email, 'Welcome', 'Welcome to XOOPS');
+mail($email, 'Bem-vindo', 'Bem-vindo ao XOOPS');
 ```
 
 #### getVar / setVar
 
-Gets or sets a user variable.
+Obtém ou define uma variável de usuário.
 
 ```php
 public function getVar(string $key, string $format = 's'): mixed
 public function setVar(string $key, mixed $value, bool $notGpc = false): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
-// Get values
+// Obter valores
 $username = $user->getVar('uname');
-$email = $user->getVar('email', 's'); // Formatted for display
+$email = $user->getVar('email', 's'); // Formatado para exibição
 
-// Set values
-$user->setVar('uname', 'newusername');
-$user->setVar('email', 'user@example.com');
+// Definir valores
+$user->setVar('uname', 'novousuario');
+$user->setVar('email', 'usuario@example.com');
 ```
 
 #### getGroups
 
-Gets the user's group memberships.
+Obtém as associações de grupo do usuário.
 
 ```php
 public function getGroups(): array
 ```
 
-**Returns:** `array` - Array of group IDs
+**Retorna:** `array` - Array de IDs de grupo
 
-**Example:**
+**Exemplo:**
 ```php
 $groups = $user->getGroups();
-echo "Member of " . count($groups) . " groups";
+echo "Membro de " . count($groups) . " grupos";
 ```
 
 #### isInGroup
 
-Checks if user belongs to a group.
+Verifica se o usuário pertence a um grupo.
 
 ```php
 public function isInGroup(int $groupId): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$groupId` | int | Group ID to check |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$groupId` | int | ID do grupo a verificar |
 
-**Returns:** `bool` - True if in group
+**Retorna:** `bool` - Verdadeiro se no grupo
 
-**Example:**
+**Exemplo:**
 ```php
 if ($user->isInGroup(1)) { // 1 = Webmasters
-    echo 'User is a webmaster';
+    echo 'Usuário é um webmaster';
 }
 ```
 
 #### isAdmin
 
-Checks if user is an administrator.
+Verifica se o usuário é um administrador.
 
 ```php
 public function isAdmin(): bool
 ```
 
-**Returns:** `bool` - True if admin
+**Retorna:** `bool` - Verdadeiro se admin
 
-**Example:**
+**Exemplo:**
 ```php
 if ($user->isAdmin()) {
-    // Show admin controls
-    echo '<a href="admin/">Admin Panel</a>';
+    // Mostrar controles de admin
+    echo '<a href="admin/">Painel Admin</a>';
 }
 ```
 
 #### getProfile
 
-Gets user profile information.
+Obtém informações de perfil do usuário.
 
 ```php
 public function getProfile(): array
 ```
 
-**Returns:** `array` - Profile data
+**Retorna:** `array` - Dados do perfil
 
-**Example:**
+**Exemplo:**
 ```php
 $profile = $user->getProfile();
 echo 'Bio: ' . $profile['bio'];
@@ -234,45 +234,45 @@ echo 'Bio: ' . $profile['bio'];
 
 #### isActive
 
-Checks if user account is active.
+Verifica se a conta do usuário está ativa.
 
 ```php
 public function isActive(): bool
 ```
 
-**Returns:** `bool` - True if active
+**Retorna:** `bool` - Verdadeiro se ativo
 
-**Example:**
+**Exemplo:**
 ```php
 if ($user->isActive()) {
-    // Allow user access
+    // Permitir acesso do usuário
 } else {
-    // Restrict access
+    // Restringir acesso
 }
 ```
 
 #### updateLastLogin
 
-Updates the user's last login timestamp.
+Atualiza o timestamp do último login do usuário.
 
 ```php
 public function updateLastLogin(): bool
 ```
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro se sucesso
 
-**Example:**
+**Exemplo:**
 ```php
 if ($user->updateLastLogin()) {
-    echo 'Login recorded';
+    echo 'Login registrado';
 }
 ```
 
-## XoopsGroup Class
+## Classe XoopsGroup
 
-Manages user groups and permissions.
+Gerencia grupos de usuários e permissões.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops\Core\User;
@@ -287,27 +287,27 @@ class XoopsGroup extends XoopsObject
 }
 ```
 
-### Constants
+### Constantes
 
-| Constant | Value | Description |
-|----------|-------|-------------|
-| `TYPE_NORMAL` | 0 | Normal user group |
-| `TYPE_ADMIN` | 1 | Administrative group |
-| `TYPE_SYSTEM` | 2 | System group |
+| Constante | Valor | Descrição |
+|-----------|-------|-----------|
+| `TYPE_NORMAL` | 0 | Grupo de usuário normal |
+| `TYPE_ADMIN` | 1 | Grupo administrativo |
+| `TYPE_SYSTEM` | 2 | Grupo de sistema |
 
-### Methods
+### Métodos
 
 #### getName
 
-Gets the group name.
+Obtém o nome do grupo.
 
 ```php
 public function getName(): string
 ```
 
-**Returns:** `string` - Group name
+**Retorna:** `string` - Nome do grupo
 
-**Example:**
+**Exemplo:**
 ```php
 $group = new XoopsGroup(1);
 echo $group->getName(); // "Webmasters"
@@ -315,67 +315,67 @@ echo $group->getName(); // "Webmasters"
 
 #### getDescription
 
-Gets the group description.
+Obtém a descrição do grupo.
 
 ```php
 public function getDescription(): string
 ```
 
-**Returns:** `string` - Description
+**Retorna:** `string` - Descrição
 
-**Example:**
+**Exemplo:**
 ```php
 echo $group->getDescription();
 ```
 
 #### getUsers
 
-Gets group members.
+Obtém membros do grupo.
 
 ```php
 public function getUsers(): array
 ```
 
-**Returns:** `array` - Array of user IDs
+**Retorna:** `array` - Array de IDs de usuário
 
-**Example:**
+**Exemplo:**
 ```php
 $users = $group->getUsers();
-echo "Group has " . count($users) . " members";
+echo "Grupo tem " . count($users) . " membros";
 ```
 
 #### addUser
 
-Adds a user to the group.
+Adiciona um usuário ao grupo.
 
 ```php
 public function addUser(int $uid): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uid` | int | User ID |
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `$uid` | int | ID do usuário |
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro se sucesso
 
-**Example:**
+**Exemplo:**
 ```php
-$group = new XoopsGroup(2); // Editors
+$group = new XoopsGroup(2); // Editores
 $group->addUser(123);
 $groupHandler->insert($group);
 ```
 
 #### removeUser
 
-Removes a user from the group.
+Remove um usuário do grupo.
 
 ```php
 public function removeUser(int $uid): bool
 ```
 
-**Example:**
+**Exemplo:**
 ```php
 $group->removeUser(123);
 ```
@@ -755,23 +755,23 @@ echo '<button type="submit" name="change_password">Change Password</button>';
 echo '</form>';
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Hash Passwords** - Always use bcrypt or argon2 for password hashing
-2. **Validate Input** - Validate and sanitize all user input
-3. **Check Permissions** - Always verify user permissions before actions
-4. **Use Sessions Securely** - Regenerate session IDs on login
-5. **Log Activities** - Log login, logout, and critical actions
-6. **Rate Limiting** - Implement login attempt rate limiting
-7. **HTTPS Only** - Always use HTTPS for authentication
-8. **Group Management** - Use groups for permission organization
+1. **Hash de Senhas** - Sempre usar bcrypt ou argon2 para hash de senha
+2. **Validar Entrada** - Validar e sanitizar toda entrada de usuário
+3. **Verificar Permissões** - Sempre verificar permissões do usuário antes de ações
+4. **Usar Sessões com Segurança** - Regenerar IDs de sessão no login
+5. **Registrar Atividades** - Registrar login, logout e ações críticas
+6. **Limitação de Taxa** - Implementar limitação de taxa para tentativas de login
+7. **Apenas HTTPS** - Sempre usar HTTPS para autenticação
+8. **Gerenciamento de Grupo** - Usar grupos para organização de permissão
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../Kernel/Kernel-Classes - Kernel services and bootstrapping
-- ../Database/QueryBuilder - Database queries for user data
-- ../Core/XoopsObject - Base object class
+- ../Kernel/Kernel-Classes - Serviços de kernel e bootstrapping
+- ../Database/QueryBuilder - Consultas de banco de dados para dados de usuário
+- ../Core/XoopsObject - Classe de objeto base
 
 ---
 
-*See also: [XOOPS User API](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class) | [PHP Security](https://www.php.net/manual/en/book.password.php)*
+*Veja também: [API de Usuário XOOPS](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class) | [Segurança PHP](https://www.php.net/manual/en/book.password.php)*

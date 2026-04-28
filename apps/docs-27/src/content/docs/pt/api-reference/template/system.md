@@ -1,37 +1,37 @@
 ---
-title: "XOOPS Template System"
-description: "Smarty integration, XoopsTpl class, template variables, theme management, and template rendering"
+title: "Sistema de Template do XOOPS"
+description: "Integração Smarty, classe XoopsTpl, variáveis de template, gerenciamento de tema e renderização de template"
 ---
 
-The XOOPS Template System is built on the powerful Smarty template engine, providing a flexible and extensible way to separate presentation logic from business logic. It manages themes, template rendering, variable assignment, and dynamic content generation.
+O Sistema de Template do XOOPS é construído no poderoso mecanismo de template Smarty, fornecendo uma forma flexível e extensível de separar lógica de apresentação da lógica de negócios. Gerencia temas, renderização de template, atribuição de variável e geração de conteúdo dinâmico.
 
-## Template Architecture
+## Arquitetura de Template
 
 ```mermaid
 graph TD
-    A[XoopsTpl] -->|extends| B[Smarty]
-    A -->|manages| C[Themes]
-    A -->|manages| D[Template Variables]
-    A -->|handles| E[Block Rendering]
+    A[XoopsTpl] -->|estende| B[Smarty]
+    A -->|gerencia| C[Temas]
+    A -->|gerencia| D[Variáveis de Template]
+    A -->|manipula| E[Renderização de Bloco]
 
-    C -->|contains| F[Templates]
-    C -->|contains| G[CSS/JS]
-    C -->|contains| H[Images]
+    C -->|contém| F[Templates]
+    C -->|contém| G[CSS/JS]
+    C -->|contém| H[Imagens]
 
-    I[Theme Manager] -->|loads| C
-    I -->|applies| J[Active Theme]
-    I -->|configures| K[Template Paths]
+    I[Gerenciador de Tema] -->|carrega| C
+    I -->|aplica| J[Tema Ativo]
+    I -->|configura| K[Caminhos de Template]
 
-    L[Block System] -->|uses| A
-    M[Module Templates] -->|uses| A
-    N[Admin Templates] -->|uses| A
+    L[Sistema de Bloco] -->|usa| A
+    M[Templates de Módulo] -->|usa| A
+    N[Templates de Administrador] -->|usa| A
 ```
 
-## XoopsTpl Class
+## Classe XoopsTpl
 
-The main template engine class that extends Smarty.
+A principal classe de mecanismo de template que estende Smarty.
 
-### Class Overview
+### Visão Geral da Classe
 
 ```php
 namespace Xoops\Core;
@@ -45,7 +45,7 @@ class XoopsTpl extends Smarty
 }
 ```
 
-### Extending Smarty
+### Extensão de Smarty
 
 ```php
 use Xoops\Core\XoopsTpl;
@@ -71,26 +71,26 @@ class XoopsTpl extends Smarty
 }
 ```
 
-### Core Methods
+### Métodos Principais
 
 #### getInstance
 
-Gets the singleton template instance.
+Obtém a instância de template singleton.
 
 ```php
 public static function getInstance(): XoopsTpl
 ```
 
-**Returns:** `XoopsTpl` - Singleton instance
+**Retorna:** `XoopsTpl` - Instância singleton
 
-**Example:**
+**Exemplo:**
 ```php
 $xoopsTpl = XoopsTpl::getInstance();
 ```
 
 #### assign
 
-Assigns a variable to the template.
+Atribui uma variável ao template.
 
 ```php
 public function assign(
@@ -99,19 +99,19 @@ public function assign(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$tplVar` | string\|array | Variable name or associative array |
-| `$value` | mixed | Variable value |
+| `$tplVar` | string\|array | Nome da variável ou array associativo |
+| `$value` | mixed | Valor da variável |
 
-**Example:**
+**Exemplo:**
 ```php
 $xoopsTpl->assign('page_title', 'Welcome');
 $xoopsTpl->assign('user_name', 'John Doe');
 
-// Multiple assignments
+// Múltiplas atribuições
 $xoopsTpl->assign([
     'items' => $items,
     'total_count' => count($items),
@@ -121,7 +121,7 @@ $xoopsTpl->assign([
 
 #### appendAssign
 
-Appends values to template array variables.
+Acrescenta valores às variáveis de array de template.
 
 ```php
 public function appendAssign(
@@ -130,14 +130,14 @@ public function appendAssign(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$tplVar` | string | Variable name |
-| `$value` | mixed | Value to append |
+| `$tplVar` | string | Nome da variável |
+| `$value` | mixed | Valor a acrescentar |
 
-**Example:**
+**Exemplo:**
 ```php
 $xoopsTpl->assign('breadcrumbs', ['Home']);
 $xoopsTpl->appendAssign('breadcrumbs', 'Blog');
@@ -147,15 +147,15 @@ $xoopsTpl->appendAssign('breadcrumbs', 'Posts');
 
 #### getAssignedVars
 
-Gets all assigned template variables.
+Obtém todas as variáveis de template atribuídas.
 
 ```php
 public function getAssignedVars(): array
 ```
 
-**Returns:** `array` - Assigned variables
+**Retorna:** `array` - Variáveis atribuídas
 
-**Example:**
+**Exemplo:**
 ```php
 $vars = $xoopsTpl->getAssignedVars();
 foreach ($vars as $name => $value) {
@@ -165,7 +165,7 @@ foreach ($vars as $name => $value) {
 
 #### display
 
-Renders a template and outputs to browser.
+Renderiza um template e saída para navegador.
 
 ```php
 public function display(
@@ -176,27 +176,27 @@ public function display(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$resource` | string | Template file path |
-| `$cache_id` | string\|array | Cache identifier |
-| `$compile_id` | string | Compile identifier |
-| `$parent` | object | Parent template object |
+| `$resource` | string | Caminho do arquivo de template |
+| `$cache_id` | string\|array | Identificador de cache |
+| `$compile_id` | string | Identificador de compilação |
+| `$parent` | object | Objeto de template pai |
 
-**Example:**
+**Exemplo:**
 ```php
 $xoopsTpl->assign('page_title', 'Home');
 $xoopsTpl->display('user:index.tpl');
 
-// With absolute path
+// Com caminho absoluto
 $xoopsTpl->display(XOOPS_ROOT_PATH . '/templates/user/index.tpl');
 ```
 
 #### fetch
 
-Renders a template and returns as string.
+Renderiza um template e retorna como string.
 
 ```php
 public function fetch(
@@ -207,80 +207,80 @@ public function fetch(
 ): string
 ```
 
-**Returns:** `string` - Rendered template content
+**Retorna:** `string` - Conteúdo de template renderizado
 
-**Example:**
+**Exemplo:**
 ```php
 $xoopsTpl->assign('message', 'Hello World');
 $html = $xoopsTpl->fetch('user:message.tpl');
 echo $html;
 
-// Use for email templates
+// Usar para templates de email
 $emailContent = $xoopsTpl->fetch('mail:notification.tpl');
 mail($to, $subject, $emailContent);
 ```
 
 #### loadTheme
 
-Loads a specific theme.
+Carrega um tema específico.
 
 ```php
 public function loadTheme(string $themeName): bool
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$themeName` | string | Theme directory name |
+| `$themeName` | string | Nome do diretório do tema |
 
-**Returns:** `bool` - True on success
+**Retorna:** `bool` - Verdadeiro em sucesso
 
-**Example:**
+**Exemplo:**
 ```php
 if ($xoopsTpl->loadTheme('bluemoon')) {
-    echo "Theme loaded successfully";
+    echo "Tema carregado com sucesso";
 }
 ```
 
 #### getCurrentTheme
 
-Gets the name of the currently active theme.
+Obtém o nome do tema ativo atual.
 
 ```php
 public function getCurrentTheme(): string
 ```
 
-**Returns:** `string` - Theme name
+**Retorna:** `string` - Nome do tema
 
-**Example:**
+**Exemplo:**
 ```php
 $currentTheme = $xoopsTpl->getCurrentTheme();
-echo "Active theme: $currentTheme";
+echo "Tema ativo: $currentTheme";
 ```
 
 #### setOutputFilter
 
-Adds an output filter to process template output.
+Adiciona um filtro de saída para processar saída de template.
 
 ```php
 public function setOutputFilter(string $function): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$function` | string | Filter function name |
+| `$function` | string | Nome da função de filtro |
 
-**Example:**
+**Exemplo:**
 ```php
-// Remove whitespace from output
+// Remover espaçamento em branco da saída
 $xoopsTpl->setOutputFilter('trim');
 
-// Custom filter
+// Filtro personalizado
 function my_output_filter($output) {
-    // Minify HTML
+    // Minificar HTML
     $output = preg_replace('/\s+/', ' ', $output);
     return trim($output);
 }
@@ -289,7 +289,7 @@ $xoopsTpl->setOutputFilter('my_output_filter');
 
 #### registerPlugin
 
-Registers a custom Smarty plugin.
+Registra um plugin Smarty personalizado.
 
 ```php
 public function registerPlugin(
@@ -299,67 +299,67 @@ public function registerPlugin(
 ): void
 ```
 
-**Parameters:**
+**Parâmetros:**
 
-| Parameter | Type | Description |
+| Parâmetro | Tipo | Descrição |
 |-----------|------|-------------|
-| `$type` | string | Plugin type (modifier, block, function) |
-| `$name` | string | Plugin name |
-| `$callback` | callable | Callback function |
+| `$type` | string | Tipo de plugin (modificador, bloco, função) |
+| `$name` | string | Nome do plugin |
+| `$callback` | callable | Função de callback |
 
-**Example:**
+**Exemplo:**
 ```php
-// Register custom modifier
+// Registrar modificador personalizado
 $xoopsTpl->registerPlugin('modifier', 'markdown', function($text) {
     return markdown_parse($text);
 });
 
-// Use in template: {$content|markdown}
+// Usar em template: {$content|markdown}
 
-// Register custom block tag
+// Registrar tag de bloco personalizado
 $xoopsTpl->registerPlugin('block', 'permission', function($params, $content, $smarty, &$repeat) {
     if ($repeat) return;
 
-    // Check permission
+    // Verificar permissão
     if (has_permission($params['name'])) {
         return $content;
     }
     return '';
 });
 
-// Use in template: {permission name="admin"}...{/permission}
+// Usar em template: {permission name="admin"}...{/permission}
 ```
 
-## Theme System
+## Sistema de Tema
 
-### Theme Structure
+### Estrutura de Tema
 
-Standard XOOPS theme directory structure:
+Estrutura de diretório de tema XOOPS padrão:
 
 ```
 bluemoon/
-├── style.css              # Main stylesheet
-├── admin.css              # Admin stylesheet
-├── theme.html             # Main page template
-├── admin.html             # Admin page template
-├── blocks/                # Block templates
+├── style.css              # Folha de estilo principal
+├── admin.css              # Folha de estilo de administrador
+├── theme.html             # Template de página principal
+├── admin.html             # Template de página de administrador
+├── blocks/                # Templates de bloco
 │   ├── block_left.tpl
 │   └── block_right.tpl
-├── modules/               # Module templates
+├── modules/               # Templates de módulo
 │   ├── publisher/
 │   │   ├── index.tpl
 │   │   └── item.tpl
 │   └── news/
 │       └── index.tpl
-├── images/                # Theme images
+├── images/                # Imagens de tema
 │   ├── logo.png
 │   └── banner.png
-├── js/                    # Theme JavaScript
+├── js/                    # JavaScript de tema
 │   └── script.js
-└── readme.txt             # Theme documentation
+└── readme.txt             # Documentação de tema
 ```
 
-### Theme Manager Class
+### Classe Gerenciador de Tema
 
 ```php
 namespace Xoops\Core\Theme;
@@ -377,86 +377,86 @@ class ThemeManager
 }
 ```
 
-## Template Variables
+## Variáveis de Template
 
-### Standard Global Variables
+### Variáveis Globais Padrão
 
-XOOPS automatically assigns several global template variables:
+XOOPS atribui automaticamente várias variáveis de template global:
 
-| Variable | Type | Description |
+| Variável | Tipo | Descrição |
 |----------|------|-------------|
-| `$xoops_url` | string | XOOPS installation URL |
-| `$xoops_user` | XoopsUser\|null | Current user object |
-| `$xoops_uname` | string | Current username |
-| `$xoops_isadmin` | bool | User is admin |
-| `$xoops_banner` | string | Banner HTML |
-| `$xoops_notification` | string | Notification markup |
-| `$xoops_version` | string | XOOPS version |
+| `$xoops_url` | string | URL de instalação do XOOPS |
+| `$xoops_user` | XoopsUser\|null | Objeto de usuário atual |
+| `$xoops_uname` | string | Nome de usuário atual |
+| `$xoops_isadmin` | bool | Usuário é administrador |
+| `$xoops_banner` | string | HTML de banner |
+| `$xoops_notification` | string | Marcação de notificação |
+| `$xoops_version` | string | Versão do XOOPS |
 
-### Block-Specific Variables
+### Variáveis Específicas de Bloco
 
-When rendering blocks:
+Ao renderizar blocos:
 
-| Variable | Type | Description |
+| Variável | Tipo | Descrição |
 |----------|------|-------------|
-| `$block` | array | Block information |
-| `$block.title` | string | Block title |
-| `$block.content` | string | Block content |
-| `$block.id` | int | Block ID |
-| `$block.module` | string | Module name |
+| `$block` | array | Informação de bloco |
+| `$block.title` | string | Título do bloco |
+| `$block.content` | string | Conteúdo do bloco |
+| `$block.id` | int | ID do bloco |
+| `$block.module` | string | Nome do módulo |
 
-### Module Template Variables
+### Variáveis de Template de Módulo
 
-Modules typically assign:
+Os módulos normalmente atribuem:
 
-| Variable | Type | Description |
+| Variável | Tipo | Descrição |
 |----------|------|-------------|
-| `$module_name` | string | Module display name |
-| `$module_dir` | string | Module directory |
-| `$xoops_module_header` | string | Module CSS/JS |
+| `$module_name` | string | Nome de exibição do módulo |
+| `$module_dir` | string | Diretório do módulo |
+| `$xoops_module_header` | string | CSS/JS do módulo |
 
-## Smarty Configuration
+## Configuração de Smarty
 
-### Common Smarty Modifiers
+### Modificadores Smarty Comuns
 
-| Modifier | Description | Example |
+| Modificador | Descrição | Exemplo |
 |----------|-------------|---------|
-| `capitalize` | Capitalize first letter | `{$title\|capitalize}` |
-| `count_characters` | Character count | `{$text\|count_characters}` |
-| `date_format` | Format timestamp | `{$timestamp\|date_format:'%Y-%m-%d'}` |
-| `escape` | Escape special chars | `{$html\|escape:'html'}` |
-| `nl2br` | Convert newlines to `<br>` | `{$text\|nl2br}` |
-| `strip_tags` | Remove HTML tags | `{$content\|strip_tags}` |
-| `truncate` | Limit string length | `{$text\|truncate:100}` |
-| `upper` | Convert to uppercase | `{$name\|upper}` |
-| `lower` | Convert to lowercase | `{$name\|lower}` |
+| `capitalize` | Capitalizar primeira letra | `{$title\|capitalize}` |
+| `count_characters` | Contagem de caracteres | `{$text\|count_characters}` |
+| `date_format` | Formato de timestamp | `{$timestamp\|date_format:'%Y-%m-%d'}` |
+| `escape` | Escape de caracteres especiais | `{$html\|escape:'html'}` |
+| `nl2br` | Converter quebras de linha para `<br>` | `{$text\|nl2br}` |
+| `strip_tags` | Remover tags HTML | `{$content\|strip_tags}` |
+| `truncate` | Limitar comprimento de string | `{$text\|truncate:100}` |
+| `upper` | Converter para maiúsculas | `{$name\|upper}` |
+| `lower` | Converter para minúsculas | `{$name\|lower}` |
 
-### Control Structures
+### Estruturas de Controle
 
 ```smarty
-{* If statement *}
+{* Instrução if *}
 {if $user->isAdmin()}
     <p>Admin content</p>
 {else}
     <p>User content</p>
 {/if}
 
-{* For loop *}
+{* Loop for *}
 {foreach $items as $item}
     <div class="item">{$item.title}</div>
 {/foreach}
 
-{* For loop with counter *}
+{* Loop for com contador *}
 {foreach $items as $item name=item_loop}
     {$smarty.foreach.item_loop.iteration}: {$item.title}
 {/foreach}
 
-{* While loop *}
+{* Loop while *}
 {while $condition}
-    <!-- content -->
+    <!-- conteúdo -->
 {/while}
 
-{* Switch statement *}
+{* Instrução switch *}
 {switch $status}
     {case 'draft'}<span class="draft">Draft</span>{break}
     {case 'published'}<span class="published">Published</span>{break}
@@ -464,49 +464,49 @@ Modules typically assign:
 {/switch}
 ```
 
-## Complete Template Example
+## Exemplo Completo de Template
 
-### PHP Code
+### Código PHP
 
 ```php
 <?php
 /**
- * Module Article List Page
+ * Página de Lista de Artigos do Módulo
  */
 
 include __DIR__ . '/include/common.inc.php';
 
 $xoopsTpl = XoopsTpl::getInstance();
 
-// Check if module is active
+// Verificar se módulo está ativo
 $module = xoops_getModuleByDirname('articles');
 if (!$module) {
-    redirect_header(XOOPS_URL, 3, 'Module not found');
+    redirect_header(XOOPS_URL, 3, 'Módulo não encontrado');
 }
 
-// Get item handler
+// Obter handler de item
 $itemHandler = xoops_getModuleHandler('item', 'articles');
 
-// Get pagination parameters
+// Obter parâmetros de paginação
 $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 $perPage = $module->getConfig('items_per_page') ?: 10;
 $offset = ($page - 1) * $perPage;
 
-// Build criteria
+// Construir criteria
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 1));
 $criteria->setSort('published', 'DESC');
 $criteria->setLimit($perPage);
 $criteria->setStart($offset);
 
-// Fetch items
+// Buscar itens
 $items = $itemHandler->getObjects($criteria);
 $total = $itemHandler->getCount(new Criteria('status', 1));
 
-// Calculate pagination
+// Calcular paginação
 $pages = ceil($total / $perPage);
 
-// Assign template variables
+// Atribuir variáveis de template
 $xoopsTpl->assign([
     'module_name' => $module->getName(),
     'items' => $items,
@@ -517,18 +517,18 @@ $xoopsTpl->assign([
     'show_pagination' => $pages > 1
 ]);
 
-// Add breadcrumbs
+// Adicionar breadcrumbs
 $xoopsTpl->assign('xoops_breadcrumbs', [
     ['url' => XOOPS_URL, 'title' => 'Home'],
     ['url' => $module->getUrl(), 'title' => $module->getName()],
     ['title' => 'Articles']
 ]);
 
-// Display template
+// Exibir template
 $xoopsTpl->display($module->getPath() . '/templates/user/list.tpl');
 ```
 
-### Template File (list.tpl)
+### Arquivo de Template (list.tpl)
 
 ```smarty
 <div id="articles-list">
@@ -565,7 +565,7 @@ $xoopsTpl->display($module->getPath() . '/templates/user/list.tpl');
             {/foreach}
         </div>
 
-        {* Pagination *}
+        {* Paginação *}
         {if $show_pagination}
             <nav class="pagination">
                 {if $current_page > 1}
@@ -593,14 +593,14 @@ $xoopsTpl->display($module->getPath() . '/templates/user/list.tpl');
 </div>
 ```
 
-## Custom Smarty Functions
+## Funções Smarty Personalizadas
 
-### Creating a Custom Block Function
+### Criar uma Função de Bloco Personalizado
 
 ```php
 <?php
 /**
- * Custom Smarty block function for permission checking
+ * Função de bloco Smarty personalizado para verificação de permissão
  */
 
 function smarty_block_permission($params, $content, $smarty, &$repeat)
@@ -608,13 +608,13 @@ function smarty_block_permission($params, $content, $smarty, &$repeat)
     if ($repeat) return;
 
     if (!isset($params['name'])) {
-        return 'Permission name required';
+        return 'Nome de permissão necessário';
     }
 
     $permName = $params['name'];
     $user = $GLOBALS['xoopsUser'];
 
-    // Check if user has permission
+    // Verificar se o usuário tem permissão
     if ($user && $user->isAdmin()) {
         return $content;
     }
@@ -627,7 +627,7 @@ function smarty_block_permission($params, $content, $smarty, &$repeat)
 }
 ```
 
-Register and use:
+Registrar e usar:
 
 ```php
 $xoopsTpl->registerPlugin('block', 'permission', 'smarty_block_permission');
@@ -641,22 +641,22 @@ Template:
 {/permission}
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **Escape User Content** - Always use `|escape` for user-generated content
-2. **Use Template Paths** - Reference templates relative to theme
-3. **Separate Logic from Presentation** - Keep complex logic in PHP
-4. **Cache Templates** - Enable template caching in production
-5. **Use Modifiers Correctly** - Apply appropriate filters for context
-6. **Organize Blocks** - Place block templates in dedicated directory
-7. **Document Variables** - Document all template variables in PHP
+1. **Escape de Conteúdo do Usuário** - Sempre use `|escape` para conteúdo gerado pelo usuário
+2. **Use Caminhos de Template** - Referencie templates relativo ao tema
+3. **Separe Lógica da Apresentação** - Mantenha lógica complexa em PHP
+4. **Cache de Templates** - Ative cache de template em produção
+5. **Use Modificadores Corretamente** - Aplique filtros apropriados para contexto
+6. **Organize Blocos** - Coloque templates de bloco em diretório dedicado
+7. **Documente Variáveis** - Documente todas as variáveis de template em PHP
 
-## Related Documentation
+## Documentação Relacionada
 
-- ../Module/Module-System - Module system and hooks
-- ../Kernel/Kernel-Classes - Kernel and configuration
-- ../Core/XoopsObject - Base object class
+- ../Module/Module-System - Sistema de módulo e hooks
+- ../Kernel/Kernel-Classes - Kernel e configuração
+- ../Core/XoopsObject - Classe base de objetos
 
 ---
 
-*See also: [Smarty Documentation](https://www.smarty.net/docs) | [XOOPS Template API](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class)*
+*Veja também: [Documentação Smarty](https://www.smarty.net/docs) | [API de Template do XOOPS](https://github.com/XOOPS/XoopsCore27/tree/master/htdocs/class)*

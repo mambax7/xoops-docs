@@ -1,168 +1,168 @@
 ---
-title: "XOOPS Community Code of Conduct"
-description: "Community standards and expectations for XOOPS contributors and members"
+title: "Código de Conduta da Comunidade XOOPS"
+description: "Padrões e expectativas da comunidade para contribuidores e membros XOOPS"
 ---
 
-# Code of Conduct
+# Código de Conduta
 
-> Our community is built on respect, inclusivity, and collaboration. This Code of Conduct outlines expectations for all community members.
-
----
-
-## Our Commitment
-
-The XOOPS community is committed to providing a welcoming and inspiring community for all. We pledge that everyone participating in this community will be treated with respect and their contributions valued.
+> Nossa comunidade é construída sobre respeito, inclusão e colaboração. Este Código de Conduta apresenta as expectativas para todos os membros da comunidade.
 
 ---
 
-## Expected Behavior
+## Nosso Compromisso
 
-### Be Respectful
-
-- Treat all community members with respect and kindness
-- Value diverse perspectives and experiences
-- Listen actively to others' viewpoints
-- Disagree professionally and constructively
-
-### Be Inclusive
-
-- Welcome contributors of all backgrounds and skill levels
-- Use inclusive language
-- Provide opportunities for new contributors
-- Support underrepresented voices in tech
-
-### Be Collaborative
-
-- Focus on what is best for the community
-- Help fellow contributors succeed
-- Share knowledge and experience
-- Celebrate others' achievements
-
-### Be Professional
-
-- Keep discussions focused and on-topic
-- Provide constructive feedback
-- Acknowledge and learn from mistakes
-- Maintain professionalism in all interactions
+A comunidade XOOPS se compromete a fornecer uma comunidade acolhedora e inspiradora para todos. Prometemos que todos os participantes desta comunidade serão tratados com respeito e suas contribuições valorizadas.
 
 ---
 
-## Unacceptable Behavior
+## Comportamento Esperado
 
-The following behaviors are considered unacceptable:
+### Seja Respeitoso
 
-### Harassment and Discrimination
+- Trate todos os membros da comunidade com respeito e gentileza
+- Valorize perspectivas e experiências diversas
+- Ouça ativamente os pontos de vista dos outros
+- Discorde profissional e construtivamente
 
-- Offensive comments based on personal characteristics (gender, gender identity, sexual orientation, disability, physical appearance, body size, race, ethnicity, age, religion, nationality)
-- Unwelcome sexual attention or advances
-- Deliberate intimidation or threats
-- Sustained disruption of discussions
-- Trolling or deliberately provocative behavior
+### Seja Inclusivo
 
-### Abuse and Attacks
+- Bem-vindo a contribuidores de todos os antecedentes e níveis de habilidade
+- Use linguagem inclusiva
+- Forneça oportunidades para novos contribuidores
+- Apoie vozes sub-representadas em tecnologia
 
-- Personal attacks or insults
-- Public or private harassment
-- Publishing others' private information without permission
-- Deliberately damaging someone's reputation
+### Seja Colaborativo
 
-### Inappropriate Content
+- Foque no que é melhor para a comunidade
+- Ajude outros contribuidores a terem sucesso
+- Compartilhe conhecimento e experiência
+- Celebre as realizações dos outros
 
-- Sexually explicit or violent content
-- Content that violates intellectual property or privacy rights
-- Spam or commercial solicitation
-- Promotion of illegal activities
+### Seja Profissional
 
-### Bad Faith Engagement
-
-- Deliberate misinformation or spreading false claims
-- Sockpuppeting (creating fake accounts to manipulate discussions)
-- Brigading or coordinating to disrupt discussions
-- Abusing reporting mechanisms
+- Mantenha discussões focadas e no tópico
+- Forneça feedback construtivo
+- Reconheça e aprenda com erros
+- Mantenha profissionalismo em todas as interações
 
 ---
 
-## Scope
+## Comportamento Inaceitável
 
-This Code of Conduct applies to:
+Os seguintes comportamentos são considerados inaceitáveis:
 
-- All XOOPS repositories and project spaces
-- Official discussion forums and communication channels
-- Events and meetups affiliated with XOOPS
-- Social media discussions about XOOPS
-- Interactions between community members in any context related to XOOPS
+### Assédio e Discriminação
 
----
+- Comentários ofensivos baseados em características pessoais (gênero, identidade de gênero, orientação sexual, deficiência, aparência física, tamanho corporal, raça, etnia, idade, religião, nacionalidade)
+- Atenção ou avanços sexuais indesejados
+- Intimidação deliberada ou ameaças
+- Interrupção sustentada de discussões
+- Trolling ou comportamento deliberadamente provocativo
 
-## Reporting and Enforcement
+### Abuso e Ataques
 
-### Reporting Violations
+- Ataques pessoais ou insultos
+- Assédio público ou privado
+- Publicação de informações privadas de outros sem permissão
+- Dano deliberado à reputação de alguém
 
-If you witness or experience a violation of this Code of Conduct:
+### Conteúdo Inadequado
 
-1. **Document the incident** - Note what happened, when, who was involved
-2. **Report to maintainers** - Email: conduct@xoops.org
-3. **Provide context** - Include links, screenshots, or other evidence if available
-4. **Request confidentiality** - If desired, request that your identity be kept private
+- Conteúdo sexualmente explícito ou violento
+- Conteúdo que viola direitos de propriedade intelectual ou privacidade
+- Spam ou solicitação comercial
+- Promoção de atividades ilegais
 
-### Investigation Process
+### Engajamento de Má Fé
 
-When a report is received:
-
-1. The report will be acknowledged within 48 hours
-2. A preliminary assessment will determine if further investigation is needed
-3. The reporter will be updated on the status (with confidentiality respected)
-4. A decision and enforcement action will be communicated
-
-### Enforcement Actions
-
-Enforcement actions may include:
-
-- **Warning** - A private discussion about the violation
-- **Temporary suspension** - Loss of privileges for 7-30 days
-- **Permanent ban** - Removal from the community
-- **Law enforcement** - For serious offenses (threats, harassment, etc.)
+- Desinformação deliberada ou disseminação de falsas alegações
+- Sockpuppeting (criar contas falsas para manipular discussões)
+- Brigading ou coordenação para interromper discussões
+- Abuso de mecanismos de relatório
 
 ---
 
-## Moderation Guidelines
+## Escopo
 
-Community moderators will:
+Este Código de Conduta se aplica a:
 
-- Respond promptly to violations
-- Apply consistent standards fairly
-- Explain decisions clearly
-- Consider context and intent
-- Allow appeals of decisions
-- Maintain confidentiality when appropriate
-
----
-
-## Conflict Resolution
-
-When conflicts arise between community members:
-
-1. **Direct communication** - Try to resolve the issue directly first
-2. **Involve a moderator** - If direct communication fails
-3. **Mediation** - Moderators will facilitate a discussion
-4. **Decision** - If needed, moderation leadership will make a final decision
+- Todos os repositórios XOOPS e espaços de projeto
+- Fóruns de discussão oficiais e canais de comunicação
+- Eventos e encontros filiados ao XOOPS
+- Discussões em redes sociais sobre XOOPS
+- Interações entre membros da comunidade em qualquer contexto relacionado a XOOPS
 
 ---
 
-## Appeals Process
+## Relatório e Aplicação
 
-If you believe an enforcement decision was unfair:
+### Relatar Violações
 
-1. **Submit an appeal** - Email conduct@xoops.org within 7 days
-2. **Explain your position** - Provide additional context or evidence
-3. **Review by leadership** - A different team will review the appeal
-4. **Notification** - You'll be informed of the decision within 7 days
+Se você presenciar ou sofrer uma violação deste Código de Conduta:
+
+1. **Documente o incidente** - Observe o que aconteceu, quando e quem estava envolvido
+2. **Reporte aos mantenedores** - Email: conduct@xoops.org
+3. **Forneça contexto** - Inclua links, capturas de tela ou outras evidências se disponível
+4. **Solicite confidencialidade** - Se desejado, solicite que sua identidade seja mantida privada
+
+### Processo de Investigação
+
+Quando um relatório é recebido:
+
+1. O relatório será confirmado dentro de 48 horas
+2. Uma avaliação preliminar determinará se uma investigação adicional é necessária
+3. O relator será atualizado sobre o status (com confidencialidade respeitada)
+4. Uma decisão e ação de aplicação serão comunicadas
+
+### Ações de Aplicação
+
+As ações de aplicação podem incluir:
+
+- **Aviso** - Uma discussão privada sobre a violação
+- **Suspensão temporária** - Perda de privilégios por 7-30 dias
+- **Proibição permanente** - Remoção da comunidade
+- **Aplicação da lei** - Para ofensas graves (ameaças, assédio, etc.)
 
 ---
 
-## Acknowledgment
+## Diretrizes de Moderação
 
-This Code of Conduct is inspired by:
+Moderadores da comunidade:
+
+- Responderão prontamente a violações
+- Aplicarão padrões consistentes com justiça
+- Explicarão decisões claramente
+- Considerarão contexto e intenção
+- Permitirão apelações de decisões
+- Manterão confidencialidade quando apropriado
+
+---
+
+## Resolução de Conflitos
+
+Quando conflitos surgem entre membros da comunidade:
+
+1. **Comunicação direta** - Tente resolver o problema diretamente primeiro
+2. **Envolva um moderador** - Se a comunicação direta falhar
+3. **Mediação** - Moderadores facilitarão uma discussão
+4. **Decisão** - Se necessário, liderança de moderação tomará uma decisão final
+
+---
+
+## Processo de Apelação
+
+Se você acreditar que uma decisão de aplicação foi injusta:
+
+1. **Envie uma apelação** - Email conduct@xoops.org dentro de 7 dias
+2. **Explique sua posição** - Forneça contexto adicional ou evidência
+3. **Revisão pela liderança** - Um time diferente revisará a apelação
+4. **Notificação** - Você será informado da decisão dentro de 7 dias
+
+---
+
+## Reconhecimento
+
+Este Código de Conduta é inspirado por:
 
 - [Contributor Covenant](https://www.contributor-covenant.org/)
 - [Django Code of Conduct](https://www.djangoproject.com/conduct/)
@@ -170,22 +170,22 @@ This Code of Conduct is inspired by:
 
 ---
 
-## Questions and Guidance
+## Perguntas e Orientação
 
-For questions about this Code of Conduct or community standards:
+Para perguntas sobre este Código de Conduta ou padrões comunitários:
 
-- Contact the moderation team: conduct@xoops.org
-- See Contribution Workflow for collaboration guidelines
-- Review Pull Request Guidelines for code review standards
-- Check the Contributing Overview for general guidance
+- Entre em contato com o time de moderação: conduct@xoops.org
+- Consulte Fluxo de Contribuição para diretrizes de colaboração
+- Revise Diretrizes de Pull Request para padrões de revisão de código
+- Confira a Visão Geral de Contribuição para orientação geral
 
 ---
 
-## Version History
+## Histórico de Versão
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | 2024-01-28 | Initial version |
+| Versão | Data | Mudanças |
+|--------|------|----------|
+| 1.0.0 | 2024-01-28 | Versão inicial |
 
 ---
 

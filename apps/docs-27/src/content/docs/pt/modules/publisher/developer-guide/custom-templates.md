@@ -1,48 +1,48 @@
 ---
-title: "Publisher - Custom Templates"
-description: "Guide to customizing Publisher templates and creating custom themes"
+title: "Publisher - Templates Personalizados"
+description: "Guia para personalizar templates do Publisher e criar temas personalizados"
 ---
 
-# Custom Templates in Publisher
+# Templates Personalizados no Publisher
 
-> Guide to creating and customizing Publisher templates using Smarty, CSS, and HTML overrides.
+> Guia para criar e personalizar templates do Publisher usando Smarty, CSS e sobrescrita de HTML.
 
 ---
 
-## Template System Overview
+## Visão Geral do Sistema de Template
 
-### What Are Templates?
+### O que São Templates?
 
-Templates control how Publisher displays content:
-
-```
-Templates render:
-  ├── Article display
-  ├── Category listings
-  ├── Archive pages
-  ├── Article listings
-  ├── Comment sections
-  ├── Search results
-  ├── Blocks
-  └── Admin pages
-```
-
-### Template Types
+Os templates controlam como o Publisher exibe conteúdo:
 
 ```
-Base Templates:
-  ├── publisher_index.tpl (module home)
-  ├── publisher_item.tpl (single article)
-  ├── publisher_category.tpl (category page)
-  └── publisher_archive.tpl (archive view)
+Os templates renderizam:
+  ├── Exibição de artigo
+  ├── Listagens de categoria
+  ├── Páginas de arquivo
+  ├── Listagens de artigo
+  ├── Seções de comentário
+  ├── Resultados de busca
+  ├── Blocos
+  └── Páginas de admin
+```
 
-Block Templates:
+### Tipos de Template
+
+```
+Templates Base:
+  ├── publisher_index.tpl (página inicial do módulo)
+  ├── publisher_item.tpl (artigo único)
+  ├── publisher_category.tpl (página de categoria)
+  └── publisher_archive.tpl (visualização de arquivo)
+
+Templates de Bloco:
   ├── publisher_block_latest.tpl
   ├── publisher_block_categories.tpl
   ├── publisher_block_archives.tpl
   └── publisher_block_top.tpl
 
-Admin Templates:
+Templates Admin:
   ├── admin_articles.tpl
   ├── admin_categories.tpl
   └── admin_*
@@ -50,15 +50,15 @@ Admin Templates:
 
 ---
 
-## Template Directories
+## Diretórios de Template
 
-### Template File Structure
+### Estrutura de Arquivo de Template
 
 ```
-XOOPS Installation:
+Instalação XOOPS:
 ├── modules/publisher/
 │   └── templates/
-│       ├── Publisher/ (base templates)
+│       ├── Publisher/ (templates base)
 │       │   ├── publisher_index.tpl
 │       │   ├── publisher_item.tpl
 │       │   ├── publisher_category.tpl
@@ -67,12 +67,12 @@ XOOPS Installation:
 │       │   │   └── publisher_block_categories.tpl
 │       │   └── css/
 │       │       └── publisher.css
-│       └── Themes/ (theme-specific)
+│       └── Themes/ (específico de tema)
 │           ├── Classic/
 │           ├── Modern/
 │           └── Dark/
 
-themes/yourtheme/
+themes/seutema/
 └── modules/
     └── publisher/
         ├── templates/
@@ -83,97 +83,97 @@ themes/yourtheme/
             └── icons/
 ```
 
-### Template Hierarchy
+### Hierarquia de Template
 
 ```mermaid
 graph TD
-    A[XOOPS looks for template] -->|First| B[Theme-specific template]
-    B -->|If not found| C[Module default template]
-    C -->|If not found| D[Fallback/error]
+    A[XOOPS procura por template] -->|Primeiro| B[Template específico do tema]
+    B -->|Se não encontrado| C[Template padrão do módulo]
+    C -->|Se não encontrado| D[Fallback/erro]
 ```
 
 ---
 
-## Creating Custom Templates
+## Criando Templates Personalizados
 
-### Copy Template to Theme
+### Copiar Template para Tema
 
-**Method 1: Via File Manager**
+**Método 1: Via Gerenciador de Arquivo**
 
 ```
-1. Navigate to /themes/yourtheme/modules/publisher/
-2. Create directory if not exists:
+1. Navegue até /themes/seutema/modules/publisher/
+2. Crie diretório se não existir:
    - templates/
    - css/
-   - js/ (optional)
-3. Copy module template file:
+   - js/ (opcional)
+3. Copie arquivo de template do módulo:
    modules/publisher/templates/Publisher/publisher_item.tpl
-   → themes/yourtheme/modules/publisher/templates/publisher_item.tpl
-4. Edit theme copy (not module copy!)
+   → themes/seutema/modules/publisher/templates/publisher_item.tpl
+4. Edite cópia do tema (não cópia do módulo!)
 ```
 
-**Method 2: Via FTP/SSH**
+**Método 2: Via FTP/SSH**
 
 ```bash
-# Create theme override directory
-mkdir -p /path/to/xoops/themes/yourtheme/modules/publisher/templates
+# Criar diretório de sobrescrita do tema
+mkdir -p /path/to/xoops/themes/seutema/modules/publisher/templates
 
-# Copy template files
+# Copiar arquivos de template
 cp /path/to/xoops/modules/publisher/templates/Publisher/*.tpl \
-   /path/to/xoops/themes/yourtheme/modules/publisher/templates/
+   /path/to/xoops/themes/seutema/modules/publisher/templates/
 
-# Verify files copied
-ls /path/to/xoops/themes/yourtheme/modules/publisher/templates/
+# Verificar se arquivos foram copiados
+ls /path/to/xoops/themes/seutema/modules/publisher/templates/
 ```
 
-### Edit Custom Template
+### Editar Template Personalizado
 
-Open theme copy in text editor:
+Abra cópia do tema em editor de texto:
 
 ```
-File: /themes/yourtheme/modules/publisher/templates/publisher_item.tpl
+Arquivo: /themes/seutema/modules/publisher/templates/publisher_item.tpl
 
-Edit:
-  1. Keep Smarty variables intact
-  2. Modify HTML structure
-  3. Add custom CSS classes
-  4. Adjust display logic
+Edite:
+  1. Mantenha variáveis Smarty intactas
+  2. Modifique estrutura HTML
+  3. Adicione classes CSS personalizadas
+  4. Ajuste lógica de exibição
 ```
 
 ---
 
-## Smarty Template Basics
+## Básico de Template Smarty
 
-### Smarty Variables
+### Variáveis Smarty
 
-Publisher provides variables to templates:
+O Publisher fornece variáveis para templates:
 
-#### Article Variables
+#### Variáveis de Artigo
 
 ```smarty
-{* Single Article Variables *}
+{* Variáveis de Artigo Único *}
 <h1>{$item->title()}</h1>
 <p>{$item->description()}</p>
 <p>{$item->body()}</p>
-<p>By {$item->uname()} on {$item->date('l, F j, Y')}</p>
-<p>Category: {$item->category}</p>
-<p>Views: {$item->views()}</p>
+<p>Por {$item->uname()} em {$item->date('l, F j, Y')}</p>
+<p>Categoria: {$item->category}</p>
+<p>Visualizações: {$item->views()}</p>
 ```
 
-#### Category Variables
+#### Variáveis de Categoria
 
 ```smarty
-{* Category Variables *}
+{* Variáveis de Categoria *}
 <h2>{$category->name()}</h2>
 <p>{$category->description()}</p>
 <img src="{$category->image()}" alt="{$category->name()}">
-<p>Articles: {$category->itemCount()}</p>
+<p>Artigos: {$category->itemCount()}</p>
 ```
 
-#### Block Variables
+#### Variáveis de Bloco
 
 ```smarty
-{* Latest Articles Block *}
+{* Bloco de Artigos Recentes *}
 {foreach from=$items item=item}
   <div class="article">
     <h3>{$item->title()}</h3>
@@ -182,19 +182,19 @@ Publisher provides variables to templates:
 {/foreach}
 ```
 
-### Common Smarty Syntax
+### Sintaxe Smarty Comum
 
 ```smarty
-{* Variable *}
+{* Variável *}
 {$variable}
 {$array.key}
 {$object->method()}
 
-{* Conditional *}
+{* Condicional *}
 {if $condition}
-  <p>Content shown if true</p>
+  <p>Conteúdo mostrado se verdadeiro</p>
 {else}
-  <p>Content shown if false</p>
+  <p>Conteúdo mostrado se falso</p>
 {/if}
 
 {* Loop *}
@@ -202,28 +202,28 @@ Publisher provides variables to templates:
   <li>{$item}</li>
 {/foreach}
 
-{* Functions *}
+{* Funções *}
 {$variable|truncate:100:"..."}
 {$date|date_format:"%Y-%m-%d"}
 {$text|htmlspecialchars}
 
-{* Comments *}
-{* This is a Smarty comment, not displayed *}
+{* Comentários *}
+{* Este é um comentário Smarty, não exibido *}
 ```
 
 ---
 
-## Template Examples
+## Exemplos de Template
 
-### Single Article Template
+### Template de Artigo Único
 
-**File: publisher_item.tpl**
+**Arquivo: publisher_item.tpl**
 
 ```smarty
-<!-- Article Detail View -->
+<!-- Visualização de Detalhe de Artigo -->
 <div class="publisher-item">
 
-  <!-- Header Section -->
+  <!-- Seção de Cabeçalho -->
   <div class="article-header">
     <h1>{$item->title()}</h1>
 
@@ -233,7 +233,7 @@ Publisher provides variables to templates:
 
     <div class="article-meta">
       <span class="author">
-        By <a href="{$item->authorUrl()}">{$item->uname()}</a>
+        Por <a href="{$item->authorUrl()}">{$item->uname()}</a>
       </span>
       <span class="date">
         {$item->date('l, F j, Y')}
@@ -244,12 +244,12 @@ Publisher provides variables to templates:
         </a>
       </span>
       <span class="views">
-        {$item->views()} views
+        {$item->views()} visualizações
       </span>
     </div>
   </div>
 
-  <!-- Featured Image -->
+  <!-- Imagem em Destaque -->
   {if $item->image()}
     <div class="article-featured-image">
       <img src="{$item->image()}"
@@ -258,7 +258,7 @@ Publisher provides variables to templates:
     </div>
   {/if}
 
-  <!-- Article Body -->
+  <!-- Corpo do Artigo -->
   <div class="article-content">
     {$item->body()}
   </div>
@@ -275,44 +275,44 @@ Publisher provides variables to templates:
     </div>
   {/if}
 
-  <!-- Footer Section -->
+  <!-- Seção de Rodapé -->
   <div class="article-footer">
     <div class="article-actions">
       {if $canEdit}
-        <a href="{$editUrl}" class="btn btn-primary">Edit</a>
+        <a href="{$editUrl}" class="btn btn-primary">Editar</a>
       {/if}
       {if $canDelete}
-        <a href="{$deleteUrl}" class="btn btn-danger">Delete</a>
+        <a href="{$deleteUrl}" class="btn btn-danger">Deletar</a>
       {/if}
     </div>
 
     {if $allowRatings}
       <div class="article-rating">
-        <!-- Rating component -->
+        <!-- Componente de classificação -->
       </div>
     {/if}
   </div>
 
 </div>
 
-<!-- Comments Section -->
+<!-- Seção de Comentários -->
 {if $allowComments}
   <div class="article-comments">
-    <h3>Comments</h3>
+    <h3>Comentários</h3>
     {include file="publisher_comments.tpl"}
   </div>
 {/if}
 ```
 
-### Category Listing Template
+### Template de Listagem de Categoria
 
-**File: publisher_category.tpl**
+**Arquivo: publisher_category.tpl**
 
 ```smarty
-<!-- Category Page -->
+<!-- Página de Categoria -->
 <div class="publisher-category">
 
-  <!-- Category Header -->
+  <!-- Cabeçalho de Categoria -->
   <div class="category-header">
     <h1>{$category->name()}</h1>
 
@@ -329,24 +329,24 @@ Publisher provides variables to templates:
     {/if}
   </div>
 
-  <!-- Subcategories -->
+  <!-- Subcategorias -->
   {if $subcategories}
     <div class="subcategories">
-      <h3>Subcategories</h3>
+      <h3>Subcategorias</h3>
       <ul>
         {foreach from=$subcategories item=sub}
           <li>
             <a href="{$sub->url()}">{$sub->name()}</a>
-            ({$sub->itemCount()} articles)
+            ({$sub->itemCount()} artigos)
           </li>
         {/foreach}
       </ul>
     </div>
   {/if}
 
-  <!-- Articles List -->
+  <!-- Lista de Artigos -->
   <div class="articles-list">
-    <h2>Articles</h2>
+    <h2>Artigos</h2>
 
     {if count($items) > 0}
       {foreach from=$items item=item}
@@ -366,7 +366,7 @@ Publisher provides variables to templates:
 
             <div class="article-meta">
               <span class="date">{$item->date('M d, Y')}</span>
-              <span class="author">by {$item->uname()}</span>
+              <span class="author">por {$item->uname()}</span>
             </div>
 
             <p class="article-excerpt">
@@ -374,13 +374,13 @@ Publisher provides variables to templates:
             </p>
 
             <a href="{$item->url()}" class="read-more">
-              Read More →
+              Leia Mais →
             </a>
           </div>
         </article>
       {/foreach}
 
-      <!-- Pagination -->
+      <!-- Paginação -->
       {if $pagination}
         <nav class="pagination">
           {$pagination}
@@ -388,7 +388,7 @@ Publisher provides variables to templates:
       {/if}
     {else}
       <p class="no-articles">
-        No articles in this category yet.
+        Nenhum artigo nesta categoria ainda.
       </p>
     {/if}
   </div>
@@ -396,14 +396,14 @@ Publisher provides variables to templates:
 </div>
 ```
 
-### Latest Articles Block Template
+### Template de Bloco de Artigos Recentes
 
-**File: publisher_block_latest.tpl**
+**Arquivo: publisher_block_latest.tpl**
 
 ```smarty
-<!-- Latest Articles Block -->
+<!-- Bloco de Artigos Recentes -->
 <div class="publisher-block-latest">
-  <h3>{$block_title|default:"Latest Articles"}</h3>
+  <h3>{$block_title|default:"Artigos Recentes"}</h3>
 
   {if count($items) > 0}
     <ul class="article-list">
@@ -425,32 +425,32 @@ Publisher provides variables to templates:
       {/foreach}
     </ul>
   {else}
-    <p>No articles available.</p>
+    <p>Nenhum artigo disponível.</p>
   {/if}
 </div>
 ```
 
 ---
 
-## Styling with CSS
+## Estilizando com CSS
 
-### Custom CSS Files
+### Arquivos CSS Personalizados
 
-Create custom CSS in theme:
+Crie CSS personalizado no tema:
 
 ```
-/themes/yourtheme/modules/publisher/css/custom.css
+/themes/seutema/modules/publisher/css/custom.css
 ```
 
-### Base Template Structure
+### Estrutura de Template Base
 
-Understand the HTML structure:
+Compreenda a estrutura HTML:
 
 ```html
-<!-- Publisher Module -->
+<!-- Módulo Publisher -->
 <div class="publisher-module">
 
-  <!-- Item View -->
+  <!-- Visualização de Item -->
   <div class="publisher-item">
     <div class="article-header">...</div>
     <div class="article-featured-image">...</div>
@@ -458,13 +458,13 @@ Understand the HTML structure:
     <div class="article-footer">...</div>
   </div>
 
-  <!-- Category View -->
+  <!-- Visualização de Categoria -->
   <div class="publisher-category">
     <div class="category-header">...</div>
     <div class="articles-list">...</div>
   </div>
 
-  <!-- Block -->
+  <!-- Bloco -->
   <div class="publisher-block-latest">
     <ul class="article-list">...</ul>
   </div>
@@ -472,10 +472,10 @@ Understand the HTML structure:
 </div>
 ```
 
-### CSS Examples
+### Exemplos de CSS
 
 ```css
-/* Article Container */
+/* Contêiner de Artigo */
 .publisher-item {
   background: #fff;
   border: 1px solid #ddd;
@@ -484,7 +484,7 @@ Understand the HTML structure:
   margin-bottom: 20px;
 }
 
-/* Article Header */
+/* Cabeçalho de Artigo */
 .article-header {
   border-bottom: 2px solid #f0f0f0;
   padding-bottom: 15px;
@@ -504,7 +504,7 @@ Understand the HTML structure:
   margin: 0;
 }
 
-/* Article Meta Information */
+/* Informação Meta de Artigo */
 .article-meta {
   font-size: 0.9em;
   color: #999;
@@ -523,7 +523,7 @@ Understand the HTML structure:
   text-decoration: underline;
 }
 
-/* Article Featured Image */
+/* Imagem em Destaque de Artigo */
 .article-featured-image {
   margin: 20px 0;
   text-align: center;
@@ -535,7 +535,7 @@ Understand the HTML structure:
   border-radius: 4px;
 }
 
-/* Article Content */
+/* Conteúdo de Artigo */
 .article-content {
   font-size: 1.1em;
   line-height: 1.8;
@@ -567,7 +567,7 @@ Understand the HTML structure:
   margin-bottom: 8px;
 }
 
-/* Article Tags */
+/* Tags de Artigo */
 .article-tags {
   margin-top: 20px;
   padding-top: 20px;
@@ -592,7 +592,7 @@ Understand the HTML structure:
   text-decoration: underline;
 }
 
-/* Category Articles List */
+/* Lista de Artigos de Categoria */
 .publisher-category .articles-list {
   margin-top: 30px;
 }
@@ -624,7 +624,7 @@ Understand the HTML structure:
   flex: 1;
 }
 
-/* Responsive */
+/* Responsivo */
 @media (max-width: 768px) {
   .article-preview {
     flex-direction: column;
@@ -643,267 +643,267 @@ Understand the HTML structure:
 
 ---
 
-## Template Variables Reference
+## Referência de Variáveis de Template
 
-### Item (Article) Object
+### Objeto Item (Artigo)
 
 ```smarty
-{* Article Properties *}
-{$item->id()}              {* Article ID *}
-{$item->title()}           {* Article title *}
-{$item->description()}     {* Short description *}
-{$item->body()}            {* Full content *}
-{$item->subtitle()}        {* Subtitle *}
-{$item->uname()}           {* Author username *}
-{$item->authorId()}        {* Author user ID *}
-{$item->date()}            {* Publication date *}
-{$item->modified()}        {* Last modified *}
-{$item->image()}           {* Featured image URL *}
-{$item->views()}           {* View count *}
-{$item->categoryId()}      {* Category ID *}
-{$item->category()}        {* Category name *}
-{$item->categoryUrl()}     {* Category URL *}
-{$item->url()}             {* Article URL *}
-{$item->status()}          {* Article status *}
-{$item->rating()}          {* Average rating *}
-{$item->comments()}        {* Comment count *}
-{$item->tags()}            {* Article tags array *}
+{* Propriedades de Artigo *}
+{$item->id()}              {* ID do artigo *}
+{$item->title()}           {* Título do artigo *}
+{$item->description()}     {* Descrição breve *}
+{$item->body()}            {* Conteúdo completo *}
+{$item->subtitle()}        {* Subtítulo *}
+{$item->uname()}           {* Nome de usuário do autor *}
+{$item->authorId()}        {* ID de usuário do autor *}
+{$item->date()}            {* Data de publicação *}
+{$item->modified()}        {* Última modificação *}
+{$item->image()}           {* URL de imagem em destaque *}
+{$item->views()}           {* Contagem de visualizações *}
+{$item->categoryId()}      {* ID da categoria *}
+{$item->category()}        {* Nome da categoria *}
+{$item->categoryUrl()}     {* URL da categoria *}
+{$item->url()}             {* URL do artigo *}
+{$item->status()}          {* Status do artigo *}
+{$item->rating()}          {* Classificação média *}
+{$item->comments()}        {* Contagem de comentários *}
+{$item->tags()}            {* Array de tags do artigo *}
 
-{* Formatted Methods *}
-{$item->date('Y-m-d')}               {* Formatted date *}
-{$item->description()|truncate:100}  {* Truncated *}
+{* Métodos Formatados *}
+{$item->date('Y-m-d')}               {* Data formatada *}
+{$item->description()|truncate:100}  {* Truncado *}
 ```
 
-### Category Object
+### Objeto Category
 
 ```smarty
-{* Category Properties *}
-{$category->id()}          {* Category ID *}
-{$category->name()}        {* Category name *}
-{$category->description()} {* Description *}
-{$category->image()}       {* Image URL *}
-{$category->parentId()}    {* Parent category ID *}
-{$category->itemCount()}   {* Article count *}
-{$category->url()}         {* Category URL *}
+{* Propriedades de Categoria *}
+{$category->id()}          {* ID da categoria *}
+{$category->name()}        {* Nome da categoria *}
+{$category->description()} {* Descrição *}
+{$category->image()}       {* URL de imagem *}
+{$category->parentId()}    {* ID da categoria pai *}
+{$category->itemCount()}   {* Contagem de artigos *}
+{$category->url()}         {* URL da categoria *}
 {$category->status()}      {* Status *}
 ```
 
-### Block Variables
+### Variáveis de Bloco
 
 ```smarty
-{$items}           {* Array of items *}
-{$categories}      {* Array of categories *}
-{$pagination}      {* Pagination HTML *}
-{$total}           {* Total count *}
-{$limit}           {* Items per page *}
-{$page}            {* Current page *}
+{$items}           {* Array de itens *}
+{$categories}      {* Array de categorias *}
+{$pagination}      {* HTML de paginação *}
+{$total}           {* Contagem total *}
+{$limit}           {* Itens por página *}
+{$page}            {* Página atual *}
 ```
 
 ---
 
-## Template Conditionals
+## Condicionais de Template
 
-### Common Conditional Checks
+### Verificações Condicionais Comuns
 
 ```smarty
-{* Check if variable exists and is not empty *}
+{* Verificar se variável existe e não está vazia *}
 {if $variable}
   <p>{$variable}</p>
 {/if}
 
-{* Check if array has items *}
+{* Verificar se array tem itens *}
 {if count($items) > 0}
   {foreach from=$items item=item}
     <li>{$item->title()}</li>
   {/foreach}
 {else}
-  <p>No items available.</p>
+  <p>Nenhum item disponível.</p>
 {/if}
 
-{* Check user permissions *}
+{* Verificar permissões de usuário *}
 {if $canEdit}
-  <a href="edit.php?id={$item->id()}">Edit</a>
+  <a href="edit.php?id={$item->id()}">Editar</a>
 {/if}
 
 {if $isAdmin}
-  <a href="delete.php?id={$item->id()}">Delete</a>
+  <a href="delete.php?id={$item->id()}">Deletar</a>
 {/if}
 
-{* Check module settings *}
+{* Verificar configurações do módulo *}
 {if $allowComments}
   {include file="publisher_comments.tpl"}
 {/if}
 
-{* Check status *}
+{* Verificar status *}
 {if $item->status() == 1}
-  <span class="published">Published</span>
+  <span class="published">Publicado</span>
 {elseif $item->status() == 0}
-  <span class="draft">Draft</span>
+  <span class="draft">Rascunho</span>
 {/if}
 ```
 
 ---
 
-## Advanced Template Techniques
+## Técnicas Avançadas de Template
 
-### Include Other Templates
+### Incluir Outros Templates
 
 ```smarty
-{* Include another template *}
+{* Incluir outro template *}
 {include file="publisher_comments.tpl"}
 
-{* Include with variables *}
+{* Incluir com variáveis *}
 {include file="publisher_article_preview.tpl" item=$item}
 
-{* Include if exists *}
+{* Incluir se existir *}
 {include file="custom_header.tpl"|default:"header.tpl"}
 ```
 
-### Assign Variables in Template
+### Atribuir Variáveis em Template
 
 ```smarty
-{* Assign variable for later use *}
+{* Atribuir variável para uso posterior *}
 {assign var="articleTitle" value=$item->title()}
 
-{* Use assigned variable *}
+{* Usar variável atribuída *}
 <h1>{$articleTitle}</h1>
 
-{* Assign complex values *}
+{* Atribuir valores complexos *}
 {assign var="count" value=$items|count}
 {if $count > 0}
-  <p>Found {$count} articles</p>
+  <p>Encontrados {$count} artigos</p>
 {/if}
 ```
 
-### Template Filters
+### Filtros de Template
 
 ```smarty
-{* Text filters *}
-{$text|htmlspecialchars}        {* Escape HTML *}
-{$text|strip_tags}              {* Remove HTML tags *}
-{$text|truncate:100:"..."}     {* Truncate text *}
-{$text|upper}                   {* UPPERCASE *}
-{$text|lower}                   {* lowercase *}
+{* Filtros de texto *}
+{$text|htmlspecialchars}        {* Escapar HTML *}
+{$text|strip_tags}              {* Remover tags HTML *}
+{$text|truncate:100:"..."}     {* Truncar texto *}
+{$text|upper}                   {* MAIÚSCULAS *}
+{$text|lower}                   {* minúsculas *}
 
-{* Date filters *}
-{$date|date_format:"%Y-%m-%d"}  {* Format date *}
-{$date|date_format:"%l, %F %j, %Y"} {* Full format *}
+{* Filtros de data *}
+{$date|date_format:"%Y-%m-%d"}  {* Formatar data *}
+{$date|date_format:"%l, %F %j, %Y"} {* Formato completo *}
 
-{* Number filters *}
-{$number|string_format:"%.2f"}  {* Format number *}
-{$number|number_format}         {* Add separators *}
+{* Filtros de número *}
+{$number|string_format:"%.2f"}  {* Formatar número *}
+{$number|number_format}         {* Adicionar separadores *}
 
-{* Array filters *}
-{$array|implode:", "}           {* Join array *}
-{$array|count}                  {* Count items *}
+{* Filtros de array *}
+{$array|implode:", "}           {* Juntar array *}
+{$array|count}                  {* Contar itens *}
 ```
 
 ---
 
-## Debugging Templates
+## Depurando Templates
 
-### Display Smarty Variables
+### Exibir Variáveis Smarty
 
-For debugging (remove in production):
+Para depuração (remova em produção):
 
 ```smarty
-{* Show variable value *}
+{* Mostrar valor da variável *}
 <pre>{$variable|print_r}</pre>
 
-{* Show all available variables *}
+{* Mostrar todas as variáveis disponíveis *}
 <pre>{$smarty.all|print_r}</pre>
 
-{* Check if variable exists *}
+{* Verificar se variável existe *}
 {if isset($variable)}
-  Variable exists
+  Variável existe
 {/if}
 
-{* Display debug info *}
+{* Exibir informações de depuração *}
 {if $debug}
   Item: {$item->id()}<br>
-  Title: {$item->title()}<br>
-  Category: {$item->categoryId()}<br>
+  Título: {$item->title()}<br>
+  Categoria: {$item->categoryId()}<br>
 {/if}
 ```
 
-### Enable Debug Mode
+### Habilitar Modo de Depuração
 
-In `/modules/publisher/xoops_version.php` or admin settings:
+Em `/modules/publisher/xoops_version.php` ou configurações de admin:
 
 ```php
-// Enable debug
+// Habilitar depuração
 define('PUBLISHER_DEBUG', true);
 ```
 
 ---
 
-## Template Migration
+## Migração de Template
 
-### From Old Publisher Version
+### De Versão Antiga do Publisher
 
-If upgrading from older version:
+Se estiver atualizando de versão anterior:
 
-1. Compare old and new template files
-2. Merge custom changes
-3. Use new variable names
-4. Test thoroughly
-5. Backup old templates
+1. Compare arquivos antigos e novos de template
+2. Mescle mudanças personalizadas
+3. Use novos nomes de variável
+4. Teste completamente
+5. Faça backup de templates antigos
 
-### Upgrade Path
-
-```
-Old template          New template          Action
-publisher_item.tpl → publisher_item.tpl   Merge customizations
-publisher_cat.tpl  → publisher_category.tpl Rename, merge
-block_latest.tpl   → publisher_block_latest.tpl Rename, check
-```
-
----
-
-## Best Practices
-
-### Template Guidelines
+### Caminho de Atualização
 
 ```
-✓ Keep business logic in PHP, display logic in templates
-✓ Use meaningful CSS class names
-✓ Comment complex sections
-✓ Test responsive design
-✓ Validate HTML output
-✓ Escape user data
-✓ Use semantic HTML
-✓ Keep templates DRY (Don't Repeat Yourself)
-```
-
-### Performance Tips
-
-```
-✓ Minimize database queries in templates
-✓ Cache compiled templates
-✓ Lazy load images
-✓ Minify CSS/JavaScript
-✓ Use CDN for assets
-✓ Optimize images
-✗ Avoid complex Smarty logic
+Template antigo          Template novo          Ação
+publisher_item.tpl → publisher_item.tpl   Mesclar personalizações
+publisher_cat.tpl  → publisher_category.tpl Renomear, mesclar
+block_latest.tpl   → publisher_block_latest.tpl Renomear, verificar
 ```
 
 ---
 
-## Related Documentation
+## Melhores Práticas
 
-- API Reference
-- Hooks and Events
-- Configuration
-- Article Creation
+### Diretrizes de Template
+
+```
+✓ Manter lógica de negócio em PHP, lógica de exibição em templates
+✓ Usar nomes de classe CSS significativos
+✓ Comentar seções complexas
+✓ Testar design responsivo
+✓ Validar saída HTML
+✓ Escapar dados de usuário
+✓ Usar HTML semântico
+✓ Manter templates DRY (Não Repita Yourself)
+```
+
+### Dicas de Desempenho
+
+```
+✓ Minimizar consultas ao banco de dados em templates
+✓ Cachear templates compilados
+✓ Carregar imagens com preguiça
+✓ Minificar CSS/JavaScript
+✓ Usar CDN para ativos
+✓ Otimizar imagens
+✗ Evitar lógica Smarty complexa
+```
 
 ---
 
-## Resources
+## Documentação Relacionada
 
-- [Smarty Documentation](https://www.smarty.net/documentation)
-- [Publisher GitHub](https://github.com/XoopsModules25x/publisher)
-- [XOOPS Template Guide](../../02-Core-Concepts/Templates/Smarty-Basics.md)
+- Referência da API
+- Ganchos e Eventos
+- Configuração
+- Criação de Artigos
 
 ---
 
-#publisher #templates #smarty #customization #themeing #xoops
+## Recursos
+
+- [Documentação do Smarty](https://www.smarty.net/documentation)
+- [GitHub do Publisher](https://github.com/XoopsModules25x/publisher)
+- [Guia de Template XOOPS](../../02-Core-Concepts/Templates/Smarty-Basics.md)
+
+---
+
+#publisher #templates #smarty #personalização #tema #xoops

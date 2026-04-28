@@ -1,15 +1,15 @@
 ---
-title: "Database Debugging"
-description: "Debugging SQL and database issues in XOOPS"
+title: "Depuração de Banco de Dados"
+description: "Depurando queries SQL e problemas de banco de dados no XOOPS"
 ---
 
-# Database Debugging Techniques
+# Técnicas de Depuração de Banco de Dados
 
-> Methods and tools for debugging SQL queries and database issues in XOOPS applications.
+> Métodos e ferramentas para depurar queries SQL e problemas de banco de dados em aplicações XOOPS.
 
 ---
 
-## Diagnostic Flowchart
+## Fluxograma de Diagnóstico
 
 ```mermaid
 flowchart TD
@@ -38,9 +38,9 @@ flowchart TD
 
 ---
 
-## Enable Query Logging
+## Ativar Registro de Queries
 
-### Method 1: XOOPS Debug Mode
+### Método 1: Modo Debug do XOOPS
 
 ```php
 <?php
@@ -52,7 +52,7 @@ define('XOOPS_DEBUG_LEVEL', 2);
 ?>
 ```
 
-Check results:
+Verificar resultados:
 ```bash
 # View logs
 tail -100 xoops_data/logs/*.log
@@ -63,9 +63,9 @@ SELECT * FROM xoops_log ORDER BY created DESC LIMIT 20;
 
 ---
 
-### Method 2: MySQL Slow Query Log
+### Método 2: Slow Query Log do MySQL
 
-Enable in `/etc/mysql/my.cnf`:
+Ativar em `/etc/mysql/my.cnf`:
 
 ```ini
 [mysqld]
@@ -76,14 +76,14 @@ long_query_time = 1          # Log queries > 1 second
 log_queries_not_using_indexes = 1
 ```
 
-Restart MySQL:
+Reiniciar MySQL:
 ```bash
 sudo systemctl restart mysql
 # or
 sudo systemctl restart mariadb
 ```
 
-View log:
+Visualizar log:
 ```bash
 tail -100 /var/log/mysql/slow.log
 
@@ -93,9 +93,9 @@ mysqldumpslow -s t -t 10 /var/log/mysql/slow.log
 
 ---
 
-### Method 3: General Query Log
+### Método 3: General Query Log
 
-Enable for all queries (careful: large log files):
+Ativar para todas as queries (cuidado: arquivos de log grandes):
 
 ```sql
 -- Enable
@@ -112,9 +112,9 @@ SHOW VARIABLES LIKE 'general_log%';
 
 ---
 
-## Debug SQL in Code
+## Depurar SQL em Código
 
-### Log Query Execution
+### Log de Execução de Query
 
 ```php
 <?php
@@ -151,7 +151,7 @@ $ray->info("Found " . count($data) . " rows");
 
 ---
 
-### Measure Query Performance
+### Medir Performance de Query
 
 ```php
 <?php
@@ -178,7 +178,7 @@ if ($exec_time > 100) {  // Alert if > 100ms
 
 ---
 
-### Verify Query Results
+### Verificar Resultados de Query
 
 ```php
 <?php
@@ -216,11 +216,11 @@ if (empty($articles)) {
 
 ---
 
-## Analyze Query Performance
+## Analisar Performance de Query
 
-### EXPLAIN Command
+### Comando EXPLAIN
 
-Use EXPLAIN to analyze query execution:
+Use EXPLAIN para analisar execução de query:
 
 ```sql
 -- Analyze a query
@@ -233,7 +233,7 @@ EXPLAIN EXTENDED SELECT * FROM xoops_articles WHERE author_id = 5;
 EXPLAIN FORMAT=JSON SELECT * FROM xoops_articles WHERE author_id = 5\G
 ```
 
-**Key Fields to Check:**
+**Campos Principais a Verificar:**
 
 ```
 type: ALL           (bad) - Full table scan
@@ -248,7 +248,7 @@ rows:               Estimated rows examined
 Extra:              Additional info (Using where, Using index, etc.)
 ```
 
-### Example Analysis
+### Exemplo de Análise
 
 ```sql
 -- Slow query without index
@@ -258,7 +258,7 @@ EXPLAIN SELECT * FROM xoops_articles WHERE author_id = 5;
 | id | select_type | table    | type | possible_keys | key  | key_len | rows | Extra |
 +----+-------------+----------+------+---------------+------+---------+------+-------+-------------+
 |  1 | SIMPLE      | articles | ALL  | NULL          | NULL | NULL    | 1000 | Using where |
-+----+-------------+----------+------+---------------+------+-------+------+-------+-------------+
++----+-------------+----------+------+---------------+------+---------+------+-------+-------------+
                                       ↑
                           No index available!
 
@@ -278,11 +278,11 @@ EXPLAIN SELECT * FROM xoops_articles WHERE author_id = 5;
 
 ---
 
-## Common SQL Issues
+## Problemas Comuns com SQL
 
-### 1. N+1 Query Problem
+### 1. Problema N+1 Query
 
-**Problem:**
+**Problema:**
 ```php
 <?php
 // WRONG: Multiple queries in loop
@@ -297,7 +297,7 @@ while ($author = $authors->fetch_assoc()) {
 ?>
 ```
 
-**Solution: Use JOIN**
+**Solução: Use JOIN**
 ```php
 <?php
 // CORRECT: One query
@@ -317,9 +317,9 @@ while ($row = $result->fetch_assoc()) {
 
 ---
 
-### 2. Missing Indexes
+### 2. Índices Faltantes
 
-**Identify:**
+**Identificar:**
 ```sql
 -- Find queries that scan all rows
 SELECT * FROM xoops_log
@@ -327,7 +327,7 @@ WHERE info LIKE '%type: ALL%'
 ORDER BY created DESC;
 ```
 
-**Add Indexes:**
+**Adicionar Índices:**
 ```sql
 -- Single column index
 ALTER TABLE xoops_articles ADD INDEX (author_id);
@@ -342,9 +342,9 @@ ALTER TABLE xoops_articles ADD UNIQUE INDEX (slug);
 
 ---
 
-### 3. Inefficient WHERE Conditions
+### 3. Condições WHERE Ineficientes
 
-**Problem:**
+**Problema:**
 ```sql
 -- Wrong: Functions prevent index use
 SELECT * FROM xoops_articles
@@ -355,7 +355,7 @@ SELECT * FROM xoops_articles
 WHERE category = 'tech' OR author_id = 5;
 ```
 
-**Solution:**
+**Solução:**
 ```sql
 -- Correct: Use range
 SELECT * FROM xoops_articles
@@ -369,9 +369,9 @@ SELECT * FROM xoops_articles WHERE author_id = 5;
 
 ---
 
-## Debugging Specific Issues
+## Depurar Problemas Específicos
 
-### Issue: Query Returns Wrong Results
+### Problema: Query Retorna Resultados Incorretos
 
 ```php
 <?php
@@ -407,7 +407,7 @@ if ($row = $result->fetch_assoc()) {
 
 ---
 
-### Issue: Slow Join Query
+### Problema: Join Query Lenta
 
 ```php
 <?php
@@ -433,7 +433,7 @@ $ray->label('Query Analysis')->info($query);
 ?>
 ```
 
-Run EXPLAIN:
+Execute EXPLAIN:
 ```sql
 EXPLAIN SELECT a.id, a.title, u.uname, u.email
 FROM xoops_articles a
@@ -451,7 +451,7 @@ ALTER TABLE xoops_articles ADD INDEX (status, created);
 
 ---
 
-## Create Debug Query Log
+## Criar Log de Query de Debug
 
 ```php
 <?php
@@ -504,7 +504,7 @@ class QueryLogger {
 ?>
 ```
 
-Usage:
+Uso:
 ```php
 <?php
 require_once 'QueryLogger.php';
@@ -520,7 +520,7 @@ QueryLogger::report();
 
 ---
 
-## Database Optimization Checklist
+## Lista de Verificação de Otimização de Banco de Dados
 
 ```mermaid
 graph TD
@@ -548,7 +548,7 @@ graph TD
 
 ---
 
-## Useful MySQL Queries
+## Queries Úteis do MySQL
 
 ```sql
 -- Find slow tables
@@ -585,12 +585,12 @@ ORDER BY object_name;
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Enable Debug Mode
-- Using Ray Debugger
-- Performance FAQ
-- Database Fundamentals
+- Ativar Modo Debug
+- Usando Ray Debugger
+- FAQ de Performance
+- Fundamentos de Banco de Dados
 
 ---
 

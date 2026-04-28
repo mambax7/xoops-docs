@@ -1,13 +1,13 @@
 ---
-title: "Enable Debug Mode"
-description: "How to enable and use XOOPS debug mode for troubleshooting"
+title: "Ativar Modo Debug"
+description: "Como ativar e usar o modo debug do XOOPS para solução de problemas"
 ---
 
-> Comprehensive guide to XOOPS debugging features and tools.
+> Guia abrangente para recursos e ferramentas de depuração do XOOPS.
 
 ---
 
-## Debug Architecture
+## Arquitetura de Debug
 
 ```mermaid
 graph TB
@@ -44,9 +44,9 @@ graph TB
 
 ---
 
-## XOOPS Debug Levels
+## Níveis de Debug do XOOPS
 
-### Enable in mainfile.php
+### Ativar em mainfile.php
 
 ```php
 <?php
@@ -59,20 +59,20 @@ define('XOOPS_DEBUG_LEVEL', 2);
 // Level 3: PHP + SQL + Smarty templates
 ```
 
-### Level Details
+### Detalhes de Nível
 
-| Level | PHP Errors | SQL Queries | Template Vars | Recommended For |
-|-------|------------|-------------|---------------|-----------------|
-| 0 | Hidden | No | No | Production |
-| 1 | Displayed | No | No | Quick checks |
-| 2 | Displayed | Logged | No | Development |
-| 3 | Displayed | Logged | Displayed | Deep debugging |
+| Nível | Erros PHP | Queries SQL | Vars de Template | Recomendado Para |
+|-------|-----------|-------------|------------------|------------------|
+| 0 | Oculto | Não | Não | Produção |
+| 1 | Exibido | Não | Não | Verificações Rápidas |
+| 2 | Exibido | Registrado | Não | Desenvolvimento |
+| 3 | Exibido | Registrado | Exibido | Depuração Profunda |
 
 ---
 
-## PHP Error Display
+## Exibição de Erros PHP
 
-### Development Settings
+### Configurações de Desenvolvimento
 
 ```php
 // Add to mainfile.php for development
@@ -83,7 +83,7 @@ ini_set('log_errors', '1');
 ini_set('error_log', XOOPS_VAR_PATH . '/logs/php_errors.log');
 ```
 
-### Production Settings
+### Configurações de Produção
 
 ```php
 // Secure settings for production
@@ -95,13 +95,13 @@ ini_set('error_log', XOOPS_VAR_PATH . '/logs/php_errors.log');
 
 ---
 
-## SQL Query Debugging
+## Depuração de Query SQL
 
-### View Queries in Debug Mode
+### Visualizar Queries em Modo Debug
 
-With `XOOPS_DEBUG_LEVEL` set to 2 or 3, SQL queries appear at the bottom of pages.
+Com `XOOPS_DEBUG_LEVEL` definido como 2 ou 3, queries SQL aparecem na parte inferior das páginas.
 
-### Manual Query Logging
+### Registro Manual de Query
 
 ```php
 // Log specific query
@@ -119,7 +119,7 @@ $time = microtime(true) - $start;
 error_log("Query took: " . number_format($time * 1000, 2) . "ms");
 ```
 
-### Using XoopsLogger
+### Usando XoopsLogger
 
 ```php
 // Access the logger
@@ -139,9 +139,9 @@ $logger->addExtra('My Debug', 'Custom debug message');
 
 ---
 
-## Smarty Template Debugging
+## Depuração de Template Smarty
 
-### Enable Smarty Debug Console
+### Ativar Console de Debug do Smarty
 
 ```php
 // In your module or template
@@ -152,7 +152,7 @@ $GLOBALS['xoopsTpl']->debugging = true;
 $GLOBALS['xoopsTpl']->debugging_ctrl = 'URL';  // Add SMARTY_DEBUG to URL
 ```
 
-### View Assigned Variables
+### Visualizar Variáveis Atribuídas
 
 ```smarty
 {* In template, show all assigned variables *}
@@ -164,7 +164,7 @@ $GLOBALS['xoopsTpl']->debugging_ctrl = 'URL';  // Add SMARTY_DEBUG to URL
 {$myvar|@debug_print_var}
 ```
 
-### Debug in PHP
+### Debug em PHP
 
 ```php
 // Before displaying template
@@ -175,15 +175,15 @@ echo "</pre>";
 
 ---
 
-## Ray Debugger Integration
+## Integração Ray Debugger
 
-### Installation
+### Instalação
 
 ```bash
 composer require spatie/ray --dev
 ```
 
-### Configuration
+### Configuração
 
 ```php
 // ray.php in XOOPS root
@@ -196,7 +196,7 @@ return [
 ];
 ```
 
-### Usage Examples
+### Exemplos de Uso
 
 ```php
 // Basic output
@@ -228,7 +228,7 @@ ray()->trace();
 ray()->pause();
 ```
 
-### Debug Database Queries
+### Debug de Queries de Banco de Dados
 
 ```php
 // Log all queries
@@ -246,13 +246,13 @@ ray($result)->label('Result');
 
 ## PHP Debug Bar
 
-### Installation
+### Instalação
 
 ```bash
 composer require maximebf/debugbar
 ```
 
-### Integration
+### Integração
 
 ```php
 <?php
@@ -283,7 +283,7 @@ echo $debugbarRenderer->render();
 
 ---
 
-## Custom Debug Helper
+## Auxiliar de Debug Customizado
 
 ```php
 <?php
@@ -401,7 +401,7 @@ echo Debug::render();
 
 ---
 
-## Debug Output Flow
+## Fluxo de Saída de Debug
 
 ```mermaid
 sequenceDiagram
@@ -423,11 +423,11 @@ sequenceDiagram
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- White Screen of Death
-- Using Ray Debugger
-- Security Best Practices
+- Tela Branca da Morte
+- Usando Ray Debugger
+- Boas Práticas de Segurança
 
 ---
 

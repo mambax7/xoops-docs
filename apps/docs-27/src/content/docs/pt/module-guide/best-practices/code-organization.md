@@ -1,66 +1,66 @@
 ---
-title: "Code Organization Best Practices"
-description: "Module structure, naming conventions, and PSR-4 autoloading"
+title: "Boas Práticas de Organização de Código"
+description: "Estrutura de módulo, convenções de nomenclatura e carregamento automático PSR-4"
 ---
 
-# Code Organization Best Practices in XOOPS
+# Boas Práticas de Organização de Código em XOOPS
 
-Proper code organization is essential for maintainability, scalability, and team collaboration.
+A organização adequada do código é essencial para manutenibilidade, escalabilidade e colaboração em equipe.
 
-## Module Directory Structure
+## Estrutura de Diretório do Módulo
 
-A well-organized XOOPS module should follow this structure:
+Um módulo XOOPS bem organizado deve seguir esta estrutura:
 
 ```
 mymodule/
-├── xoops_version.php           # Module metadata
-├── index.php                    # Frontend entry point
-├── admin.php                    # Admin entry point
+├── xoops_version.php           # Metadados do módulo
+├── index.php                    # Ponto de entrada do frontend
+├── admin.php                    # Ponto de entrada do administrador
 ├── class/
-│   ├── Controller/             # Request handlers
-│   ├── Handler/                # Data handlers
-│   ├── Repository/             # Data access
-│   ├── Entity/                 # Domain objects
-│   ├── Service/                # Business logic
-│   ├── DTO/                    # Data transfer objects
-│   └── Exception/              # Custom exceptions
-├── templates/                  # Smarty templates
-│   ├── admin/                  # Admin templates
-│   └── blocks/                 # Block templates
+│   ├── Controller/             # Manipuladores de requisição
+│   ├── Handler/                # Manipuladores de dados
+│   ├── Repository/             # Acesso a dados
+│   ├── Entity/                 # Objetos de domínio
+│   ├── Service/                # Lógica de negócios
+│   ├── DTO/                    # Objetos de transferência de dados
+│   └── Exception/              # Exceções personalizadas
+├── templates/                  # Templates Smarty
+│   ├── admin/                  # Templates de administrador
+│   └── blocks/                 # Templates de bloco
 ├── assets/
-│   ├── css/                    # Stylesheets
+│   ├── css/                    # Folhas de estilo
 │   ├── js/                     # JavaScript
-│   └── images/                 # Images
-├── sql/                        # Database schemas
-├── tests/                      # Unit and integration tests
-├── docs/                       # Documentation
-└── composer.json              # Composer configuration
+│   └── images/                 # Imagens
+├── sql/                        # Esquemas de banco de dados
+├── tests/                      # Testes unitários e integração
+├── docs/                       # Documentação
+└── composer.json              # Configuração do Composer
 ```
 
-## Naming Conventions
+## Convenções de Nomenclatura
 
-### PHP Naming Standards (PSR-12)
+### Padrões PHP (PSR-12)
 
 ```
 Classes:      PascalCase         (UserController, PostRepository)
-Methods:      camelCase          (getUserById, createUser)
-Properties:   camelCase          ($userId, $username)
-Constants:    UPPER_SNAKE_CASE   (DEFAULT_LIMIT, MAX_USERS)
-Functions:    snake_case         (get_user_data, validate_email)
-Files:        PascalCase.php     (UserController.php)
+Métodos:      camelCase          (getUserById, createUser)
+Propriedades: camelCase          ($userId, $username)
+Constantes:   UPPER_SNAKE_CASE   (DEFAULT_LIMIT, MAX_USERS)
+Funções:      snake_case         (get_user_data, validate_email)
+Arquivos:     PascalCase.php     (UserController.php)
 ```
 
-### File and Directory Organization
+### Organização de Arquivo e Diretório
 
-- One class per file
-- Filename matches class name
-- Directory structure matches namespace hierarchy
-- Keep related classes together
-- Use consistent naming across module
+- Uma classe por arquivo
+- Nome do arquivo corresponde ao nome da classe
+- Estrutura de diretório corresponde à hierarquia de namespace
+- Manter classes relacionadas juntas
+- Usar nomenclatura consistente em todo o módulo
 
-## PSR-4 Autoloading
+## Carregamento Automático PSR-4
 
-### Composer Configuration
+### Configuração do Composer
 
 ```json
 {
@@ -72,7 +72,7 @@ Files:        PascalCase.php     (UserController.php)
 }
 ```
 
-### Manual Autoloader
+### Carregador Automático Manual
 
 ```php
 <?php
@@ -102,36 +102,36 @@ class Autoloader
 ?>
 ```
 
-## Best Practices
+## Boas Práticas
 
-### 1. Single Responsibility
-- Each class should have one reason to change
-- Separate concerns into different classes
-- Keep classes focused and cohesive
+### 1. Responsabilidade Única
+- Cada classe deve ter um motivo para mudar
+- Separar preocupações em diferentes classes
+- Manter classes focadas e coesas
 
-### 2. Consistent Naming
-- Use meaningful, descriptive names
-- Follow PSR-12 coding standards
-- Avoid abbreviations unless obvious
-- Use consistent patterns
+### 2. Nomenclatura Consistente
+- Usar nomes significativos e descritivos
+- Seguir padrões de codificação PSR-12
+- Evitar abreviações a menos que óbvias
+- Usar padrões consistentes
 
-### 3. Directory Organization
-- Group related classes together
-- Separate concerns into subdirectories
-- Keep templates and assets organized
-- Use consistent file naming
+### 3. Organização de Diretório
+- Agrupar classes relacionadas
+- Separar preocupações em subdiretórios
+- Manter templates e assets organizados
+- Usar nomeação de arquivo consistente
 
-### 4. Namespace Usage
-- Use proper namespaces for all classes
-- Follow PSR-4 autoloading
-- Namespace matches directory structure
+### 4. Uso de Namespace
+- Usar namespaces apropriados para todas as classes
+- Seguir carregamento automático PSR-4
+- Namespace corresponde à estrutura de diretório
 
-### 5. Configuration Management
-- Centralize configuration in config directory
-- Use environment-based configuration
-- Don't hardcode settings
+### 5. Gerenciamento de Configuração
+- Centralizar configuração em diretório de configuração
+- Usar configuração baseada em ambiente
+- Não codificar configurações
 
-## Module Bootstrap
+## Bootstrap do Módulo
 
 ```php
 <?php
@@ -162,13 +162,13 @@ class Bootstrap
 ?>
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- Error-Handling for exception management
-- Testing for test organization
-- ../Patterns/MVC-Pattern for controller structure
+Veja também:
+- Tratamento-de-Erros para gerenciamento de exceção
+- Testes para organização de testes
+- ../Padrões/Padrão-MVC para estrutura de controller
 
 ---
 
-Tags: #best-practices #code-organization #psr-4 #module-development
+Tags: #boas-práticas #organização-de-código #psr-4 #desenvolvimento-de-módulo

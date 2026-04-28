@@ -1,801 +1,801 @@
 ---
-title: "Publisher - Permissions Setup"
-description: "Comprehensive guide to setting up group permissions and access control in Publisher"
+title: "Publisher - Configuração de Permissões"
+description: "Guia abrangente para configurar permissões de grupo e controle de acesso no Publisher"
 ---
 
-# Publisher Permissions Setup
+# Configuração de Permissões do Publisher
 
-> Complete guide to configuring group permissions, access control, and managing user access in Publisher.
-
----
-
-## Permission Basics
-
-### What Are Permissions?
-
-Permissions control what different user groups can do in Publisher:
-
-```
-Who can:
-  - View articles
-  - Submit articles
-  - Edit articles
-  - Approve articles
-  - Manage categories
-  - Configure settings
-```
-
-### Permission Levels
-
-```
-Anonymous
-  └── View published articles only
-
-Registered Users
-  ├── View articles
-  ├── Submit articles (pending approval)
-  └── Edit own articles
-
-Editors/Moderators
-  ├── All registered permissions
-  ├── Approve articles
-  ├── Edit all articles
-  └── Manage some categories
-
-Administrators
-  └── Full access to everything
-```
+> Guia completo para configurar permissões de grupo, controle de acesso e gerenciar acesso de usuários no Publisher.
 
 ---
 
-## Access Permission Management
+## Fundamentos de Permissões
 
-### Navigate to Permissions
+### O Que São Permissões?
+
+Permissões controlam o que diferentes grupos de usuários podem fazer no Publisher:
 
 ```
-Admin Panel
-└── Modules
+Quem pode:
+  - Ver artigos
+  - Enviar artigos
+  - Editar artigos
+  - Aprovar artigos
+  - Gerenciar categorias
+  - Configurar configurações
+```
+
+### Níveis de Permissão
+
+```
+Anônimo
+  └── Visualizar apenas artigos publicados
+
+Usuários Registrados
+  ├── Ver artigos
+  ├── Enviar artigos (aguardando aprovação)
+  └── Editar próprios artigos
+
+Editores/Moderadores
+  ├── Todas as permissões de usuário registrado
+  ├── Aprovar artigos
+  ├── Editar todos os artigos
+  └── Gerenciar algumas categorias
+
+Administradores
+  └── Acesso total a tudo
+```
+
+---
+
+## Gerenciamento de Permissões de Acesso
+
+### Navegue para Permissões
+
+```
+Painel de Admin
+└── Módulos
     └── Publisher
-        ├── Permissions
-        ├── Category Permissions
-        └── Group Management
+        ├── Permissões
+        ├── Permissões de Categoria
+        └── Gerenciamento de Grupo
 ```
 
-### Quick Access
+### Acesso Rápido
 
-1. Log in as **Administrator**
-2. Go to **Admin → Modules**
-3. Click **Publisher → Admin**
-4. Click **Permissions** in left menu
+1. Faça login como **Administrador**
+2. Vá para **Admin → Módulos**
+3. Clique em **Publisher → Admin**
+4. Clique em **Permissões** no menu esquerdo
 
 ---
 
-## Global Permissions
+## Permissões Globais
 
-### Module-Level Permissions
+### Permissões em Nível de Módulo
 
-Control access to Publisher module and features:
+Controle o acesso ao módulo Publisher e recursos:
 
 ```
-Permissions configuration view:
+Visualização de configuração de permissões:
 ┌─────────────────────────────────────┐
-│ Permission             │ Anon │ Reg │ Editor │ Admin │
+│ Permissão             │ Anon │ Reg │ Editor │ Admin │
 ├────────────────────────┼──────┼─────┼────────┼───────┤
-│ View articles          │  ✓   │  ✓  │   ✓    │  ✓   │
-│ Submit articles        │  ✗   │  ✓  │   ✓    │  ✓   │
-│ Edit own articles      │  ✗   │  ✓  │   ✓    │  ✓   │
-│ Edit all articles      │  ✗   │  ✗  │   ✓    │  ✓   │
-│ Approve articles       │  ✗   │  ✗  │   ✓    │  ✓   │
-│ Manage categories      │  ✗   │  ✗  │   ✗    │  ✓   │
-│ Access admin panel     │  ✗   │  ✗  │   ✓    │  ✓   │
+│ Ver artigos            │  ✓   │  ✓  │   ✓    │  ✓   │
+│ Enviar artigos         │  ✗   │  ✓  │   ✓    │  ✓   │
+│ Editar próprios        │  ✗   │  ✓  │   ✓    │  ✓   │
+│ Editar todos           │  ✗   │  ✗  │   ✓    │  ✓   │
+│ Aprovar artigos        │  ✗   │  ✗  │   ✓    │  ✓   │
+│ Gerenciar categorias   │  ✗   │  ✗  │   ✗    │  ✓   │
+│ Acessar painel admin   │  ✗   │  ✗  │   ✓    │  ✓   │
 └─────────────────────────────────────┘
 ```
 
-### Permission Descriptions
+### Descrições de Permissão
 
-| Permission | Users | Effect |
+| Permissão | Usuários | Efeito |
 |------------|-------|--------|
-| **View articles** | All groups | Can see published articles on front-end |
-| **Submit articles** | Registered+ | Can create new articles (pending approval) |
-| **Edit own articles** | Registered+ | Can edit/delete their own articles |
-| **Edit all articles** | Editors+ | Can edit any user's articles |
-| **Delete own articles** | Registered+ | Can delete their own unpublished articles |
-| **Delete all articles** | Editors+ | Can delete any article |
-| **Approve articles** | Editors+ | Can publish pending articles |
-| **Manage categories** | Admins | Create, edit, delete categories |
-| **Admin access** | Editors+ | Access admin interface |
+| **Ver artigos** | Todos os grupos | Podem ver artigos publicados no front-end |
+| **Enviar artigos** | Registrado+ | Podem criar novos artigos (aguardando aprovação) |
+| **Editar próprios artigos** | Registrado+ | Podem editar/deletar seus próprios artigos |
+| **Editar todos os artigos** | Editores+ | Podem editar artigos de qualquer usuário |
+| **Deletar próprios artigos** | Registrado+ | Podem deletar seus próprios artigos não publicados |
+| **Deletar todos os artigos** | Editores+ | Podem deletar qualquer artigo |
+| **Aprovar artigos** | Editores+ | Podem publicar artigos pendentes |
+| **Gerenciar categorias** | Admins | Criar, editar, deletar categorias |
+| **Acesso admin** | Editores+ | Acessar interface de admin |
 
 ---
 
-## Configure Global Permissions
+## Configurar Permissões Globais
 
-### Step 1: Access Permission Settings
+### Etapa 1: Acessar Configurações de Permissão
 
-1. Go to **Admin → Modules**
-2. Find **Publisher**
-3. Click **Permissions** (or Admin link then Permissions)
-4. You see permission matrix
+1. Vá para **Admin → Módulos**
+2. Encontre **Publisher**
+3. Clique em **Permissões** (ou link Admin e depois Permissões)
+4. Você vê matriz de permissões
 
-### Step 2: Set Group Permissions
+### Etapa 2: Definir Permissões de Grupo
 
-For each group, configure what they can do:
+Para cada grupo, configure o que eles podem fazer:
 
-#### Anonymous Users
-
-```yaml
-Anonymous Group Permissions:
-  View articles: ✓ YES
-  Submit articles: ✗ NO
-  Edit articles: ✗ NO
-  Delete articles: ✗ NO
-  Approve articles: ✗ NO
-  Manage categories: ✗ NO
-  Admin access: ✗ NO
-
-Result: Anonymous users can only view published content
-```
-
-#### Registered Users
+#### Usuários Anônimos
 
 ```yaml
-Registered Group Permissions:
-  View articles: ✓ YES
-  Submit articles: ✓ YES (with approval required)
-  Edit own articles: ✓ YES
-  Edit all articles: ✗ NO
-  Delete own articles: ✓ YES (drafts only)
-  Delete all articles: ✗ NO
-  Approve articles: ✗ NO
-  Manage categories: ✗ NO
-  Admin access: ✗ NO
+Permissões do Grupo Anônimo:
+  Ver artigos: ✓ SIM
+  Enviar artigos: ✗ NÃO
+  Editar artigos: ✗ NÃO
+  Deletar artigos: ✗ NÃO
+  Aprovar artigos: ✗ NÃO
+  Gerenciar categorias: ✗ NÃO
+  Acesso admin: ✗ NÃO
 
-Result: Registered users can contribute content after approval
+Resultado: Usuários anônimos podem apenas visualizar conteúdo publicado
 ```
 
-#### Editors Group
+#### Usuários Registrados
 
 ```yaml
-Editors Group Permissions:
-  View articles: ✓ YES
-  Submit articles: ✓ YES
-  Edit own articles: ✓ YES
-  Edit all articles: ✓ YES
-  Delete own articles: ✓ YES
-  Delete all articles: ✓ YES
-  Approve articles: ✓ YES
-  Manage categories: ✓ LIMITED
-  Admin access: ✓ YES
-  Configure settings: ✗ NO
+Permissões do Grupo Registrado:
+  Ver artigos: ✓ SIM
+  Enviar artigos: ✓ SIM (com aprovação obrigatória)
+  Editar próprios artigos: ✓ SIM
+  Editar todos os artigos: ✗ NÃO
+  Deletar próprios artigos: ✓ SIM (apenas rascunhos)
+  Deletar todos os artigos: ✗ NÃO
+  Aprovar artigos: ✗ NÃO
+  Gerenciar categorias: ✗ NÃO
+  Acesso admin: ✗ NÃO
 
-Result: Editors manage content but not settings
+Resultado: Usuários registrados podem contribuir com conteúdo após aprovação
 ```
 
-#### Administrators
+#### Grupo de Editores
 
 ```yaml
-Admins Group Permissions:
-  ✓ FULL ACCESS to all features
+Permissões do Grupo de Editores:
+  Ver artigos: ✓ SIM
+  Enviar artigos: ✓ SIM
+  Editar próprios artigos: ✓ SIM
+  Editar todos os artigos: ✓ SIM
+  Deletar próprios artigos: ✓ SIM
+  Deletar todos os artigos: ✓ SIM
+  Aprovar artigos: ✓ SIM
+  Gerenciar categorias: ✓ LIMITADO
+  Acesso admin: ✓ SIM
+  Configurar configurações: ✗ NÃO
 
-  - All editor permissions
-  - Manage all categories
-  - Configure all settings
-  - Manage permissions
-  - Install/uninstall
+Resultado: Editores gerenciam conteúdo mas não configurações
 ```
 
-### Step 3: Save Permissions
+#### Administradores
 
-1. Configure each group's permissions
-2. Check boxes for allowed actions
-3. Uncheck boxes for denied actions
-4. Click **Save Permissions**
-5. Confirmation message appears
+```yaml
+Permissões do Grupo de Admins:
+  ✓ ACESSO TOTAL a todos os recursos
+
+  - Todas as permissões de editor
+  - Gerenciar todas as categorias
+  - Configurar todas as configurações
+  - Gerenciar permissões
+  - Instalar/desinstalar
+```
+
+### Etapa 3: Salvar Permissões
+
+1. Configure permissões de cada grupo
+2. Marque caixas para ações permitidas
+3. Desmarque caixas para ações negadas
+4. Clique em **Salvar Permissões**
+5. Mensagem de confirmação aparece
 
 ---
 
-## Category-Level Permissions
+## Permissões em Nível de Categoria
 
-### Set Category Access
+### Definir Acesso de Categoria
 
-Control who can view/submit to specific categories:
-
-```
-Admin → Publisher → Categories
-→ Select category → Permissions
-```
-
-### Category Permission Matrix
+Controle quem pode visualizar/enviar para categorias específicas:
 
 ```
-                 Anonymous  Registered  Editor  Admin
-View category        ✓         ✓         ✓       ✓
-Submit to category   ✗         ✓         ✓       ✓
-Edit own in category ✗         ✓         ✓       ✓
-Edit all in category ✗         ✗         ✓       ✓
-Approve in category  ✗         ✗         ✓       ✓
-Manage category      ✗         ✗         ✗       ✓
+Admin → Publisher → Categorias
+→ Selecionar categoria → Permissões
 ```
 
-### Configure Category Permissions
-
-1. Go to **Categories** admin
-2. Find category
-3. Click **Permissions** button
-4. For each group, select:
-   - [ ] View this category
-   - [ ] Submit articles
-   - [ ] Edit own articles
-   - [ ] Edit all articles
-   - [ ] Approve articles
-   - [ ] Manage category
-5. Click **Save**
-
-### Category Permission Examples
-
-#### Public News Category
+### Matriz de Permissões de Categoria
 
 ```
-Anonymous: View only
-Registered: View + Submit (pending approval)
-Editors: Approve + Edit
-Admins: Full control
+                 Anônimo  Registrado  Editor  Admin
+Ver categoria       ✓         ✓         ✓       ✓
+Enviar para cat     ✗         ✓         ✓       ✓
+Editar próprio      ✗         ✓         ✓       ✓
+Editar todos        ✗         ✗         ✓       ✓
+Aprovar na cat      ✗         ✗         ✓       ✓
+Gerenciar cat       ✗         ✗         ✗       ✓
 ```
 
-#### Internal Updates Category
+### Configurar Permissões de Categoria
+
+1. Vá para admin de **Categorias**
+2. Encontre categoria
+3. Clique em botão **Permissões**
+4. Para cada grupo, selecione:
+   - [ ] Ver esta categoria
+   - [ ] Enviar artigos
+   - [ ] Editar próprios artigos
+   - [ ] Editar todos os artigos
+   - [ ] Aprovar artigos
+   - [ ] Gerenciar categoria
+5. Clique em **Salvar**
+
+### Exemplos de Permissões de Categoria
+
+#### Categoria Pública de Notícias
 
 ```
-Anonymous: No access
-Registered: View only
-Editors: Submit + Approve
-Admins: Full control
+Anônimo: Apenas visualização
+Registrado: Visualizar + Enviar (aguardando aprovação)
+Editores: Aprovar + Editar
+Admins: Controle total
 ```
 
-#### Guest Blog Category
+#### Categoria de Atualizações Internas
 
 ```
-Anonymous: View only
-Registered: Submit (pending approval)
-Editors: Approve
-Admins: Full control
+Anônimo: Sem acesso
+Registrado: Apenas visualização
+Editores: Enviar + Aprovar
+Admins: Controle total
+```
+
+#### Categoria de Blog de Convidado
+
+```
+Anônimo: Apenas visualização
+Registrado: Enviar (aguardando aprovação)
+Editores: Aprovar
+Admins: Controle total
 ```
 
 ---
 
-## Field-Level Permissions
+## Permissões em Nível de Campo
 
-### Control Form Field Visibility
+### Controlar Visibilidade de Campo de Formulário
 
-Restrict which form fields users can see/edit:
+Restringir quais campos do formulário os usuários podem ver/editar:
 
 ```
-Admin → Publisher → Permissions → Fields
+Admin → Publisher → Permissões → Campos
 ```
 
-### Field Options
+### Opções de Campo
 
 ```yaml
-Visible Fields for Registered Users:
-  ✓ Title
-  ✓ Description
-  ✓ Content (body)
-  ✓ Featured image
-  ✓ Category
+Campos Visíveis para Usuários Registrados:
+  ✓ Título
+  ✓ Descrição
+  ✓ Conteúdo (corpo)
+  ✓ Imagem em destaque
+  ✓ Categoria
   ✓ Tags
-  ✗ Author (auto-set)
-  ✗ Publication date (editors only)
-  ✗ Scheduled date (editors only)
-  ✗ Featured flag (editors only)
-  ✗ Permissions (admins only)
+  ✗ Autor (auto-definido)
+  ✗ Data de publicação (apenas editores)
+  ✗ Data agendada (apenas editores)
+  ✗ Flag de destaque (apenas editores)
+  ✗ Permissões (apenas admins)
 ```
 
-### Examples
+### Exemplos
 
-#### Limited Submission for Registered
+#### Envio Limitado para Registrado
 
-Registered users see fewer options:
-
-```
-Available fields:
-  - Title ✓
-  - Description ✓
-  - Content ✓
-  - Featured image ✓
-  - Category ✓
-
-Hidden fields:
-  - Author (auto-current user)
-  - Publication date (editors decide)
-  - Scheduled date (admins only)
-  - Featured status (editors choose)
-```
-
-#### Full Form for Editors
-
-Editors see all options:
+Usuários registrados veem menos opções:
 
 ```
-Available fields:
-  - All basic fields
-  - All metadata
-  - Author selection ✓
-  - Publication date/time ✓
-  - Scheduled date ✓
-  - Featured status ✓
-  - Expiration date ✓
-  - Permissions ✓
+Campos disponíveis:
+  - Título ✓
+  - Descrição ✓
+  - Conteúdo ✓
+  - Imagem em destaque ✓
+  - Categoria ✓
+
+Campos ocultos:
+  - Autor (auto-usuário atual)
+  - Data de publicação (editores decidem)
+  - Data agendada (apenas admins)
+  - Status de destaque (editores escolhem)
 ```
 
----
+#### Formulário Completo para Editores
 
-## User Group Configuration
-
-### Create Custom Group
-
-1. Go to **Admin → Users → Groups**
-2. Click **Create Group**
-3. Enter group details:
+Editores veem todas as opções:
 
 ```
-Group Name: "Community Bloggers"
-Group Description: "Users who contribute blog content"
-Type: Regular group
-```
-
-4. Click **Save Group**
-5. Go back to Publisher permissions
-6. Set permissions for new group
-
-### Group Examples
-
-```
-Suggested Groups for Publisher:
-
-Group: Contributors
-  - Regular members who submit articles
-  - Can edit own articles
-  - Cannot approve articles
-
-Group: Reviewers
-  - Can see submitted articles
-  - Can approve/reject articles
-  - Cannot delete others' articles
-
-Group: Editors
-  - Can edit any article
-  - Can approve articles
-  - Can moderate comments
-  - Can manage some categories
-
-Group: Publishers
-  - Can edit any article
-  - Can publish directly (no approval)
-  - Can manage all categories
-  - Can configure settings
+Campos disponíveis:
+  - Todos os campos básicos
+  - Todos os metadados
+  - Seleção de autor ✓
+  - Data/hora de publicação ✓
+  - Data agendada ✓
+  - Status de destaque ✓
+  - Data de expiração ✓
+  - Permissões ✓
 ```
 
 ---
 
-## Permission Hierarchies
+## Configuração de Grupo de Usuário
 
-### Permission Flow
+### Criar Grupo Personalizado
+
+1. Vá para **Admin → Usuários → Grupos**
+2. Clique em **Criar Grupo**
+3. Digite detalhes do grupo:
+
+```
+Nome do Grupo: "Blogueiros da Comunidade"
+Descrição do Grupo: "Usuários que contribuem com conteúdo do blog"
+Tipo: Grupo regular
+```
+
+4. Clique em **Salvar Grupo**
+5. Volte para permissões do Publisher
+6. Defina permissões para novo grupo
+
+### Exemplos de Grupo
+
+```
+Grupos Sugeridos para Publisher:
+
+Grupo: Colaboradores
+  - Membros regulares que enviam artigos
+  - Podem editar próprios artigos
+  - Não podem aprovar artigos
+
+Grupo: Revisores
+  - Podem ver artigos enviados
+  - Podem aprovar/rejeitar artigos
+  - Não podem deletar artigos de outros
+
+Grupo: Editores
+  - Podem editar qualquer artigo
+  - Podem aprovar artigos
+  - Podem moderar comentários
+  - Podem gerenciar algumas categorias
+
+Grupo: Publicadores
+  - Podem editar qualquer artigo
+  - Podem publicar diretamente (sem aprovação)
+  - Podem gerenciar todas as categorias
+  - Podem configurar configurações
+```
+
+---
+
+## Hierarquias de Permissão
+
+### Fluxo de Permissão
 
 ```mermaid
 graph TD
-    A[XOOPS Core Permissions] -->|Granted by| B[System Modules]
-    B -->|Applied to| C[User Groups]
-    C -->|Restrict| D[Publisher Permissions]
-    D -->|Apply to| E[Global Permissions]
-    E -->|Override by| F[Category Permissions]
-    F -->|Apply to| G[Field Permissions]
+    A[Permissões Central XOOPS] -->|Concedido por| B[Módulos do Sistema]
+    B -->|Aplicado a| C[Grupos de Usuário]
+    C -->|Restringe| D[Permissões do Publisher]
+    D -->|Aplicar a| E[Permissões Globais]
+    E -->|Substituído por| F[Permissões de Categoria]
+    F -->|Aplicar a| G[Permissões de Campo]
 ```
 
-### Permission Inheritance
+### Herança de Permissão
 
 ```
-Base: Global module permissions
+Base: Permissões globais do módulo
   ↓
-Category: Overrides for specific categories
+Categoria: Substitui para categorias específicas
   ↓
-Field: Further restricts available fields
+Campo: Restringe ainda mais campos disponíveis
   ↓
-User: Has permission if ALL levels allow
+Usuário: Tem permissão se TODOS os níveis permitem
 ```
 
-**Example:**
+**Exemplo:**
 
 ```
-User wants to edit article:
-1. User group must have "edit articles" permission (global)
-2. Category must allow editing (category level)
-3. Field restrictions must allow (if applicable)
-4. User must be author OR editor (for own vs all)
+Usuário quer editar artigo:
+1. Grupo do usuário deve ter permissão "editar artigos" (global)
+2. Categoria deve permitir edição (nível de categoria)
+3. Restrições de campo devem permitir (se aplicável)
+4. Usuário deve ser autor OU editor (próprio vs todos)
 
-If ANY level denies → Permission denied
+Se QUALQUER nível nega → Permissão negada
 ```
 
 ---
 
-## Approval Workflow Permissions
+## Permissões de Fluxo de Trabalho de Aprovação
 
-### Configure Submission Approval
+### Configurar Aprovação de Envio
 
-Control whether articles need approval:
+Controle se artigos precisam de aprovação:
 
 ```
-Admin → Publisher → Preferences → Workflow
+Admin → Publisher → Preferências → Fluxo de Trabalho
 ```
 
-#### Approval Options
+#### Opções de Aprovação
 
 ```yaml
-Submission Workflow:
-  Require Approval: Yes
+Fluxo de Trabalho de Envio:
+  Exigir Aprovação: Sim
 
-  For Registered Users:
-    - New articles: Draft (pending approval)
-    - Editors must approve
-    - User can edit while pending
-    - After approval: User can still edit
+  Para Usuários Registrados:
+    - Novos artigos: Rascunho (aguardando aprovação)
+    - Editores devem aprovar
+    - Usuário pode editar enquanto pendente
+    - Após aprovação: Usuário ainda pode editar
 
-  For Editors:
-    - New articles: Publish directly (optional)
-    - Skip approval queue
-    - Or always require approval
+  Para Editores:
+    - Novos artigos: Publicar diretamente (opcional)
+    - Pular fila de aprovação
+    - Ou sempre exigir aprovação
 ```
 
-#### Configure Per Group
+#### Configurar Por Grupo
 
-1. Go to Preferences
-2. Find "Submission Workflow"
-3. For each group, set:
+1. Vá para Preferências
+2. Encontre "Fluxo de Trabalho de Envio"
+3. Para cada grupo, defina:
 
 ```
-Group: Registered Users
-  Require approval: ✓ YES
-  Default status: Draft
-  Can modify while pending: ✓ YES
+Grupo: Usuários Registrados
+  Exigir aprovação: ✓ SIM
+  Status padrão: Rascunho
+  Pode modificar enquanto pendente: ✓ SIM
 
-Group: Editors
-  Require approval: ✗ NO
-  Default status: Published
-  Can modify published: ✓ YES
+Grupo: Editores
+  Exigir aprovação: ✗ NÃO
+  Status padrão: Publicado
+  Pode modificar publicado: ✓ SIM
 ```
 
-4. Click **Save**
+4. Clique em **Salvar**
 
 ---
 
-## Moderate Articles
+## Moderar Artigos
 
-### Approve Pending Articles
+### Aprovar Artigos Pendentes
 
-For users with "approve articles" permission:
+Para usuários com permissão "aprovar artigos":
 
-1. Go to **Admin → Publisher → Articles**
-2. Filter by **Status**: Pending
-3. Click article to review
-4. Check content quality
-5. Set **Status**: Published
-6. Optional: Add editorial notes
-7. Click **Save**
+1. Vá para **Admin → Publisher → Artigos**
+2. Filtre por **Status**: Pendente
+3. Clique no artigo para revisar
+4. Verifique qualidade do conteúdo
+5. Defina **Status**: Publicado
+6. Opcional: Adicione notas editoriais
+7. Clique em **Salvar**
 
-### Reject Articles
+### Rejeitar Artigos
 
-If article doesn't meet standards:
+Se artigo não atender aos padrões:
 
-1. Open article
-2. Set **Status**: Draft
-3. Add rejection reason (in comment or email)
-4. Click **Save**
-5. Send message to author explaining rejection
+1. Abra artigo
+2. Defina **Status**: Rascunho
+3. Adicione razão de rejeição (em comentário ou email)
+4. Clique em **Salvar**
+5. Envie mensagem para autor explicando rejeição
 
-### Moderate Comments
+### Moderar Comentários
 
-If moderating comments:
+Se moderando comentários:
 
-1. Go to **Admin → Publisher → Comments**
-2. Filter by **Status**: Pending
-3. Review comment
-4. Options:
-   - Approve: Click **Approve**
-   - Reject: Click **Delete**
-   - Edit: Click **Edit**, fix, save
-5. Click **Save**
-
----
-
-## Manage User Access
-
-### View User Groups
-
-See which users belong to groups:
-
-```
-Admin → Users → User Groups
-
-For each user:
-  - Primary group (one)
-  - Secondary groups (multiple)
-
-Permissions apply from all groups (union)
-```
-
-### Add User to Group
-
-1. Go to **Admin → Users**
-2. Find user
-3. Click **Edit**
-4. Under **Groups**, check groups to add
-5. Click **Save**
-
-### Change User Permissions
-
-For individual users (if supported):
-
-1. Go to User admin
-2. Find user
-3. Click **Edit**
-4. Look for individual permissions override
-5. Configure as needed
-6. Click **Save**
+1. Vá para **Admin → Publisher → Comentários**
+2. Filtre por **Status**: Pendente
+3. Revise comentário
+4. Opções:
+   - Aprovar: Clique em **Aprovar**
+   - Rejeitar: Clique em **Deletar**
+   - Editar: Clique em **Editar**, corrija, salve
+5. Clique em **Salvar**
 
 ---
 
-## Common Permission Scenarios
+## Gerenciar Acesso de Usuário
 
-### Scenario 1: Open Blog
+### Ver Grupos de Usuário
 
-Allow anyone to submit:
-
-```
-Anonymous: View
-Registered: Submit, edit own, delete own
-Editors: Approve, edit all, delete all
-Admins: Full control
-
-Result: Open community blog
-```
-
-### Scenario 2: Moderated News Site
-
-Strict approval process:
+Veja quais usuários pertencem a grupos:
 
 ```
-Anonymous: View only
-Registered: Cannot submit
-Editors: Submit, approve others
-Admins: Full control
+Admin → Usuários → Grupos de Usuário
 
-Result: Only approved professionals publish
+Para cada usuário:
+  - Grupo principal (um)
+  - Grupos secundários (múltiplos)
+
+Permissões aplicam de todos os grupos (união)
 ```
 
-### Scenario 3: Staff Blog
+### Adicionar Usuário a Grupo
 
-Employees can contribute:
+1. Vá para **Admin → Usuários**
+2. Encontre usuário
+3. Clique em **Editar**
+4. Sob **Grupos**, marque grupos para adicionar
+5. Clique em **Salvar**
 
-```
-Create group: "Staff"
-Anonymous: View
-Registered: View only (non-staff)
-Staff: Submit, edit own, publish directly
-Admins: Full control
+### Mudar Permissões de Usuário
 
-Result: Staff-authored blog
-```
+Para usuários individuais (se suportado):
 
-### Scenario 4: Multi-Category with Different Editors
-
-Different editors for different categories:
-
-```
-News category:
-  Editors group A: Full control
-
-Reviews category:
-  Editors group B: Full control
-
-Tutorials category:
-  Editors group C: Full control
-
-Result: Decentralized editorial control
-```
+1. Vá para admin de usuário
+2. Encontre usuário
+3. Clique em **Editar**
+4. Procure por substituição de permissões individuais
+5. Configure conforme necessário
+6. Clique em **Salvar**
 
 ---
 
-## Permission Testing
+## Cenários Comuns de Permissão
 
-### Verify Permissions Work
+### Cenário 1: Blog Aberto
 
-1. Create test user in each group
-2. Log in as each test user
-3. Try to:
-   - View articles
-   - Submit article (should create draft if permitted)
-   - Edit article (own and others)
-   - Delete article
-   - Access admin panel
-   - Access categories
-
-4. Verify results match expected permissions
-
-### Common Test Cases
+Permitir qualquer um enviar:
 
 ```
-Test Case 1: Anonymous user
-  [ ] Can view published articles: ✓
-  [ ] Cannot submit articles: ✓
-  [ ] Cannot access admin: ✓
+Anônimo: Visualizar
+Registrado: Enviar, editar próprio, deletar próprio
+Editores: Aprovar, editar todos, deletar todos
+Admins: Controle total
 
-Test Case 2: Registered user
-  [ ] Can submit articles: ✓
-  [ ] Articles go to Draft: ✓
-  [ ] Can edit own article: ✓
-  [ ] Cannot edit others: ✓
-  [ ] Cannot access admin: ✓
+Resultado: Blog aberto da comunidade
+```
 
-Test Case 3: Editor
-  [ ] Can approve articles: ✓
-  [ ] Can edit any article: ✓
-  [ ] Can access admin: ✓
-  [ ] Cannot delete all: ✓ (or ✓ if allowed)
+### Cenário 2: Site de Notícias Moderado
 
-Test Case 4: Admin
-  [ ] Can do everything: ✓
+Processo de aprovação rigoroso:
+
+```
+Anônimo: Apenas visualização
+Registrado: Não pode enviar
+Editores: Enviar, aprovar outros
+Admins: Controle total
+
+Resultado: Apenas profissionais aprovados publicam
+```
+
+### Cenário 3: Blog de Equipe
+
+Funcionários podem contribuir:
+
+```
+Criar grupo: "Equipe"
+Anônimo: Visualizar
+Registrado: Apenas visualização (não-equipe)
+Equipe: Enviar, editar próprio, publicar diretamente
+Admins: Controle total
+
+Resultado: Blog de autoria de equipe
+```
+
+### Cenário 4: Multi-Categoria com Diferentes Editores
+
+Editores diferentes para categorias diferentes:
+
+```
+Categoria Notícias:
+  Grupo de Editores A: Controle total
+
+Categoria Resenhas:
+  Grupo de Editores B: Controle total
+
+Categoria Tutoriais:
+  Grupo de Editores C: Controle total
+
+Resultado: Controle editorial descentralizado
 ```
 
 ---
 
-## Troubleshooting Permissions
+## Teste de Permissões
 
-### Problem: User can't submit articles
+### Verificar se Permissões Funcionam
 
-**Check:**
+1. Criar usuário de teste em cada grupo
+2. Fazer login como cada usuário de teste
+3. Tentar:
+   - Ver artigos
+   - Enviar artigo (deve criar rascunho se permitido)
+   - Editar artigo (próprio e outros)
+   - Deletar artigo
+   - Acessar painel admin
+   - Acessar categorias
+
+4. Verificar se resultados correspondem às permissões esperadas
+
+### Casos de Teste Comuns
+
 ```
-1. User group has "submit articles" permission
-   Admin → Publisher → Permissions
+Caso de Teste 1: Usuário anônimo
+  [ ] Pode ver artigos publicados: ✓
+  [ ] Não pode enviar artigos: ✓
+  [ ] Não pode acessar admin: ✓
 
-2. User belongs to allowed group
-   Admin → Users → Edit user → Groups
+Caso de Teste 2: Usuário registrado
+  [ ] Pode enviar artigos: ✓
+  [ ] Artigos vão para Rascunho: ✓
+  [ ] Pode editar próprio artigo: ✓
+  [ ] Não pode editar de outros: ✓
+  [ ] Não pode acessar admin: ✓
 
-3. Category allows submission from user's group
-   Admin → Publisher → Categories → Permissions
+Caso de Teste 3: Editor
+  [ ] Pode aprovar artigos: ✓
+  [ ] Pode editar qualquer artigo: ✓
+  [ ] Pode acessar admin: ✓
+  [ ] Não pode deletar todos: ✓ (ou ✓ se permitido)
 
-4. User is registered (not anonymous)
+Caso de Teste 4: Admin
+  [ ] Pode fazer tudo: ✓
 ```
 
-**Solution:**
+---
+
+## Solução de Problemas de Permissões
+
+### Problema: Usuário não consegue enviar artigos
+
+**Verificar:**
+```
+1. Grupo de usuário tem permissão "enviar artigos"
+   Admin → Publisher → Permissões
+
+2. Usuário pertence a grupo permitido
+   Admin → Usuários → Editar usuário → Grupos
+
+3. Categoria permite envio do grupo do usuário
+   Admin → Publisher → Categorias → Permissões
+
+4. Usuário é registrado (não anônimo)
+```
+
+**Solução:**
 ```bash
-1. Verify registered user group has submission permission
-2. Add user to appropriate group
-3. Check category permissions
-4. Clear user session cache
+1. Verificar se grupo de usuário registrado tem permissão de envio
+2. Adicionar usuário ao grupo apropriado
+3. Verificar permissões de categoria
+4. Limpar cache de sessão do usuário
 ```
 
-### Problem: Editor can't approve articles
+### Problema: Editor não consegue aprovar artigos
 
-**Check:**
+**Verificar:**
 ```
-1. Editor group has "approve articles" permission
-2. Articles exist with "Pending" status
-3. Editor is in correct group
-4. Category allows approval from editor's group
+1. Grupo de editor tem permissão "aprovar artigos"
+2. Artigos existem com status "Pendente"
+3. Editor está no grupo correto
+4. Categoria permite aprovação do grupo do editor
 ```
 
-**Solution:**
+**Solução:**
 ```bash
-1. Go to Permissions, check "approve articles" is checked for editor group
-2. Create test article, set to Draft
-3. Try to approve as editor
-4. Check error messages in system log
+1. Vá para Permissões, verificar "aprovar artigos" está marcado para grupo de editor
+2. Criar artigo de teste, definir para Rascunho
+3. Tentar aprovar como editor
+4. Verificar mensagens de erro no log do sistema
 ```
 
-### Problem: Can see articles but can't access category
+### Problema: Pode ver artigos mas não consegue acessar categoria
 
-**Check:**
+**Verificar:**
 ```
-1. Category is not disabled/hidden
-2. Category permissions allow viewing
-3. User's group is permitted to view category
-4. Category is published
+1. Categoria não está desabilitada/oculta
+2. Permissões de categoria permitem visualização
+3. Grupo do usuário é permitido para visualizar categoria
+4. Categoria é publicada
 ```
 
-**Solution:**
+**Solução:**
 ```bash
-1. Go to Categories, check category status is "Enabled"
-2. Check category permissions are set
-3. Add user's group to category view permission
+1. Vá para Categorias, verificar status da categoria é "Habilitado"
+2. Verificar permissões de categoria estão definidas
+3. Adicionar grupo do usuário à permissão de visualização de categoria
 ```
 
-### Problem: Permissions changed but not taking effect
+### Problema: Permissões mudaram mas não têm efeito
 
-**Solution:**
+**Solução:**
 ```bash
-1. Clear cache: Admin → Tools → Clear Cache
-2. Clear session: Logout and login again
-3. Check system log for errors
-4. Verify permissions actually saved
-5. Try different browser/incognito window
+1. Limpar cache: Admin → Ferramentas → Limpar Cache
+2. Limpar sessão: Fazer logout e login novamente
+3. Verificar log do sistema para erros
+4. Verificar se permissões realmente foram salvas
+5. Tentar navegador diferente/janela incógnita
 ```
 
 ---
 
-## Permission Backup & Export
+## Backup e Exportação de Permissão
 
-### Export Permissions
+### Exportar Permissões
 
-Some systems allow exporting:
+Alguns sistemas permitem exportar:
 
-1. Go to **Admin → Publisher → Tools**
-2. Click **Export Permissions**
-3. Save `.xml` or `.json` file
-4. Keep as backup
+1. Vá para **Admin → Publisher → Ferramentas**
+2. Clique em **Exportar Permissões**
+3. Salve arquivo `.xml` ou `.json`
+4. Mantenha como backup
 
-### Import Permissions
+### Importar Permissões
 
-Restore from backup:
+Restaurar de backup:
 
-1. Go to **Admin → Publisher → Tools**
-2. Click **Import Permissions**
-3. Select backup file
-4. Review changes
-5. Click **Import**
+1. Vá para **Admin → Publisher → Ferramentas**
+2. Clique em **Importar Permissões**
+3. Selecione arquivo de backup
+4. Revise mudanças
+5. Clique em **Importar**
 
 ---
 
-## Best Practices
+## Melhores Práticas
 
-### Permission Configuration Checklist
+### Lista de Verificação de Configuração de Permissão
 
-- [ ] Decide on user groups
-- [ ] Assign clear names to groups
-- [ ] Set base permissions for each group
-- [ ] Test each permission level
-- [ ] Document permission structure
-- [ ] Create approval workflow
-- [ ] Train editors on moderation
-- [ ] Monitor permission usage
-- [ ] Review permissions quarterly
-- [ ] Backup permission settings
+- [ ] Decida sobre grupos de usuário
+- [ ] Atribua nomes claros aos grupos
+- [ ] Defina permissões base para cada grupo
+- [ ] Teste cada nível de permissão
+- [ ] Documente estrutura de permissão
+- [ ] Crie fluxo de trabalho de aprovação
+- [ ] Treine editores sobre moderação
+- [ ] Monitore uso de permissões
+- [ ] Revise permissões trimestralmente
+- [ ] Faça backup de configurações de permissão
 
-### Security Best Practices
+### Melhores Práticas de Segurança
 
 ```
-✓ Principle of Least Privilege
-  - Grant minimum necessary permissions
+✓ Princípio de Menor Privilégio
+  - Conceder permissões mínimas necessárias
 
-✓ Role-Based Access
-  - Use groups for roles (editor, moderator, etc)
+✓ Acesso Baseado em Função
+  - Usar grupos para funções (editor, moderador, etc)
 
-✓ Audit Permissions
-  - Review who has what access
+✓ Auditar Permissões
+  - Revisar quem tem que acesso
 
-✓ Separate Duties
-  - Submitter, approver, publisher are different
+✓ Separar Deveres
+  - Envia, aprova, publica são diferentes
 
-✓ Regular Review
-  - Check permissions quarterly
-  - Remove access when users leave
-  - Update for new requirements
+✓ Revisão Regular
+  - Verificar permissões trimestralmente
+  - Remover acesso quando usuários saem
+  - Atualizar para novos requisitos
 ```
 
 ---
 
-## Related Guides
+## Guias Relacionados
 
-- Creating Articles
-- Managing Categories
-- Basic Configuration
-- Installation
-
----
-
-## Next Steps
-
-- Set up Permissions for your workflow
-- Create Articles with proper permissions
-- Configure Categories with permissions
-- Train users on article creation
+- Criando Artigos
+- Gerenciando Categorias
+- Configuração Básica
+- Instalação
 
 ---
 
-#publisher #permissions #groups #access-control #security #moderation #xoops
+## Próximas Etapas
+
+- Configurar Permissões para seu fluxo de trabalho
+- Criar Artigos com permissões apropriadas
+- Configurar Categorias com permissões
+- Treinar usuários sobre criação de artigos
+
+---
+
+#publisher #permissões #grupos #controle-de-acesso #segurança #moderação #xoops

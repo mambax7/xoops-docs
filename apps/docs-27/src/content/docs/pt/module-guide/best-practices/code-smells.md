@@ -1,50 +1,50 @@
 ---
-title: "Code Smells in XOOPS Development"
+title: "Más Práticas de Código em Desenvolvimento XOOPS"
 ---
 
-## Overview
+## Visão Geral
 
-Code smells are indicators of potential problems in code. They don't necessarily mean the code is broken, but they suggest areas that could benefit from refactoring.
+Más práticas de código são indicadores de problemas em potencial. Elas não significam necessariamente que o código está quebrado, mas sugerem áreas que poderiam se beneficiar de refatoração.
 
-## Common Code Smells
+## Más Práticas Comuns
 
 ```mermaid
 flowchart TD
-    A[Code Smell Detected] --> B{Type?}
-    B --> C[Bloaters]
-    B --> D[Object-Orientation Abusers]
-    B --> E[Change Preventers]
-    B --> F[Dispensables]
-    B --> G[Couplers]
+    A[Má Prática Detectada] --> B{Tipo?}
+    B --> C[Inchadores]
+    B --> D[Abusadores de Orientação de Objeto]
+    B --> E[Previnentes de Mudança]
+    B --> F[Dispensáveis]
+    B --> G[Acopladores]
 
-    C --> C1[Long Method]
-    C --> C2[Large Class]
-    C --> C3[Long Parameter List]
+    C --> C1[Método Longo]
+    C --> C2[Classe Grande]
+    C --> C3[Lista Longa de Parâmetros]
 
-    D --> D1[Switch Statements]
-    D --> D2[Temporary Field]
+    D --> D1[Instruções Switch]
+    D --> D2[Campo Temporário]
 
-    E --> E1[Divergent Change]
-    E --> E2[Shotgun Surgery]
+    E --> E1[Mudança Divergente]
+    E --> E2[Cirurgia de Espingarda]
 
-    F --> F1[Dead Code]
-    F --> F2[Duplicate Code]
+    F --> F1[Código Morto]
+    F --> F2[Código Duplicado]
 
-    G --> G1[Feature Envy]
-    G --> G2[Inappropriate Intimacy]
+    G --> G1[Inveja de Recurso]
+    G --> G2[Intimidade Imprópria]
 ```
 
-## Bloaters
+## Inchadores
 
-### Long Method
+### Método Longo
 
 ```php
-// Smell: Method does too much
+// Cheiro: Método faz muito
 function processArticleSubmission($data) {
-    // 100+ lines of validation, saving, notification, etc.
+    // 100+ linhas de validação, salvamento, notificação, etc.
 }
 
-// Solution: Extract into focused methods
+// Solução: Extrair em métodos focados
 function processArticleSubmission(array $data): Article
 {
     $this->validateInput($data);
@@ -55,10 +55,10 @@ function processArticleSubmission(array $data): Article
 }
 ```
 
-### Large Class (God Object)
+### Classe Grande (Objeto Deus)
 
 ```php
-// Smell: Class does everything
+// Cheiro: Classe faz tudo
 class ArticleManager {
     public function create() { ... }
     public function delete() { ... }
@@ -67,23 +67,23 @@ class ArticleManager {
     public function exportToExcel() { ... }
     public function validateUser() { ... }
     public function checkPermissions() { ... }
-    // ... 50 more methods
+    // ... 50 métodos mais
 }
 
-// Solution: Split into focused classes
+// Solução: Dividir em classes focadas
 class ArticleService { ... }
 class ArticleExporter { ... }
 class ArticleNotifier { ... }
 class PermissionChecker { ... }
 ```
 
-### Long Parameter List
+### Lista Longa de Parâmetros
 
 ```php
-// Smell: Too many parameters
+// Cheiro: Muitos parâmetros
 function createArticle($title, $content, $author, $category, $tags, $status, $publishDate, $featured, $image) { ... }
 
-// Solution: Use parameter object
+// Solução: Usar objeto de parâmetro
 class CreateArticleCommand {
     public string $title;
     public string $content;
@@ -99,12 +99,12 @@ class CreateArticleCommand {
 function createArticle(CreateArticleCommand $command): Article { ... }
 ```
 
-## Object-Orientation Abusers
+## Abusadores de Orientação de Objeto
 
-### Switch Statements
+### Instruções Switch
 
 ```php
-// Smell: Type checking with switch
+// Cheiro: Verificação de tipo com switch
 function getDiscount($userType) {
     switch ($userType) {
         case 'regular':
@@ -118,7 +118,7 @@ function getDiscount($userType) {
     }
 }
 
-// Solution: Use polymorphism
+// Solução: Usar polimorfismo
 interface UserType {
     public function getDiscount(): int;
 }
@@ -136,20 +136,20 @@ class VipUser implements UserType {
 }
 ```
 
-### Temporary Field
+### Campo Temporário
 
 ```php
-// Smell: Fields only used in certain situations
+// Cheiro: Campos usados apenas em certas situações
 class Article {
     private $tempCalculatedScore;
 
     public function search($terms) {
         $this->tempCalculatedScore = $this->calculateScore($terms);
-        // ... use score
+        // ... usar pontuação
     }
 }
 
-// Solution: Pass as parameter or return value
+// Solução: Passar como parâmetro ou valor de retorno
 class Article {
     public function getSearchScore(array $terms): float {
         return $this->calculateScore($terms);
@@ -157,37 +157,37 @@ class Article {
 }
 ```
 
-## Change Preventers
+## Previnentes de Mudança
 
-### Divergent Change
+### Mudança Divergente
 
 ```php
-// Smell: One class changed for many different reasons
+// Cheiro: Uma classe alterada por muitos motivos diferentes
 class Article {
-    public function save() { ... } // Database change
-    public function toJson() { ... } // API format change
-    public function validate() { ... } // Business rule change
-    public function render() { ... } // UI change
+    public function save() { ... } // Mudança de banco de dados
+    public function toJson() { ... } // Mudança de formato de API
+    public function validate() { ... } // Mudança de regra de negócio
+    public function render() { ... } // Mudança de UI
 }
 
-// Solution: Separate responsibilities
-class Article { ... } // Domain object only
+// Solução: Separar responsabilidades
+class Article { ... } // Apenas objeto de domínio
 class ArticleRepository { public function save() { ... } }
 class ArticleSerializer { public function toJson() { ... } }
 class ArticleValidator { public function validate() { ... } }
 ```
 
-### Shotgun Surgery
+### Cirurgia de Espingarda
 
 ```php
-// Smell: One change requires many file edits
-// Changing date format requires editing:
+// Cheiro: Uma mudança requer edição em muitos arquivos
+// Alterar formato de data requer edição:
 // - ArticleController.php
 // - ArticleView.php
 // - ArticleAPI.php
 // - ArticleExport.php
 
-// Solution: Centralize
+// Solução: Centralizar
 class DateFormatter {
     public function format(DateTime $date): string {
         return $date->format($this->config->get('date_format'));
@@ -195,35 +195,35 @@ class DateFormatter {
 }
 ```
 
-## Dispensables
+## Dispensáveis
 
-### Dead Code
+### Código Morto
 
 ```php
-// Smell: Unreachable or unused code
+// Cheiro: Código inacessível ou não utilizado
 function processData($data) {
     if (true) {
         return $this->handleData($data);
     }
-    // This never executes
+    // Isto nunca é executado
     return $this->legacyHandler($data);
 }
 
-// Old unused method still in codebase
+// Método antigo não utilizado ainda na base de código
 function oldMethod() {
-    // Not called anywhere
+    // Não chamado em lugar nenhum
 }
 
-// Solution: Remove dead code
+// Solução: Remover código morto
 function processData($data) {
     return $this->handleData($data);
 }
 ```
 
-### Duplicate Code
+### Código Duplicado
 
 ```php
-// Smell: Same logic in multiple places
+// Cheiro: Mesma lógica em múltiplos lugares
 class ArticleHandler {
     public function getActive() {
         $criteria = new CriteriaCompo();
@@ -240,7 +240,7 @@ class NewsHandler {
     }
 }
 
-// Solution: Extract common behavior
+// Solução: Extrair comportamento comum
 trait ActiveRecordsTrait {
     public function getActive(): array {
         $criteria = new CriteriaCompo();
@@ -250,30 +250,30 @@ trait ActiveRecordsTrait {
 }
 ```
 
-## Couplers
+## Acopladores
 
-### Feature Envy
+### Inveja de Recurso
 
 ```php
-// Smell: Method uses another object's data more than its own
+// Cheiro: Método usa dados de outro objeto mais que seu próprio
 class Invoice {
     public function calculateTotal(Customer $customer) {
         $total = 0;
         foreach ($this->items as $item) {
             $total += $item->price;
         }
-        // Uses customer data extensively
+        // Usa dados de cliente extensivamente
         if ($customer->isPremium()) {
             $total *= (1 - $customer->getDiscountRate());
         }
         if ($customer->getCountry() === 'US') {
-            $total *= 1.08; // Tax
+            $total *= 1.08; // Imposto
         }
         return $total;
     }
 }
 
-// Solution: Move behavior to the object with the data
+// Solução: Mover comportamento para objeto com os dados
 class Customer {
     public function applyDiscount(float $amount): float {
         return $this->isPremium()
@@ -289,19 +289,19 @@ class Customer {
 }
 ```
 
-## Refactoring Checklist
+## Lista de Verificação de Refatoração
 
-When you spot a code smell:
+Quando você detecta uma má prática:
 
-1. **Identify** - What smell is it?
-2. **Assess** - How severe is the impact?
-3. **Plan** - What refactoring technique applies?
-4. **Test** - Ensure tests exist before refactoring
-5. **Refactor** - Make small, incremental changes
-6. **Verify** - Run tests after each change
+1. **Identificar** - Qual é a má prática?
+2. **Avaliar** - Como o impacto é severo?
+3. **Planejar** - Qual técnica de refatoração se aplica?
+4. **Testar** - Os testes existem antes de refatorar?
+5. **Refatorar** - Fazer pequenas mudanças incrementais
+6. **Verificar** - Executar testes após cada mudança
 
-## Related Documentation
+## Documentação Relacionada
 
-- Clean Code Principles
-- Code Organization
-- Testing Best Practices
+- Princípios de Código Limpo
+- Organização de Código
+- Boas Práticas de Testes

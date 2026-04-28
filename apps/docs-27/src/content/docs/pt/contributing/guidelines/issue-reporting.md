@@ -1,478 +1,478 @@
 ---
-title: "Issue Reporting Guidelines"
-description: "How to report bugs, feature requests, and other issues effectively"
+title: "Diretrizes de Relatório de Problemas"
+description: "Como relatar bugs, requisições de recursos e outros problemas efetivamente"
 ---
 
-> Effective bug reports and feature requests are crucial for XOOPS development. This guide helps you create high-quality issues.
-
----
-
-## Before Reporting
-
-### Check Existing Issues
-
-**Always search first:**
-
-1. Go to [GitHub Issues](https://github.com/XOOPS/XoopsCore27/issues)
-2. Search for keywords related to your issue
-3. Check closed issues - might be already resolved
-4. Look at pull requests - might be in progress
-
-Use search filters:
-- `is:issue is:open label:bug` - Open bugs
-- `is:issue is:open label:feature` - Open feature requests
-- `is:issue sort:updated` - Recently updated issues
-
-### Is It Really an Issue?
-
-Consider first:
-
-- **Configuration issue?** - Check the documentation
-- **Usage question?** - Ask on forums or Discord community
-- **Security issue?** - See #security-issues section below
-- **Module-specific?** - Report to module maintainer
-- **Theme-specific?** - Report to theme author
+> Relatórios de bugs e requisições de recursos efetivos são cruciais para o desenvolvimento de XOOPS. Este guia ajuda você a criar problemas de alta qualidade.
 
 ---
 
-## Issue Types
+## Antes de Relatar
 
-### Bug Report
+### Verificar Problemas Existentes
 
-A bug is an unexpected behavior or defect.
+**Sempre procure primeiro:**
 
-**Examples:**
-- Login not working
-- Database errors
-- Missing form validation
-- Security vulnerability
+1. Vá para [GitHub Issues](https://github.com/XOOPS/XoopsCore27/issues)
+2. Procure por palavras-chave relacionadas ao seu problema
+3. Verifique problemas fechados - podem já estar resolvidos
+4. Procure por pull requests - podem estar em andamento
 
-### Feature Request
+Use filtros de pesquisa:
+- `is:issue is:open label:bug` - Bugs abertos
+- `is:issue is:open label:feature` - Requisições de recursos abertos
+- `is:issue sort:updated` - Problemas atualizados recentemente
 
-A feature request is a suggestion for new functionality.
+### É Realmente um Problema?
 
-**Examples:**
-- Add support for new feature
-- Improve existing functionality
-- Add missing documentation
-- Performance improvements
+Considere primeiro:
 
-### Enhancement
-
-An enhancement improves existing functionality.
-
-**Examples:**
-- Better error messages
-- Improved performance
-- Better API design
-- Better user experience
-
-### Documentation
-
-Documentation issues include missing or incorrect documentation.
-
-**Examples:**
-- Incomplete API documentation
-- Outdated guides
-- Missing code examples
-- Typos in documentation
+- **Problema de configuração?** - Verifique a documentação
+- **Pergunta de uso?** - Pergunte nos fóruns ou comunidade Discord
+- **Problema de segurança?** - Consulte a seção #problemas-de-segurança abaixo
+- **Específico de módulo?** - Relate ao mantenedor do módulo
+- **Específico de tema?** - Relate ao autor do tema
 
 ---
 
-## Reporting a Bug
+## Tipos de Problemas
 
-### Bug Report Template
+### Relatório de Bug
+
+Um bug é um comportamento inesperado ou defeito.
+
+**Exemplos:**
+- Login não funcionando
+- Erros de banco de dados
+- Falta de validação de formulário
+- Vulnerabilidade de segurança
+
+### Requisição de Recurso
+
+Uma requisição de recurso é uma sugestão para nova funcionalidade.
+
+**Exemplos:**
+- Adicionar suporte a novo recurso
+- Melhorar funcionalidade existente
+- Adicionar documentação faltante
+- Melhorias de performance
+
+### Aprimoramento
+
+Um aprimoramento melhora a funcionalidade existente.
+
+**Exemplos:**
+- Mensagens de erro melhores
+- Performance melhorada
+- Design de API melhor
+- Melhor experiência do usuário
+
+### Documentação
+
+Problemas de documentação incluem documentação faltante ou incorreta.
+
+**Exemplos:**
+- Documentação de API incompleta
+- Guias desatualizados
+- Exemplos de código faltando
+- Erros de digitação na documentação
+
+---
+
+## Relatando um Bug
+
+### Modelo de Relatório de Bug
 
 ```markdown
-## Description
-Brief, clear description of the bug.
+## Descrição
+Breve e clara descrição do bug.
 
-## Steps to Reproduce
-1. Step one
-2. Step two
-3. Step three
+## Passos para Reproduzir
+1. Passo um
+2. Passo dois
+3. Passo três
 
-## Expected Behavior
-What should happen.
+## Comportamento Esperado
+O que deveria acontecer.
 
-## Actual Behavior
-What actually happens.
+## Comportamento Real
+O que realmente acontece.
 
-## Environment
-- XOOPS Version: X.Y.Z
-- PHP Version: 8.2/8.3/8.4
-- Database: MySQL/MariaDB version
-- Operating System: Windows/macOS/Linux
-- Browser: Chrome/Firefox/Safari
+## Ambiente
+- Versão XOOPS: X.Y.Z
+- Versão PHP: 8.2/8.3/8.4
+- Banco de Dados: MySQL/MariaDB versão
+- Sistema Operacional: Windows/macOS/Linux
+- Navegador: Chrome/Firefox/Safari
 
-## Screenshots
-If applicable, add screenshots showing the issue.
+## Capturas de Tela
+Se aplicável, adicione capturas de tela mostrando o problema.
 
-## Additional Context
-Any other relevant information.
+## Contexto Adicional
+Qualquer outra informação relevante.
 
-## Possible Fix
-If you have suggestions for fixing the issue (optional).
+## Possível Correção
+Se você tiver sugestões para corrigir o problema (opcional).
 ```
 
-### Good Bug Report Example
+### Exemplo de Bom Relatório de Bug
 
 ```markdown
-## Description
-Login page shows blank page when database connection fails.
+## Descrição
+A página de login mostra página em branco quando a conexão com o banco de dados falha.
 
-## Steps to Reproduce
-1. Stop the MySQL service
-2. Navigate to the login page
-3. Observe the behavior
+## Passos para Reproduzir
+1. Pare o serviço MySQL
+2. Navegue até a página de login
+3. Observe o comportamento
 
-## Expected Behavior
-Show a user-friendly error message explaining the database connection issue.
+## Comportamento Esperado
+Mostrar uma mensagem de erro amigável explicando o problema de conexão com o banco de dados.
 
-## Actual Behavior
-The page is completely blank - no error message, no interface visible.
+## Comportamento Real
+A página está completamente em branco - sem mensagem de erro, sem interface visível.
 
-## Environment
-- XOOPS Version: 2.7.0
-- PHP Version: 8.0.28
-- Database: MySQL 5.7
-- Operating System: Ubuntu 20.04
-- Browser: Chrome 120
+## Ambiente
+- Versão XOOPS: 2.7.0
+- Versão PHP: 8.0.28
+- Banco de Dados: MySQL 5.7
+- Sistema Operacional: Ubuntu 20.04
+- Navegador: Chrome 120
 
-## Additional Context
-This likely affects other pages too. The error should be displayed to admins or logged appropriately.
+## Contexto Adicional
+Isso provavelmente afeta outras páginas também. O erro deveria ser exibido aos admins ou registrado apropriadamente.
 
-## Possible Fix
-Check database connection in header.php before rendering the template.
+## Possível Correção
+Verifique a conexão com o banco de dados em header.php antes de renderizar o template.
 ```
 
-### Poor Bug Report Example
+### Exemplo de Relatório de Bug Ruim
 
 ```markdown
-## Description
-Login doesn't work
+## Descrição
+Login não funciona
 
-## Steps to Reproduce
-It doesn't work
+## Passos para Reproduzir
+Não funciona
 
-## Expected Behavior
-It should work
+## Comportamento Esperado
+Deveria funcionar
 
-## Actual Behavior
-It doesn't
+## Comportamento Real
+Não funciona
 
-## Environment
-Latest version
+## Ambiente
+Versão mais recente
 ```
 
 ---
 
-## Reporting a Feature Request
+## Relatando uma Requisição de Recurso
 
-### Feature Request Template
+### Modelo de Requisição de Recurso
 
 ```markdown
-## Description
-Clear, concise description of the feature.
+## Descrição
+Descrição clara e concisa do recurso.
 
-## Problem Statement
-Why is this feature needed? What problem does it solve?
+## Declaração do Problema
+Por que este recurso é necessário? Que problema ele resolve?
 
-## Proposed Solution
-Describe your ideal implementation or UX.
+## Solução Proposta
+Descreva sua implementação ideal ou UX.
 
-## Alternatives Considered
-Are there other ways to achieve this goal?
+## Alternativas Consideradas
+Existem outras maneiras de alcançar este objetivo?
 
-## Additional Context
-Any mockups, examples, or references.
+## Contexto Adicional
+Qualquer mock-up, exemplo ou referência.
 
-## Expected Impact
-How would this benefit users? Would it be breaking?
+## Impacto Esperado
+Como isso beneficiaria os usuários? Seria quebra de compatibilidade?
 ```
 
-### Good Feature Request Example
+### Exemplo de Boa Requisição de Recurso
 
 ```markdown
-## Description
-Add two-factor authentication (2FA) for user accounts.
+## Descrição
+Adicionar autenticação de dois fatores (2FA) para contas de usuário.
 
-## Problem Statement
-With increasing security breaches, many CMS platforms now offer 2FA. XOOPS users want stronger account security beyond passwords.
+## Declaração do Problema
+Com crescentes violações de segurança, muitas plataformas CMS agora oferecem 2FA. Usuários XOOPS querem segurança de conta mais forte além de senhas.
 
-## Proposed Solution
-Implement TOTP-based 2FA (compatible with Google Authenticator, Authy, etc.).
-- Users can enable 2FA in their profile
-- Display QR code for setup
-- Generate backup codes for recovery
-- Require 2FA code at login
+## Solução Proposta
+Implementar 2FA baseado em TOTP (compatível com Google Authenticator, Authy, etc.).
+- Usuários podem ativar 2FA em seu perfil
+- Exibir código QR para configuração
+- Gerar códigos de backup para recuperação
+- Exigir código 2FA no login
 
-## Alternatives Considered
-- SMS-based 2FA (requires carrier integration, less secure)
-- Hardware keys (too complex for average users)
+## Alternativas Consideradas
+- 2FA baseado em SMS (requer integração de operadora, menos seguro)
+- Chaves de hardware (muito complexo para usuários médios)
 
-## Additional Context
-Similar to GitHub, GitLab, and WordPress implementations.
-Reference: [TOTP Standard RFC 6238](https://tools.ietf.org/html/rfc6238)
+## Contexto Adicional
+Similar às implementações do GitHub, GitLab e WordPress.
+Referência: [Padrão TOTP RFC 6238](https://tools.ietf.org/html/rfc6238)
 
-## Expected Impact
-Increases account security. Could be optional initially, mandatory in future versions.
+## Impacto Esperado
+Aumenta segurança da conta. Poderia ser opcional inicialmente, obrigatório em versões futuras.
 ```
 
 ---
 
-## Security Issues
+## Problemas de Segurança
 
-### Do NOT Report Publicly
+### NÃO Relatar Publicamente
 
-**Never create a public issue for security vulnerabilities.**
+**Nunca crie um problema público para vulnerabilidades de segurança.**
 
-### Report Privately
+### Relatar Privadamente
 
-1. **Email the security team:** security@xoops.org
-2. **Include:**
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Your contact information
+1. **Email para o time de segurança:** security@xoops.org
+2. **Inclua:**
+   - Descrição da vulnerabilidade
+   - Passos para reproduzir
+   - Impacto potencial
+   - Suas informações de contato
 
-### Responsible Disclosure
+### Divulgação Responsável
 
-- We will acknowledge receipt within 48 hours
-- We will provide updates every 7 days
-- We will work on a fix timeline
-- You may request credit for the discovery
-- Coordinate public disclosure timing
+- Reconheceremos o recebimento dentro de 48 horas
+- Forneceremos atualizações a cada 7 dias
+- Trabalharemos em um cronograma de correção
+- Você pode solicitar crédito pela descoberta
+- Coordenar o tempo de divulgação pública
 
-### Security Issue Example
+### Exemplo de Problema de Segurança
 
 ```
-Subject: [SECURITY] XSS Vulnerability in Comment Form
+Assunto: [SECURITY] Vulnerabilidade XSS no Formulário de Comentário
 
-Description:
-The comment form in Publisher module does not properly escape user input,
-allowing stored XSS attacks.
+Descrição:
+O formulário de comentário do módulo Publisher não escapa adequadamente a entrada do usuário,
+permitindo ataques XSS armazenados.
 
-Steps to Reproduce:
-1. Create a comment with: <img src=x onerror="alert('xss')">
-2. Submit the form
-3. The JavaScript executes when viewing the comment
+Passos para Reproduzir:
+1. Criar um comentário com: <img src=x onerror="alert('xss')">
+2. Enviar o formulário
+3. O JavaScript é executado ao visualizar o comentário
 
-Impact:
-Attackers can steal user session tokens, perform actions as users,
-or deface the website.
+Impacto:
+Atacantes podem roubar tokens de sessão do usuário, realizar ações como usuários,
+ou desfigurar o website.
 
-Environment:
+Ambiente:
 - XOOPS 2.7.0
-- Publisher Module 1.x
+- Módulo Publisher 1.x
 ```
 
 ---
 
-## Issue Title Best Practices
+## Melhores Práticas para Título de Problema
 
-### Good Titles
-
-```
-✅ Login page shows blank error when database connection fails
-✅ Add two-factor authentication support
-✅ Form validation not preventing SQL injection in name field
-✅ Improve performance of user list query
-✅ Update installation documentation for PHP 8.2
-```
-
-### Poor Titles
+### Bons Títulos
 
 ```
-❌ Bug in system
-❌ Help me!!
-❌ It doesn't work
-❌ Question about XOOPS
-❌ Error
+✅ Página de login mostra erro em branco quando a conexão com banco de dados falha
+✅ Adicionar suporte de autenticação de dois fatores
+✅ Validação de formulário não prevenindo injeção SQL em campo de nome
+✅ Melhorar performance da consulta de lista de usuários
+✅ Atualizar documentação de instalação para PHP 8.2
 ```
 
-### Title Guidelines
+### Títulos Ruins
 
-- **Be specific** - Mention what and where
-- **Be concise** - Under 75 characters
-- **Use present tense** - "shows blank page" not "showed blank"
-- **Include context** - "in admin panel", "during installation"
-- **Avoid generic words** - Not "fix", "help", "problem"
+```
+❌ Bug no sistema
+❌ Me ajude!!
+❌ Não funciona
+❌ Pergunta sobre XOOPS
+❌ Erro
+```
+
+### Diretrizes de Título
+
+- **Seja específico** - Mencione o que e onde
+- **Seja conciso** - Menos de 75 caracteres
+- **Use tempo presente** - "mostra página em branco" não "mostrou página"
+- **Inclua contexto** - "no painel admin", "durante instalação"
+- **Evite palavras genéricas** - Não "corrigir", "ajudar", "problema"
 
 ---
 
-## Issue Description Best Practices
+## Melhores Práticas para Descrição de Problema
 
-### Include Essential Information
+### Incluir Informações Essenciais
 
-1. **What** - Clear description of the issue
-2. **Where** - Which page, module, or feature
-3. **When** - Steps to reproduce
-4. **Environment** - Version, OS, browser, PHP
-5. **Why** - Why this is important
+1. **O que** - Descrição clara do problema
+2. **Onde** - Qual página, módulo ou recurso
+3. **Quando** - Passos para reproduzir
+4. **Ambiente** - Versão, SO, navegador, PHP
+5. **Por que** - Por que isso é importante
 
-### Use Code Formatting
+### Use Formatação de Código
 
 ```markdown
-Error message: `Error: Cannot find user`
+Mensagem de erro: `Erro: Não foi possível encontrar o usuário`
 
-Code snippet:
+Trecho de código:
 ```php
 $user = $this->getUser($id);
 if (!$user) {
-    echo "Error: Cannot find user";
+    echo "Erro: Não foi possível encontrar o usuário";
 }
 ```
 ```
 
-### Include Screenshots
+### Inclua Capturas de Tela
 
-For UI issues, include:
-- Screenshot of the problem
-- Screenshot of expected behavior
-- Annotate what's wrong (arrows, circles)
+Para problemas de UI, inclua:
+- Captura de tela do problema
+- Captura de tela do comportamento esperado
+- Anotar o que está errado (setas, círculos)
 
-### Use Labels
+### Use Rótulos
 
-Add labels to categorize:
-- `bug` - Bug report
-- `enhancement` - Enhancement request
-- `documentation` - Documentation issue
-- `help wanted` - Looking for help
-- `good first issue` - Good for new contributors
-
----
-
-## After Reporting
-
-### Be Responsive
-
-- Check for questions in the issue comments
-- Provide additional information if requested
-- Test suggested fixes
-- Verify bug still exists with new versions
-
-### Follow Etiquette
-
-- Be respectful and professional
-- Assume good intentions
-- Don't demand fixes - developers are volunteers
-- Offer to help if possible
-- Thank contributors for their work
-
-### Keep Issue Focused
-
-- Stay on topic
-- Don't discuss unrelated issues
-- Link to related issues instead
-- Don't use issues for feature voting
+Adicione rótulos para categorizar:
+- `bug` - Relatório de bug
+- `enhancement` - Requisição de aprimoramento
+- `documentation` - Problema de documentação
+- `help wanted` - Procurando ajuda
+- `good first issue` - Bom para novos contribuidores
 
 ---
 
-## What Happens to Issues
+## Depois de Relatar
 
-### Triage Process
+### Seja Responsivo
 
-1. **New issue created** - GitHub notifies maintainers
-2. **Initial review** - Checked for clarity and duplicates
-3. **Label assignment** - Categorized and prioritized
-4. **Assignment** - Assigned to someone if appropriate
-5. **Discussion** - Additional info gathered if needed
+- Verifique perguntas nos comentários do problema
+- Forneça informações adicionais se solicitado
+- Teste correções sugeridas
+- Verifique se o bug ainda existe com novas versões
 
-### Priority Levels
+### Siga Etiqueta
 
-- **Critical** - Data loss, security, complete breakage
-- **High** - Major feature broken, affects many users
-- **Medium** - Part of feature broken, workaround available
-- **Low** - Minor issue, cosmetic, or niche use case
+- Seja respeitoso e profissional
+- Assuma boas intenções
+- Não exija correções - desenvolvedores são voluntários
+- Ofereça ajudar se possível
+- Agradeça aos contribuidores por seu trabalho
 
-### Resolution Outcomes
+### Mantenha Problema Focado
 
-- **Fixed** - Issue resolved in a PR
-- **Won't fix** - Rejected for technical or strategic reasons
-- **Duplicate** - Same as another issue
-- **Invalid** - Not actually an issue
-- **Needs more info** - Waiting for additional details
+- Fique no assunto
+- Não discuta problemas não relacionados
+- Link para problemas relacionados em vez disso
+- Não use problemas para votação de recursos
 
 ---
 
-## Issue Examples
+## O Que Acontece aos Problemas
 
-### Example: Good Bug Report
+### Processo de Triagem
+
+1. **Novo problema criado** - GitHub notifica mantenedores
+2. **Revisão inicial** - Verificado por clareza e duplicatas
+3. **Atribuição de rótulo** - Categorizado e priorizado
+4. **Atribuição** - Atribuído a alguém se apropriado
+5. **Discussão** - Informações adicionais coletadas se necessário
+
+### Níveis de Prioridade
+
+- **Crítico** - Perda de dados, segurança, quebra completa
+- **Alto** - Recurso principal quebrado, afeta muitos usuários
+- **Médio** - Parte de recurso quebrada, workaround disponível
+- **Baixo** - Problema menor, cosmético ou caso de uso de nicho
+
+### Resultados de Resolução
+
+- **Corrigido** - Problema resolvido em um PR
+- **Não será corrigido** - Rejeitado por razões técnicas ou estratégicas
+- **Duplicado** - Mesmo que outro problema
+- **Inválido** - Não é realmente um problema
+- **Precisa mais informações** - Aguardando detalhes adicionais
+
+---
+
+## Exemplos de Problema
+
+### Exemplo: Bom Relatório de Bug
 
 ```markdown
-## Description
-Admin users cannot delete items when using MySQL with strict mode enabled.
+## Descrição
+Usuários admin não conseguem deletar itens ao usar MySQL com modo strict ativado.
 
-## Steps to Reproduce
-1. Enable `sql_mode='STRICT_TRANS_TABLES'` in MySQL
-2. Navigate to Publisher admin panel
-3. Click delete button on any article
-4. Error is shown
+## Passos para Reproduzir
+1. Ativar `sql_mode='STRICT_TRANS_TABLES'` em MySQL
+2. Navegar para painel admin do Publisher
+3. Clicar no botão delete em qualquer artigo
+4. Erro é mostrado
 
-## Expected Behavior
-Article should be deleted or show meaningful error.
+## Comportamento Esperado
+Artigo deveria ser deletado ou mostrar erro significativo.
 
-## Actual Behavior
-Error: "SQL Error - Unknown column 'deleted_at' in ON clause"
+## Comportamento Real
+Erro: "SQL Error - Unknown column 'deleted_at' in ON clause"
 
-## Environment
-- XOOPS Version: 2.7.0
-- PHP Version: 8.2.0
-- Database: MySQL 8.0.32 with STRICT_TRANS_TABLES
-- Operating System: Ubuntu 22.04
-- Browser: Firefox 120
+## Ambiente
+- Versão XOOPS: 2.7.0
+- Versão PHP: 8.2.0
+- Banco de Dados: MySQL 8.0.32 com STRICT_TRANS_TABLES
+- Sistema Operacional: Ubuntu 22.04
+- Navegador: Firefox 120
 
-## Screenshots
-[Screenshot of error message]
+## Capturas de Tela
+[Captura de tela da mensagem de erro]
 
-## Additional Context
-This only happens with strict SQL mode. Works fine with default settings.
-The query is in class/PublisherItem.php:248
+## Contexto Adicional
+Isso acontece apenas com modo SQL strict. Funciona bem com configurações padrão.
+A consulta está em class/PublisherItem.php:248
 
-## Possible Fix
-Use single quotes around 'deleted_at' or use backticks for all column names.
+## Possível Correção
+Use aspas simples ao redor de 'deleted_at' ou use backticks para todos os nomes de coluna.
 ```
 
-### Example: Good Feature Request
+### Exemplo: Boa Requisição de Recurso
 
 ```markdown
-## Description
-Add REST API endpoints for read-only access to public content.
+## Descrição
+Adicionar endpoints de API REST para acesso somente leitura a conteúdo público.
 
-## Problem Statement
-Developers want to build mobile apps and external services using XOOPS data.
-Currently limited to SOAP API which is outdated and poorly documented.
+## Declaração do Problema
+Desenvolvedores querem construir apps mobile e serviços externos usando dados XOOPS.
+Atualmente limitado a API SOAP que é desatualizada e pobremente documentada.
 
-## Proposed Solution
-Implement RESTful API with:
-- Endpoints for articles, users, comments (read-only)
-- Token-based authentication
-- Standard HTTP status codes and errors
-- OpenAPI/Swagger documentation
-- Pagination support
+## Solução Proposta
+Implementar API RESTful com:
+- Endpoints para artigos, usuários, comentários (somente leitura)
+- Autenticação baseada em token
+- Códigos de status HTTP padrão e erros
+- Documentação OpenAPI/Swagger
+- Suporte a paginação
 
-## Alternatives Considered
-- Enhanced SOAP API (legacy, not standards-compliant)
-- GraphQL (more complex, maybe future)
+## Alternativas Consideradas
+- API SOAP melhorada (legado, não em conformidade com padrões)
+- GraphQL (mais complexo, talvez futuro)
 
-## Additional Context
-See Publisher module API refactoring for similar patterns.
-Would align with modern web development practices.
+## Contexto Adicional
+Consulte refatoração de API do módulo Publisher para padrões similares.
+Estaria alinhado com práticas modernas de desenvolvimento web.
 
-## Expected Impact
-Enable ecosystem of third-party tools and mobile apps.
-Would improve XOOPS adoption and ecosystem.
+## Impacto Esperado
+Habilitar ecossistema de ferramentas de terceiros e apps mobile.
+Melhoraria adoção de XOOPS e ecossistema.
 ```
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Code of Conduct
-- Contribution Workflow
-- Pull Request Guidelines
-- Contributing Overview
+- Código de Conduta
+- Fluxo de Contribuição
+- Diretrizes de Pull Request
+- Visão Geral de Contribuição
 
 ---
 

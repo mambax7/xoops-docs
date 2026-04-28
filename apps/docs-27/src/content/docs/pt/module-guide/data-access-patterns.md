@@ -1,34 +1,34 @@
 ---
-title: "Choosing a Data Access Pattern"
-description: "Decision tree for selecting the right data access pattern for your XOOPS module"
+title: "Escolhendo um Padrão de Acesso a Dados"
+description: "Árvore de decisão para selecionar o padrão de acesso a dados certo para seu módulo XOOPS"
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-> **Which pattern should I use?** This decision tree helps you choose between direct handlers, Repository Pattern, Service Layer, and CQRS.
+> **Qual padrão devo usar?** Esta árvore de decisão o ajuda a escolher entre manipuladores diretos, Padrão de Repositório, Camada de Serviço e CQRS.
 
 ---
 
-## Quick Decision Tree
+## Árvore de Decisão Rápida
 
 ```mermaid
 flowchart TD
-    START([Start Here]) --> Q1{How complex is<br/>your module?}
+    START([Comece Aqui]) --> Q1{Quão complexo é<br/>seu módulo?}
 
-    Q1 -->|Simple CRUD<br/>1-3 entities| Q2{Need testing<br/>or mocking?}
-    Q1 -->|Moderate<br/>4-10 entities| Q3{Multiple data<br/>sources?}
-    Q1 -->|Complex<br/>10+ entities| Q4{High traffic or<br/>read/write asymmetry?}
+    Q1 -->|CRUD Simples<br/>1-3 entidades| Q2{Precisa de testes<br/>ou mocking?}
+    Q1 -->|Moderado<br/>4-10 entidades| Q3{Múltiplas fontes<br/>de dados?}
+    Q1 -->|Complexo<br/>10+ entidades| Q4{Alto tráfego ou<br/>assimetria leitura/escrita?}
 
-    Q2 -->|No| HANDLER[✅ Direct Handler]
-    Q2 -->|Yes| REPO[✅ Repository Pattern]
+    Q2 -->|Não| HANDLER[✅ Manipulador Direto]
+    Q2 -->|Sim| REPO[✅ Padrão de Repositório]
 
-    Q3 -->|No, just DB| REPO
-    Q3 -->|Yes, APIs/cache| SERVICE[✅ Service Layer]
+    Q3 -->|Não, apenas BD| REPO
+    Q3 -->|Sim, APIs/cache| SERVICE[✅ Camada de Serviço]
 
-    Q4 -->|No| SERVICE
-    Q4 -->|Yes, need<br/>separate scaling| CQRS[✅ CQRS Pattern]
+    Q4 -->|Não| SERVICE
+    Q4 -->|Sim, precisa<br/>escalar separadamente| CQRS[✅ Padrão CQRS]
 
-    HANDLER --> DONE([Choose Pattern])
+    HANDLER --> DONE([Escolher Padrão])
     REPO --> DONE
     SERVICE --> DONE
     CQRS --> DONE
@@ -41,51 +41,51 @@ flowchart TD
 
 ---
 
-## Pattern Comparison
+## Comparação de Padrão
 
-| Criteria | Direct Handler | Repository | Service Layer | CQRS |
+| Critério | Manipulador Direto | Repositório | Camada de Serviço | CQRS |
 |----------|---------------|------------|---------------|------|
-| **Complexity** | ⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Testability** | ❌ Hard | ✅ Good | ✅ Great | ✅ Great |
-| **Flexibility** | ❌ Low | ✅ Medium | ✅ High | ✅ Very High |
-| **XOOPS 2.5.x** | ✅ Native | ✅ Works | ✅ Works | ⚠️ Complex |
-| **XOOPS 4.0** | ⚠️ Deprecated | ✅ Recommended | ✅ Recommended | ✅ For scale |
-| **Team Size** | 1 dev | 1-3 devs | 2-5 devs | 5+ devs |
-| **Maintenance** | ❌ Higher | ✅ Moderate | ✅ Lower | ⚠️ Requires expertise |
+| **Complexidade** | ⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Testabilidade** | ❌ Difícil | ✅ Bom | ✅ Ótimo | ✅ Ótimo |
+| **Flexibilidade** | ❌ Baixa | ✅ Média | ✅ Alta | ✅ Muito Alta |
+| **XOOPS 2.5.x** | ✅ Nativo | ✅ Funciona | ✅ Funciona | ⚠️ Complexo |
+| **XOOPS 4.0** | ⚠️ Descontinuado | ✅ Recomendado | ✅ Recomendado | ✅ Para escala |
+| **Tamanho da Equipe** | 1 dev | 1-3 devs | 2-5 devs | 5+ devs |
+| **Manutenção** | ❌ Maior | ✅ Moderada | ✅ Menor | ⚠️ Requer expertise |
 
 ---
 
-## When to Use Each Pattern
+## Quando Usar Cada Padrão
 
-### ✅ Direct Handler (`XoopsPersistableObjectHandler`)
+### ✅ Manipulador Direto (`XoopsPersistableObjectHandler`)
 
-**Best for:** Simple modules, quick prototypes, learning XOOPS
+**Melhor para:** Módulos simples, protótipos rápidos, aprendizado de XOOPS
 
 ```php
-// Simple and direct - good for small modules
+// Simples e direto - bom para módulos pequenos
 $handler = xoops_getModuleHandler('article', 'news');
 $articles = $handler->getObjects(new Criteria('status', 1));
 ```
 
-**Choose this when:**
-- Building a simple module with 1-3 database tables
-- Creating a quick prototype
-- You're the only developer and don't need tests
-- The module won't grow significantly
+**Escolha isto quando:**
+- Construindo um módulo simples com 1-3 tabelas de banco de dados
+- Criando um protótipo rápido
+- Você é o único desenvolvedor e não precisa de testes
+- O módulo não crescerá significativamente
 
-**Limitations:**
-- Hard to unit test (global dependency)
-- Tight coupling to XOOPS database layer
-- Business logic tends to leak into controllers
+**Limitações:**
+- Difícil fazer teste unitário (dependência global)
+- Acoplamento rígido à camada de banco de dados do XOOPS
+- Lógica de negócios tende a vazar em controllers
 
 ---
 
-### ✅ Repository Pattern
+### ✅ Padrão de Repositório
 
-**Best for:** Most modules, teams wanting testability
+**Melhor para:** Maioria dos módulos, equipes querendo testabilidade
 
 ```php
-// Abstraction allows mocking for tests
+// Abstração permite mocking para testes
 interface ArticleRepositoryInterface {
     public function findPublished(): array;
     public function save(Article $article): void;
@@ -104,22 +104,22 @@ class XoopsArticleRepository implements ArticleRepositoryInterface {
 }
 ```
 
-**Choose this when:**
-- You want to write unit tests
-- You might change data sources later (DB → API)
-- Working with 2+ developers
-- Building modules for distribution
+**Escolha isto quando:**
+- Você quer escrever testes unitários
+- Você pode mudar fontes de dados depois (BD → API)
+- Trabalhando com 2+ desenvolvedores
+- Construindo módulos para distribuição
 
-**Upgrade path:** This is the recommended pattern for XOOPS 4.0 preparation.
+**Caminho de atualização:** Este é o padrão recomendado para preparação do XOOPS 4.0.
 
 ---
 
-### ✅ Service Layer
+### ✅ Camada de Serviço
 
-**Best for:** Modules with complex business logic
+**Melhor para:** Módulos com lógica de negócios complexa
 
 ```php
-// Service coordinates multiple repositories and contains business rules
+// Serviço coordena múltiplos repositórios e contém regras de negócios
 class ArticlePublicationService {
     public function __construct(
         private ArticleRepositoryInterface $articles,
@@ -139,22 +139,22 @@ class ArticlePublicationService {
 }
 ```
 
-**Choose this when:**
-- Operations span multiple data sources
-- Business rules are complex
-- You need transaction management
-- Multiple parts of the app do the same thing
+**Escolha isto quando:**
+- Operações abrangem múltiplas fontes de dados
+- Regras de negócios são complexas
+- Você precisa gerenciamento de transação
+- Múltiplas partes do app fazem a mesma coisa
 
-**Upgrade path:** Combine with Repository for a robust architecture.
+**Caminho de atualização:** Combine com Repositório para arquitetura robusta.
 
 ---
 
-### ⚠️ CQRS (Command Query Responsibility Segregation)
+### ⚠️ CQRS (Segregação de Responsabilidade de Comando e Consulta)
 
-**Best for:** High-scale modules with read/write asymmetry
+**Melhor para:** Módulos em alta escala com assimetria leitura/escrita
 
 ```php
-// Commands modify state
+// Comandos modificam estado
 class PublishArticleCommand {
     public function __construct(
         public readonly int $articleId,
@@ -162,7 +162,7 @@ class PublishArticleCommand {
     ) {}
 }
 
-// Queries read state (can use denormalized read models)
+// Consultas leem estado (podem usar modelos de leitura desnormalizados)
 class GetPublishedArticlesQuery {
     public function __construct(
         public readonly int $limit = 10
@@ -170,28 +170,28 @@ class GetPublishedArticlesQuery {
 }
 ```
 
-**Choose this when:**
-- Reads vastly outnumber writes (100:1 or more)
-- You need different scaling for reads vs writes
-- Complex reporting/analytics requirements
-- Event sourcing would benefit your domain
+**Escolha isto quando:**
+- Leituras vastamente superam escritas (100:1 ou mais)
+- Você precisa escala diferente para leituras vs escritas
+- Requisitos complexos de relatório/analítica
+- Event sourcing beneficiaria seu domínio
 
-**Warning:** CQRS adds significant complexity. Most XOOPS modules don't need it.
+**Aviso:** CQRS adiciona complexidade significativa. A maioria dos módulos XOOPS não precisa.
 
 ---
 
-## Recommended Upgrade Path
+## Caminho de Atualização Recomendado
 
 ```mermaid
 flowchart LR
-    H0["Direct Handler<br/>(XOOPS 2.5.x today)"]
-    R["Repository Pattern<br/>(Recommended next step)"]
-    S["+ Service Layer<br/>(When complexity grows)"]
-    C["+ CQRS<br/>(Only if scaling requires)"]
+    H0["Manipulador Direto<br/>(XOOPS 2.5.x hoje)"]
+    R["Padrão de Repositório<br/>(Próximo passo recomendado)"]
+    S["+ Camada de Serviço<br/>(Quando complexidade cresce)"]
+    C["+ CQRS<br/>(Apenas se escala requer)"]
 
-    H0 -->|"Step 1"| R
-    R -->|"Step 2"| S
-    S -->|"Step 3<br/>(rare)"| C
+    H0 -->|"Passo 1"| R
+    R -->|"Passo 2"| S
+    S -->|"Passo 3<br/>(raro)"| C
 
     style H0 fill:#ffcdd2
     style R fill:#c8e6c9
@@ -199,46 +199,46 @@ flowchart LR
     style C fill:#fff9c4
 ```
 
-### Step 1: Wrap Handlers in Repositories (2-4 hours)
+### Passo 1: Envolver Manipuladores em Repositórios (2-4 horas)
 
-1. Create an interface for your data access needs
-2. Implement it using the existing handler
-3. Inject the repository instead of calling `xoops_getModuleHandler()` directly
+1. Criar uma interface para suas necessidades de acesso a dados
+2. Implementar usando o manipulador existente
+3. Injetar o repositório em vez de chamar `xoops_getModuleHandler()` diretamente
 
-### Step 2: Add Service Layer When Needed (1-2 days)
+### Passo 2: Adicionar Camada de Serviço Quando Necessário (1-2 dias)
 
-1. When business logic appears in controllers, extract to a Service
-2. Service uses repositories, not handlers directly
-3. Controllers become thin (route → service → response)
+1. Quando lógica de negócios aparece em controllers, extrair para um Serviço
+2. Serviço usa repositórios, não manipuladores diretamente
+3. Controllers ficam finos (rota → serviço → resposta)
 
-### Step 3: Consider CQRS Only If (rare)
+### Passo 3: Considerar CQRS Apenas Se (raro)
 
-1. You have millions of reads per day
-2. Read and write models are significantly different
-3. You need event sourcing for audit trails
-4. You have a team experienced with CQRS
+1. Você tem milhões de leituras por dia
+2. Modelos de leitura e escrita são significativamente diferentes
+3. Você precisa event sourcing para trilhas de auditoria
+4. Você tem uma equipe experiente com CQRS
 
 ---
 
-## Quick Reference Card
+## Cartão de Referência Rápida
 
-| Question | Answer |
+| Pergunta | Resposta |
 |----------|--------|
-| **"I just need to save/load data"** | Direct Handler |
-| **"I want to write tests"** | Repository Pattern |
-| **"I have complex business rules"** | Service Layer |
-| **"I need to scale reads separately"** | CQRS |
-| **"I'm preparing for XOOPS 4.0"** | Repository + Service Layer |
+| **"Eu apenas preciso salvar/carregar dados"** | Manipulador Direto |
+| **"Eu quero escrever testes"** | Padrão de Repositório |
+| **"Eu tenho regras de negócios complexas"** | Camada de Serviço |
+| **"Eu preciso escalar leituras separadamente"** | CQRS |
+| **"Estou preparando para XOOPS 4.0"** | Repositório + Camada de Serviço |
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- [Repository Pattern Guide](Patterns/Repository-Pattern.md)
-- [Service Layer Pattern Guide](Patterns/Service-Layer-Pattern.md)
-- [CQRS Pattern Guide](../07-XOOPS-4.0/Implementation-Guides/CQRS-Pattern-Guide.md) *(advanced)*
-- [Hybrid Mode Contract](../07-XOOPS-4.0/Specifications/Hybrid-Mode-Contract.md)
+- [Guia do Padrão de Repositório](Patterns/Repository-Pattern.md)
+- [Guia do Padrão de Camada de Serviço](Patterns/Service-Layer-Pattern.md)
+- [Guia do Padrão CQRS](../07-XOOPS-4.0/Implementation-Guides/CQRS-Pattern-Guide.md) *(avançado)*
+- [Contrato do Modo Híbrido](../07-XOOPS-4.0/Specifications/Hybrid-Mode-Contract.md)
 
 ---
 
-#patterns #data-access #decision-tree #best-practices #xoops
+#padrões #acesso-a-dados #árvore-de-decisão #boas-práticas #xoops

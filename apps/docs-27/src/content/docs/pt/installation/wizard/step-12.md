@@ -1,28 +1,27 @@
 ---
-title: "Select Theme"
+title: "Selecionar Tema"
 ---
 
-This page collects your choice for the initial theme for your new site. Themes control the visual character of your site. Themes may be changed at any time, if desired.
+Esta página coleta sua escolha para o tema inicial do seu novo site. Os temas controlam o caráter visual do seu site. Os temas podem ser alterados a qualquer momento, se desejado.
 
-After entering the requested information and correcting any issues, select the "Continue" button to proceed.
+Após digitar as informações solicitadas e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Select Theme](/xoops-docs/2.7/img/installation/installer-12.png)
+![Selecionar Tema do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-12.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### Select the default theme
+### Selecione o tema padrão
 
-#### Default theme
+#### Tema padrão
 
-Select an initial theme for your site from the list. A screenshot of each theme is shown as it is selected.
+Selecione um tema inicial para seu site na lista. Uma captura de tela de cada tema é mostrada conforme é selecionado.
 
-XOOPS 2.7.0 ships with several front-end themes out of the box:
+XOOPS 2.7.0 é fornecido com vários temas de frontend fora da caixa:
 
-* **default** — a minimal baseline theme, useful as a starting point for customization.
-* **xbootstrap5** — Bootstrap 5 theme, recommended for most new sites.
-* **xswatch5** — Bootswatch 5 variants; a set of styled sub-themes on top of Bootstrap 5.
-* **xtailwind** — Tailwind CSS-based theme + DaisyUI with 35 palettes and Alpine.js interactivity
-* **xtailwind2** — art-directed sibling theme with curated palettes and refined module styling
+* **padrão** — um tema de linha de base mínimo, útil como ponto de partida para personalização.
+* **xbootstrap5** — tema Bootstrap 5, recomendado para a maioria dos novos sites.
+* **xswatch5** — variantes Bootswatch 5; um conjunto de subtemas estilizados no topo do Bootstrap 5.
+* **xtailwind** — tema baseado em Tailwind CSS + DaisyUI com 35 paletas e interatividade Alpine.js
+* **xtailwind2** — tema irmão direcionado para arte com paletas selecionadas e estilo de módulo refinado
 
-You can change the theme at any time from the administration area, and additional themes can be uploaded to the `themes/` directory.
-
+Você pode alterar o tema a qualquer momento da área de administração e temas adicionais podem ser carregados para o diretório `themes/`.

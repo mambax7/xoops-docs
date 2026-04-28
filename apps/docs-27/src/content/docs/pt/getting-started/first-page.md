@@ -1,212 +1,212 @@
 ---
-title: "Creating Your First Page"
-description: "Step-by-step guide to creating and publishing content in XOOPS, including formatting, media embedding, and publishing options"
+title: "Criando Sua Primeira Página"
+description: "Guia passo a passo para criar e publicar conteúdo no XOOPS, incluindo formatação, incorporação de mídia e opções de publicação"
 ---
 
-# Creating Your First Page in XOOPS
+# Criando Sua Primeira Página no XOOPS
 
-Learn how to create, format, and publish your first piece of content in XOOPS.
+Aprenda como criar, formatar e publicar seu primeiro conteúdo no XOOPS.
 
-## Understanding XOOPS Content
+## Entendendo o Conteúdo do XOOPS
 
-### What is a Page/Post?
+### O que é uma Página/Post?
 
-In XOOPS, content is managed through modules. The most common content types are:
+No XOOPS, o conteúdo é gerenciado através de módulos. Os tipos de conteúdo mais comuns são:
 
-| Type | Description | Use Case |
+| Tipo | Descrição | Caso de Uso |
 |---|---|---|
-| **Page** | Static content | About us, Contact, Services |
-| **Post/Article** | Time-stamped content | News, Blog posts |
-| **Category** | Content organization | Group related content |
-| **Comment** | User feedback | Allow visitor interaction |
+| **Página** | Conteúdo estático | Sobre nós, Contato, Serviços |
+| **Post/Artigo** | Conteúdo com data | Notícias, Posts de blog |
+| **Categoria** | Organização de conteúdo | Agrupar conteúdo relacionado |
+| **Comentário** | Feedback de usuário | Permitir interação de visitante |
 
-This guide covers creating a basic page/article using XOOPS' default content module.
+Este guia cobre a criação de uma página/artigo básica usando o módulo de conteúdo padrão do XOOPS.
 
-## Accessing the Content Editor
+## Acessando o Editor de Conteúdo
 
-### From Admin Panel
+### Do Painel de Administrador
 
-1. Log in to admin panel: `http://your-domain.com/xoops/admin/`
-2. Navigate to **Content > Pages** (or your content module)
-3. Click "Add New Page" or "New Post"
+1. Faça login no painel de administrador: `http://seu-dominio.com/xoops/admin/`
+2. Navegue para **Conteúdo > Páginas** (ou seu módulo de conteúdo)
+3. Clique em "Adicionar Nova Página" ou "Novo Post"
 
-### Frontend (if Enabled)
+### Frontend (se Ativado)
 
-If your XOOPS is configured to allow frontend content creation:
+Se seu XOOPS estiver configurado para permitir criação de conteúdo no frontend:
 
-1. Log in as registered user
-2. Go to your profile
-3. Look for "Submit Content" option
-4. Follow the same steps below
+1. Faça login como usuário registrado
+2. Vá para seu perfil
+3. Procure pela opção "Enviar Conteúdo"
+4. Siga as mesmas etapas abaixo
 
-## Content Editor Interface
+## Interface do Editor de Conteúdo
 
-The content editor includes:
+O editor de conteúdo inclui:
 
 ```
 ┌─────────────────────────────────────┐
-│ Content Editor                      │
+│ Editor de Conteúdo                  │
 ├─────────────────────────────────────┤
 │                                     │
-│ Title: [________________]           │
+│ Título: [________________]          │
 │                                     │
-│ Category: [Dropdown]                │
+│ Categoria: [Dropdown]               │
 │                                     │
 │ [B I U] [Link] [Image] [Video]    │
 │ ┌─────────────────────────────────┐ │
-│ │ Enter your content here...      │ │
+│ │ Digite seu conteúdo aqui...     │ │
 │ │                                 │ │
-│ │ You can use HTML tags here      │ │
+│ │ Você pode usar tags HTML aqui   │ │
 │ └─────────────────────────────────┘ │
 │                                     │
-│ Description (Meta): [____________]  │
+│ Descrição (Meta): [____________]   │
 │                                     │
-│ [Publish] [Save Draft] [Preview]   │
+│ [Publicar] [Salvar Rascunho] [Visualizar] │
 │                                     │
 └─────────────────────────────────────┘
 ```
 
-## Step-by-Step Guide: Creating Your First Page
+## Guia Passo a Passo: Criando Sua Primeira Página
 
-### Step 1: Access Content Editor
+### Passo 1: Acessar o Editor de Conteúdo
 
-1. In admin panel, click **Content > Pages**
-2. Click **"Add New Page"** or **"Create"**
-3. You'll see the content editor
+1. No painel de administrador, clique em **Conteúdo > Páginas**
+2. Clique em **"Adicionar Nova Página"** ou **"Criar"**
+3. Você verá o editor de conteúdo
 
-### Step 2: Enter Page Title
+### Passo 2: Digite o Título da Página
 
-In the "Title" field, enter your page name:
-
-```
-Title: Welcome to Our Website
-```
-
-Best practices for titles:
-- Clear and descriptive
-- Include keywords if possible
-- 50-60 characters ideal
-- Avoid ALL CAPS (hard to read)
-- Be specific (not "Page 1")
-
-### Step 3: Select Category
-
-Choose where to organize this content:
+No campo "Título", digite o nome da página:
 
 ```
-Category: [Dropdown ▼]
+Título: Bem-vindo ao Nosso Site
 ```
 
-Options might include:
-- General
-- News
+Práticas recomendadas para títulos:
+- Claro e descritivo
+- Incluir palavras-chave se possível
+- 50-60 caracteres ideal
+- Evitar TUDO EM MAIÚSCULAS (difícil de ler)
+- Ser específico (não "Página 1")
+
+### Passo 3: Selecionar Categoria
+
+Escolha onde organizar este conteúdo:
+
+```
+Categoria: [Dropdown ▼]
+```
+
+As opções podem incluir:
+- Geral
+- Notícias
 - Blog
-- Announcements
-- Services
+- Comunicados
+- Serviços
 
-If categories don't exist, ask administrator to create them.
+Se as categorias não existem, peça ao administrador para criá-las.
 
-### Step 4: Write Your Content
+### Passo 4: Escreva Seu Conteúdo
 
-Click in the content editor area and type your text.
+Clique na área do editor de conteúdo e digite seu texto.
 
-#### Basic Text Formatting
+#### Formatação Básica de Texto
 
-Use the editor toolbar:
+Use a barra de ferramentas do editor:
 
-| Button | Action | Result |
+| Botão | Ação | Resultado |
 |---|---|---|
-| **B** | Bold | **Bold text** |
-| *I* | Italic | *Italic text* |
-| <u>U</u> | Underline | <u>Underlined text</u> |
+| **B** | Negrito | **Texto em negrito** |
+| *I* | Itálico | *Texto em itálico* |
+| <u>U</u> | Sublinhado | <u>Texto sublinhado</u> |
 
-#### Using HTML
+#### Usando HTML
 
-XOOPS allows safe HTML tags. Common examples:
+XOOPS permite tags HTML seguras. Exemplos comuns:
 
 ```html
-<!-- Paragraphs -->
-<p>This is a paragraph.</p>
+<!-- Parágrafos -->
+<p>Este é um parágrafo.</p>
 
-<!-- Headings -->
-<h1>Main Heading</h1>
-<h2>Subheading</h2>
+<!-- Títulos -->
+<h1>Título Principal</h1>
+<h2>Subtítulo</h2>
 
-<!-- Lists -->
+<!-- Listas -->
 <ul>
   <li>Item 1</li>
   <li>Item 2</li>
   <li>Item 3</li>
 </ul>
 
-<!-- Bold and Italic -->
-<strong>Bold text</strong>
-<em>Italic text</em>
+<!-- Negrito e Itálico -->
+<strong>Texto em negrito</strong>
+<em>Texto em itálico</em>
 
 <!-- Links -->
-<a href="https://example.com">Link text</a>
+<a href="https://example.com">Texto do link</a>
 
-<!-- Line breaks -->
+<!-- Quebras de linha -->
 <br>
 
-<!-- Horizontal rule -->
+<!-- Linha horizontal -->
 <hr>
 ```
 
-#### Safe HTML Examples
+#### Exemplos de HTML Seguro
 
-**Recommended tags:**
-- Paragraphs: `<p>`, `<br>`
-- Headings: `<h1>` to `<h6>`
-- Text: `<strong>`, `<em>`, `<u>`
-- Lists: `<ul>`, `<ol>`, `<li>`
+**Tags recomendadas:**
+- Parágrafos: `<p>`, `<br>`
+- Títulos: `<h1>` a `<h6>`
+- Texto: `<strong>`, `<em>`, `<u>`
+- Listas: `<ul>`, `<ol>`, `<li>`
 - Links: `<a href="">`
 - Blockquotes: `<blockquote>`
-- Tables: `<table>`, `<tr>`, `<td>`
+- Tabelas: `<table>`, `<tr>`, `<td>`
 
-**Avoid these tags** (may be disabled for security):
+**Evite estas tags** (podem estar desativadas por segurança):
 - Scripts: `<script>`
-- Styles: `<style>`
-- Iframes: `<iframe>` (unless configured)
-- Forms: `<form>`, `<input>`
+- Estilos: `<style>`
+- Iframes: `<iframe>` (a menos que configurado)
+- Formulários: `<form>`, `<input>`
 
-### Step 5: Add Images
+### Passo 5: Adicionar Imagens
 
-#### Option 1: Insert Image URL
+#### Opção 1: Inserir URL de Imagem
 
-Using the editor:
+Usando o editor:
 
-1. Click **Insert Image** button (image icon)
-2. Enter image URL: `https://example.com/image.jpg`
-3. Enter alt text: "Description of image"
-4. Click "Insert"
+1. Clique no botão **Inserir Imagem** (ícone de imagem)
+2. Digite a URL da imagem: `https://example.com/image.jpg`
+3. Digite texto alternativo: "Descrição da imagem"
+4. Clique em "Inserir"
 
-HTML equivalent:
+Equivalente em HTML:
 
 ```html
-<img src="https://example.com/image.jpg" alt="Description">
+<img src="https://example.com/image.jpg" alt="Descrição">
 ```
 
-#### Option 2: Upload Image
+#### Opção 2: Fazer Upload de Imagem
 
-1. Upload image to XOOPS first:
-   - Go to **Content > Media Manager**
-   - Upload your image
-   - Copy the image URL
+1. Primeiro, faça upload da imagem para o XOOPS:
+   - Vá para **Conteúdo > Gerenciador de Mídia**
+   - Faça upload de sua imagem
+   - Copie a URL da imagem
 
-2. In content editor, insert using URL (above steps)
+2. No editor de conteúdo, insira usando URL (etapas anteriores)
 
-#### Image Best Practices
+#### Práticas Recomendadas de Imagem
 
-- Use appropriate file sizes (optimize images)
-- Use descriptive filenames
-- Always include alt text (accessibility)
-- Supported formats: JPG, PNG, GIF, WebP
-- Recommended width: 600-800 pixels for content
+- Use tamanhos de arquivo apropriados (otimize imagens)
+- Use nomes de arquivo descritivos
+- Sempre inclua texto alternativo (acessibilidade)
+- Formatos suportados: JPG, PNG, GIF, WebP
+- Largura recomendada: 600-800 pixels para conteúdo
 
-### Step 6: Embed Media
+### Passo 6: Incorporar Mídia
 
-#### Embed Video from YouTube
+#### Incorporar Vídeo do YouTube
 
 ```html
 <iframe width="560" height="315"
@@ -215,14 +215,14 @@ HTML equivalent:
 </iframe>
 ```
 
-Replace `VIDEO_ID` with the YouTube video ID.
+Substitua `VIDEO_ID` pela ID do vídeo do YouTube.
 
-**To find YouTube video ID:**
-1. Open video on YouTube
-2. URL is: `https://www.youtube.com/watch?v=VIDEO_ID`
-3. Copy the ID (characters after `v=`)
+**Para encontrar a ID do vídeo do YouTube:**
+1. Abra o vídeo no YouTube
+2. A URL é: `https://www.youtube.com/watch?v=VIDEO_ID`
+3. Copie a ID (caracteres após `v=`)
 
-#### Embed Video from Vimeo
+#### Incorporar Vídeo do Vimeo
 
 ```html
 <iframe src="https://player.vimeo.com/video/VIDEO_ID"
@@ -231,362 +231,362 @@ Replace `VIDEO_ID` with the YouTube video ID.
 </iframe>
 ```
 
-### Step 7: Add Meta Description
+### Passo 7: Adicione Meta Descrição
 
-In the "Description" field, add a brief summary:
-
-```
-Description: Learn how to get started with our website.
-This page provides an overview of our services and how we can help you.
-```
-
-**Meta description best practices:**
-- 150-160 characters
-- Include main keywords
-- Should accurately summarize content
-- Used in search engine results
-- Make it compelling (users see this)
-
-### Step 8: Configure Publishing Options
-
-#### Publish Status
-
-Choose publication status:
+No campo "Descrição", adicione um resumo breve:
 
 ```
-Status: ☑ Published
+Descrição: Aprenda como começar com nosso site.
+Esta página fornece uma visão geral de nossos serviços e como podemos ajudá-lo.
 ```
 
-Options:
-- **Published:** Visible to public
-- **Draft:** Only visible to admins
-- **Pending Review:** Awaiting approval
-- **Archived:** Hidden but kept
+**Práticas recomendadas de meta descrição:**
+- 150-160 caracteres
+- Incluir palavra-chave naturalmente
+- Deve resumir com precisão o conteúdo
+- Usado em resultados de mecanismo de busca
+- Torne-o atraente (usuários veem isto)
 
-#### Visibility
+### Passo 8: Configure Opções de Publicação
 
-Set who can see this content:
+#### Status de Publicação
 
-```
-Visibility: ☐ Public
-           ☐ Registered Users Only
-           ☐ Private (Admin Only)
-```
-
-#### Publication Date
-
-Set when content becomes visible:
+Escolha status de publicação:
 
 ```
-Publish Date: [Date Picker] [Time]
+Status: ☑ Publicado
 ```
 
-Leave as "Now" to publish immediately.
+Opções:
+- **Publicado:** Visível ao público
+- **Rascunho:** Visível apenas para admins
+- **Pendente de Revisão:** Aguardando aprovação
+- **Arquivado:** Oculto mas mantido
 
-#### Allow Comments
+#### Visibilidade
 
-Enable or disable visitor comments:
-
-```
-Allow Comments: ☑ Yes
-```
-
-If enabled, visitors can add feedback.
-
-### Step 9: Save Your Content
-
-Multiple save options:
+Defina quem pode ver este conteúdo:
 
 ```
-[Publish Now]  [Save as Draft]  [Schedule]  [Preview]
+Visibilidade: ☐ Público
+             ☐ Apenas Usuários Registrados
+             ☐ Privado (Apenas Admin)
 ```
 
-- **Publish Now:** Make visible immediately
-- **Save as Draft:** Keep private for now
-- **Schedule:** Publish at future date/time
-- **Preview:** See how it looks before saving
+#### Data de Publicação
 
-Click your choice:
+Defina quando o conteúdo fica visível:
 
 ```
-Click [Publish Now]
+Data de Publicação: [Date Picker] [Time]
 ```
 
-### Step 10: Verify Your Page
+Deixe como "Agora" para publicar imediatamente.
 
-After publishing, verify your content:
+#### Permitir Comentários
 
-1. Go to your website homepage
-2. Navigate to your content area
-3. Look for your newly created page
-4. Click to view it
-5. Check:
-   - [ ] Content displays correctly
-   - [ ] Images appear
-   - [ ] Formatting looks good
-   - [ ] Links work
-   - [ ] Title and description correct
+Ativar ou desativar comentários de visitantes:
 
-## Example: Complete Page
-
-### Title
 ```
-Getting Started with XOOPS
+Permitir Comentários: ☑ Sim
 ```
 
-### Content
+Se ativado, visitantes podem adicionar feedback.
+
+### Passo 9: Salve Seu Conteúdo
+
+Múltiplas opções de salvamento:
+
+```
+[Publicar Agora]  [Salvar como Rascunho]  [Agendar]  [Visualizar]
+```
+
+- **Publicar Agora:** Tornar visível imediatamente
+- **Salvar como Rascunho:** Manter privado por enquanto
+- **Agendar:** Publicar em data/hora futura
+- **Visualizar:** Ver como ficará antes de salvar
+
+Clique em sua escolha:
+
+```
+Clique em [Publicar Agora]
+```
+
+### Passo 10: Verifique Sua Página
+
+Após publicar, verifique seu conteúdo:
+
+1. Vá para a página inicial do seu site
+2. Navegue para sua área de conteúdo
+3. Procure por sua página recém-criada
+4. Clique para visualizá-la
+5. Verifique:
+   - [ ] O conteúdo é exibido corretamente
+   - [ ] As imagens aparecem
+   - [ ] A formatação parece boa
+   - [ ] Os links funcionam
+   - [ ] Título e descrição estão corretos
+
+## Exemplo: Página Completa
+
+### Título
+```
+Começando com XOOPS
+```
+
+### Conteúdo
 ```html
-<h2>Welcome to XOOPS</h2>
+<h2>Bem-vindo ao XOOPS</h2>
 
-<p>XOOPS is a powerful and flexible open-source
-content management system. It allows you to build
-dynamic websites with minimal technical knowledge.</p>
+<p>XOOPS é um poderoso e flexível sistema
+de gerenciamento de conteúdo de código aberto.
+Permite criar sites dinâmicos com conhecimento técnico mínimo.</p>
 
-<h3>Key Features</h3>
+<h3>Características-Chave</h3>
 
 <ul>
-  <li>Easy content management</li>
-  <li>User registration and management</li>
-  <li>Module system for extensibility</li>
-  <li>Flexible theming system</li>
-  <li>Built-in security features</li>
+  <li>Gerenciamento fácil de conteúdo</li>
+  <li>Registro e gerenciamento de usuários</li>
+  <li>Sistema de módulo para extensibilidade</li>
+  <li>Sistema de tematização flexível</li>
+  <li>Recursos de segurança integrados</li>
 </ul>
 
-<h3>Getting Started</h3>
+<h3>Começando</h3>
 
-<p>Here are the first steps to get your XOOPS site
-running:</p>
+<p>Aqui estão os primeiros passos para
+que seu site XOOPS funcione:</p>
 
 <ol>
-  <li>Configure basic settings</li>
-  <li>Create your first page</li>
-  <li>Set up user accounts</li>
-  <li>Install additional modules</li>
-  <li>Customize appearance</li>
+  <li>Configure configurações básicas</li>
+  <li>Crie sua primeira página</li>
+  <li>Configure contas de usuário</li>
+  <li>Instale módulos adicionais</li>
+  <li>Customize a aparência</li>
 </ol>
 
 <img src="https://example.com/xoops-logo.jpg"
-  alt="XOOPS Logo">
+  alt="Logo XOOPS">
 
-<p>For more information, visit
+<p>Para mais informações, visite
 <a href="https://xoops.org/">xoops.org</a></p>
 ```
 
-### Meta Description
+### Meta Descrição
 ```
-Get started with XOOPS CMS. Learn about features
-and the first steps to launch your dynamic website.
+Comece com XOOPS CMS. Conheça os recursos
+e os primeiros passos para lançar seu site dinâmico.
 ```
 
-## Advanced Content Features
+## Recursos Avançados de Conteúdo
 
-### Using WYSIWYG Editor
+### Usando Editor WYSIWYG
 
-If a rich text editor is installed:
+Se um editor de texto rico estiver instalado:
 
 ```
 [B] [I] [U] [Link] [Image] [Code] [Quote]
 ```
 
-Click buttons to format text without HTML.
+Clique nos botões para formatar texto sem HTML.
 
-### Inserting Code Blocks
+### Inserindo Blocos de Código
 
-Display code examples:
+Exibir exemplos de código:
 
 ```html
 <pre><code>
-// PHP Example
+// Exemplo PHP
 $variable = "Hello World";
 echo $variable;
 </code></pre>
 ```
 
-### Creating Tables
+### Criando Tabelas
 
-Organize data in tables:
+Organize dados em tabelas:
 
 ```html
 <table border="1" cellpadding="5">
   <tr>
-    <th>Feature</th>
-    <th>Description</th>
+    <th>Recurso</th>
+    <th>Descrição</th>
   </tr>
   <tr>
-    <td>Flexible</td>
-    <td>Easy to customize</td>
+    <td>Flexível</td>
+    <td>Fácil de personalizar</td>
   </tr>
   <tr>
-    <td>Powerful</td>
-    <td>Full-featured CMS</td>
+    <td>Poderoso</td>
+    <td>CMS completo</td>
   </tr>
 </table>
 ```
 
-### Inline Quotes
+### Quotes Inline
 
-Highlight important text:
+Destacar texto importante:
 
 ```html
 <blockquote>
-"XOOPS is a powerful content management system
-that empowers you to build dynamic websites."
+"XOOPS é um poderoso sistema de gerenciamento de conteúdo
+que o capacita a construir sites dinâmicos."
 </blockquote>
 ```
 
-## SEO Best Practices for Content
+## Práticas Recomendadas de SEO para Conteúdo
 
-Optimize your content for search engines:
+Otimize seu conteúdo para mecanismos de busca:
 
-### Title
-- Include main keyword
-- 50-60 characters
-- Unique per page
+### Título
+- Incluir palavra-chave principal
+- 50-60 caracteres
+- Único por página
 
-### Meta Description
-- Include keyword naturally
-- 150-160 characters
-- Compelling and accurate
+### Meta Descrição
+- Incluir palavra-chave naturalmente
+- 150-160 caracteres
+- Atraente e preciso
 
-### Content
-- Write naturally, avoid keyword stuffing
-- Use headings (h2, h3) appropriately
-- Include internal links to other pages
-- Use alt text on all images
-- Aim for 300+ words for articles
+### Conteúdo
+- Escrever naturalmente, evitar preenchimento de palavra-chave
+- Usar títulos (h2, h3) apropriadamente
+- Incluir links internos para outras páginas
+- Usar texto alternativo em todas as imagens
+- Objetivo de 300+ palavras para artigos
 
-### URL Structure
-- Keep URLs short and descriptive
-- Use hyphens to separate words
-- Avoid special characters
-- Example: `/about-our-company`
+### Estrutura de URL
+- Manter URLs curtas e descritivas
+- Usar hífens para separar palavras
+- Evitar caracteres especiais
+- Exemplo: `/sobre-nossa-empresa`
 
-## Managing Your Content
+## Gerenciando Seu Conteúdo
 
-### Edit Existing Page
+### Editar Página Existente
 
-1. Go to **Content > Pages**
-2. Find your page in the list
-3. Click **Edit** or the page title
-4. Make changes
-5. Click **Update**
+1. Vá para **Conteúdo > Páginas**
+2. Encontre sua página na lista
+3. Clique em **Editar** ou no título da página
+4. Faça alterações
+5. Clique em **Atualizar**
 
-### Delete Page
+### Deletar Página
 
-1. Go to **Content > Pages**
-2. Find your page
-3. Click **Delete**
-4. Confirm deletion
+1. Vá para **Conteúdo > Páginas**
+2. Encontre sua página
+3. Clique em **Deletar**
+4. Confirme a exclusão
 
-### Change Publication Status
+### Alterar Status de Publicação
 
-1. Go to **Content > Pages**
-2. Find page, click **Edit**
-3. Change status in dropdown
-4. Click **Update**
+1. Vá para **Conteúdo > Páginas**
+2. Encontre a página, clique em **Editar**
+3. Altere o status no dropdown
+4. Clique em **Atualizar**
 
-## Troubleshooting Content Creation
+## Solução de Problemas de Criação de Conteúdo
 
-### Content Not Appearing
+### Conteúdo Não Aparecendo
 
-**Symptom:** Published page not showing on website
+**Sintoma:** Página publicada não está mostrando no site
 
-**Solution:**
-1. Check publication status: Should be "Published"
-2. Check publish date: Should be current or past
-3. Check visibility: Should be "Public"
-4. Clear cache: Admin > Tools > Clear Cache
-5. Check permissions: User group must have access
+**Solução:**
+1. Verifique status de publicação: Deve ser "Publicado"
+2. Verifique data de publicação: Deve ser atual ou anterior
+3. Verifique visibilidade: Deve ser "Público"
+4. Limpe cache: Admin > Ferramentas > Limpar Cache
+5. Verifique permissões: Grupo de usuários deve ter acesso
 
-### Formatting Not Working
+### Formatação Não Funcionando
 
-**Symptom:** HTML tags or formatting appear as text
+**Sintoma:** Tags HTML ou formatação aparecem como texto
 
-**Solution:**
-1. Verify HTML is enabled in module settings
-2. Use proper HTML syntax
-3. Close all tags: `<p>Text</p>`
-4. Use allowed tags only
-5. Use HTML entities: `&lt;` for `<`, `&amp;` for `&`
+**Solução:**
+1. Verifique se HTML está ativado nas configurações do módulo
+2. Use sintaxe HTML apropriada
+3. Feche todas as tags: `<p>Texto</p>`
+4. Use apenas tags permitidas
+5. Use entidades HTML: `&lt;` para `<`, `&amp;` para `&`
 
-### Images Not Displaying
+### Imagens Não Sendo Exibidas
 
-**Symptom:** Images show broken icon
+**Sintoma:** Imagens mostram ícone quebrado
 
-**Solution:**
-1. Verify image URL is correct
-2. Check image file exists
-3. Verify proper permissions on image
-4. Try uploading image to XOOPS instead
-5. Check for external blocking (may need CORS)
+**Solução:**
+1. Verifique se a URL da imagem está correta
+2. Verifique se o arquivo de imagem existe
+3. Verifique permissões apropriadas na imagem
+4. Tente fazer upload de imagem para XOOPS em vez disso
+5. Verifique se há bloqueio externo (pode precisar de CORS)
 
-### Character Encoding Issues
+### Problemas de Codificação de Caracteres
 
-**Symptom:** Special characters appear as gibberish
+**Sintoma:** Caracteres especiais aparecem como gibberish
 
-**Solution:**
-1. Save file as UTF-8 encoding
-2. Ensure page charset is UTF-8
-3. Add to HTML head: `<meta charset="UTF-8">`
-4. Avoid copy-pasting from Word (use plain text)
+**Solução:**
+1. Salve arquivo como codificação UTF-8
+2. Certifique-se de que o charset da página é UTF-8
+3. Adicione ao head HTML: `<meta charset="UTF-8">`
+4. Evite copiar/colar do Word (use texto simples)
 
-## Content Workflow Best Practices
+## Fluxo de Trabalho de Conteúdo Práticas Recomendadas
 
-### Recommended Process
+### Processo Recomendado
 
-1. **Write in Editor First:** Use admin content editor
-2. **Preview Before Publishing:** Click Preview button
-3. **Add Metadata:** Complete title, description, tags
-4. **Save as Draft First:** Save as draft to avoid losing work
-5. **Final Review:** Re-read before publishing
-6. **Publish:** Click Publish when ready
-7. **Verify:** Check on live site
-8. **Edit if Needed:** Make corrections quickly
+1. **Escrever no Editor Primeiro:** Use editor de conteúdo do admin
+2. **Visualizar Antes de Publicar:** Clique no botão Visualizar
+3. **Adicionar Metadados:** Complete título, descrição, tags
+4. **Salvar como Rascunho Primeiro:** Salve como rascunho para evitar perder trabalho
+5. **Revisão Final:** Releia antes de publicar
+6. **Publicar:** Clique em Publicar quando pronto
+7. **Verificar:** Verifique no site ao vivo
+8. **Editar Se Necessário:** Faça correções rapidamente
 
-### Version Control
+### Controle de Versão
 
-Always keep backups:
+Sempre mantenha backups:
 
-1. **Before Major Changes:** Save as new version or backup
-2. **Archive Old Content:** Keep unpublished versions
-3. **Date Your Drafts:** Use clear naming: "Page-Draft-2025-01-28"
+1. **Antes de Mudanças Importantes:** Salve como nova versão ou backup
+2. **Arquivar Conteúdo Antigo:** Mantenha versões não publicadas
+3. **Datar Seus Rascunhos:** Use nomenclatura clara: "Page-Draft-2025-01-28"
 
-## Publishing Multiple Pages
+## Publicando Múltiplas Páginas
 
-Create a content strategy:
+Crie uma estratégia de conteúdo:
 
 ```
 Homepage
-├── About Us
-├── Services
-│   ├── Service 1
-│   ├── Service 2
-│   └── Service 3
+├── Sobre Nós
+├── Serviços
+│   ├── Serviço 1
+│   ├── Serviço 2
+│   └── Serviço 3
 ├── Blog
-│   ├── Article 1
-│   ├── Article 2
-│   └── Article 3
-├── Contact
-└── FAQ
+│   ├── Artigo 1
+│   ├── Artigo 2
+│   └── Artigo 3
+├── Contato
+└── Perguntas Frequentes
 ```
 
-Create pages to follow this structure.
+Crie páginas para seguir esta estrutura.
 
-## Next Steps
+## Próximas Etapas
 
-After creating your first page:
+Após criar sua primeira página:
 
-1. Set up user accounts
-2. Install additional modules
-3. Explore admin features
-4. Configure settings
-5. Optimize with performance settings
+1. Configure contas de usuários
+2. Instale módulos adicionais
+3. Explore recursos de administração
+4. Configure configurações
+5. Otimize com configurações de desempenho
 
 ---
 
-**Tags:** #content-creation #pages #publishing #editor
+**Tags:** #criação-de-conteúdo #páginas #publicação #editor
 
-**Related Articles:**
+**Artigos Relacionados:**
 - Admin-Panel-Overview
 - Managing-Users
 - Installing-Modules

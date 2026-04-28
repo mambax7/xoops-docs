@@ -1,50 +1,49 @@
 ---
-title: "Path Setting"
+title: "Configuração de Caminho"
 ---
 
-This page collects the information about the file system and web address that XOOPS needs to operate. The installer will attempt to guess this information based on the URL you are using to access it, and the locations of the running PHP scripts.
+Esta página coleta as informações sobre o sistema de arquivos e endereço web que XOOPS precisa para operar. O instalador tentará adivinhar essa informação com base na URL que você está usando para acessá-lo e nas localizações dos scripts PHP em execução.
 
-After reviewing and correcting any issues, select the "Continue" button to proceed.
+Após revisar e corrigir quaisquer problemas, selecione o botão "Continuar" para prosseguir.
 
-![XOOPS Installer Path Settings](/xoops-docs/2.7/img/installation/installer-04-02.png)
+![Configurações de Caminho do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-04-02.png)
 
-## Data Collected in This Step
+## Dados Coletados Nesta Etapa
 
-### XOOPS Physical paths
+### Caminhos físicos XOOPS
 
-#### XOOPS documents root physical path
+#### Caminho físico da raiz de documentos XOOPS
 
-Physical path to the XOOPS documents (served) directory WITHOUT trailing slash
+Caminho físico para o diretório de documentos XOOPS (servido) SEM barra final
 
-#### XOOPS data files directory
+#### Diretório de arquivos de dados XOOPS
 
-Physical path to the XOOPS data files (writable) directory WITHOUT trailing slash. Locate the folder out of XOOPS document root to make it secure.
+Caminho físico para o diretório de arquivos de dados XOOPS (gravável) SEM barra final. Localize a pasta fora da raiz de documentos XOOPS para torná-la segura.
 
-#### XOOPS library directory
+#### Diretório da biblioteca XOOPS
 
-Physical path to the XOOPS library directory WITHOUT trailing slash. Locate the folder out of XOOPS document root to make it secure.
+Caminho físico para o diretório da biblioteca XOOPS SEM barra final. Localize a pasta fora da raiz de documentos XOOPS para torná-la segura.
 
-### Web locations
+### Localizações da Web
 
-#### Website location (URL)
+#### Localização do Website (URL)
 
-Main URL that will be used to access your XOOPS installation. XOOPS will use this to build all URL inside of XOOPS. If you want an _https_ site, be sure to specify it. If you want/don't want a leading _www._ on your site domain, be sure to specify it how you want.
+URL principal que será usada para acessar sua instalação XOOPS. XOOPS usará isso para construir todas as URLs dentro do XOOPS. Se você deseja um site _https_, certifique-se de especificar. Se você deseja/não quer um _www._ no domínio do seu site, certifique-se de especificar como deseja.
 
-This will default to the URL used to launch the installer.
+Isto será padrão para a URL usada para iniciar o instalador.
 
-#### Cookie Domain for the Website
+#### Domínio de Cookie para o Website
 
-Domain to set cookies. May be blank, the full host from the URL (www.example.com), or the registered domain without subdomains (example.com) to share across subdomains (www.example.com and blog.example.com.)
+Domínio para definir cookies. Pode estar em branco, o host completo da URL (www.example.com) ou o domínio registrado sem subdomínios (example.com) para compartilhar entre subdomínios (www.example.com e blog.example.com.)
 
-## Errors
+## Erros
 
-If any of the entered paths cannot be found, an error will be displayed. Correct any issues before continuing.
+Se algum dos caminhos digitados não puder ser encontrado, um erro será exibido. Corrija quaisquer problemas antes de continuar.
 
-![XOOPS Installer Path Settings Error](/xoops-docs/2.7/img/installation/installer-04-01.png)
+![Erro de Configurações de Caminho do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-04-01.png)
 
-## Help
+## Ajuda
 
-You can view extended descriptions during the install process. Selecting the "life preserver" icon in the top corner of the page toggles the display of the extended descriptions.
+Você pode visualizar descrições estendidas durante o processo de instalação. Selecionar o ícone de "salva-vidas" no canto superior da página alterna a exibição das descrições estendidas.
 
-![XOOPS Installer Path Settings Help](/xoops-docs/2.7/img/installation/installer-04-03.png)
-
+![Ajuda de Configurações de Caminho do Instalador XOOPS](/xoops-docs/2.7/img/installation/installer-04-03.png)

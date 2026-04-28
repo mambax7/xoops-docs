@@ -1,83 +1,82 @@
 ---
-title: "Preparations for Upgrade"
+title: "Preparações para Atualização"
 ---
 
-## Turn Site Off
+## Desligar o Site
 
-Before starting the XOOPS upgrade proccess, you should set the "Turn your site off?" item to _Yes_ in the Preferences -&gt; System Options -&gt; General Settings page in the Administration Menu.
+Antes de iniciar o processo de atualização do XOOPS, você deve definir o item "Desligar seu site?" como _Sim_ na página Preferências -> Opções de Sistema -> Configurações Gerais no Menu de Administração.
 
-This keeps users from encountering a broken site during the upgrade. It also keeps contention for resources to a minimum to ensure a smoother upgrade.
+Isso impede que os usuários encontrem um site quebrado durante a atualização. Também mantém a contenção de recursos no mínimo para garantir uma atualização mais suave.
 
-Instead of errors and a broken site, your visitors will see something like this:
+Em vez de erros e um site quebrado, seus visitantes verão algo assim:
 
-![Site Closed on Mobile](/xoops-docs/2.7/img/installation/mobile-site-closed.png)
+![Site Fechado em Mobile](/xoops-docs/2.7/img/installation/mobile-site-closed.png)
 
 ## Backup
 
-It is a good idea to use the XOOPS administration _Maintenance_ section to _Clean cache folder_ for all caches before making a full backup of your site files. With the site off, using the _Empty the sessions table_ is also recommended so that if a restore is needed, the stale sessions will not be part of it.
+É uma boa ideia usar a seção _Manutenção_ de administração do XOOPS para _Limpar pasta de cache_ para todos os caches antes de fazer um backup completo dos arquivos do site. Com o site desligado, usar o _Esvaziar tabela de sessões_ também é recomendado para que, se uma restauração for necessária, as sessões obsoletas não façam parte dela.
 
-### Files
+### Arquivos
 
-The file backup can be made with FTP, copying all files to your local machine. If you have direct shell access to the server, it can be _much_ faster to make a copy (or an archive copy) there.
+O backup de arquivo pode ser feito com FTP, copiando todos os arquivos para sua máquina local. Se você tiver acesso direto ao shell do servidor, pode ser _muito_ mais rápido fazer uma cópia (ou uma cópia de arquivo) lá.
 
-### Database
+### Banco de Dados
 
-For making a database backup, you can use the built in functions in the XOOPS administration _Maintenance_ section. You can also use the _Export_ functions in _phpMyAdmin_, if available. If you have shell access, you can use the _mysql_ command to dump your database.
+Para fazer um backup de banco de dados, você pode usar as funções integradas na seção _Manutenção_ de administração do XOOPS. Você também pode usar as funções _Exportar_ em _phpMyAdmin_, se disponível. Se você tiver acesso ao shell, você pode usar o comando _mysql_ para despejar seu banco de dados.
 
-Being fluent in backing up, and _restoring_ your database is an important webmaster skill. There are many online resources that you can use to learn more about these operations as appropriate to your installation, such as [http://webcheatsheet.com/sql/mysql_backup_restore.php](http://webcheatsheet.com/sql/mysql_backup_restore.php)
+Ser fluente em fazer backup e _restaurar_ seu banco de dados é uma habilidade importante de webmaster. Há muitos recursos online que você pode usar para aprender mais sobre essas operações conforme apropriado para sua instalação, como [http://webcheatsheet.com/sql/mysql_backup_restore.php](http://webcheatsheet.com/sql/mysql_backup_restore.php)
 
-![phpMyAdmin Export](/xoops-docs/2.7/img/installation/phpmyadmin-export-01.png)
+![Exportação phpMyAdmin](/xoops-docs/2.7/img/installation/phpmyadmin-export-01.png)
 
-## Copy New Files to the Site
+## Copiar Novos Arquivos para o Site
 
-Copying the new files to your site is virtually identical to the [Preparations](../../installation/preparations/) step during installation. You should copy the _xoops_data_ and _xoops_lib_ directories to wherever these were relocated during the install. Then, copy the rest of the contents of the distribution's _htdocs_ directory (with a few exceptions covered in the next section) over the existing files and directories in your web root.
+Copiar os novos arquivos para seu site é praticamente idêntico à etapa [Preparações](../../installation/preparations/) durante a instalação. Você deve copiar os diretórios _xoops_data_ e _xoops_lib_ para onde quer que tenham sido relocalizados durante a instalação. Depois, copie o resto do conteúdo do diretório _htdocs_ da distribuição (com algumas exceções cobertas na próxima seção) sobre os arquivos e diretórios existentes em sua raiz da web.
 
-In XOOPS 2.7.0, copying a new distribution on top of an existing site **will not overwrite existing configuration files** such as `mainfile.php` or `xoops_data/data/secure.php`. This is a welcome change from earlier versions, but you should still make a full backup before starting.
+No XOOPS 2.7.0, copiar uma nova distribuição sobre um site existente **não sobrescrita arquivos de configuração existentes** como `mainfile.php` ou `xoops_data/data/secure.php`. Esta é uma mudança bem-vinda em relação às versões anteriores, mas você ainda deve fazer um backup completo antes de começar.
 
-Copy the entire _upgrade_ directory from the distribution to your web root, creating an _upgrade_ directory there.
+Copie todo o diretório _upgrade_ da distribuição para a raiz da web, criando um diretório _upgrade_ lá.
 
-## Run the Smarty 4 Preflight Check
+## Execute a Verificação de Pré-voo Smarty 4
 
-Before launching the main `/upgrade/` workflow, you must run the preflight scanner shipped in the `upgrade/` directory. It examines your existing themes and module templates for Smarty 4 compatibility issues and can automatically repair many of them.
+Antes de iniciar o fluxo de trabalho principal do `/upgrade/`, você deve executar o scanner de pré-voo fornecido no diretório `upgrade/`. Ele examina seus templates de tema e módulo existentes para questões de compatibilidade do Smarty 4 e pode reparar muitos deles automaticamente.
 
-1. Point your browser at _your-site-url_/upgrade/preflight.php
-2. Log in with an administrator account
-3. Run the scan and review the report
-4. Apply any automatic repairs offered, or fix flagged templates manually
-5. Re-run the scan until it is clean
-6. Only then continue to the main upgrade
+1. Aponte seu navegador para _seu-url-site_/upgrade/preflight.php
+2. Faça login com uma conta de administrador
+3. Execute a varredura e revise o relatório
+4. Aplique qualquer reparo automático oferecido ou corrija manualmente os templates marcados
+5. Re-execute a varredura até que esteja limpa
+6. Apenas então continue para o upgrade principal
 
-See the [Preflight Check](preflight.md) page for a full walkthrough.
+Veja a página [Verificação de Pré-voo](preflight.md) para um guia completo.
 
-### Things You Might Not Want To Copy Over
+### Coisas Que Você Pode Não Querer Copiar
 
-You should not recopy the _install_ directory into a working XOOPS system. Leaving the install folder in your XOOPS installation exposes your system to potential security issues. The installer randomly renames it, but you should delete it and make sure you don't copy in another one.
+Você não deve recopiar o diretório _install_ em um sistema XOOPS funcionando. Deixar a pasta de instalação em sua instalação XOOPS expõe seu sistema a possíveis problemas de segurança. O instalador o renomeia aleatoriamente, mas você deve deletá-lo e certificar-se de que não copie outro.
 
-There are some files you may have editied to customize your site, and you will want to preserve those. Here is a list of common customizations.
+Há alguns arquivos que você pode ter editado para personalizar seu site, e você vai querer preservar esses. Aqui está uma lista de personalizações comuns.
 
-* _xoops_data/configs/xoopsconfig.php_ if it has been changed since the site was installed
-* any directories in _themes_ if customized for your site. In this case you may want to compare files to identify useful updates.
-* any file in _class/captcha/_ starting with "config" if it has been changed since the site was installed
-* any customizations in _class/textsanitizer_
-* any customizations in _class/xoopseditor_
+* _xoops_data/configs/xoopsconfig.php_ se tiver sido alterado desde que o site foi instalado
+* quaisquer diretórios em _themes_ se personalizados para seu site. Neste caso, você pode querer comparar arquivos para identificar atualizações úteis.
+* qualquer arquivo em _class/captcha/_ começando com "config" se tiver sido alterado desde que o site foi instalado
+* quaisquer personalizações em _class/textsanitizer_
+* quaisquer personalizações em _class/xoopseditor_
 
-If you realize after the upgrade that something was accidentally overwritten, don't panic -- that is why you started with a full backup. _(You did make a backup, right?)_
+Se você perceber após a atualização que algo foi acidentalmente sobrescrito, não entre em pânico -- é por isso que você começou com um backup completo. _(Você fez um backup, certo?)_
 
-## Check mainfile.php (Upgrading from Pre-2.5 XOOPS)
+## Verificar mainfile.php (Atualizando de XOOPS Pré-2.5)
 
-This step only applies if you are upgrading from an old XOOPS version (2.3 or earlier). If you are upgrading from XOOPS 2.5.x you can skip this section.
+Este passo se aplica apenas se você estiver atualizando de uma versão antiga do XOOPS (2.3 ou anterior). Se você estiver atualizando do XOOPS 2.5.x, você pode pular esta seção.
 
-Old versions of XOOPS required some manual changes to be made in `mainfile.php` to enable the Protector module. In your web root you should have a file named `mainfile.php`. Open that file in your editor and look for these lines:
+Versões antigas do XOOPS exigiam algumas alterações manuais a serem feitas em `mainfile.php` para ativar o módulo Protector. Em sua raiz da web você deve ter um arquivo chamado `mainfile.php`. Abra esse arquivo em seu editor e procure por essas linhas:
 
 ```php
 include XOOPS_TRUST_PATH.'/modules/protector/include/precheck.inc.php' ;
 ```
 
-and
+e
 
 ```php
 include XOOPS_TRUST_PATH.'/modules/protector/include/postcheck.inc.php' ;
 ```
 
-Remove these lines if you find them, and save the file before continuing.
-
+Remova essas linhas se as encontrar e salve o arquivo antes de continuar.

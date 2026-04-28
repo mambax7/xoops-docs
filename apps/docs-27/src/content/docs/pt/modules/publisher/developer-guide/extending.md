@@ -1,13 +1,13 @@
 ---
-title: "Extending Publisher"
-description: "Developer guide for extending and customizing the Publisher module"
+title: "Estendendo o Publisher"
+description: "Guia do desenvolvedor para estender e personalizar o módulo Publisher"
 ---
 
-> A developer's guide to customizing and extending the Publisher module.
+> Guia do desenvolvedor para personalizar e estender o módulo Publisher.
 
 ---
 
-## Architecture Overview
+## Visão Geral da Arquitetura
 
 ```mermaid
 classDiagram
@@ -54,33 +54,33 @@ classDiagram
         +getModule()
     }
 
-    Item --> ItemHandler : managed by
-    Category --> CategoryHandler : managed by
-    ItemHandler --> Helper : uses
-    CategoryHandler --> Helper : uses
+    Item --> ItemHandler : gerenciado por
+    Category --> CategoryHandler : gerenciado por
+    ItemHandler --> Helper : usa
+    CategoryHandler --> Helper : usa
 ```
 
 ---
 
-## Getting Started
+## Primeiros Passos
 
-### Access the Helper
+### Acessar o Assistente
 
 ```php
 <?php
-// Get Publisher helper instance
+// Obter instância do assistente Publisher
 $helper = \XoopsModules\Publisher\Helper::getInstance();
 
-// Get handlers
+// Obter manipuladores
 $itemHandler = $helper->getHandler('Item');
 $categoryHandler = $helper->getHandler('Category');
 
-// Get config values
+// Obter valores de configuração
 $itemsPerPage = $helper->getConfig('items_perpage');
 $allowRatings = $helper->getConfig('perm_rating');
 ```
 
-### Working with Items
+### Trabalhando com Itens
 
 ```php
 <?php
@@ -89,12 +89,12 @@ use XoopsModules\Publisher\Helper;
 $helper = Helper::getInstance();
 $itemHandler = $helper->getHandler('Item');
 
-// Create new item
+// Criar novo item
 $item = $itemHandler->create();
-$item->setVar('title', 'My Article');
+$item->setVar('title', 'Meu Artigo');
 $item->setVar('categoryid', 1);
-$item->setVar('body', 'Article content...');
-$item->setVar('summary', 'Brief summary');
+$item->setVar('body', 'Conteúdo do artigo...');
+$item->setVar('summary', 'Resumo breve');
 $item->setVar('uid', $xoopsUser->getVar('uid'));
 $item->setVar('datesub', time());
 $item->setVar('status', Constants::PUBLISHER_STATUS_PUBLISHED);
@@ -103,7 +103,7 @@ if ($itemHandler->insert($item)) {
     $newId = $item->getVar('itemid');
 }
 
-// Get published items
+// Obter itens publicados
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', Constants::PUBLISHER_STATUS_PUBLISHED));
 $criteria->setSort('datesub');
@@ -117,41 +117,41 @@ foreach ($items as $item) {
 }
 ```
 
-### Working with Categories
+### Trabalhando com Categorias
 
 ```php
 <?php
 $categoryHandler = $helper->getHandler('Category');
 
-// Get category
+// Obter categoria
 $category = $categoryHandler->get(1);
 echo $category->getVar('name');
 
-// Get category tree
+// Obter árvore de categoria
 $categoryTree = $categoryHandler->getTree();
 
-// Get children of category
+// Obter filhos de categoria
 $children = $categoryHandler->getChildren(1);
 
-// Get items in category
+// Obter itens em categoria
 $items = $itemHandler->getItemsFromCategory($categoryId, $limit, $start);
 ```
 
 ---
 
-## Custom Queries
+## Consultas Personalizadas
 
-### Advanced Item Queries
+### Consultas Avançadas de Item
 
 ```php
 <?php
-// Get items by multiple criteria
+// Obter itens por múltiplos critérios
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', Constants::PUBLISHER_STATUS_PUBLISHED));
 $criteria->add(new \Criteria('categoryid', '(1, 2, 3)', 'IN'));
 $criteria->add(new \Criteria('datesub', time() - (30 * 24 * 60 * 60), '>='));
 
-// Search in title and body
+// Buscar em título e corpo
 $searchCriteria = new \CriteriaCompo();
 $searchCriteria->add(new \Criteria('title', '%keyword%', 'LIKE'));
 $searchCriteria->add(new \Criteria('body', '%keyword%', 'LIKE'), 'OR');
@@ -161,7 +161,7 @@ $items = $itemHandler->getObjects($criteria);
 $count = $itemHandler->getCount($criteria);
 ```
 
-### Custom SQL Queries
+### Consultas SQL Personalizadas
 
 ```php
 <?php
@@ -182,17 +182,17 @@ $sql = sprintf(
 
 $result = $db->query($sql);
 while ($row = $db->fetchArray($result)) {
-    // Process row
+    // Processar linha
 }
 ```
 
 ---
 
-## Hooks and Events
+## Ganchos e Eventos
 
 ### Preloads
 
-Create `preloads/core.php`:
+Criar `preloads/core.php`:
 
 ```php
 <?php
@@ -204,59 +204,59 @@ use XoopsPreloadItem;
 class Core extends XoopsPreloadItem
 {
     /**
-     * Called when an item is created
+     * Chamado quando um item é criado
      */
     public static function eventPublisherItemCreated($args)
     {
         $item = $args['item'];
 
-        // Send notification
+        // Enviar notificação
         self::notifyNewItem($item);
 
-        // Log activity
+        // Registrar atividade
         self::logActivity('item_created', $item->getVar('itemid'));
     }
 
     /**
-     * Called when an item is updated
+     * Chamado quando um item é atualizado
      */
     public static function eventPublisherItemUpdated($args)
     {
         $item = $args['item'];
-        // Custom logic here
+        // Lógica personalizada aqui
     }
 
     /**
-     * Called when an item is viewed
+     * Chamado quando um item é visualizado
      */
     public static function eventPublisherItemViewed($args)
     {
         $item = $args['item'];
-        // Track analytics, update view count, etc.
+        // Rastrear análises, atualizar contagem de visualizações, etc.
     }
 
     private static function notifyNewItem($item)
     {
-        // Notification logic
+        // Lógica de notificação
     }
 
     private static function logActivity($action, $itemId)
     {
-        // Logging logic
+        // Lógica de registro
     }
 }
 ```
 
 ---
 
-## Custom Templates
+## Templates Personalizados
 
-### Template Override
+### Sobrescrita de Template
 
-Create custom templates in your theme:
+Criar templates personalizados em seu tema:
 
 ```
-themes/mytheme/modules/publisher/
+themes/meumtema/modules/publisher/
 ├── publisher_index.tpl
 ├── publisher_item.tpl
 ├── publisher_category.tpl
@@ -264,15 +264,15 @@ themes/mytheme/modules/publisher/
     └── publisher_block_recent.tpl
 ```
 
-### Template Variables
+### Variáveis de Template
 
 ```smarty
-{* Available in item.tpl *}
+{* Disponível em item.tpl *}
 <article class="publisher-item">
     <h1><{$item.title}></h1>
 
     <div class="meta">
-        <span class="author">By <{$item.author}></span>
+        <span class="author">Por <{$item.author}></span>
         <span class="date"><{$item.datesub}></span>
         <span class="category">
             <a href="<{$item.categorylink}>"><{$item.categoryname}></a>
@@ -293,7 +293,7 @@ themes/mytheme/modules/publisher/
 
     <{if $item.files}>
         <div class="attachments">
-            <h3>Attachments</h3>
+            <h3>Anexos</h3>
             <ul>
             <{foreach item=file from=$item.files}>
                 <li><a href="<{$file.url}>"><{$file.name}></a></li>
@@ -318,9 +318,9 @@ themes/mytheme/modules/publisher/
 
 ---
 
-## Custom Blocks
+## Blocos Personalizados
 
-### Create Custom Block
+### Criar Bloco Personalizado
 
 ```php
 <?php
@@ -350,18 +350,18 @@ function publisher_block_custom_show($options)
 function publisher_block_custom_edit($options)
 {
     $form = '';
-    $form .= 'Number of items: <input type="text" name="options[0]" value="' . ($options[0] ?? 5) . '">';
-    $form .= '<br>Sort by: <select name="options[1]">';
-    $form .= '<option value="datesub"' . (($options[1] ?? '') === 'datesub' ? ' selected' : '') . '>Date</option>';
-    $form .= '<option value="counter"' . (($options[1] ?? '') === 'counter' ? ' selected' : '') . '>Views</option>';
-    $form .= '<option value="rating"' . (($options[1] ?? '') === 'rating' ? ' selected' : '') . '>Rating</option>';
+    $form .= 'Número de itens: <input type="text" name="options[0]" value="' . ($options[0] ?? 5) . '">';
+    $form .= '<br>Classificar por: <select name="options[1]">';
+    $form .= '<option value="datesub"' . (($options[1] ?? '') === 'datesub' ? ' selected' : '') . '>Data</option>';
+    $form .= '<option value="counter"' . (($options[1] ?? '') === 'counter' ? ' selected' : '') . '>Visualizações</option>';
+    $form .= '<option value="rating"' . (($options[1] ?? '') === 'rating' ? ' selected' : '') . '>Classificação</option>';
     $form .= '</select>';
 
     return $form;
 }
 ```
 
-### Register Block in xoops_version.php
+### Registrar Bloco em xoops_version.php
 
 ```php
 $modversion['blocks'][] = [
@@ -377,9 +377,9 @@ $modversion['blocks'][] = [
 
 ---
 
-## API Integration
+## Integração de API
 
-### REST API Endpoint
+### Endpoint de API REST
 
 ```php
 <?php
@@ -425,7 +425,7 @@ try {
                 ];
             } else {
                 http_response_code(404);
-                $response = ['success' => false, 'error' => 'Item not found'];
+                $response = ['success' => false, 'error' => 'Item não encontrado'];
             }
             break;
     }
@@ -439,21 +439,21 @@ echo json_encode($response);
 
 ---
 
-## Plugin Architecture
+## Arquitetura de Plugin
 
 ```mermaid
 graph TB
-    subgraph "Publisher Core"
+    subgraph "Núcleo Publisher"
         A[Item Handler]
         B[Category Handler]
         C[Event System]
     end
 
     subgraph "Plugins"
-        D[SEO Plugin]
-        E[Social Plugin]
-        F[Analytics Plugin]
-        G[Custom Plugin]
+        D[Plugin SEO]
+        E[Plugin Social]
+        F[Plugin Analytics]
+        G[Plugin Personalizado]
     end
 
     C --> D
@@ -467,12 +467,12 @@ graph TB
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- User Guide - Getting Started
-- MVC Pattern
-- XoopsObject API
+- Guia do Usuário - Primeiros Passos
+- Padrão MVC
+- API XoopsObject
 
 ---
 
-#xoops #publisher #developer #extending #api
+#xoops #publisher #desenvolvedor #estendendo #api

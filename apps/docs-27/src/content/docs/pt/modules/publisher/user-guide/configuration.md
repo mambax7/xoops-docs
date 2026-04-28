@@ -1,153 +1,153 @@
 ---
-title: "Publisher - Basic Configuration"
-description: "Guide to configuring Publisher module settings and preferences"
+title: "Publisher - Configuração Básica"
+description: "Guia para configurar as configurações e preferências do módulo Publisher"
 ---
 
-# Publisher Basic Configuration
+# Configuração Básica do Publisher
 
-> Configure Publisher module settings, preferences, and general options for your XOOPS installation.
+> Configure as configurações do módulo Publisher, preferências e opções gerais para sua instalação XOOPS.
 
 ---
 
-## Accessing Configuration
+## Acessar Configuração
 
-### Admin Panel Navigation
+### Navegação do Painel de Admin
 
 ```
-XOOPS Admin Panel
-└── Modules
+Painel de Admin XOOPS
+└── Módulos
     └── Publisher
-        ├── Preferences
-        ├── Settings
-        └── Configuration
+        ├── Preferências
+        ├── Configurações
+        └── Configuração
 ```
 
-1. Log in as **Administrator**
-2. Go to **Admin Panel → Modules**
-3. Find **Publisher** module
-4. Click **Preferences** or **Admin** link
+1. Faça login como **Administrador**
+2. Vá para **Painel de Admin → Módulos**
+3. Encontre módulo **Publisher**
+4. Clique no link **Preferências** ou **Admin**
 
 ---
 
-## General Settings
+## Configurações Gerais
 
-### Access Configuration
+### Acessar Configuração
 
 ```
-Admin Panel → Modules → Publisher
+Painel de Admin → Módulos → Publisher
 ```
 
-Click the **gear icon** or **Settings** for these options:
+Clique no **ícone de engrenagem** ou **Configurações** para essas opções:
 
-#### Display Options
+#### Opções de Exibição
 
-| Setting | Options | Default | Description |
+| Configuração | Opções | Padrão | Descrição |
 |---------|---------|---------|-------------|
-| **Items per page** | 5-50 | 10 | Articles shown in lists |
-| **Show breadcrumb** | Yes/No | Yes | Navigation trail display |
-| **Use paging** | Yes/No | Yes | Paginate long lists |
-| **Show date** | Yes/No | Yes | Display article date |
-| **Show category** | Yes/No | Yes | Show article category |
-| **Show author** | Yes/No | Yes | Show article author |
-| **Show views** | Yes/No | Yes | Show article view count |
+| **Itens por página** | 5-50 | 10 | Artigos mostrados em listas |
+| **Mostrar breadcrumb** | Sim/Não | Sim | Exibição de trilha de navegação |
+| **Usar paginação** | Sim/Não | Sim | Paginar listas longas |
+| **Mostrar data** | Sim/Não | Sim | Exibir data do artigo |
+| **Mostrar categoria** | Sim/Não | Sim | Mostrar categoria do artigo |
+| **Mostrar autor** | Sim/Não | Sim | Mostrar autor do artigo |
+| **Mostrar visualizações** | Sim/Não | Sim | Mostrar contagem de visualizações |
 
-**Example Configuration:**
+**Configuração de Exemplo:**
 
 ```yaml
-Items Per Page: 15
-Show Breadcrumb: Yes
-Use Paging: Yes
-Show Date: Yes
-Show Category: Yes
-Show Author: Yes
-Show Views: Yes
+Itens Por Página: 15
+Mostrar Breadcrumb: Sim
+Usar Paginação: Sim
+Mostrar Data: Sim
+Mostrar Categoria: Sim
+Mostrar Autor: Sim
+Mostrar Visualizações: Sim
 ```
 
-#### Author Options
+#### Opções de Autor
 
-| Setting | Default | Description |
+| Configuração | Padrão | Descrição |
 |---------|---------|-------------|
-| **Show author name** | Yes | Display real name or username |
-| **Use username** | No | Show username instead of name |
-| **Show author email** | No | Display author contact email |
-| **Show author avatar** | Yes | Display user avatar |
+| **Mostrar nome do autor** | Sim | Exibir nome real ou nome de usuário |
+| **Usar nome de usuário** | Não | Mostrar nome de usuário em vez de nome |
+| **Mostrar email do autor** | Não | Exibir email de contato do autor |
+| **Mostrar avatar do autor** | Sim | Exibir avatar do usuário |
 
 ---
 
-## Editor Configuration
+## Configuração de Editor
 
-### Select WYSIWYG Editor
+### Selecionar Editor WYSIWYG
 
-Publisher supports multiple editors:
+O Publisher suporta múltiplos editores:
 
-#### Available Editors
+#### Editores Disponíveis
 
 ```mermaid
 graph LR
-    A[Editor Selection] -->|CKEditor| B[Modern, feature-rich]
-    A -->|FCKeditor| C[Legacy, compatible]
-    A -->|TinyMCE| D[Lightweight, simple]
-    A -->|DHTML Editor| E[Very basic, minimal]
+    A[Seleção de Editor] -->|CKEditor| B[Moderno, rico em recursos]
+    A -->|FCKeditor| C[Legado, compatível]
+    A -->|TinyMCE| D[Leve, simples]
+    A -->|Editor DHTML| E[Muito básico, mínimo]
 ```
 
-### CKEditor (Recommended)
+### CKEditor (Recomendado)
 
-**Best for:** Most users, modern browsers, full features
+**Melhor para:** Maioria dos usuários, navegadores modernos, recursos completos
 
-1. Go to **Preferences**
-2. Set **Editor**: CKEditor
-3. Configure options:
+1. Vá para **Preferências**
+2. Defina **Editor**: CKEditor
+3. Configure opções:
 
 ```
 Editor: CKEditor 4.x
-Toolbar: Full
-Height: 400px
-Width: 100%
-Remove plugins: []
-Add plugins: [mathjax, codesnippet]
+Barra de ferramentas: Completa
+Altura: 400px
+Largura: 100%
+Remover plugins: []
+Adicionar plugins: [mathjax, codesnippet]
 ```
 
 ### FCKeditor
 
-**Best for:** Compatibility, older systems
+**Melhor para:** Compatibilidade, sistemas mais antigos
 
 ```
 Editor: FCKeditor
-Toolbar: Default
-Custom config: (optional)
+Barra de ferramentas: Padrão
+Configuração personalizada: (opcional)
 ```
 
 ### TinyMCE
 
-**Best for:** Minimal footprint, basic editing
+**Melhor para:** Pegada mínima, edição básica
 
 ```
 Editor: TinyMCE
 Plugins: [paste, table, link, image]
-Toolbar: minimal
+Barra de ferramentas: mínima
 ```
 
 ---
 
-## File & Upload Settings
+## Configurações de Arquivo e Envio
 
-### Configure Upload Directories
+### Configurar Diretórios de Envio
 
 ```
-Admin → Publisher → Preferences → Upload Settings
+Admin → Publisher → Preferências → Configurações de Envio
 ```
 
-#### File Type Settings
+#### Configurações de Tipo de Arquivo
 
 ```yaml
-Allowed File Types:
-  Images:
+Tipos de Arquivo Permitidos:
+  Imagens:
     - jpg
     - jpeg
     - gif
     - png
     - webp
-  Documents:
+  Documentos:
     - pdf
     - doc
     - docx
@@ -155,358 +155,358 @@ Allowed File Types:
     - xlsx
     - ppt
     - pptx
-  Archives:
+  Arquivos:
     - zip
     - rar
     - 7z
-  Media:
+  Mídia:
     - mp3
     - mp4
     - webm
     - mov
 ```
 
-#### File Size Limits
+#### Limites de Tamanho de Arquivo
 
-| File Type | Max Size | Notes |
+| Tipo de Arquivo | Tamanho Máx | Notas |
 |-----------|----------|-------|
-| **Images** | 5 MB | Per image file |
-| **Documents** | 10 MB | PDF, Office files |
-| **Media** | 50 MB | Video/audio files |
-| **All files** | 100 MB | Total per upload |
+| **Imagens** | 5 MB | Por arquivo de imagem |
+| **Documentos** | 10 MB | Arquivos PDF, Office |
+| **Mídia** | 50 MB | Arquivos de vídeo/áudio |
+| **Todos os arquivos** | 100 MB | Total por envio |
 
-**Configuration:**
+**Configuração:**
 
 ```
-Max Image Upload Size: 5 MB
-Max Document Upload Size: 10 MB
-Max Media Upload Size: 50 MB
-Total Upload Size: 100 MB
-Max Files per Article: 5
+Tamanho Máx de Envio de Imagem: 5 MB
+Tamanho Máx de Envio de Documento: 10 MB
+Tamanho Máx de Envio de Mídia: 50 MB
+Tamanho Total de Envio: 100 MB
+Máx de Arquivos por Artigo: 5
 ```
 
-### Image Resizing
+### Redimensionamento de Imagem
 
-Publisher auto-resizes images for consistency:
+O Publisher redimensiona imagens automaticamente para consistência:
 
 ```yaml
-Thumbnail Size:
-  Width: 150
-  Height: 150
-  Mode: Crop/Resize
+Tamanho de Miniatura:
+  Largura: 150
+  Altura: 150
+  Modo: Recortar/Redimensionar
 
-Category Image Size:
-  Width: 300
-  Height: 200
-  Mode: Resize
+Tamanho de Imagem de Categoria:
+  Largura: 300
+  Altura: 200
+  Modo: Redimensionar
 
-Article Featured Image:
-  Width: 600
-  Height: 400
-  Mode: Resize
+Imagem em Destaque de Artigo:
+  Largura: 600
+  Altura: 400
+  Modo: Redimensionar
 ```
 
 ---
 
-## Comment & Interaction Settings
+## Configurações de Comentário e Interação
 
-### Comments Configuration
+### Configuração de Comentários
 
 ```
-Preferences → Comments Section
+Preferências → Seção de Comentários
 ```
 
-#### Comment Options
+#### Opções de Comentário
 
 ```yaml
-Allow Comments:
-  - Enabled: Yes/No
-  - Default: Yes
-  - Per-article override: Yes
+Permitir Comentários:
+  - Habilitado: Sim/Não
+  - Padrão: Sim
+  - Substituição por artigo: Sim
 
-Comment Moderation:
-  - Moderate comments: Yes/No
-  - Moderate guest comments only: Yes/No
-  - Spam filter: Enabled
-  - Max comments per day: (unlimited)
+Moderação de Comentário:
+  - Moderar comentários: Sim/Não
+  - Moderar apenas comentários de convidado: Sim/Não
+  - Filtro de spam: Habilitado
+  - Máx de comentários por dia: (ilimitado)
 
-Comment Display:
-  - Display format: Threaded/Flat
-  - Comments per page: 10
-  - Date format: Full date/Time ago
-  - Show comment count: Yes/No
+Exibição de Comentário:
+  - Formato de exibição: Encadeado/Plano
+  - Comentários por página: 10
+  - Formato de data: Data completa/Tempo atrás
+  - Mostrar contagem de comentários: Sim/Não
 ```
 
-### Ratings Configuration
+### Configuração de Avaliações
 
 ```yaml
-Allow Ratings:
-  - Enabled: Yes/No
-  - Default: Yes
-  - Per-article override: Yes
+Permitir Avaliações:
+  - Habilitado: Sim/Não
+  - Padrão: Sim
+  - Substituição por artigo: Sim
 
-Rating Options:
-  - Rating scale: 5 stars (default)
-  - Allow user to rate own: No
-  - Show average rating: Yes
-  - Show rating count: Yes
+Opções de Avaliação:
+  - Escala de avaliação: 5 estrelas (padrão)
+  - Permitir usuário avaliar próprio: Não
+  - Mostrar avaliação média: Sim
+  - Mostrar contagem de avaliações: Sim
 ```
 
 ---
 
-## SEO & URL Settings
+## Configurações de SEO e URL
 
-### Search Engine Optimization
+### Otimização de Mecanismo de Busca
 
 ```
-Preferences → SEO Settings
+Preferências → Configurações de SEO
 ```
 
-#### URL Configuration
+#### Configuração de URL
 
 ```yaml
-SEO URLs:
-  - Enabled: No (set to Yes for SEO URLs)
-  - URL rewriting: None/Apache mod_rewrite/IIS rewrite
+URLs de SEO:
+  - Habilitado: Não (defina para Sim para URLs de SEO)
+  - Reescrita de URL: Nenhuma/Apache mod_rewrite/IIS rewrite
 
-URL Format:
-  - Category: /category/news
-  - Article: /article/welcome-to-site
-  - Archive: /archive/2024/01
+Formato de URL:
+  - Categoria: /category/news
+  - Artigo: /article/welcome-to-site
+  - Arquivo: /archive/2024/01
 
-Meta Description:
-  - Auto-generate: Yes
-  - Max length: 160 characters
+Meta Descrição:
+  - Gerar automaticamente: Sim
+  - Comprimento máximo: 160 caracteres
 
-Meta Keywords:
-  - Auto-generate: Yes
-  - From: Article tags, title
+Meta Palavras-chave:
+  - Gerar automaticamente: Sim
+  - De: Tags de artigo, título
 ```
 
-### Enable SEO URLs (Advanced)
+### Habilitar URLs de SEO (Avançado)
 
-**Prerequisites:**
-- Apache with `mod_rewrite` enabled
-- `.htaccess` support enabled
+**Pré-requisitos:**
+- Apache com `mod_rewrite` habilitado
+- Suporte `.htaccess` habilitado
 
-**Configuration Steps:**
+**Etapas de Configuração:**
 
-1. Go to **Preferences → SEO Settings**
-2. Set **SEO URLs**: Yes
-3. Set **URL Rewriting**: Apache mod_rewrite
-4. Verify `.htaccess` file exists in Publisher folder
+1. Vá para **Preferências → Configurações de SEO**
+2. Defina **URLs de SEO**: Sim
+3. Defina **Reescrita de URL**: Apache mod_rewrite
+4. Verifique se arquivo `.htaccess` existe na pasta do Publisher
 
-**.htaccess Configuration:**
+**Configuração de .htaccess:**
 
 ```apache
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /modules/publisher/
 
-    # Category rewrites
+    # Reescritas de categoria
     RewriteRule ^category/([0-9]+)-(.*)\.html$ index.php?op=showcategory&categoryid=$1 [L,QSA]
 
-    # Article rewrites
+    # Reescritas de artigo
     RewriteRule ^article/([0-9]+)-(.*)\.html$ index.php?op=showitem&itemid=$1 [L,QSA]
 
-    # Archive rewrites
+    # Reescritas de arquivo
     RewriteRule ^archive/([0-9]+)/([0-9]+)/$ index.php?op=archive&year=$1&month=$2 [L,QSA]
 </IfModule>
 ```
 
 ---
 
-## Cache & Performance
+## Cache e Desempenho
 
-### Caching Configuration
+### Configuração de Cache
 
 ```
-Preferences → Cache Settings
+Preferências → Configurações de Cache
 ```
 
 ```yaml
-Enable Caching:
-  - Enabled: Yes
-  - Cache type: File (or Memcache)
+Habilitar Cache:
+  - Habilitado: Sim
+  - Tipo de cache: Arquivo (ou Memcache)
 
-Cache Lifetime:
-  - Category lists: 3600 seconds (1 hour)
-  - Article lists: 1800 seconds (30 minutes)
-  - Single article: 7200 seconds (2 hours)
-  - Recent articles block: 900 seconds (15 minutes)
+Tempo de Vida do Cache:
+  - Listas de categoria: 3600 segundos (1 hora)
+  - Listas de artigos: 1800 segundos (30 minutos)
+  - Artigo único: 7200 segundos (2 horas)
+  - Bloco de artigos recentes: 900 segundos (15 minutos)
 
-Cache Clear:
-  - Manual clear: Available in admin
-  - Auto-clear on article save: Yes
-  - Clear on category change: Yes
+Limpeza de Cache:
+  - Limpeza manual: Disponível em admin
+  - Limpeza automática ao salvar artigo: Sim
+  - Limpar ao mudar categoria: Sim
 ```
 
-### Clear Cache
+### Limpar Cache
 
-**Manual Cache Clear:**
+**Limpeza Manual de Cache:**
 
-1. Go to **Admin → Publisher → Tools**
-2. Click **Clear Cache**
-3. Select cache types to clear:
-   - [ ] Category cache
-   - [ ] Article cache
-   - [ ] Block cache
-   - [ ] All cache
-4. Click **Clear Selected**
+1. Vá para **Admin → Publisher → Ferramentas**
+2. Clique em **Limpar Cache**
+3. Selecione tipos de cache para limpar:
+   - [ ] Cache de categoria
+   - [ ] Cache de artigos
+   - [ ] Cache de blocos
+   - [ ] Todo cache
+4. Clique em **Limpar Selecionado**
 
-**Command Line:**
+**Linha de Comando:**
 
 ```bash
-# Clear all Publisher cache
+# Limpar todo cache do Publisher
 php /path/to/xoops/admin/cache_manage.php publisher
 
-# Or directly delete cache files
+# Ou excluir diretamente arquivos de cache
 rm -rf /path/to/xoops/var/cache/publisher/*
 ```
 
 ---
 
-## Notification & Workflow
+## Notificação e Fluxo de Trabalho
 
-### Email Notifications
+### Notificações por Email
 
 ```
-Preferences → Notifications
+Preferências → Notificações
 ```
 
 ```yaml
-Notify Admin on New Article:
-  - Enabled: Yes
-  - Recipient: Admin email
-  - Include summary: Yes
+Notificar Admin em Novo Artigo:
+  - Habilitado: Sim
+  - Destinatário: Email de admin
+  - Incluir resumo: Sim
 
-Notify Moderators:
-  - Enabled: Yes
-  - On new submission: Yes
-  - On pending articles: Yes
+Notificar Moderadores:
+  - Habilitado: Sim
+  - Em novo envio: Sim
+  - Em artigos pendentes: Sim
 
-Notify Author:
-  - On approval: Yes
-  - On rejection: Yes
-  - On comment: No (optional)
+Notificar Autor:
+  - Na aprovação: Sim
+  - Na rejeição: Sim
+  - Em comentário: Não (opcional)
 ```
 
-### Submission Workflow
+### Fluxo de Trabalho de Envio
 
 ```yaml
-Require Approval:
-  - Enabled: Yes
-  - Editor approval: Yes
-  - Admin approval: No
+Exigir Aprovação:
+  - Habilitado: Sim
+  - Aprovação de editor: Sim
+  - Aprovação de admin: Não
 
-Draft Save:
-  - Auto-save interval: 60 seconds
-  - Save local versions: Yes
-  - Revision history: Last 5 versions
+Salvamento de Rascunho:
+  - Intervalo de salvamento automático: 60 segundos
+  - Salvar versões locais: Sim
+  - Histórico de revisões: Últimas 5 versões
 ```
 
 ---
 
-## Content Settings
+## Configurações de Conteúdo
 
-### Publishing Defaults
+### Padrões de Publicação
 
 ```
-Preferences → Content Settings
+Preferências → Configurações de Conteúdo
 ```
 
 ```yaml
-Default Article Status:
-  - Draft/Published: Draft
-  - Featured by default: No
-  - Auto-publish time: None
+Status Padrão de Artigo:
+  - Rascunho/Publicado: Rascunho
+  - Destaque por padrão: Não
+  - Tempo de publicação automática: Nenhum
 
-Default Visibility:
-  - Public/Private: Public
-  - Show on front page: Yes
-  - Show in categories: Yes
+Visibilidade Padrão:
+  - Público/Privado: Público
+  - Mostrar na página inicial: Sim
+  - Mostrar em categorias: Sim
 
-Scheduled Publishing:
-  - Enabled: Yes
-  - Allow per-article: Yes
+Publicação Agendada:
+  - Habilitado: Sim
+  - Permitir por artigo: Sim
 
-Content Expiration:
-  - Enabled: No
-  - Auto-archive old: No
-  - Archive after days: (unlimited)
+Expiração de Conteúdo:
+  - Habilitado: Não
+  - Arquivar automaticamente antigos: Não
+  - Arquivar após dias: (ilimitado)
 ```
 
-### WYSIWYG Content Options
+### Opções de Conteúdo WYSIWYG
 
 ```yaml
-Allow HTML:
-  - In articles: Yes
-  - In comments: No
+Permitir HTML:
+  - Em artigos: Sim
+  - Em comentários: Não
 
-Allow Embedded Media:
-  - Videos (iframe): Yes
-  - Images: Yes
-  - Plugins: No
+Permitir Mídia Incorporada:
+  - Vídeos (iframe): Sim
+  - Imagens: Sim
+  - Plugins: Não
 
-Content Filtering:
-  - Strip tags: No
-  - XSS filter: Yes (recommended)
+Filtragem de Conteúdo:
+  - Remover tags: Não
+  - Filtro XSS: Sim (recomendado)
 ```
 
 ---
 
-## Search Engine Settings
+## Configurações de Mecanismo de Busca
 
-### Configure Search Integration
+### Configurar Integração de Busca
 
 ```
-Preferences → Search Settings
+Preferências → Configurações de Busca
 ```
 
 ```yaml
-Enable Article Indexing:
-  - Include in site search: Yes
-  - Index type: Full text/Title only
+Habilitar Indexação de Artigos:
+  - Incluir em busca do site: Sim
+  - Tipo de índice: Texto completo/Apenas título
 
-Search Options:
-  - Search in titles: Yes
-  - Search in content: Yes
-  - Search in comments: Yes
+Opções de Busca:
+  - Buscar em títulos: Sim
+  - Buscar em conteúdo: Sim
+  - Buscar em comentários: Sim
 
 Meta Tags:
-  - Auto generate: Yes
-  - OG tags (social): Yes
-  - Twitter cards: Yes
+  - Gerar automaticamente: Sim
+  - Tags OG (redes sociais): Sim
+  - Twitter cards: Sim
 ```
 
 ---
 
-## Advanced Settings
+## Configurações Avançadas
 
-### Debug Mode (Development Only)
+### Modo de Debug (Apenas Desenvolvimento)
 
 ```
-Preferences → Advanced
+Preferências → Avançado
 ```
 
 ```yaml
-Debug Mode:
-  - Enabled: No (only for development!)
+Modo de Debug:
+  - Habilitado: Não (apenas para desenvolvimento!)
 
-Development Features:
-  - Show SQL queries: No
-  - Log errors: Yes
-  - Error email: admin@example.com
+Recursos de Desenvolvimento:
+  - Mostrar consultas SQL: Não
+  - Registrar erros: Sim
+  - Email de erro: admin@example.com
 ```
 
-### Database Optimization
+### Otimização de Banco de Dados
 
 ```
-Admin → Tools → Optimize Database
+Admin → Ferramentas → Otimizar Banco de Dados
 ```
 
 ```bash
-# Manual optimization
+# Otimização manual
 mysql> OPTIMIZE TABLE publisher_items;
 mysql> OPTIMIZE TABLE publisher_categories;
 mysql> OPTIMIZE TABLE publisher_comments;
@@ -514,139 +514,139 @@ mysql> OPTIMIZE TABLE publisher_comments;
 
 ---
 
-## Module Customization
+## Personalização de Módulo
 
-### Theme Templates
+### Templates de Tema
 
 ```
-Preferences → Display → Templates
+Preferências → Exibição → Templates
 ```
 
-Select template set:
-- Default
-- Classic
-- Modern
-- Dark
-- Custom
+Selecione conjunto de template:
+- Padrão
+- Clássico
+- Moderno
+- Escuro
+- Personalizado
 
-Each template controls:
-- Article layout
-- Category listing
-- Archive display
-- Comment display
+Cada template controla:
+- Layout de artigo
+- Listagem de categoria
+- Exibição de arquivo
+- Exibição de comentário
 
 ---
 
-## Configuration Tips
+## Dicas de Configuração
 
-### Best Practices
+### Melhores Práticas
 
 ```mermaid
 graph TD
-    A[Configuration Strategy] -->|Start| B[Enable basic features]
-    B -->|Test| C[Verify functionality]
-    C -->|Scale| D[Enable advanced features]
-    D -->|Optimize| E[Performance tune]
-    E -->|Secure| F[Apply security settings]
+    A[Estratégia de Configuração] -->|Iniciar| B[Habilitar recursos básicos]
+    B -->|Testar| C[Verificar funcionalidade]
+    C -->|Escalar| D[Habilitar recursos avançados]
+    D -->|Otimizar| E[Ajuste de desempenho]
+    E -->|Seguro| F[Aplicar configurações de segurança]
 ```
 
-1. **Start Simple** - Enable core features first
-2. **Test Each Change** - Verify before moving on
-3. **Enable Caching** - Improves performance
-4. **Backup First** - Export settings before major changes
-5. **Monitor Logs** - Check error logs regularly
+1. **Começar Simples** - Habilitar recursos principais primeiro
+2. **Testar Cada Mudança** - Verificar antes de prosseguir
+3. **Habilitar Cache** - Melhora o desempenho
+4. **Fazer Backup Primeiro** - Exportar configurações antes de mudanças maiores
+5. **Monitorar Logs** - Verificar logs de erro regularmente
 
-### Performance Optimization
+### Otimização de Desempenho
 
 ```yaml
-For Better Performance:
-  - Enable caching: Yes
-  - Cache lifetime: 3600 seconds
-  - Limit items per page: 10-15
-  - Compress images: Yes
-  - Minify CSS/JS: Yes (if available)
+Para Melhor Desempenho:
+  - Habilitar cache: Sim
+  - Tempo de vida do cache: 3600 segundos
+  - Limitar itens por página: 10-15
+  - Comprimir imagens: Sim
+  - Minificar CSS/JS: Sim (se disponível)
 ```
 
-### Security Hardening
+### Endurecimento de Segurança
 
 ```yaml
-For Better Security:
-  - Moderate comments: Yes
-  - Disable HTML in comments: Yes
-  - XSS filtering: Yes
-  - File type whitelist: Strict
-  - Max upload size: Reasonable limit
+Para Melhor Segurança:
+  - Moderar comentários: Sim
+  - Desabilitar HTML em comentários: Sim
+  - Filtragem XSS: Sim
+  - Lista branca de tipo de arquivo: Estrita
+  - Tamanho máximo de envio: Limite razoável
 ```
 
 ---
 
-## Export/Import Settings
+## Exportar/Importar Configurações
 
-### Backup Configuration
+### Configuração de Backup
 
 ```
-Admin → Tools → Export Settings
+Admin → Ferramentas → Exportar Configurações
 ```
 
-**To backup current configuration:**
+**Para fazer backup da configuração atual:**
 
-1. Click **Export Configuration**
-2. Save downloaded `.cfg` file
-3. Store in safe location
+1. Clique em **Exportar Configuração**
+2. Salve arquivo `.cfg` baixado
+3. Armazene em local seguro
 
-**To restore:**
+**Para restaurar:**
 
-1. Click **Import Configuration**
-2. Select `.cfg` file
-3. Click **Restore**
-
----
-
-## Related Configuration Guides
-
-- Category Management
-- Article Creation
-- Permission Configuration
-- Installation Guide
+1. Clique em **Importar Configuração**
+2. Selecione arquivo `.cfg`
+3. Clique em **Restaurar**
 
 ---
 
-## Troubleshooting Configuration
+## Guias de Configuração Relacionados
 
-### Settings Won't Save
-
-**Solution:**
-1. Check directory permissions on `/var/config/`
-2. Verify PHP write access
-3. Check PHP error log for issues
-4. Clear browser cache and try again
-
-### Editor Not Appearing
-
-**Solution:**
-1. Verify editor plugin is installed
-2. Check XOOPS editor configuration
-3. Try different editor option
-4. Check browser console for JavaScript errors
-
-### Performance Issues
-
-**Solution:**
-1. Enable caching
-2. Reduce items per page
-3. Compress images
-4. Check database optimization
-5. Review slow query log
+- Gerenciamento de Categoria
+- Criação de Artigo
+- Configuração de Permissão
+- Guia de Instalação
 
 ---
 
-## Next Steps
+## Solução de Problemas de Configuração
 
-- Configure Group Permissions
-- Create your first Article
-- Set up Categories
-- Review Custom Templates
+### Configurações Não Salvam
+
+**Solução:**
+1. Verificar permissões de diretório em `/var/config/`
+2. Verificar acesso de escrita PHP
+3. Verificar log de erro PHP para problemas
+4. Limpar cache do navegador e tentar novamente
+
+### Editor Não Aparece
+
+**Solução:**
+1. Verificar se plugin de editor está instalado
+2. Verificar configuração de editor XOOPS
+3. Tentar opção de editor diferente
+4. Verificar console do navegador para erros JavaScript
+
+### Problemas de Desempenho
+
+**Solução:**
+1. Habilitar cache
+2. Reduzir itens por página
+3. Comprimir imagens
+4. Verificar otimização de banco de dados
+5. Revisar log de consulta lenta
 
 ---
 
-#publisher #configuration #preferences #settings #xoops
+## Próximas Etapas
+
+- Configurar Permissões de Grupo
+- Criar seu primeiro Artigo
+- Configurar Categorias
+- Revisar Templates Personalizados
+
+---
+
+#publisher #configuração #preferências #configurações #xoops

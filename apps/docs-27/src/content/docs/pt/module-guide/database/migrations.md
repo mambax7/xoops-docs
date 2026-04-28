@@ -1,14 +1,14 @@
 ---
-title: "Database Migrations"
+title: "Migrações de Banco de Dados"
 ---
 
-## Overview
+## Visão Geral
 
-Database migrations provide version-controlled, reversible changes to your database schema. They ensure consistent database states across development, staging, and production environments.
+Migrações de banco de dados fornecem mudanças versionadas e reversíveis no seu esquema de banco de dados. Elas garantem estados de banco de dados consistentes em ambientes de desenvolvimento, teste e produção.
 
-## Migration Structure
+## Estrutura de Migração
 
-### File Naming
+### Nomenclatura de Arquivos
 
 ```
 migrations/
@@ -19,7 +19,7 @@ migrations/
 └── 005_add_foreign_keys.php
 ```
 
-### Migration Class
+### Classe de Migração
 
 ```php
 <?php
@@ -56,19 +56,19 @@ return new class {
 };
 ```
 
-## Common Operations
+## Operações Comuns
 
-### Adding Columns
+### Adicionando Colunas
 
 ```php
 public function up(\XoopsDatabase $db): void
 {
     $table = $db->prefix('mymodule_articles');
 
-    // Add single column
+    // Adicionar coluna única
     $db->queryF("ALTER TABLE `{$table}` ADD COLUMN `views` INT UNSIGNED DEFAULT 0 AFTER `status`");
 
-    // Add multiple columns
+    // Adicionar múltiplas colunas
     $db->queryF("ALTER TABLE `{$table}`
         ADD COLUMN `summary` TEXT AFTER `content`,
         ADD COLUMN `featured` TINYINT(1) DEFAULT 0 AFTER `views`");
@@ -81,38 +81,38 @@ public function down(\XoopsDatabase $db): void
 }
 ```
 
-### Modifying Columns
+### Modificando Colunas
 
 ```php
 public function up(\XoopsDatabase $db): void
 {
     $table = $db->prefix('mymodule_articles');
 
-    // Change column type
+    // Alterar tipo de coluna
     $db->queryF("ALTER TABLE `{$table}` MODIFY COLUMN `title` VARCHAR(500) NOT NULL");
 
-    // Rename column
+    // Renomear coluna
     $db->queryF("ALTER TABLE `{$table}` CHANGE `summary` `excerpt` TEXT");
 }
 ```
 
-### Adding Indexes
+### Adicionando Índices
 
 ```php
 public function up(\XoopsDatabase $db): void
 {
     $table = $db->prefix('mymodule_articles');
 
-    // Single column index
+    // Índice de coluna única
     $db->queryF("CREATE INDEX `idx_created` ON `{$table}` (`created_at`)");
 
-    // Composite index
+    // Índice composto
     $db->queryF("CREATE INDEX `idx_status_date` ON `{$table}` (`status`, `created_at`)");
 
-    // Unique index
+    // Índice único
     $db->queryF("CREATE UNIQUE INDEX `idx_slug` ON `{$table}` (`slug`)");
 
-    // Fulltext index
+    // Índice de busca de texto completo
     $db->queryF("CREATE FULLTEXT INDEX `idx_search` ON `{$table}` (`title`, `content`)");
 }
 
@@ -126,7 +126,7 @@ public function down(\XoopsDatabase $db): void
 }
 ```
 
-### Foreign Keys
+### Chaves Estrangeiras
 
 ```php
 public function up(\XoopsDatabase $db): void
@@ -147,9 +147,9 @@ public function down(\XoopsDatabase $db): void
 }
 ```
 
-## Migration Runner
+## Executor de Migrações
 
-### Running Migrations
+### Executando Migrações
 
 ```php
 // include/onupdate.php
@@ -169,7 +169,7 @@ function xoops_module_update_mymodule(\XoopsModule $module, $previousVersion)
 }
 ```
 
-### Migration Runner Class
+### Classe Executora de Migrações
 
 ```php
 class MigrationRunner
@@ -224,18 +224,18 @@ class MigrationRunner
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-1. **One Change Per Migration** - Keep migrations focused
-2. **Always Write Down Methods** - Enable rollbacks
-3. **Test Both Directions** - Verify up() and down()
-4. **Use Transactions** - Wrap complex migrations
-5. **Don't Modify Old Migrations** - Create new ones instead
-6. **Back Up Before Running** - Especially in production
+1. **Uma Mudança Por Migração** - Mantenha migrações focadas
+2. **Sempre Escreva Métodos Down** - Ativar reversões
+3. **Teste Ambas as Direções** - Verifique up() e down()
+4. **Use Transações** - Envolva migrações complexas
+5. **Não Modifique Migrações Antigas** - Crie novas ao invés
+6. **Faça Backup Antes de Executar** - Especialmente em produção
 
-## Related Documentation
+## Documentação Relacionada
 
-- Database-Schema - Schema design
-- Database-Operations - Query execution
-- ../xoops_version.php - Module manifest
-- ../../07-XOOPS-4.0/XOOPS-4.0-Architecture - Modern architecture
+- Database-Schema - Design de esquema
+- Database-Operations - Execução de consultas
+- ../xoops_version.php - Manifesto do módulo
+- ../../07-XOOPS-4.0/XOOPS-4.0-Architecture - Arquitetura moderna

@@ -1,38 +1,38 @@
 ---
-title: "DTO Pattern in XOOPS"
-description: "Data Transfer Objects for clean data handling"
+title: "Padrão DTO em XOOPS"
+description: "Data Transfer Objects para manipulação limpa de dados"
 ---
 
-# DTO Pattern (Data Transfer Objects) in XOOPS
+# Padrão DTO (Data Transfer Objects) em XOOPS
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
-:::tip[Works in Both Versions]
-DTOs are plain PHP objects with no framework dependencies. They work identically in XOOPS 2.5.x and XOOPS 4.0.x. For PHP 8.2+, use constructor property promotion and readonly classes for cleaner syntax.
+:::tip[Funciona em Ambas as Versões]
+DTOs são objetos PHP simples sem dependências de framework. Funcionam identicamente em XOOPS 2.5.x e XOOPS 4.0.x. Para PHP 8.2+, use promoção de propriedade do construtor e classes readonly para sintaxe mais limpa.
 :::
 
-Data Transfer Objects (DTOs) are simple objects used to transfer data between different layers of an application. DTOs help maintain clear boundaries between layers and reduce dependencies on entity objects.
+Data Transfer Objects (DTOs) são objetos simples usados para transferir dados entre diferentes camadas de uma aplicação. DTOs ajudam a manter limites claros entre camadas e reduzem dependências de objetos de entidade.
 
-## DTO Concept
+## Conceito de DTO
 
-### What is a DTO?
-A DTO is:
-- A simple value object with properties
-- Immutable or read-only after creation
-- No business logic or methods
-- Optimized for data transfer
-- Independent of persistence mechanisms
+### O que é um DTO?
+Um DTO é:
+- Um objeto de valor simples com propriedades
+- Imutável ou somente leitura após criação
+- Sem lógica de negócio ou métodos
+- Otimizado para transferência de dados
+- Independente de mecanismos de persistência
 
-### When to Use DTOs
+### Quando Usar DTOs
 
-**Use DTOs when:**
-- Transferring data between layers
-- Exposing data through APIs
-- Aggregating data from multiple entities
-- Hiding internal implementation details
-- Changing data structure for different consumers
+**Use DTOs quando:**
+- Transferir dados entre camadas
+- Expor dados através de APIs
+- Agregar dados de múltiplas entidades
+- Ocultar detalhes de implementação interna
+- Alterar estrutura de dados para diferentes consumidores
 
-## Basic DTO Implementation
+## Implementação Básica de DTO
 
 ```php
 <?php
@@ -55,7 +55,7 @@ class UserDTO
         }
     }
     
-    // Read-only accessors
+    // Acessores somente leitura
     public function getId() { return $this->id; }
     public function getUsername() { return $this->username; }
     public function getEmail() { return $this->email; }
@@ -81,7 +81,7 @@ class UserDTO
 ?>
 ```
 
-## Request/Input DTO
+## DTO de Requisição/Entrada
 
 ```php
 <?php
@@ -133,7 +133,7 @@ class CreateUserRequestDTO
 ?>
 ```
 
-## Usage in Services
+## Uso em Serviços
 
 ```php
 <?php
@@ -158,7 +158,7 @@ class UserService
 ?>
 ```
 
-## Usage in API Controllers
+## Uso em Controladores de API
 
 ```php
 <?php
@@ -187,22 +187,22 @@ class ApiController
 ?>
 ```
 
-## Best Practices
+## Melhores Práticas
 
-- Keep DTOs focused and specific
-- Make DTOs immutable or read-only
-- Don't include business logic in DTOs
-- Use separate DTOs for input and output
-- Document DTO properties clearly
-- Keep DTOs simple - just data containers
+- Mantenha DTOs focados e específicos
+- Torne DTOs imutáveis ou somente leitura
+- Não inclua lógica de negócio em DTOs
+- Use DTOs separados para entrada e saída
+- Documente claramente as propriedades de DTO
+- Mantenha DTOs simples - apenas contêineres de dados
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- [Service-Layer](../Patterns/Service-Layer.md) for service integration
-- [Repository-Pattern](../Patterns/Repository-Pattern.md) for data access
-- [MVC-Pattern](../Patterns/MVC-Pattern.md) for controller usage
-- [Testing](../Best-Practices/Testing.md) for DTO testing
+Veja também:
+- [Service-Layer](../Patterns/Service-Layer.md) para integração de serviço
+- [Repository-Pattern](../Patterns/Repository-Pattern.md) para acesso de dados
+- [MVC-Pattern](../Patterns/MVC-Pattern.md) para uso de controlador
+- [Testing](../Best-Practices/Testing.md) para teste de DTO
 
 ---
 

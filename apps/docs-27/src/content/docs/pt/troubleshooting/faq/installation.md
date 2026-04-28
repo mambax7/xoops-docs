@@ -1,21 +1,21 @@
 ---
-title: "Installation FAQ"
-description: "Frequently asked questions about XOOPS installation"
+title: "FAQ de Instalação"
+description: "Perguntas frequentes sobre instalação do XOOPS"
 ---
 
-> Common questions and answers about installing XOOPS.
+> Perguntas e respostas comuns sobre a instalação do XOOPS.
 
 ---
 
-## Pre-Installation
+## Pré-Instalação
 
-### Q: What are the minimum server requirements?
+### P: Quais são os requisitos mínimos de servidor?
 
-**A:** XOOPS 2.5.x requires:
-- PHP 7.4 or higher (PHP 8.x recommended)
-- MySQL 5.7+ or MariaDB 10.3+
-- Apache with mod_rewrite or Nginx
-- At least 64MB PHP memory limit (128MB+ recommended)
+**R:** XOOPS 2.5.x requer:
+- PHP 7.4 ou superior (PHP 8.x recomendado)
+- MySQL 5.7+ ou MariaDB 10.3+
+- Apache com mod_rewrite ou Nginx
+- Pelo menos 64MB de limite de memória PHP (128MB+ recomendado)
 
 ```mermaid
 graph LR
@@ -24,49 +24,49 @@ graph LR
     C[Apache/Nginx] --> D
 ```
 
-### Q: Can I install XOOPS on shared hosting?
+### P: Posso instalar XOOPS em hospedagem compartilhada?
 
-**A:** Yes, XOOPS works well on most shared hosting that meets the requirements. Check that your host provides:
-- PHP with required extensions (mysqli, gd, curl, json, mbstring)
-- MySQL database access
-- File upload capability
-- .htaccess support (for Apache)
+**R:** Sim, XOOPS funciona bem na maioria das hospedagens compartilhadas que atendem aos requisitos. Verifique se sua hospedagem fornece:
+- PHP com extensões necessárias (mysqli, gd, curl, json, mbstring)
+- Acesso ao banco de dados MySQL
+- Capacidade de upload de arquivos
+- Suporte .htaccess (para Apache)
 
-### Q: Which PHP extensions are required?
+### P: Quais extensões PHP são necessárias?
 
-**A:** Required extensions:
-- `mysqli` - Database connectivity
-- `gd` - Image processing
-- `json` - JSON handling
-- `mbstring` - Multibyte string support
+**R:** Extensões obrigatórias:
+- `mysqli` - Conectividade de banco de dados
+- `gd` - Processamento de imagem
+- `json` - Tratamento JSON
+- `mbstring` - Suporte a strings multibyte
 
-Recommended:
-- `curl` - External API calls
-- `zip` - Module installation
-- `intl` - Internationalization
+Recomendadas:
+- `curl` - Chamadas de API externas
+- `zip` - Instalação de módulo
+- `intl` - Internacionalização
 
 ---
 
-## Installation Process
+## Processo de Instalação
 
-### Q: The installation wizard shows a blank page
+### P: O assistente de instalação mostra uma página em branco
 
-**A:** This is usually a PHP error. Try:
+**R:** Isto geralmente é um erro PHP. Tente:
 
-1. Enable error display temporarily:
+1. Ativar exibição de erro temporariamente:
 ```php
 // Add to htdocs/install/index.php at the top
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ```
 
-2. Check PHP error log
-3. Verify PHP version compatibility
-4. Ensure all required extensions are loaded
+2. Verificar log de erros PHP
+3. Verificar compatibilidade de versão PHP
+4. Garantir que todas as extensões necessárias estejam carregadas
 
-### Q: I get "Cannot write to mainfile.php"
+### P: Recebo "Cannot write to mainfile.php"
 
-**A:** Set write permissions before installation:
+**R:** Defina permissões de escrita antes da instalação:
 
 ```bash
 chmod 666 mainfile.php
@@ -74,40 +74,40 @@ chmod 666 mainfile.php
 chmod 444 mainfile.php
 ```
 
-### Q: Database tables are not being created
+### P: Tabelas de banco de dados não estão sendo criadas
 
-**A:** Check:
+**R:** Verifique:
 
-1. MySQL user has CREATE TABLE privileges:
+1. O usuário MySQL tem privilégios CREATE TABLE:
 ```sql
 GRANT ALL PRIVILEGES ON xoopsdb.* TO 'xoopsuser'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-2. Database exists:
+2. O banco de dados existe:
 ```sql
 CREATE DATABASE xoopsdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-3. Credentials in wizard match database settings
+3. As credenciais no assistente correspondem às configurações do banco de dados
 
-### Q: Installation completes but site shows errors
+### P: Instalação completa mas o site mostra erros
 
-**A:** Common post-installation fixes:
+**R:** Correções comuns após instalação:
 
-1. Remove or rename install directory:
+1. Remover ou renomear diretório de instalação:
 ```bash
 mv htdocs/install htdocs/install.bak
 ```
 
-2. Set proper permissions:
+2. Definir permissões adequadas:
 ```bash
 chmod -R 755 htdocs/
 chmod -R 777 xoops_data/
 chmod 444 mainfile.php
 ```
 
-3. Clear cache:
+3. Limpar cache:
 ```bash
 rm -rf xoops_data/caches/smarty_cache/*
 rm -rf xoops_data/caches/smarty_compile/*
@@ -115,11 +115,11 @@ rm -rf xoops_data/caches/smarty_compile/*
 
 ---
 
-## Configuration
+## Configuração
 
-### Q: Where is the configuration file?
+### P: Onde está o arquivo de configuração?
 
-**A:** Main configuration is in `mainfile.php` in the XOOPS root. Key settings:
+**R:** A configuração principal está em `mainfile.php` na raiz do XOOPS. Configurações principais:
 
 ```php
 define('XOOPS_ROOT_PATH', '/path/to/htdocs');
@@ -132,36 +132,36 @@ define('XOOPS_DB_NAME', 'database');
 define('XOOPS_DB_PREFIX', 'xoops');
 ```
 
-### Q: How do I change the site URL?
+### P: Como altero a URL do site?
 
-**A:** Edit `mainfile.php`:
+**R:** Edite `mainfile.php`:
 
 ```php
 define('XOOPS_URL', 'https://newdomain.com');
 ```
 
-Then clear cache and update any hardcoded URLs in database.
+Depois limpe o cache e atualize qualquer URL codificada no banco de dados.
 
-### Q: How do I move XOOPS to a different directory?
+### P: Como movo XOOPS para um diretório diferente?
 
-**A:**
+**R:**
 
-1. Move files to new location
-2. Update paths in `mainfile.php`:
+1. Mover arquivos para novo local
+2. Atualizar caminhos em `mainfile.php`:
 ```php
 define('XOOPS_ROOT_PATH', '/new/path/to/htdocs');
 define('XOOPS_VAR_PATH', '/new/path/to/xoops_data');
 ```
-3. Update database if needed
-4. Clear all caches
+3. Atualizar banco de dados se necessário
+4. Limpar todos os caches
 
 ---
 
-## Upgrades
+## Atualizações
 
-### Q: How do I upgrade XOOPS?
+### P: Como faço upgrade do XOOPS?
 
-**A:**
+**R:**
 
 ```mermaid
 flowchart TD
@@ -174,35 +174,35 @@ flowchart TD
     G --> H[Test Site]
 ```
 
-1. **Backup everything** (database + files)
-2. Download new XOOPS version
-3. Upload files (don't overwrite `mainfile.php`)
-4. Run `htdocs/upgrade/` if provided
-5. Update modules via admin panel
-6. Clear all caches
-7. Test thoroughly
+1. **Fazer backup de tudo** (banco de dados + arquivos)
+2. Baixar nova versão do XOOPS
+3. Fazer upload de arquivos (não sobrescrever `mainfile.php`)
+4. Executar `htdocs/upgrade/` se fornecido
+5. Atualizar módulos via painel admin
+6. Limpar todos os caches
+7. Testar cuidadosamente
 
-### Q: Can I skip versions when upgrading?
+### P: Posso pular versões ao fazer upgrade?
 
-**A:** Generally no. Upgrade sequentially through major versions to ensure database migrations run correctly. Check release notes for specific guidance.
+**R:** Geralmente não. Fazer upgrade sequencialmente através de versões principais para garantir que as migrações de banco de dados sejam executadas corretamente. Verifique as notas de lançamento para orientação específica.
 
-### Q: My modules stopped working after upgrade
+### P: Meus módulos pararam de funcionar após upgrade
 
-**A:**
+**R:**
 
-1. Check module compatibility with new XOOPS version
-2. Update modules to latest versions
-3. Regenerate templates: Admin → System → Maintenance → Templates
-4. Clear all caches
-5. Check PHP error logs for specific errors
+1. Verificar compatibilidade de módulo com nova versão do XOOPS
+2. Atualizar módulos para as versões mais recentes
+3. Regenerar templates: Admin → Sistema → Manutenção → Templates
+4. Limpar todos os caches
+5. Verificar logs de erro PHP para erros específicos
 
 ---
 
-## Troubleshooting
+## Solução de Problemas
 
-### Q: I forgot the admin password
+### P: Esqueci a senha de administrador
 
-**A:** Reset via database:
+**R:** Resetar via banco de dados:
 
 ```sql
 -- Generate new password hash
@@ -211,37 +211,37 @@ SET pass = MD5('newpassword')
 WHERE uname = 'admin';
 ```
 
-Or use the password reset feature if email is configured.
+Ou use o recurso de redefinição de senha se o email estiver configurado.
 
-### Q: Site is very slow after installation
+### P: Site muito lento após instalação
 
-**A:**
+**R:**
 
-1. Enable caching in Admin → System → Preferences
-2. Optimize database:
+1. Ativar cache em Admin → Sistema → Preferências
+2. Otimizar banco de dados:
 ```sql
 OPTIMIZE TABLE xoops_session;
 OPTIMIZE TABLE xoops_online;
 ```
-3. Check for slow queries in debug mode
-4. Enable PHP OpCache
+3. Verificar queries lentas em modo debug
+4. Ativar PHP OpCache
 
-### Q: Images/CSS not loading
+### P: Imagens/CSS não estão carregando
 
-**A:**
+**R:**
 
-1. Check file permissions (644 for files, 755 for directories)
-2. Verify `XOOPS_URL` is correct in `mainfile.php`
-3. Check .htaccess for rewrite conflicts
-4. Inspect browser console for 404 errors
+1. Verificar permissões de arquivo (644 para arquivos, 755 para diretórios)
+2. Verificar se `XOOPS_URL` está correto em `mainfile.php`
+3. Verificar .htaccess para conflitos de reescrita
+4. Inspecionar console do navegador para erros 404
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Installation Guide
-- Basic Configuration
-- White Screen of Death
+- Guia de Instalação
+- Configuração Básica
+- Tela Branca da Morte
 
 ---
 

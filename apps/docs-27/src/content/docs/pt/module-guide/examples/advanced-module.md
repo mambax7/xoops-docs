@@ -1,13 +1,13 @@
 ---
-title: "Advanced Module Example"
-description: "Complex module with multiple tables, relationships, admin interface, and blocks"
+title: "Exemplo de Módulo Avançado"
+description: "Módulo complexo com múltiplas tabelas, relacionamentos, interface admin e blocos"
 ---
 
-# Advanced Module Example - Forum
+# Exemplo de Módulo Avançado - Fórum
 
-A comprehensive "Forum" module demonstrating advanced patterns: multiple entity types, relationships, complex admin interface, and notifications.
+Um módulo abrangente "Fórum" demonstrando padrões avançados: múltiplos tipos de entidade, relacionamentos, interface admin complexa e notificações.
 
-## Module Structure
+## Estrutura do Módulo
 
 ```
 forum/
@@ -33,10 +33,10 @@ forum/
 └── sql/mysql.sql
 ```
 
-## Database Schema
+## Esquema de Banco de Dados
 
 ```sql
--- Forums
+-- Fóruns
 CREATE TABLE `xoops_forum_forums` (
   `forum_id` INT AUTO_INCREMENT PRIMARY KEY,
   `forum_name` VARCHAR(255) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `xoops_forum_forums` (
   `forum_created` INT NOT NULL
 );
 
--- Topics
+-- Tópicos
 CREATE TABLE `xoops_forum_topics` (
   `topic_id` INT AUTO_INCREMENT PRIMARY KEY,
   `topic_forum_id` INT NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `xoops_forum_topics` (
   FOREIGN KEY (`topic_forum_id`) REFERENCES `xoops_forum_forums`(`forum_id`)
 );
 
--- Posts
+-- Postagens
 CREATE TABLE `xoops_forum_posts` (
   `post_id` INT AUTO_INCREMENT PRIMARY KEY,
   `post_topic_id` INT NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE `xoops_forum_posts` (
   FOREIGN KEY (`post_topic_id`) REFERENCES `xoops_forum_topics`(`topic_id`)
 );
 
--- Subscriptions
+-- Inscrições
 CREATE TABLE `xoops_forum_subscriptions` (
   `subscription_id` INT AUTO_INCREMENT PRIMARY KEY,
   `subscription_user_id` INT NOT NULL,
@@ -77,9 +77,9 @@ CREATE TABLE `xoops_forum_subscriptions` (
 );
 ```
 
-## Entity Classes
+## Classes de Entidade
 
-### Topic Entity
+### Entidade Tópico
 
 ```php
 <?php
@@ -93,7 +93,7 @@ class Topic
     private $viewCount = 0;
     private $createdAt;
     
-    // Getters and setters...
+    // Getters e setters...
     public function getId() { return $this->id; }
     public function setId($id) { $this->id = $id; return $this; }
     
@@ -112,7 +112,7 @@ class Topic
 ?>
 ```
 
-## Repository with Relationships
+## Repositório com Relacionamentos
 
 ```php
 <?php
@@ -170,7 +170,7 @@ class TopicRepository
 ?>
 ```
 
-## Service Layer
+## Camada de Serviço
 
 ```php
 <?php
@@ -192,12 +192,12 @@ class TopicService
     
     public function createTopic($forumId, $userId, $title, $content)
     {
-        // Validate
+        // Validar
         if (strlen($title) < 3) {
             throw new \InvalidArgumentException('Title too short');
         }
         
-        // Create topic
+        // Criar tópico
         $topic = new Topic();
         $topic->setForumId($forumId)
             ->setAuthorId($userId)
@@ -206,10 +206,10 @@ class TopicService
         
         $topicId = $this->topicRepository->save($topic);
         
-        // Create first post
+        // Criar primeira postagem
         $this->postRepository->createPost($topicId, $forumId, $userId, $content);
         
-        // Notify subscribers
+        // Notificar inscritos
         $this->notificationHandler->notifyNewTopic($topicId);
         
         return $topicId;
@@ -217,18 +217,18 @@ class TopicService
     
     public function getTopicWithPosts($topicId, $page = 1, $perPage = 20)
     {
-        // Get topic with author info
+        // Obter tópico com informações do autor
         $topic = $this->topicRepository->getWithAuthorInfo($topicId);
         
         if (!$topic) {
             throw new \RuntimeException('Topic not found');
         }
         
-        // Increment view count
+        // Incrementar contagem de visualizações
         $topic['topic_view_count']++;
         $this->topicRepository->updateViewCount($topicId, $topic['topic_view_count']);
         
-        // Get posts
+        // Obter postagens
         $offset = ($page - 1) * $perPage;
         $posts = $this->postRepository->getByTopicId($topicId, $perPage, $offset);
         
@@ -243,23 +243,23 @@ class TopicService
 ?>
 ```
 
-## Advanced Features
+## Recursos Avançados
 
-This example demonstrates:
+Este exemplo demonstra:
 
-1. **Entity Relationships** - Forums contain Topics, Topics contain Posts
-2. **Complex Queries** - Joins with user info and statistics
-3. **Service Coordination** - Multiple services working together
-4. **Data Aggregation** - Post counts, view counts
-5. **Notifications** - Event-driven notifications for subscriptions
-6. **Transaction-like Operations** - Creating topic with initial post
+1. **Relacionamentos de Entidade** - Fóruns contêm Tópicos, Tópicos contêm Postagens
+2. **Consultas Complexas** - Junções com informações do usuário e estatísticas
+3. **Coordenação de Serviços** - Múltiplos serviços trabalhando juntos
+4. **Agregação de Dados** - Contagens de postagens, contagens de visualizações
+5. **Notificações** - Notificações acionadas por eventos para inscrições
+6. **Operações do Tipo Transação** - Criando tópico com postagem inicial
 
-## Related Patterns
+## Padrões Relacionados
 
-See also:
-- ../Patterns/Repository-Pattern for complex queries
-- ../Patterns/Service-Layer for service coordination
-- ../Patterns/DTO-Pattern for data transfer
+Veja também:
+- ../Patterns/Repository-Pattern para consultas complexas
+- ../Patterns/Service-Layer para coordenação de serviços
+- ../Patterns/DTO-Pattern para transferência de dados
 
 ---
 

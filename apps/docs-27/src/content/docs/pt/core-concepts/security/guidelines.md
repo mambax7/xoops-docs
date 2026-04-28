@@ -1,192 +1,192 @@
 ---
-title: "Security Guidelines"
+title: "Diretrizes de Segurança"
 ---
 
-## Overview
+## Visão Geral
 
-This document outlines security best practices for XOOPS development, covering input validation, output encoding, authentication, authorization, and protection against common web vulnerabilities.
+Este documento descreve boas práticas de segurança para desenvolvimento XOOPS, cobrindo validação de entrada, codificação de saída, autenticação, autorização e proteção contra vulnerabilidades web comuns.
 
-## Security Principles
+## Princípios de Segurança
 
 ```mermaid
 flowchart TB
-    subgraph "Defense in Depth"
-        A[Input Validation] --> B[Authentication]
-        B --> C[Authorization]
-        C --> D[Data Sanitization]
-        D --> E[Output Encoding]
-        E --> F[Audit Logging]
+    subgraph "Defesa em Profundidade"
+        A[Validação de Entrada] --> B[Autenticação]
+        B --> C[Autorização]
+        C --> D[Sanitização de Dados]
+        D --> E[Codificação de Saída]
+        E --> F[Registro de Auditoria]
     end
 ```
 
-## Input Validation
+## Validação de Entrada
 
-### Request Sanitization
+### Sanitização de Requisição
 
 ```php
 use Xoops\Core\Request;
 
-// Always use typed getters
+// Sempre usar getters tipados
 $id = Request::getInt('id', 0, 'GET');
 $name = Request::getString('name', '', 'POST');
 $email = Request::getEmail('email', '', 'POST');
 $url = Request::getUrl('website', '', 'POST');
 
-// Never use raw $_GET/$_POST/$_REQUEST
-// Bad: $id = $_GET['id'];
-// Good: $id = Request::getInt('id', 0, 'GET');
+// Nunca usar $_GET/$_POST/$_REQUEST brutos
+// Ruim: $id = $_GET['id'];
+// Bom: $id = Request::getInt('id', 0, 'GET');
 ```
 
-### Validation Rules
+### Regras de Validação
 
 ```php
-// Validate before use
+// Validar antes de usar
 if ($id <= 0) {
-    throw new InvalidArgumentException('Invalid ID');
+    throw new InvalidArgumentException('ID inválido');
 }
 
 if (!preg_match('/^[a-zA-Z0-9_]{3,50}$/', $username)) {
-    throw new InvalidArgumentException('Invalid username format');
+    throw new InvalidArgumentException('Formato de nome de usuário inválido');
 }
 
-// Use whitelist validation for enums
-$allowedStatuses = ['draft', 'published', 'archived'];
+// Usar validação whitelist para enums
+$allowedStatuses = ['draft', 'publicado', 'arquivado'];
 if (!in_array($status, $allowedStatuses, true)) {
-    throw new InvalidArgumentException('Invalid status');
+    throw new InvalidArgumentException('Status inválido');
 }
 ```
 
-## SQL Injection Prevention
+## Prevenção de Injeção de SQL
 
-### Use Parameterized Queries
+### Usar Consultas Parametrizadas
 
 ```php
-// GOOD: Parameterized query
+// BOM: Consulta parametrizada
 $sql = "SELECT * FROM {$xoopsDB->prefix('users')} WHERE uid = ?";
 $result = $xoopsDB->query($sql, [$userId]);
 
-// BAD: String concatenation (vulnerable!)
+// RUIM: Concatenação de string (vulnerável!)
 // $sql = "SELECT * FROM users WHERE uid = " . $userId;
 ```
 
-### Using Criteria Objects
+### Usando Objetos Criteria
 
 ```php
 use Criteria;
 use CriteriaCompo;
 
 $criteria = new CriteriaCompo();
-$criteria->add(new Criteria('status', 'published'));
+$criteria->add(new Criteria('status', 'publicado'));
 $criteria->add(new Criteria('uid', $userId, '='));
 $criteria->add(new Criteria('created', time() - 86400, '>'));
 
 $articles = $articleHandler->getObjects($criteria);
 ```
 
-## XSS Prevention
+## Prevenção de XSS
 
-### Output Encoding
+### Codificação de Saída
 
 ```php
 use Xoops\Core\Text\Sanitizer;
 
-// HTML context
+// Contexto HTML
 $safeName = htmlspecialchars($userName, ENT_QUOTES, 'UTF-8');
 
-// In templates (auto-escaped)
+// Em templates (automaticamente escapado)
 {$userName|escape}
 
-// For rich content
+// Para conteúdo rico
 $sanitizer = Sanitizer::getInstance();
 $safeContent = $sanitizer->sanitizeForDisplay($content);
 ```
 
-### Content Security Policy
+### Política de Segurança de Conteúdo
 
 ```php
-// Set CSP headers
+// Definir cabeçalhos CSP
 header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'");
 ```
 
-## CSRF Protection
+## Proteção CSRF
 
-### Token Implementation
+### Implementação de Token
 
 ```php
-// Generate token
+// Gerar token
 use Xoops\Core\Security;
 
 $token = Security::createToken();
 
-// In form
+// Em formulário
 echo '<input type="hidden" name="XOOPS_TOKEN_REQUEST" value="' . $token . '">';
 
-// Verify on submission
+// Verificar no envio
 if (!Security::checkToken()) {
-    die('Security token mismatch');
+    die('Incompatibilidade de token de segurança');
 }
 ```
 
-### Using XoopsForm
+### Usando XoopsForm
 
 ```php
-// Automatically adds CSRF token
-$form = new XoopsThemeForm('Edit Article', 'articleform', 'save.php');
+// Adiciona automaticamente token CSRF
+$form = new XoopsThemeForm('Editar Artigo', 'articleform', 'save.php');
 $form->addElement(new XoopsFormHiddenToken());
 ```
 
-## Authentication
+## Autenticação
 
-### Password Handling
+### Manipulação de Senha
 
 ```php
-// Hash passwords (PHP 5.5+)
+// Hash de senhas (PHP 5.5+)
 $hashedPassword = password_hash($plainPassword, PASSWORD_ARGON2ID);
 
-// Verify passwords
+// Verificar senhas
 if (password_verify($plainPassword, $storedHash)) {
-    // Password correct
+    // Senha correta
 }
 
-// Check if rehash needed
+// Verificar se rehash é necessário
 if (password_needs_rehash($storedHash, PASSWORD_ARGON2ID)) {
     $newHash = password_hash($plainPassword, PASSWORD_ARGON2ID);
-    // Update stored hash
+    // Atualizar hash armazenado
 }
 ```
 
-### Session Security
+### Segurança de Sessão
 
 ```php
-// Regenerate session ID after login
+// Regenerar ID de sessão após login
 session_regenerate_id(true);
 
-// Set secure session cookie options
+// Definir opções de cookie de sessão segura
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 ini_set('session.cookie_samesite', 'Lax');
 ```
 
-## Authorization
+## Autorização
 
-### Permission Checks
+### Verificações de Permissão
 
 ```php
-// Check module admin
+// Verificar admin de módulo
 if (!$xoopsUser || !$xoopsUser->isAdmin($xoopsModule->mid())) {
-    redirect_header('index.php', 3, 'Access denied');
+    redirect_header('index.php', 3, 'Acesso negado');
 }
 
-// Check group permissions
+// Verificar permissões de grupo
 $grouppermHandler = xoops_getHandler('groupperm');
 $groups = $xoopsUser ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 
 if (!$grouppermHandler->checkRight('view_item', $itemId, $groups, $moduleId)) {
-    throw new AccessDeniedException('Permission denied');
+    throw new AccessDeniedException('Permissão negada');
 }
 ```
 
-### Role-Based Access
+### Acesso Baseado em Função
 
 ```php
 class PermissionChecker
@@ -197,23 +197,23 @@ class PermissionChecker
             return false;
         }
 
-        // Admin can edit anything
+        // Admin pode editar qualquer coisa
         if ($user->isAdmin()) {
             return true;
         }
 
-        // Author can edit their own
+        // Autor pode editar seus próprios
         if ($article->getAuthorId() === $user->uid()) {
             return true;
         }
 
-        // Check editor permission
+        // Verificar permissão de editor
         return $this->hasPermission($user, 'article_edit');
     }
 }
 ```
 
-## File Upload Security
+## Segurança de Upload de Arquivo
 
 ```php
 class SecureUploader
@@ -228,12 +228,12 @@ class SecureUploader
 
     public function validate(array $file): bool
     {
-        // Check file size
+        // Verificar tamanho de arquivo
         if ($file['size'] > 2 * 1024 * 1024) {
             throw new FileTooLargeException();
         }
 
-        // Verify MIME type
+        // Verificar tipo MIME
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mimeType = $finfo->file($file['tmp_name']);
 
@@ -241,13 +241,13 @@ class SecureUploader
             throw new InvalidFileTypeException();
         }
 
-        // Check extension
+        // Verificar extensão
         $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (!in_array($extension, $this->allowedExtensions, true)) {
             throw new InvalidFileTypeException();
         }
 
-        // Generate safe filename
+        // Gerar nome de arquivo seguro
         return true;
     }
 
@@ -259,7 +259,7 @@ class SecureUploader
 }
 ```
 
-## Audit Logging
+## Registro de Auditoria
 
 ```php
 class SecurityLogger
@@ -274,7 +274,7 @@ class SecurityLogger
             'timestamp' => time()
         ];
 
-        // Log to database or file
+        // Registrar em banco de dados ou arquivo
         $this->log('auth', $data);
     }
 
@@ -293,23 +293,23 @@ class SecurityLogger
 }
 ```
 
-## Security Headers
+## Cabeçalhos de Segurança
 
 ```php
-// Recommended security headers
+// Cabeçalhos de segurança recomendados
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('X-XSS-Protection: 1; mode=block');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
 
-// HSTS (only for HTTPS sites)
+// HSTS (apenas para sites HTTPS)
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
     header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 }
 ```
 
-## Rate Limiting
+## Limitação de Taxa
 
 ```php
 class RateLimiter
@@ -320,7 +320,7 @@ class RateLimiter
         $attempts = (int) $this->cache->get($cacheKey, 0);
 
         if ($attempts >= $maxAttempts) {
-            return false; // Rate limited
+            return false; // Taxa limitada
         }
 
         $this->cache->increment($cacheKey, 1, $windowSeconds);
@@ -328,28 +328,28 @@ class RateLimiter
     }
 }
 
-// Usage
+// Uso
 $limiter = new RateLimiter();
 if (!$limiter->check('login:' . $ip, 5, 300)) {
-    throw new TooManyRequestsException('Too many login attempts');
+    throw new TooManyRequestsException('Muitas tentativas de login');
 }
 ```
 
-## Security Checklist
+## Lista de Verificação de Segurança
 
-- [ ] All user input validated and sanitized
-- [ ] Parameterized queries for all database operations
-- [ ] Output encoding for all user-generated content
-- [ ] CSRF tokens on all state-changing forms
-- [ ] Secure password hashing (Argon2id)
-- [ ] Session security configured
-- [ ] File upload validation
-- [ ] Security headers set
-- [ ] Rate limiting implemented
-- [ ] Audit logging enabled
-- [ ] Error messages don't leak sensitive info
+- [ ] Toda entrada do usuário validada e sanitizada
+- [ ] Consultas parametrizadas para todas as operações de banco de dados
+- [ ] Codificação de saída para todo conteúdo gerado pelo usuário
+- [ ] Tokens CSRF em todos os formulários que alteram estado
+- [ ] Hash de senha seguro (Argon2id)
+- [ ] Segurança de sessão configurada
+- [ ] Validação de upload de arquivo
+- [ ] Cabeçalhos de segurança definidos
+- [ ] Limitação de taxa implementada
+- [ ] Registro de auditoria ativado
+- [ ] Mensagens de erro não vazam informações sensíveis
 
-## Related Documentation
+## Documentação Relacionada
 
 - Authentication System
 - Permission System

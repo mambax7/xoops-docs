@@ -1,52 +1,52 @@
 ---
-title: Upgrading from XOOPS 2.5 to 2.7
-description: Step-by-step guide to safely upgrade your XOOPS installation from 2.5.x to 2.7.x.
+title: Atualizando XOOPS 2.5 para 2.7
+description: Guia passo a passo para atualizar com segurança sua instalação XOOPS de 2.5.x para 2.7.x.
 ---
 
-:::caution[Back up first]
-Always back up your database and files before upgrading. No exceptions.
+:::caution[Faça backup primeiro]
+Sempre faça backup de seu banco de dados e arquivos antes de atualizar. Sem exceções.
 :::
 
-## What Changed in 2.7
+## O Que Mudou em 2.7
 
-- **PHP 8.2+ required** — PHP 7.x is no longer supported
-- **Composer-managed dependencies** — Core libraries managed via `composer.json`
-- **PSR-4 autoloading** — Module classes can use namespaces
-- **Improved XoopsObject** — New `getVar()` type safety, deprecated `obj2Array()`
-- **Bootstrap 5 admin** — Admin panel rebuilt with Bootstrap 5
+- **PHP 8.2+ obrigatório** — PHP 7.x não é mais suportado
+- **Dependências gerenciadas pelo Composer** — Bibliotecas principais gerenciadas via `composer.json`
+- **Carregamento automático PSR-4** — Classes de módulo podem usar namespaces
+- **XoopsObject aprimorado** — Novo `getVar()` com segurança de tipo, `obj2Array()` descontinuado
+- **Admin Bootstrap 5** — Painel de administração reconstruído com Bootstrap 5
 
-## Pre-Upgrade Checklist
+## Lista de Verificação Pré-Atualização
 
-- [ ] PHP 8.2+ available on your server
-- [ ] Full database backup (`mysqldump -u user -p xoops_db > backup.sql`)
-- [ ] Full file backup of your installation
-- [ ] List of installed modules and their versions
-- [ ] Custom theme backed up separately
+- [ ] PHP 8.2+ disponível no seu servidor
+- [ ] Backup completo de banco de dados (`mysqldump -u user -p xoops_db > backup.sql`)
+- [ ] Backup completo de arquivos de sua instalação
+- [ ] Lista de módulos instalados e suas versões
+- [ ] Tema personalizado com backup separado
 
-## Upgrade Steps
+## Passos de Atualização
 
-### 1. Put the site in maintenance mode
+### 1. Coloque o site em modo de manutenção
 
 ```php
-// mainfile.php — add temporarily
+// mainfile.php — adicione temporariamente
 define('XOOPS_MAINTENANCE', true);
 ```
 
-### 2. Download XOOPS 2.7
+### 2. Baixe XOOPS 2.7
 
 ```bash
 wget https://github.com/XOOPS/XoopsCore27/releases/latest/download/xoops-2.7.x.zip
 unzip xoops-2.7.x.zip
 ```
 
-### 3. Replace core files
+### 3. Substitua arquivos principais
 
-Upload the new files, **excluding**:
-- `uploads/` — your uploaded files
-- `xoops_data/` — your configuration
-- `modules/` — your installed modules
-- `themes/` — your themes
-- `mainfile.php` — your site config
+Envie os novos arquivos, **excluindo**:
+- `uploads/` — seus arquivos enviados
+- `xoops_data/` — sua configuração
+- `modules/` — seus módulos instalados
+- `themes/` — seus temas
+- `mainfile.php` — sua configuração de site
 
 ```bash
 rsync -av --exclude='uploads/' --exclude='xoops_data/' \
@@ -54,33 +54,33 @@ rsync -av --exclude='uploads/' --exclude='xoops_data/' \
   xoops-2.7/ /var/www/html/
 ```
 
-### 4. Run the upgrade script
+### 4. Execute o script de atualização
 
-Navigate to `https://yourdomain.com/upgrade/` in your browser.
-The upgrade wizard will apply database migrations.
+Navegue até `https://seudominio.com/upgrade/` em seu navegador.
+O assistente de atualização aplicará migrações de banco de dados.
 
-### 5. Update modules
+### 5. Atualize módulos
 
-XOOPS 2.7 modules must be PHP 8.2 compatible.
-Check the [Module Ecosystem](/xoops-docs/2.7/module-guide/introduction/) for updated versions.
+Módulos do XOOPS 2.7 devem ser compatíveis com PHP 8.2.
+Verifique o [Ecossistema de Módulos](/xoops-docs/2.7/module-guide/introduction/) para versões atualizadas.
 
-In Admin → Modules, click **Update** for each installed module.
+No Admin → Módulos, clique em **Atualizar** para cada módulo instalado.
 
-### 6. Remove maintenance mode and test
+### 6. Remova modo de manutenção e teste
 
-Remove the `XOOPS_MAINTENANCE` line from `mainfile.php` and
-verify all pages load correctly.
+Remova a linha `XOOPS_MAINTENANCE` de `mainfile.php` e
+verifique se todas as páginas carregam corretamente.
 
-## Common Issues
+## Problemas Comuns
 
-**"Class not found" errors after upgrade**
-- Run `composer dump-autoload` in the XOOPS root
-- Clear the `xoops_data/caches/` directory
+**Erros "Classe não encontrada" após atualização**
+- Execute `composer dump-autoload` na raiz do XOOPS
+- Limpe o diretório `xoops_data/caches/`
 
-**Module broken after update**
-- Check the module's GitHub releases for a 2.7-compatible version
-- The module may need code changes for PHP 8.2 (deprecated functions, typed properties)
+**Módulo quebrado após atualização**
+- Verifique as versões de lançamento do GitHub do módulo para uma versão compatível com 2.7
+- O módulo pode precisar de mudanças no código para PHP 8.2 (funções descontinuadas, propriedades tipadas)
 
-**Admin panel CSS broken**
-- Clear your browser cache
-- Ensure `xoops_lib/` was fully replaced during the file upload
+**CSS do painel de administração quebrado**
+- Limpe o cache do seu navegador
+- Certifique-se de que `xoops_lib/` foi totalmente substituído durante o envio de arquivo

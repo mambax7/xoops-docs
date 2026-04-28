@@ -1,36 +1,36 @@
 ---
-title: "Module Development Best Practices"
+title: "Boas Práticas de Desenvolvimento de Módulo"
 ---
 
-## Overview
+## Visão Geral
 
-This document consolidates best practices for developing high-quality XOOPS modules. Following these guidelines ensures maintainable, secure, and performant modules.
+Este documento consolida as melhores práticas para desenvolver módulos XOOPS de alta qualidade. Seguir essas diretrizes garante módulos manteníveis, seguros e eficazes em relação ao desempenho.
 
-## Architecture
+## Arquitetura
 
-### Follow Clean Architecture
+### Seguir Arquitetura Limpa
 
-Organize code into layers:
+Organize código em camadas:
 
 ```
 src/
-├── Domain/          # Business logic, entities
-├── Application/     # Use cases, services
-├── Infrastructure/  # Database, external services
+├── Domain/          # Lógica de negócios, entidades
+├── Application/     # Casos de uso, serviços
+├── Infrastructure/  # Banco de dados, serviços externos
 └── Presentation/    # Controllers, templates
 ```
 
-### Single Responsibility
+### Responsabilidade Única
 
-Each class should have one reason to change:
+Cada classe deve ter um motivo para mudar:
 
 ```php
-// Good: Focused classes
-class ArticleRepository { /* persistence only */ }
-class ArticleValidator { /* validation only */ }
-class ArticleNotifier { /* notifications only */ }
+// Bom: Classes focadas
+class ArticleRepository { /* apenas persistência */ }
+class ArticleValidator { /* apenas validação */ }
+class ArticleNotifier { /* apenas notificações */ }
 
-// Bad: God class
+// Ruim: Classe Deus
 class Article {
     public function save() { }
     public function validate() { }
@@ -39,27 +39,27 @@ class Article {
 }
 ```
 
-### Dependency Injection
+### Injeção de Dependência
 
-Inject dependencies, don't create them:
+Injete dependências, não as crie:
 
 ```php
-// Good
+// Bom
 public function __construct(
     private readonly ArticleRepositoryInterface $repository
 ) {}
 
-// Bad
+// Ruim
 public function __construct() {
     $this->repository = new ArticleRepository();
 }
 ```
 
-## Code Quality
+## Qualidade de Código
 
-### Type Safety
+### Segurança de Tipo
 
-Use strict types and type declarations:
+Use tipos rigorosos e declarações de tipo:
 
 ```php
 <?php
@@ -80,17 +80,17 @@ final class ArticleService
 }
 ```
 
-### Error Handling
+### Tratamento de Erros
 
-Use exceptions appropriately:
+Use exceções apropriadamente:
 
 ```php
-// Throw specific exceptions
+// Lançar exceções específicas
 throw new ArticleNotFoundException($id);
 throw new ValidationException($errors);
-throw new UnauthorizedException('Cannot edit this article');
+throw new UnauthorizedException('Não pode editar este artigo');
 
-// Catch at appropriate level
+// Capturar no nível apropriado
 try {
     $article = $service->create($dto);
 } catch (ValidationException $e) {
@@ -100,27 +100,27 @@ try {
 }
 ```
 
-### Null Safety
+### Segurança Nula
 
-Avoid null where possible:
+Evite nulo quando possível:
 
 ```php
-// Use null object pattern
+// Usar padrão de objeto nulo
 public function getAuthor(): UserInterface
 {
     return $this->author ?? new AnonymousUser();
 }
 
-// Use Optional/Maybe pattern
+// Usar padrão Optional/Maybe
 public function findById(int $id): ?Article
 {
-    // Explicitly nullable return
+    // Retorno claramente anulável
 }
 ```
 
-## Database
+## Banco de Dados
 
-### Use Criteria for Queries
+### Usar Criteria para Consultas
 
 ```php
 $criteria = new CriteriaCompo();
@@ -133,7 +133,7 @@ $criteria->setLimit($limit);
 $items = $handler->getObjects($criteria);
 ```
 
-### Escape User Input
+### Escapar Entrada do Usuário
 
 ```php
 $sql = sprintf(
@@ -144,7 +144,7 @@ $sql = sprintf(
 );
 ```
 
-### Use Transactions
+### Usar Transações
 
 ```php
 $db->query('START TRANSACTION');
@@ -159,9 +159,9 @@ try {
 }
 ```
 
-## Security
+## Segurança
 
-### Always Validate Input
+### Sempre Validar Entrada
 
 ```php
 use Xmf\Request;
@@ -170,25 +170,25 @@ $id = Request::getInt('id', 0);
 $title = Request::getString('title', '');
 $data = Request::getArray('data', []);
 
-// Additional validation
+// Validação adicional
 if (strlen($title) < 5) {
-    throw new ValidationException('Title too short');
+    throw new ValidationException('Título muito curto');
 }
 ```
 
-### Use CSRF Tokens
+### Usar Tokens CSRF
 
 ```php
-// In form
+// Em formulário
 $form->addElement(new XoopsFormHiddenToken());
 
-// On submit
+// Ao enviar
 if (!$GLOBALS['xoopsSecurity']->check()) {
-    redirect_header('index.php', 3, 'Invalid token');
+    redirect_header('index.php', 3, 'Token inválido');
 }
 ```
 
-### Check Permissions
+### Verificar Permissões
 
 ```php
 if (!$helper->isUserAdmin()) {
@@ -200,9 +200,9 @@ if (!$permHandler->isGranted('edit', $categoryId)) {
 }
 ```
 
-## Performance
+## Desempenho
 
-### Use Caching
+### Usar Cache
 
 ```php
 $cache = $helper->getCache();
@@ -215,24 +215,24 @@ if ($articles === false) {
 }
 ```
 
-### Optimize Queries
+### Otimizar Consultas
 
 ```php
-// Use indexes
-// Add to sql/mysql.sql:
+// Usar índices
+// Adicionar a sql/mysql.sql:
 // INDEX `idx_status_date` (`status`, `created_at`)
 
-// Select only needed columns
+// Selecionar apenas colunas necessárias
 $handler->getObjects($criteria, false, true); // asArray = true
 
-// Use pagination
+// Usar paginação
 $criteria->setLimit($perPage);
 $criteria->setStart($offset);
 ```
 
-## Testing
+## Testes
 
-### Write Unit Tests
+### Escrever Testes Unitários
 
 ```php
 public function testCreateArticle(): void
@@ -241,7 +241,7 @@ public function testCreateArticle(): void
     $repository->expects($this->once())->method('save');
 
     $service = new ArticleService($repository);
-    $dto = new CreateArticleDTO('Title', 'Content');
+    $dto = new CreateArticleDTO('Título', 'Conteúdo');
 
     $article = $service->create($dto);
 
@@ -249,9 +249,9 @@ public function testCreateArticle(): void
 }
 ```
 
-## Related Documentation
+## Documentação Relacionada
 
-- Clean-Code - Clean code principles
-- Code-Organization - Project structure
-- Testing - Testing guide
-- ../02-Core-Concepts/Security/Security-Best-Practices - Security guide
+- Código-Limpo - Princípios de código limpo
+- Organização-de-Código - Estrutura do projeto
+- Testes - Guia de testes
+- ../02-Conceitos-Principais/Segurança/Boas-Práticas-de-Segurança - Guia de segurança

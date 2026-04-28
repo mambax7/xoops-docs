@@ -1,57 +1,57 @@
 ---
-title: "MVC Pattern in XOOPS"
-description: "Model-View-Controller architecture implementation in XOOPS modules"
+title: "Padrão MVC em XOOPS"
+description: "Implementação de arquitetura Model-View-Controller em módulos XOOPS"
 ---
 
 <span class="version-badge version-xmf">XMF Required</span> <span class="version-badge version-40x">4.0.x Native</span>
 
-:::note[Not sure if this is the right pattern?]
-See [Choosing a Data Access Pattern](../Choosing-Data-Access-Pattern.md) for guidance on when to use MVC vs simpler patterns.
+:::note[Não tem certeza se este é o padrão certo?]
+Veja [Choosing a Data Access Pattern](../Choosing-Data-Access-Pattern.md) para orientação sobre quando usar MVC versus padrões mais simples.
 :::
 
-:::caution[Clarification: XOOPS Architecture]
-**Standard XOOPS 2.5.x** uses a **Page Controller** pattern (also called Transaction Script), not MVC. Legacy modules use `index.php` with direct includes, global objects (`$xoopsUser`, `$xoopsDB`), and handler-based data access.
+:::caution[Esclarecimento: Arquitetura XOOPS]
+**XOOPS 2.5.x Padrão** usa um padrão **Page Controller** (também chamado Transaction Script), não MVC. Módulos legados usam `index.php` com includes diretos, objetos globais (`$xoopsUser`, `$xoopsDB`) e acesso de dados baseado em handler.
 
-**To use MVC in XOOPS 2.5.x**, you need the **XMF Framework** which provides routing and controller support.
+**Para usar MVC em XOOPS 2.5.x**, você precisa do **XMF Framework** que fornece suporte de roteamento e controlador.
 
-**XOOPS 4.0** will natively support MVC with PSR-15 middleware and proper routing.
+**XOOPS 4.0** suportará nativamente MVC com middleware PSR-15 e roteamento apropriado.
 
-See also: [Current XOOPS Architecture](../../02-Core-Concepts/Architecture/XOOPS-Architecture.md)
+Veja também: [Current XOOPS Architecture](../../02-Core-Concepts/Architecture/XOOPS-Architecture.md)
 :::
 
-The Model-View-Controller (MVC) pattern is a fundamental architectural pattern for separating concerns in XOOPS modules. This pattern divides an application into three interconnected components.
+O padrão Model-View-Controller (MVC) é um padrão arquitetural fundamental para separação de responsabilidades em módulos XOOPS. Este padrão divide uma aplicação em três componentes interconectados.
 
-## MVC Explanation
+## Explicação de MVC
 
-### Model
-The **Model** represents the data and business logic of your application. It:
-- Manages data persistence
-- Implements business rules
-- Validates data
-- Communicates with the database
-- Is independent of the UI
+### Modelo
+O **Modelo** representa os dados e lógica de negócio de sua aplicação. Ele:
+- Gerencia persistência de dados
+- Implementa regras de negócio
+- Valida dados
+- Se comunica com o banco de dados
+- É independente da UI
 
-### View
-The **View** is responsible for presenting data to the user. It:
-- Renders HTML templates
-- Displays model data
-- Handles user interface presentation
-- Sends user actions to the controller
-- Should contain minimal logic
+### Visualização
+A **Visualização** é responsável por apresentar dados ao usuário. Ela:
+- Renderiza templates HTML
+- Exibe dados do modelo
+- Lida com apresentação de interface do usuário
+- Envia ações do usuário para o controlador
+- Deve conter lógica mínima
 
-### Controller
-The **Controller** handles user interactions and coordinates between Model and View. It:
-- Receives user requests
-- Processes input data
-- Calls model methods
-- Selects appropriate views
-- Manages application flow
+### Controlador
+O **Controlador** lida com interações do usuário e coordena entre Modelo e Visualização. Ele:
+- Recebe solicitações do usuário
+- Processa dados de entrada
+- Chama métodos do modelo
+- Seleciona visualizações apropriadas
+- Gerencia fluxo da aplicação
 
-## XOOPS Implementation
+## Implementação XOOPS
 
-In XOOPS, the MVC pattern is implemented using handlers and templates with the Smarty engine providing template support.
+Em XOOPS, o padrão MVC é implementado usando handlers e templates com o engine Smarty fornecendo suporte a template.
 
-### Basic Model Structure
+### Estrutura Básica do Modelo
 ```php
 <?php
 class UserModel
@@ -60,18 +60,18 @@ class UserModel
     
     public function getUserById($id)
     {
-        // Database query implementation
+        // Implementação de consulta de banco de dados
     }
     
     public function createUser($data)
     {
-        // Create user implementation
+        // Implementação de criação de usuário
     }
 }
 ?>
 ```
 
-### Controller Implementation
+### Implementação de Controlador
 ```php
 <?php
 class UserController
@@ -87,28 +87,28 @@ class UserController
 ?>
 ```
 
-### View Template
+### Template de Visualização
 ```smarty
 {foreach from=$users item=user}
     <div>{$user.username|escape}</div>
 {/foreach}
 ```
 
-## Best Practices
+## Melhores Práticas
 
-- Keep business logic in Models
-- Keep presentation in Views  
-- Keep routing/coordination in Controllers
-- Don't mix concerns between layers
-- Validate all input at the Controller level
+- Mantenha lógica de negócio em Modelos
+- Mantenha apresentação em Visualizações
+- Mantenha roteamento/coordenação em Controladores
+- Não misture responsabilidades entre camadas
+- Valide toda entrada no nível do Controlador
 
-## Related Documentation
+## Documentação Relacionada
 
-See also:
-- [Repository-Pattern](../Patterns/Repository-Pattern.md) for advanced data access
-- [Service-Layer](../Patterns/Service-Layer.md) for business logic abstraction
-- [Code-Organization](../Best-Practices/Code-Organization.md) for project structure
-- [Testing](../Best-Practices/Testing.md) for MVC testing strategies
+Veja também:
+- [Repository-Pattern](../Patterns/Repository-Pattern.md) para acesso avançado de dados
+- [Service-Layer](../Patterns/Service-Layer.md) para abstração de lógica de negócio
+- [Code-Organization](../Best-Practices/Code-Organization.md) para estrutura de projeto
+- [Testing](../Best-Practices/Testing.md) para estratégias de teste MVC
 
 ---
 

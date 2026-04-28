@@ -1,91 +1,91 @@
 ---
-title: "Contributing Guidelines"
-description: "How to contribute to XOOPS CMS development, coding standards, and community guidelines"
+title: "Diretrizes de Contribuição"
+description: "Como contribuir para desenvolvimento de XOOPS CMS, padrões de codificação e diretrizes comunitárias"
 ---
 
-# 🤝 Contributing to XOOPS
+# Contribuindo para XOOPS
 
-> Join the XOOPS community and help make it the best CMS in the world.
-
----
-
-## 📋 Overview
-
-XOOPS is an open-source project that thrives on community contributions. Whether you're fixing bugs, adding features, improving documentation, or helping others, your contributions are valuable.
+> Junte-se à comunidade XOOPS e ajude a torná-lo o melhor CMS do mundo.
 
 ---
 
-## 🗂️ Section Contents
+## Visão Geral
 
-### Guidelines
-- Code of Conduct
-- Contribution Workflow
-- Pull Request Guidelines
-- Issue Reporting
-
-### Code Style
-- PHP Coding Standards
-- JavaScript Standards
-- CSS Guidelines
-- Smarty Template Standards
-
-### Architecture Decisions
-- ADR Index
-- ADR Template
-- ADR-001: Modular Architecture
-- ADR-002: Database Abstraction
+XOOPS é um projeto de código aberto que prospera em contribuições comunitárias. Se você está corrigindo bugs, adicionando recursos, melhorando documentação ou ajudando outros, suas contribuições são valiosas.
 
 ---
 
-## 🚀 Getting Started
+## Conteúdo da Seção
 
-### 1. Set Up Development Environment
+### Diretrizes
+- Código de Conduta
+- Fluxo de Contribuição
+- Diretrizes de Pull Request
+- Relatório de Problema
+
+### Estilo de Código
+- Padrões de Codificação PHP
+- Padrões JavaScript
+- Diretrizes CSS
+- Padrões de Template Smarty
+
+### Decisões de Arquitetura
+- Índice de ADR
+- Modelo de ADR
+- ADR-001: Arquitetura Modular
+- ADR-002: Abstração de Banco de Dados
+
+---
+
+## Começando
+
+### 1. Configurar Ambiente de Desenvolvimento
 
 ```bash
-# Fork the repository on GitHub
-# Then clone your fork
-git clone https://github.com/YOUR_USERNAME/XoopsCore27.git
+# Fazer fork do repositório no GitHub
+# Depois clonar seu fork
+git clone https://github.com/SEU_USUARIO/XoopsCore27.git
 cd XoopsCore27
 
-# Add upstream remote
+# Adicionar remote upstream
 git remote add upstream https://github.com/XOOPS/XoopsCore27.git
 
-# Install dependencies
+# Instalar dependências
 composer install
 ```
 
-### 2. Create Feature Branch
+### 2. Criar Branch de Recurso
 
 ```bash
-# Sync with upstream
+# Sincronizar com upstream
 git fetch upstream
 git checkout -b feature/my-feature upstream/main
 ```
 
-### 3. Make Changes
+### 3. Fazer Mudanças
 
-Follow the coding standards and write tests for new features.
+Siga os padrões de codificação e escreva testes para novos recursos.
 
-### 4. Submit Pull Request
+### 4. Submeter Pull Request
 
 ```bash
-# Commit changes
+# Fazer commit das mudanças
 git add .
-git commit -m "Add: Brief description of changes"
+git commit -m "Add: Descrição breve das mudanças"
 
-# Push to your fork
+# Push para seu fork
 git push origin feature/my-feature
 ```
 
-Then create a Pull Request on GitHub.
+Depois crie uma Pull Request no GitHub.
 
 ---
 
-## 📝 Coding Standards
+## Padrões de Codificação
 
-### PHP Standards
+### Padrões de PHP
 
-XOOPS follows PSR-1, PSR-4, and PSR-12 coding standards.
+XOOPS segue padrões de codificação PSR-1, PSR-4 e PSR-12.
 
 ```php
 <?php
@@ -98,14 +98,14 @@ use Xmf\Request;
 use XoopsObject;
 
 /**
- * Class Item
+ * Classe Item
  *
- * Represents an item in the module
+ * Representa um item no módulo
  */
 class Item extends XoopsObject
 {
     /**
-     * Constructor
+     * Construtor
      */
     public function __construct()
     {
@@ -116,7 +116,7 @@ class Item extends XoopsObject
     }
 
     /**
-     * Get formatted title
+     * Obter título formatado
      *
      * @return string
      */
@@ -127,23 +127,23 @@ class Item extends XoopsObject
 }
 ```
 
-### Key Conventions
+### Convenções Principais
 
-| Rule | Example |
-|------|---------|
-| Class names | `PascalCase` |
-| Method names | `camelCase` |
-| Constants | `UPPER_SNAKE_CASE` |
-| Variables | `$camelCase` |
-| Files | `ClassName.php` |
-| Indentation | 4 spaces |
-| Line length | Max 120 characters |
+| Regra | Exemplo |
+|-------|---------|
+| Nomes de classe | `PascalCase` |
+| Nomes de método | `camelCase` |
+| Constantes | `UPPER_SNAKE_CASE` |
+| Variáveis | `$camelCase` |
+| Arquivos | `ClassName.php` |
+| Indentação | 4 espaços |
+| Comprimento de linha | Máx 120 caracteres |
 
-### Smarty Templates
+### Templates Smarty
 
 ```smarty
-{* File: templates/mymodule_index.tpl *}
-{* Description: Index page template *}
+{* Arquivo: templates/mymodule_index.tpl *}
+{* Descrição: Template de página de índice *}
 
 <{include file="db:mymodule_header.tpl"}>
 
@@ -168,76 +168,76 @@ class Item extends XoopsObject
 
 ---
 
-## 🔀 Git Workflow
+## Fluxo de Trabalho Git
 
-### Branch Naming
+### Nomenclatura de Branch
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Feature | `feature/description` | `feature/add-user-export` |
-| Bugfix | `fix/description` | `fix/login-validation` |
+| Tipo | Padrão | Exemplo |
+|------|--------|---------|
+| Recurso | `feature/description` | `feature/add-user-export` |
+| Correção | `fix/description` | `fix/login-validation` |
 | Hotfix | `hotfix/description` | `hotfix/security-patch` |
 | Release | `release/version` | `release/2.7.0` |
 
-### Commit Messages
+### Mensagens de Commit
 
-Follow conventional commits:
-
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-**Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Code style (formatting)
-- `refactor`: Code refactoring
-- `test`: Adding tests
-- `chore`: Maintenance
-
-**Examples:**
-```
-feat(auth): add two-factor authentication
-
-Implement TOTP-based 2FA for user accounts.
-- Add QR code generation for authenticator apps
-- Store encrypted secrets in user profile
-- Add backup codes feature
-
-Closes #123
-```
+Siga commits convencionais:
 
 ```
-fix(forms): resolve XSS vulnerability in text input
+<tipo>(<escopo>): <assunto>
 
-Properly escape user input in XoopsFormText render method.
+<corpo>
+
+<rodapé>
+```
+
+**Tipos:**
+- `feat`: Novo recurso
+- `fix`: Correção de bug
+- `docs`: Documentação
+- `style`: Estilo de código (formatação)
+- `refactor`: Refatoração de código
+- `test`: Adicionando testes
+- `chore`: Manutenção
+
+**Exemplos:**
+```
+feat(auth): adicionar autenticação de dois fatores
+
+Implementar 2FA baseado em TOTP para contas de usuário.
+- Adicionar geração de código QR para aplicativos autenticador
+- Armazenar segredos criptografados no perfil do usuário
+- Adicionar recurso de códigos de backup
+
+Fecha #123
+```
+
+```
+fix(forms): resolver vulnerabilidade XSS em entrada de texto
+
+Escapar adequadamente entrada do usuário no método render de XoopsFormText.
 
 Security: CVE-2024-XXXX
 ```
 
 ---
 
-## 🧪 Testing
+## Testes
 
-### Running Tests
+### Executando Testes
 
 ```bash
-# Run all tests
+# Executar todos os testes
 ./vendor/bin/phpunit
 
-# Run specific test suite
+# Executar suite de teste específica
 ./vendor/bin/phpunit --testsuite unit
 
-# Run with coverage
+# Executar com cobertura
 ./vendor/bin/phpunit --coverage-html coverage/
 ```
 
-### Writing Tests
+### Escrevendo Testes
 
 ```php
 <?php
@@ -279,83 +279,83 @@ class ItemTest extends TestCase
 
 ---
 
-## 📋 Pull Request Checklist
+## Lista de Verificação de Pull Request
 
-Before submitting a PR, ensure:
+Antes de submeter um PR, certifique-se:
 
-- [ ] Code follows XOOPS coding standards
-- [ ] All tests pass
-- [ ] New features have tests
-- [ ] Documentation updated if needed
-- [ ] No merge conflicts with main branch
-- [ ] Commit messages are descriptive
-- [ ] PR description explains changes
-- [ ] Related issues are linked
+- [ ] Código segue padrões de codificação XOOPS
+- [ ] Todos os testes passam
+- [ ] Novos recursos têm testes
+- [ ] Documentação atualizada se necessário
+- [ ] Nenhum conflito de merge com branch principal
+- [ ] Mensagens de commit são descritivas
+- [ ] Descrição de PR explica mudanças
+- [ ] Problemas relacionados estão vinculados
 
 ---
 
-## 🏗️ Architecture Decision Records
+## Registros de Decisão de Arquitetura
 
-ADRs document significant architectural decisions.
+ADRs documentam decisões arquiteturais significativas.
 
-### ADR Template
+### Modelo de ADR
 
 ```markdown
-# ADR-XXX: Title
+# ADR-XXX: Título
 
 ## Status
-Proposed | Accepted | Deprecated | Superseded
+Proposto | Aceito | Descontinuado | Supersedido
 
-## Context
-What is the issue we're addressing?
+## Contexto
+Qual é o problema que estamos endereçando?
 
-## Decision
-What is the change being proposed?
+## Decisão
+Qual é a mudança sendo proposta?
 
-## Consequences
-What are the positive and negative effects?
+## Consequências
+Quais são os efeitos positivos e negativos?
 
-## Alternatives Considered
-What other options were evaluated?
+## Alternativas Consideradas
+Quais outras opções foram avaliadas?
 ```
 
-### Current ADRs
+### ADRs Atuais
 
-| ADR | Title | Status |
-|-----|-------|--------|
-| ADR-001 | Modular Architecture | Accepted |
-| ADR-002 | Object-Oriented Database Access | Accepted |
-| ADR-003 | Smarty Template Engine | Accepted |
-| ADR-004 | Security System Design | Accepted |
-| ADR-005 | PSR-15 Middleware (4.0.x) | Proposed |
-
----
-
-## 🎖️ Recognition
-
-Contributors are recognized through:
-
-- **Contributors List** - Listed in repository
-- **Release Notes** - Credited in releases
-- **Hall of Fame** - Outstanding contributors
-- **Module Certification** - Quality badge for modules
+| ADR | Título | Status |
+|-----|--------|--------|
+| ADR-001 | Arquitetura Modular | Aceito |
+| ADR-002 | Acesso a Banco de Dados Orientado a Objetos | Aceito |
+| ADR-003 | Motor de Template Smarty | Aceito |
+| ADR-004 | Design de Sistema de Segurança | Aceito |
+| ADR-005 | Middleware PSR-15 (4.0.x) | Proposto |
 
 ---
 
-## 🔗 Related Documentation
+## Reconhecimento
 
-- XOOPS 4.0 Roadmap
-- Core Concepts
-- Module Development
+Contribuidores são reconhecidos através de:
+
+- **Lista de Contribuidores** - Listados no repositório
+- **Notas de Release** - Creditados em releases
+- **Galeria da Fama** - Contribuidores destacados
+- **Certificação de Módulo** - Badge de qualidade para módulos
 
 ---
 
-## 📚 Resources
+## Documentação Relacionada
 
-- [GitHub Repository](https://github.com/XOOPS/XoopsCore27)
-- [Issue Tracker](https://github.com/XOOPS/XoopsCore27/issues)
-- [XOOPS Forums](https://xoops.org/modules/newbb/)
-- [Discord Community](https://discord.gg/xoops)
+- Roteiro XOOPS 4.0
+- Conceitos Principais
+- Desenvolvimento de Módulo
+
+---
+
+## Recursos
+
+- [Repositório GitHub](https://github.com/XOOPS/XoopsCore27)
+- [Rastreador de Problemas](https://github.com/XOOPS/XoopsCore27/issues)
+- [Fóruns XOOPS](https://xoops.org/modules/newbb/)
+- [Comunidade Discord](https://discord.gg/xoops)
 
 ---
 

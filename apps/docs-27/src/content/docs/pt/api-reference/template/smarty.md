@@ -1,154 +1,154 @@
 ---
-title: "Smarty Template API Reference"
-description: "Complete API reference for Smarty templating in XOOPS"
+title: "Referência da API do Smarty Template"
+description: "Referência completa da API para templates Smarty em XOOPS"
 ---
 
-> Complete API documentation for Smarty templating in XOOPS.
+> Documentação completa da API para templates Smarty em XOOPS.
 
 ---
 
-## Template Engine Architecture
+## Arquitetura do Mecanismo de Template
 
 ```mermaid
 graph TB
-    subgraph "Template Processing"
-        A[Controller] --> B[Assign Variables]
+    subgraph "Processamento de Template"
+        A[Controlador] --> B[Atribuir Variáveis]
         B --> C[XoopsTpl]
-        C --> D[Smarty Engine]
-        D --> E{Template Cached?}
-        E -->|Yes| F[Load from Cache]
-        E -->|No| G[Compile Template]
-        G --> H[Execute PHP]
+        C --> D[Mecanismo Smarty]
+        D --> E{Template em Cache?}
+        E -->|Sim| F[Carregar do Cache]
+        E -->|Não| G[Compilar Template]
+        G --> H[Executar PHP]
         F --> H
-        H --> I[HTML Output]
+        H --> I[Saída HTML]
     end
 
-    subgraph "Template Sources"
-        J[File System] --> D
-        K[Database] --> D
+    subgraph "Fontes de Template"
+        J[Sistema de Arquivos] --> D
+        K[Banco de Dados] --> D
         L[String] --> D
     end
 
-    subgraph "Plugin Types"
-        M[Functions] --> D
-        N[Modifiers] --> D
-        O[Block Functions] --> D
-        P[Compiler Functions] --> D
+    subgraph "Tipos de Plugin"
+        M[Funções] --> D
+        N[Modificadores] --> D
+        O[Funções de Bloco] --> D
+        P[Funções Compilador] --> D
     end
 ```
 
 ---
 
-## XoopsTpl Class
+## Classe XoopsTpl
 
-### Initialization
+### Inicialização
 
 ```php
-// Global template object
+// Objeto de template global
 global $xoopsTpl;
 
-// Or get new instance
+// Ou obter nova instância
 $tpl = new XoopsTpl();
 
-// Available in modules
+// Disponível em módulos
 $GLOBALS['xoopsTpl']->assign('myvar', $value);
 ```
 
-### Core Methods
+### Métodos Principais
 
-| Method | Parameters | Description |
-|--------|------------|-------------|
-| `assign` | `string $name, mixed $value` | Assign variable to template |
-| `assignByRef` | `string $name, mixed &$value` | Assign by reference |
-| `append` | `string $name, mixed $value, bool $merge = false` | Append to array variable |
-| `display` | `string $template` | Render and output template |
-| `fetch` | `string $template` | Render and return template |
-| `clearAssign` | `string $name` | Clear assigned variable |
-| `clearAllAssign` | - | Clear all variables |
-| `getTemplateVars` | `string $name = null` | Get assigned variables |
-| `templateExists` | `string $template` | Check if template exists |
-| `isCached` | `string $template` | Check if template is cached |
-| `clearCache` | `string $template = null` | Clear template cache |
+| Método | Parâmetros | Descrição |
+|--------|-----------|-----------|
+| `assign` | `string $name, mixed $value` | Atribuir variável ao template |
+| `assignByRef` | `string $name, mixed &$value` | Atribuir por referência |
+| `append` | `string $name, mixed $value, bool $merge = false` | Adicionar à variável de array |
+| `display` | `string $template` | Renderizar e exibir template |
+| `fetch` | `string $template` | Renderizar e retornar template |
+| `clearAssign` | `string $name` | Limpar variável atribuída |
+| `clearAllAssign` | - | Limpar todas as variáveis |
+| `getTemplateVars` | `string $name = null` | Obter variáveis atribuídas |
+| `templateExists` | `string $template` | Verificar se template existe |
+| `isCached` | `string $template` | Verificar se template está em cache |
+| `clearCache` | `string $template = null` | Limpar cache de template |
 
-### Variable Assignment
+### Atribuição de Variáveis
 
 ```php
-// Simple assignment
-$xoopsTpl->assign('title', 'My Page Title');
+// Atribuição simples
+$xoopsTpl->assign('title', 'Título da Minha Página');
 $xoopsTpl->assign('count', 42);
 $xoopsTpl->assign('is_admin', true);
 
-// Array assignment
+// Atribuição de array
 $xoopsTpl->assign('items', [
     ['id' => 1, 'name' => 'Item 1'],
     ['id' => 2, 'name' => 'Item 2'],
 ]);
 
-// Object assignment
+// Atribuição de objeto
 $xoopsTpl->assign('user', $xoopsUser);
 
-// Multiple assignments
+// Atribuições múltiplas
 $xoopsTpl->assign([
-    'title' => 'My Title',
-    'content' => 'My Content',
-    'author' => 'John Doe'
+    'title' => 'Meu Título',
+    'content' => 'Meu Conteúdo',
+    'author' => 'João Silva'
 ]);
 
-// Append to array
+// Adicionar ao array
 $xoopsTpl->append('items', ['id' => 3, 'name' => 'Item 3']);
 ```
 
-### Template Loading
+### Carregamento de Template
 
 ```php
-// From database (compiled)
+// Do banco de dados (compilado)
 $xoopsTpl->display('db:mymodule_index.tpl');
 
-// From file system
+// Do sistema de arquivos
 $xoopsTpl->display('file:' . XOOPS_ROOT_PATH . '/modules/mymodule/templates/custom.tpl');
 
-// Fetch without output
+// Buscar sem saída
 $html = $xoopsTpl->fetch('db:mymodule_item.tpl');
 
-// From string
+// De string
 $template = '<h1>{$title}</h1><p>{$content}</p>';
 $html = $xoopsTpl->fetch('string:' . $template);
 ```
 
 ---
 
-## Smarty Syntax Reference
+## Referência de Sintaxe do Smarty
 
-### Variables
+### Variáveis
 
 ```smarty
-{* Simple variable *}
+{* Variável simples *}
 <{$title}>
 
-{* Array access *}
+{* Acesso a array *}
 <{$item.name}>
 <{$item['name']}>
 
-{* Object property *}
+{* Propriedade de objeto *}
 <{$user->name}>
 <{$user->getVar('uname')}>
 
-{* Config variable *}
+{* Variável de config *}
 <{$xoops_sitename}>
 
-{* Constant *}
+{* Constante *}
 <{$smarty.const._MD_MYMODULE_TITLE}>
 
-{* Server variables *}
+{* Variáveis de servidor *}
 <{$smarty.server.REQUEST_URI}>
 <{$smarty.get.id}>
 <{$smarty.post.name}>
 ```
 
-### Modifiers
+### Modificadores
 
 ```smarty
-{* String modifiers *}
+{* Modificadores de string *}
 <{$title|upper}>
 <{$title|lower}>
 <{$title|capitalize}>
@@ -158,41 +158,41 @@ $html = $xoopsTpl->fetch('string:' . $template);
 <{$text|escape:'html'}>
 <{$text|escape:'url'}>
 
-{* Date formatting *}
+{* Formatação de data *}
 <{$timestamp|date_format:"%Y-%m-%d"}>
 <{$timestamp|date_format:"%B %e, %Y"}>
 
-{* Number formatting *}
+{* Formatação de número *}
 <{$price|number_format:2:".":","}>
 
-{* Default value *}
+{* Valor padrão *}
 <{$optional|default:"N/A"}>
 
-{* Chained modifiers *}
+{* Modificadores encadeados *}
 <{$title|strip_tags|truncate:50|escape}>
 
-{* Count array *}
+{* Contar array *}
 <{$items|@count}>
 ```
 
-### Control Structures
+### Estruturas de Controle
 
 ```smarty
 {* If/else *}
 <{if $is_admin}>
-    <p>Admin content</p>
+    <p>Conteúdo de admin</p>
 <{elseif $is_moderator}>
-    <p>Moderator content</p>
+    <p>Conteúdo de moderador</p>
 <{else}>
-    <p>User content</p>
+    <p>Conteúdo de usuário</p>
 <{/if}>
 
-{* Foreach loop *}
+{* Loop foreach *}
 <{foreach from=$items item=item key=key}>
     <li><{$key}>: <{$item.name}></li>
 <{/foreach}>
 
-{* Foreach with properties *}
+{* Foreach com propriedades *}
 <{foreach from=$items item=item name=itemLoop}>
     <{if $smarty.foreach.itemLoop.first}>
         <ul>
@@ -208,12 +208,12 @@ $html = $xoopsTpl->fetch('string:' . $template);
     <{/if}>
 <{/foreach}>
 
-{* For loop *}
+{* Loop for *}
 <{for $i=1 to 10}>
     <{$i}>
 <{/for}>
 
-{* While loop *}
+{* Loop while *}
 <{while $count < 10}>
     <{$count}>
     <{$count = $count + 1}>
@@ -223,41 +223,41 @@ $html = $xoopsTpl->fetch('string:' . $template);
 ### Includes
 
 ```smarty
-{* Include another template *}
+{* Incluir outro template *}
 <{include file="db:mymodule_header.tpl"}>
 
-{* Include with variables *}
+{* Incluir com variáveis *}
 <{include file="db:mymodule_item.tpl" item=$currentItem showAuthor=true}>
 
-{* Include from theme *}
+{* Incluir do tema *}
 <{include file="$theme_template_set/header.tpl"}>
 ```
 
-### Comments
+### Comentários
 
 ```smarty
-{* This is a Smarty comment - not rendered in output *}
+{* Este é um comentário Smarty - não renderizado na saída *}
 
 {*
-    Multi-line comment
-    explaining the template
+    Comentário multi-linha
+    explicando o template
 *}
 ```
 
 ---
 
-## XOOPS-Specific Functions
+## Funções Específicas do XOOPS
 
-### Block Rendering
+### Renderização de Bloco
 
 ```smarty
-{* Render block by ID *}
+{* Renderizar bloco por ID *}
 <{xoBlock id=5}>
 
-{* Render block by name *}
+{* Renderizar bloco por nome *}
 <{xoBlock name="mymodule_recent"}>
 
-{* Render all blocks in position *}
+{* Renderizar todos os blocos na posição *}
 <{foreach item=block from=$xoBlocks.canvas_left}>
     <div class="block">
         <h3><{$block.title}></h3>
@@ -266,34 +266,34 @@ $html = $xoopsTpl->fetch('string:' . $template);
 <{/foreach}>
 ```
 
-### Image and Asset Handling
+### Tratamento de Imagem e Recurso
 
 ```smarty
-{* Module image *}
+{* Imagem de módulo *}
 <img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/assets/images/logo.png">
 
-{* Theme image *}
+{* Imagem de tema *}
 <img src="<{$xoops_imageurl}>icon.png">
 
-{* Upload directory *}
+{* Diretório de upload *}
 <img src="<{$xoops_upload_url}>/<{$item.image}>">
 ```
 
-### URL Generation
+### Geração de URL
 
 ```smarty
-{* Module URL *}
+{* URL de módulo *}
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/item.php?id=<{$item.id}>">
     <{$item.title}>
 </a>
 
-{* With SEO-friendly URL (if enabled) *}
+{* Com URL amigável ao SEO (se habilitado) *}
 <a href="<{$item.url}>"><{$item.title}></a>
 ```
 
 ---
 
-## Template Compilation Flow
+## Fluxo de Compilação de Template
 
 ```mermaid
 sequenceDiagram
@@ -304,43 +304,43 @@ sequenceDiagram
     participant FileSystem
 
     Request->>XoopsTpl: display('db:template.tpl')
-    XoopsTpl->>Smarty: Process template
+    XoopsTpl->>Smarty: Processar template
 
-    Smarty->>Cache: Check compiled cache
+    Smarty->>Cache: Verificar cache compilado
 
-    alt Cache Hit
-        Cache-->>Smarty: Return compiled PHP
-    else Cache Miss
-        Smarty->>FileSystem: Load template source
-        FileSystem-->>Smarty: Template content
-        Smarty->>Smarty: Compile to PHP
-        Smarty->>Cache: Store compiled PHP
+    alt Acerto de Cache
+        Cache-->>Smarty: Retornar PHP compilado
+    else Erro de Cache
+        Smarty->>FileSystem: Carregar fonte de template
+        FileSystem-->>Smarty: Conteúdo do template
+        Smarty->>Smarty: Compilar para PHP
+        Smarty->>Cache: Armazenar PHP compilado
     end
 
-    Smarty->>Smarty: Execute compiled PHP
-    Smarty-->>XoopsTpl: HTML output
-    XoopsTpl-->>Request: Rendered HTML
+    Smarty->>Smarty: Executar PHP compilado
+    Smarty-->>XoopsTpl: Saída HTML
+    XoopsTpl-->>Request: HTML renderizado
 ```
 
 ---
 
-## Custom Smarty Plugins
+## Plugins Smarty Personalizado
 
-### Function Plugin
+### Plugin de Função
 
 ```php
 // plugins/function.myfunction.php
 function smarty_function_myfunction($params, $smarty)
 {
-    $name = $params['name'] ?? 'World';
-    return "Hello, {$name}!";
+    $name = $params['name'] ?? 'Mundo';
+    return "Olá, {$name}!";
 }
 
-// Usage in template:
-// <{myfunction name="John"}>
+// Uso no template:
+// <{myfunction name="João"}>
 ```
 
-### Modifier Plugin
+### Plugin Modificador
 
 ```php
 // plugins/modifier.timeago.php
@@ -349,77 +349,77 @@ function smarty_modifier_timeago($timestamp)
     $diff = time() - $timestamp;
 
     if ($diff < 60) {
-        return 'just now';
+        return 'agora mesmo';
     } elseif ($diff < 3600) {
         $mins = floor($diff / 60);
-        return "{$mins} minute(s) ago";
+        return "{$mins} minuto(s) atrás";
     } elseif ($diff < 86400) {
         $hours = floor($diff / 3600);
-        return "{$hours} hour(s) ago";
+        return "{$hours} hora(s) atrás";
     } else {
         $days = floor($diff / 86400);
-        return "{$days} day(s) ago";
+        return "{$days} dia(s) atrás";
     }
 }
 
-// Usage in template:
+// Uso no template:
 // <{$item.created|timeago}>
 ```
 
-### Block Plugin
+### Plugin de Bloco
 
 ```php
 // plugins/block.cache.php
 function smarty_block_cache($params, $content, $smarty, &$repeat)
 {
     if ($repeat) {
-        // Opening tag
+        // Tag de abertura
         return '';
     } else {
-        // Closing tag - process content
+        // Tag de fechamento - processar conteúdo
         $ttl = $params['ttl'] ?? 3600;
         $key = md5($content);
 
-        // Check cache...
+        // Verificar cache...
         return $content;
     }
 }
 
-// Usage in template:
+// Uso no template:
 // <{cache ttl=3600}>
-//     Expensive content here
+//     Conteúdo caro aqui
 // <{/cache}>
 ```
 
 ---
 
-## Performance Tips
+## Dicas de Desempenho
 
 ```mermaid
 graph LR
-    subgraph "Optimization Strategies"
-        A[Enable Caching] --> E[Faster Response]
-        B[Minimize Variables] --> E
-        C[Avoid Complex Logic] --> E
-        D[Pre-compute in PHP] --> E
+    subgraph "Estratégias de Otimização"
+        A[Habilitar Cache] --> E[Resposta Mais Rápida]
+        B[Minimizar Variáveis] --> E
+        C[Evitar Lógica Complexa] --> E
+        D[Pré-computar em PHP] --> E
     end
 ```
 
-### Best Practices
+### Melhores Práticas
 
-1. **Enable template caching** in production
-2. **Assign only needed variables** - don't pass entire objects
-3. **Use modifiers sparingly** - pre-format in PHP when possible
-4. **Avoid nested loops** - restructure data in PHP
-5. **Cache expensive blocks** - use block caching for complex queries
+1. **Habilitar cache de template** em produção
+2. **Atribuir apenas variáveis necessárias** - não passar objetos inteiros
+3. **Usar modificadores com moderação** - pré-formatar em PHP quando possível
+4. **Evitar loops aninhados** - reestruturar dados em PHP
+5. **Cache de blocos caros** - usar cache de bloco para consultas complexas
 
 ---
 
-## Related Documentation
+## Documentação Relacionada
 
-- Smarty Basics
-- Theme Development
-- Smarty 4 Migration
+- Básico do Smarty
+- Desenvolvimento de Tema
+- Migração Smarty 4
 
 ---
 

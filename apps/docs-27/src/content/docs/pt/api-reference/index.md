@@ -1,98 +1,98 @@
 ---
-title: "XOOPS API Reference"
-description: "Comprehensive API documentation for XOOPS CMS core classes, database layer, forms, and modules"
+title: "Referência da API do XOOPS"
+description: "Documentação abrangente da API para classes principais do XOOPS CMS, camada de banco de dados, formulários e módulos"
 ---
 
-Welcome to the comprehensive XOOPS API Reference documentation. This section provides detailed documentation for all core classes, methods, and systems that make up the XOOPS Content Management System.
+Bem-vindo à documentação abrangente da Referência da API do XOOPS. Esta seção fornece documentação detalhada para todas as classes principais, métodos e sistemas que compõem o Sistema de Gerenciamento de Conteúdo XOOPS.
 
-## Overview
+## Visão Geral
 
-The XOOPS API is organized into several major subsystems, each responsible for a specific aspect of the CMS functionality. Understanding these APIs is essential for developing modules, themes, and extensions for XOOPS.
+A API do XOOPS é organizada em vários subsistemas principais, cada um responsável por um aspecto específico da funcionalidade do CMS. Entender essas APIs é essencial para desenvolver módulos, temas e extensões para XOOPS.
 
-## API Sections
+## Seções da API
 
-### Core Classes
+### Classes Principais
 
-The foundation classes that all other XOOPS components build upon.
+As classes de fundação que todos os outros componentes do XOOPS se baseiam.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| XoopsObject | Base class for all data objects in XOOPS |
-| XoopsObjectHandler | Handler pattern for CRUD operations |
+| XoopsObject | Classe base para todos os objetos de dados no XOOPS |
+| XoopsObjectHandler | Padrão de handler para operações CRUD |
 
-### Database Layer
+### Camada de Banco de Dados
 
-Database abstraction and query building utilities.
+Abstração de banco de dados e utilitários de construção de consultas.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| XoopsDatabase | Database abstraction layer |
-| Criteria System | Query criteria and conditions |
-| QueryBuilder | Modern fluent query building |
+| XoopsDatabase | Camada de abstração de banco de dados |
+| Sistema Criteria | Criteria de consulta e condições |
+| QueryBuilder | Construção moderna de consultas fluentes |
 
-### Form System
+### Sistema de Formulários
 
-HTML form generation and validation.
+Geração de formulários HTML e validação.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| XoopsForm | Form container and rendering |
-| Form Elements | All available form element types |
+| XoopsForm | Contêiner de formulário e renderização |
+| Elementos de Formulário | Todos os tipos de elementos de formulário disponíveis |
 
-### Kernel Classes
+### Classes do Kernel
 
-Core system components and services.
+Componentes do sistema principal e serviços.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| Kernel Classes | System kernel and core components |
+| Classes do Kernel | Kernel do sistema e componentes principais |
 
-### Module System
+### Sistema de Módulo
 
-Module management and lifecycle.
+Gerenciamento de módulo e ciclo de vida.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| Module System | Module loading, installation, and management |
+| Sistema de Módulo | Carregamento, instalação e gerenciamento de módulo |
 
-### Template System
+### Sistema de Template
 
-Smarty template integration.
+Integração com template Smarty.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| Template System | Smarty integration and template management |
+| Sistema de Template | Integração Smarty e gerenciamento de template |
 
-### User System
+### Sistema de Usuário
 
-User management and authentication.
+Gerenciamento de usuário e autenticação.
 
-| Documentation | Description |
+| Documentação | Descrição |
 |--------------|-------------|
-| User System | User accounts, groups, and permissions |
+| Sistema de Usuário | Contas de usuário, grupos e permissões |
 
-## Architecture Overview
+## Visão Geral da Arquitetura
 
 ```mermaid
 flowchart TB
-    subgraph "Foundation Layer"
-        XO[XoopsObject<br/>Base Class]
-        XD[XoopsDatabase<br/>DB Abstraction]
-        XF[XoopsForm<br/>Form Generation]
+    subgraph "Camada de Fundação"
+        XO[XoopsObject<br/>Classe Base]
+        XD[XoopsDatabase<br/>Abstração de BD]
+        XF[XoopsForm<br/>Geração de Formulário]
     end
 
-    subgraph "Handler Layer"
-        XOH[XoopsObjectHandler<br/>CRUD Operations]
-        CR[Criteria<br/>Query Building]
-        XFE[XoopsFormElement<br/>Input Types]
+    subgraph "Camada de Handler"
+        XOH[XoopsObjectHandler<br/>Operações CRUD]
+        CR[Criteria<br/>Construção de Consulta]
+        XFE[XoopsFormElement<br/>Tipos de Entrada]
     end
 
-    subgraph "Module Layer"
-        XM[XoopsModule<br/>Module Management]
+    subgraph "Camada de Módulo"
+        XM[XoopsModule<br/>Gerenciamento de Módulo]
     end
 
-    subgraph "Presentation Layer"
-        XT[XoopsTpl<br/>Template Engine]
+    subgraph "Camada de Apresentação"
+        XT[XoopsTpl<br/>Mecanismo de Template]
     end
 
     XO --> XOH
@@ -104,9 +104,9 @@ flowchart TB
     XM --> XT
 ```
 
-## Class Hierarchy
+## Hierarquia de Classe
 
-### Object Model
+### Modelo de Objeto
 
 ```mermaid
 classDiagram
@@ -124,7 +124,7 @@ classDiagram
     XoopsObject <|-- XoopsNotification
 ```
 
-### Handler Model
+### Modelo de Handler
 
 ```mermaid
 classDiagram
@@ -148,7 +148,7 @@ classDiagram
     XoopsObjectHandler <|-- CustomModuleHandlers
 ```
 
-### Form Model
+### Modelo de Formulário
 
 ```mermaid
 classDiagram
@@ -180,75 +180,75 @@ classDiagram
     XoopsFormElement <|-- XoopsFormEditor
 ```
 
-## Design Patterns
+## Padrões de Design
 
-The XOOPS API implements several well-known design patterns:
+A API do XOOPS implementa vários padrões de design bem conhecidos:
 
-### Singleton Pattern
-Used for global services like database connections and container instances.
+### Padrão Singleton
+Usado para serviços globais como conexões de banco de dados e instâncias de contêiner.
 
 ```php
 $db = XoopsDatabase::getInstance();
 $container = XoopsContainer::getInstance();
 ```
 
-### Factory Pattern
-Object handlers create domain objects consistently.
+### Padrão Factory
+Os handlers de objetos criam objetos de domínio de forma consistente.
 
 ```php
 $handler = xoops_getHandler('user');
 $user = $handler->create();
 ```
 
-### Composite Pattern
-Forms contain multiple form elements; criteria can contain nested criteria.
+### Padrão Composite
+Os formulários contêm múltiplos elementos de formulário; criteria podem conter criteria aninhadas.
 
 ```php
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 1));
-$criteria->add(new CriteriaCompo(...)); // Nested
+$criteria->add(new CriteriaCompo(...)); // Aninhada
 ```
 
-### Observer Pattern
-The event system allows loose coupling between modules.
+### Padrão Observer
+O sistema de eventos permite acoplamento solto entre módulos.
 
 ```php
 $dispatcher->addListener('module.news.article_published', $callback);
 ```
 
-## Quick Start Examples
+## Exemplos de Início Rápido
 
-### Creating and Saving an Object
+### Criando e Salvando um Objeto
 
 ```php
-// Get the handler
+// Obter o handler
 $handler = xoops_getHandler('user');
 
-// Create a new object
+// Criar um novo objeto
 $user = $handler->create();
 $user->setVar('uname', 'newuser');
 $user->setVar('email', 'user@example.com');
 
-// Save to database
+// Salvar no banco de dados
 $handler->insert($user);
 ```
 
-### Querying with Criteria
+### Consultando com Criteria
 
 ```php
-// Build criteria
+// Construir criteria
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('level', 0, '>'));
 $criteria->setSort('uname');
 $criteria->setOrder('ASC');
 $criteria->setLimit(10);
 
-// Get objects
+// Obter objetos
 $handler = xoops_getHandler('user');
 $users = $handler->getObjects($criteria);
 ```
 
-### Creating a Form
+### Criando um Formulário
 
 ```php
 $form = new XoopsThemeForm('User Profile', 'userform', 'save.php', 'post', true);
@@ -258,82 +258,82 @@ $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 echo $form->render();
 ```
 
-## API Conventions
+## Convenções da API
 
-### Naming Conventions
+### Convenções de Nomenclatura
 
-| Type | Convention | Example |
+| Tipo | Convenção | Exemplo |
 |------|-----------|---------|
 | Classes | PascalCase | `XoopsUser`, `CriteriaCompo` |
-| Methods | camelCase | `getVar()`, `setVar()` |
-| Properties | camelCase (protected) | `$_vars`, `$_handler` |
-| Constants | UPPER_SNAKE_CASE | `XOBJ_DTYPE_INT` |
-| Database Tables | snake_case | `users`, `groups_users_link` |
+| Métodos | camelCase | `getVar()`, `setVar()` |
+| Propriedades | camelCase (protegida) | `$_vars`, `$_handler` |
+| Constantes | UPPER_SNAKE_CASE | `XOBJ_DTYPE_INT` |
+| Tabelas de Banco de Dados | snake_case | `users`, `groups_users_link` |
 
-### Data Types
+### Tipos de Dados
 
-XOOPS defines standard data types for object variables:
+XOOPS define tipos de dados padrão para variáveis de objeto:
 
-| Constant | Type | Description |
+| Constante | Tipo | Descrição |
 |----------|------|-------------|
-| `XOBJ_DTYPE_TXTBOX` | String | Text input (sanitized) |
-| `XOBJ_DTYPE_TXTAREA` | String | Textarea content |
-| `XOBJ_DTYPE_INT` | Integer | Numeric values |
-| `XOBJ_DTYPE_URL` | String | URL validation |
-| `XOBJ_DTYPE_EMAIL` | String | Email validation |
-| `XOBJ_DTYPE_ARRAY` | Array | Serialized arrays |
-| `XOBJ_DTYPE_OTHER` | Mixed | Custom handling |
-| `XOBJ_DTYPE_SOURCE` | String | Source code (minimal sanitization) |
-| `XOBJ_DTYPE_STIME` | Integer | Short timestamp |
-| `XOBJ_DTYPE_MTIME` | Integer | Medium timestamp |
-| `XOBJ_DTYPE_LTIME` | Integer | Long timestamp |
+| `XOBJ_DTYPE_TXTBOX` | String | Entrada de texto (sanitizada) |
+| `XOBJ_DTYPE_TXTAREA` | String | Conteúdo de textarea |
+| `XOBJ_DTYPE_INT` | Integer | Valores numéricos |
+| `XOBJ_DTYPE_URL` | String | Validação de URL |
+| `XOBJ_DTYPE_EMAIL` | String | Validação de email |
+| `XOBJ_DTYPE_ARRAY` | Array | Arrays serializados |
+| `XOBJ_DTYPE_OTHER` | Mixed | Manipulação personalizada |
+| `XOBJ_DTYPE_SOURCE` | String | Código-fonte (sanitização mínima) |
+| `XOBJ_DTYPE_STIME` | Integer | Timestamp curto |
+| `XOBJ_DTYPE_MTIME` | Integer | Timestamp médio |
+| `XOBJ_DTYPE_LTIME` | Integer | Timestamp longo |
 
-## Authentication Methods
+## Métodos de Autenticação
 
-The API supports multiple authentication methods:
+A API suporta múltiplos métodos de autenticação:
 
-### API Key Authentication
+### Autenticação por Chave de API
 ```
-X-API-Key: your-api-key
-```
-
-### OAuth Bearer Token
-```
-Authorization: Bearer your-oauth-token
+X-API-Key: sua-chave-api
 ```
 
-### Session-Based Authentication
-Uses existing XOOPS session when logged in.
+### Token Bearer OAuth
+```
+Authorization: Bearer seu-token-oauth
+```
 
-## REST API Endpoints
+### Autenticação Baseada em Sessão
+Usa a sessão existente do XOOPS quando conectado.
 
-When the REST API is enabled:
+## Endpoints da API REST
 
-| Endpoint | Method | Description |
+Quando a API REST está ativada:
+
+| Endpoint | Método | Descrição |
 |----------|--------|-------------|
-| `/api.php/rest/users` | GET | List users |
-| `/api.php/rest/users/{id}` | GET | Get user by ID |
-| `/api.php/rest/users` | POST | Create user |
-| `/api.php/rest/users/{id}` | PUT | Update user |
-| `/api.php/rest/users/{id}` | DELETE | Delete user |
-| `/api.php/rest/modules` | GET | List modules |
+| `/api.php/rest/users` | GET | Listar usuários |
+| `/api.php/rest/users/{id}` | GET | Obter usuário por ID |
+| `/api.php/rest/users` | POST | Criar usuário |
+| `/api.php/rest/users/{id}` | PUT | Atualizar usuário |
+| `/api.php/rest/users/{id}` | DELETE | Deletar usuário |
+| `/api.php/rest/modules` | GET | Listar módulos |
 
-## Related Documentation
+## Documentação Relacionada
 
-- Module Development Guide
-- Theme Development Guide
-- System Configuration
-- Security Best Practices
+- Guia de Desenvolvimento de Módulo
+- Guia de Desenvolvimento de Tema
+- Configuração do Sistema
+- Melhores Práticas de Segurança
 
-## Version History
+## Histórico de Versão
 
-| Version | Changes |
+| Versão | Alterações |
 |---------|---------|
-| 2.5.11 | Current stable release |
-| 2.5.10 | Added GraphQL API support |
-| 2.5.9 | Enhanced Criteria system |
-| 2.5.8 | PSR-4 autoloading support |
+| 2.5.11 | Lançamento estável atual |
+| 2.5.10 | Suporte para API GraphQL adicionado |
+| 2.5.9 | Sistema Criteria melhorado |
+| 2.5.8 | Suporte para carregamento automático PSR-4 |
 
 ---
 
-*This documentation is part of the XOOPS Knowledge Base. For the latest updates, visit the [XOOPS GitHub repository](https://github.com/XOOPS).*
+*Esta documentação faz parte da Base de Conhecimento XOOPS. Para as atualizações mais recentes, visite o [repositório GitHub do XOOPS](https://github.com/XOOPS).*
