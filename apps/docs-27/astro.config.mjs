@@ -34,6 +34,17 @@ export default defineConfig({
 
 			lastUpdated: true,
 
+			expressiveCode: {
+				shiki: {
+					bundledLangs: [
+						'php', 'javascript', 'typescript',
+						'html', 'css', 'smarty',
+						'bash', 'shell', 'sql',
+						'json', 'yaml', 'astro',
+					],
+				},
+			},
+
 			sidebar: [
 				// ── Getting Started ──────────────────────────────────────────
 				{
