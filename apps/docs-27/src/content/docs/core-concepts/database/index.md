@@ -10,7 +10,7 @@ description: "Comprehensive guide to XOOPS database abstraction, XoopsObject, ha
 > Understanding XOOPS database abstraction, object persistence, and query building.
 
 :::tip[Future-Proof Your Data Access]
-The handler/Criteria pattern works in both versions. To prepare for 2026, consider wrapping handlers in [Repository classes](../../03-Module-Development/Patterns/Repository-Pattern.md) for better testability. See [Choosing a Data Access Pattern](../../03-Module-Development/Choosing-Data-Access-Pattern.md).
+The handler/Criteria pattern works in both versions. To prepare for XOOPS 4.0, consider wrapping handlers in [Repository classes](../../03-Module-Development/Patterns/Repository-Pattern.md) for better testability. See [Choosing a Data Access Pattern](../../03-Module-Development/Choosing-Data-Access-Pattern.md).
 :::
 
 ---

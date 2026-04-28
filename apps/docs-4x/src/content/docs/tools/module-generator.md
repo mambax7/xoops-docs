@@ -188,7 +188,7 @@ Create `.xoops-generator.json` in your project:
         "license": "GPL-2.0-or-later",
         "namespace_prefix": "XoopsModules",
         "architecture": "clean",
-        "php_version": "8.2"
+        "php_version": "8.4"
     },
     "templates": {
         "entity": "templates/entity.php.twig",

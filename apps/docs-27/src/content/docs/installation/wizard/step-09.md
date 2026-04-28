@@ -1,5 +1,5 @@
 ---
-title: "Initial Settings​"
+title: "Initial Settings"
 ---
 
 This page collects the information used to create the primary Administrator (AKA Webmaster) account.

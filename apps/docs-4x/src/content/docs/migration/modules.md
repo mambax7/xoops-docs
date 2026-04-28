@@ -2,7 +2,7 @@
 title: "Upgrading Existing Modules to XOOPS 4.0 Architecture"
 ---
 
-This guide walks you through incrementally modernizing an existing XOOPS module to use Clean Architecture, DDD patterns, and PHP 8.2+ features. The approach is designed to be non-destructive—you can migrate piece by piece while keeping your module functional.
+This guide walks you through incrementally modernizing an existing XOOPS module to use Clean Architecture, DDD patterns, and PHP 8.4+ features. The approach is designed to be non-destructive—you can migrate piece by piece while keeping your module functional.
 
 ## Migration Philosophy
 
@@ -17,7 +17,7 @@ This guide walks you through incrementally modernizing an existing XOOPS module 
 
 ```
 Phase 1: Preparation (1-2 days)
-├── Add PHP 8.2 compatibility
+├── Add PHP 8.4 compatibility
 ├── Set up Composer autoloading
 └── Create basic directory structure
 
@@ -46,9 +46,9 @@ Phase 5: Presentation Layer (1-2 days)
 
 ## Phase 1: Preparation
 
-### Step 1.1: PHP 8.2 Compatibility
+### Step 1.1: PHP 8.4 Compatibility
 
-Update your module to require PHP 8.2 and add strict types:
+Update your module to require PHP 8.4 and add strict types:
 
 ```php
 // Before (XOOPS 2.5 style)
@@ -60,7 +60,7 @@ class MyModuleItem extends XoopsObject {
     }
 }
 
-// After (PHP 8.2 compatible)
+// After (PHP 8.4 compatible)
 <?php
 
 declare(strict_types=1);
@@ -83,7 +83,7 @@ Create `composer.json` in your module root:
     "description": "My XOOPS Module",
     "type": "xoops-module",
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.4"
     },
     "autoload": {
         "psr-4": {
@@ -140,7 +140,7 @@ $modversion = [
     // ... existing config ...
 
     // Add new requirements
-    'min_php' => '8.2',
+    'min_php' => '8.4',
 
     // Flag for new architecture (optional, for tooling)
     'architecture' => 'hybrid',  // 'legacy', 'hybrid', or 'clean'
@@ -1040,7 +1040,7 @@ final class LegacyCompatibilityTest extends TestCase
 - [ ] Create `composer.json` with autoloading
 - [ ] Run `composer dump-autoload`
 - [ ] Create new directory structure
-- [ ] Update `xoops_version.php` with PHP 8.2 requirement
+- [ ] Update `xoops_version.php` with PHP 8.4 requirement
 
 ### Phase 2: Domain Extraction
 - [ ] Identify entities from existing XoopsObjects

@@ -1,5 +1,5 @@
 ---
-title: "Save Configuration​"
+title: "Save Configuration"
 ---
 
 This page displays the results of saving the configuration information you have entered up to this point.

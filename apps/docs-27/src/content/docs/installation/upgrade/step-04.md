@@ -1,5 +1,5 @@
 ---
-title: "​After the Upgrade​"
+title: "After the Upgrade"
 ---
 
 ## Update the System Module

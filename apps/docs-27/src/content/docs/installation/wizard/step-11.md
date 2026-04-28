@@ -1,5 +1,5 @@
 ---
-title: "Site Configuration​"
+title: "Site Configuration"
 ---
 
 This page collects the information used to set the intial state of your new XOOPS site. This includes things like titles and HTML meta tag values.

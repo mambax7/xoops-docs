@@ -1,5 +1,5 @@
 ---
-title: "Requirements​"
+title: "Requirements"
 ---
 
 ## Software Environment (the Stack)

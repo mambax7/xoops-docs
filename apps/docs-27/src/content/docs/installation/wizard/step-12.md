@@ -1,5 +1,5 @@
 ---
-title: "Select Theme​"
+title: "Select Theme"
 ---
 
 This page collects your choice for the initial theme for your new site. Themes control the visual character of your site. Themes may be changed at any time, if desired.

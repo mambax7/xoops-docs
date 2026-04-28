@@ -100,7 +100,7 @@ What actually happens.
 
 ## Environment
 - XOOPS Version: X.Y.Z
-- PHP Version: 7.4/8.0/8.1
+- PHP Version: 8.2/8.3/8.4
 - Database: MySQL/MariaDB version
 - Operating System: Windows/macOS/Linux
 - Browser: Chrome/Firefox/Safari
@@ -278,7 +278,7 @@ Environment:
 ✅ Add two-factor authentication support
 ✅ Form validation not preventing SQL injection in name field
 ✅ Improve performance of user list query
-✅ Update installation documentation for PHP 8.1
+✅ Update installation documentation for PHP 8.2
 ```
 
 ### Poor Titles
@@ -418,7 +418,7 @@ Error: "SQL Error - Unknown column 'deleted_at' in ON clause"
 
 ## Environment
 - XOOPS Version: 2.7.0
-- PHP Version: 8.1.5
+- PHP Version: 8.2.0
 - Database: MySQL 8.0.32 with STRICT_TRANS_TABLES
 - Operating System: Ubuntu 22.04
 - Browser: Firefox 120

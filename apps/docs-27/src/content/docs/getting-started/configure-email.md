@@ -1,5 +1,5 @@
 ---
-title: "Configure Emai​l"
+title: "Configure Email"
 ---
 
 ![XOOPS Email Configuration](/xoops-docs/2.7/img/installation/xoops-04-email-setup.png)

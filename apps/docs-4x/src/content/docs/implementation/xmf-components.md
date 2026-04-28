@@ -283,7 +283,7 @@ $slug = Slug::create('مرحبا');
 echo $slug; // "mrhba"
 
 // Mixed content
-$slug = Slug::create('PHP 8.3 新機能');
+$slug = Slug::create('PHP 8.4 新機能');
 echo $slug; // "php-8-3-xin-ji-neng"
 ```
 

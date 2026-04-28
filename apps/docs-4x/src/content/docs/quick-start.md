@@ -1,15 +1,15 @@
 ---
 title: Quick Start — XOOPS 4.x
-description: Get XOOPS 4.x running. Requires PHP 8.3+ and Composer.
+description: Get XOOPS 4.x running. Requires PHP 8.4+ and Composer.
 ---
 
 ## Requirements
 
-| Component  | Minimum  |
-|------------|----------|
-| PHP        | 8.3      |
-| MySQL      | 8.0      |
-| Composer   | 2.x      |
+| Component  | Minimum |
+|------------|---------|
+| PHP        | 8.4    |
+| MySQL      | 8.0     |
+| Composer   | 2.x     |
 
 ## Install via Composer
 

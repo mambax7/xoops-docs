@@ -14,7 +14,7 @@ See [Choosing an Event System](Choosing-Event-System.md) for a decision tree wit
 | **Preload System** | ✅ XOOPS 2.5.x (current) | Hook into core events via `class/Preload.php` |
 | **PSR-14 Event Dispatcher** | 🚧 XOOPS 4.0 (future) | Modern event dispatching with typed events |
 
-**For XOOPS 2.5.x modules**, use the [Preload System](#preload-system-legacy) section below. The PSR-14 section is for future 2026 development.
+**For XOOPS 2.5.x modules**, use the [Preload System](#preload-system-legacy) section below. The PSR-14 section is for XOOPS 4.0 development.
 :::
 
 ## Overview

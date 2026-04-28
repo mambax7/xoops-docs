@@ -1,5 +1,5 @@
 ---
-title: "Welcome​"
+title: "Welcome"
 ---
 
 The _Welcome to the XOOPS Installation Wizard_ briefly covers the requirements for XOOPS.

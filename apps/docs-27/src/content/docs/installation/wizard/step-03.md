@@ -1,5 +1,5 @@
 ---
-title: "​Configuration Check​"
+title: "Configuration Check"
 ---
 
 _Checking your server configuration_ is a review of the environment the installer is running in.

@@ -173,7 +173,7 @@ final class ArticlePublishedEvent
 
 ## Enums for Status
 
-Use PHP 8.1+ enums for type-safe status values:
+Use PHP 8.2+ enums for type-safe status values:
 
 ```php
 enum ArticleStatus: string

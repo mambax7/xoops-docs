@@ -17,7 +17,7 @@ XOOPS 4.0 represents a fundamental modernization of the XOOPS Content Management
 mindmap
   root((XOOPS 4.0))
     Modern PHP
-      PHP 8.2+
+      PHP 8.4+
       Strict Typing
       Composer
       PSR-4 Namespaces
@@ -39,7 +39,7 @@ mindmap
 
 ### 1. Modern PHP Standards
 
-- **Target PHP 8.2+** with strict typing and modern language features
+- **Target PHP 8.4+** with strict typing and modern language features
 - Full adoption of **PSR standards** for interoperability
 - **Composer-based** dependency management
 - **Namespace-based** architecture following PSR-4

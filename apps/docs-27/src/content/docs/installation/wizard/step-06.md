@@ -1,5 +1,5 @@
 ---
-title: "Database Configuration​"
+title: "Database Configuration"
 ---
 
 This page collects the information about the database that XOOPS will use.

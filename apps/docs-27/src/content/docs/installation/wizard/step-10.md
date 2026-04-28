@@ -1,5 +1,5 @@
 ---
-title: "​Data Insertion​"
+title: "Data Insertion"
 ---
 
 This page displays the results of creating the XOOPS tables in the database.

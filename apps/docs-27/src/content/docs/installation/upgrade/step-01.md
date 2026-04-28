@@ -1,5 +1,5 @@
 ---
-title: "Preparations for Upgrade​"
+title: "Preparations for Upgrade"
 ---
 
 ## Turn Site Off

@@ -438,7 +438,7 @@ class HttpClient
 ```json
 {
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "psr/log": "^3.0",
         "psr/http-message": "^2.0",
         "psr/container": "^2.0",

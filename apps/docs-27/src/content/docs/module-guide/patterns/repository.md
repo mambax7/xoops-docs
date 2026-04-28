@@ -18,7 +18,7 @@ The Repository pattern **works in both XOOPS 2.5.x and XOOPS 4.0.x**. In 2.5.x, 
 | Repository wrapper | ✅ Recommended | ✅ Native pattern |
 | Testing with mocks | ✅ With manual DI | ✅ Container autowiring |
 
-**Start with Repository pattern today** to prepare your modules for easier 2026 migration.
+**Start with Repository pattern today** to prepare your modules for XOOPS 4.0 migration.
 :::
 
 The Repository Pattern is a data access pattern that abstracts database operations, providing a clean interface for accessing data. It acts as a middleman between the business logic and data mapping layers.

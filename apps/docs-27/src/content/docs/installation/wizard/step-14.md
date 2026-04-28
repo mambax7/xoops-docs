@@ -1,5 +1,5 @@
 ---
-title: "​Welcome​"
+title: "Welcome"
 ---
 
 The _Welcome to your XOOPS site_ briefly covers some available XOOPS resources and offers a few suggestions for managing your site.

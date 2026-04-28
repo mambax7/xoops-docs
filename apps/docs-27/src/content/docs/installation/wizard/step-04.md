@@ -1,5 +1,5 @@
 ---
-title: "​Path Setting​"
+title: "Path Setting"
 ---
 
 This page collects the information about the file system and web address that XOOPS needs to operate. The installer will attempt to guess this information based on the URL you are using to access it, and the locations of the running PHP scripts.
