@@ -1,40 +1,32 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: XOOPS Dokumentation
+description: Offizielle Dokumentation für XOOPS 2.7.x
+template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
+  tagline: Open-Source PHP CMS — schnell installiert, leicht erweiterbar.
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Schnellstart
+      link: /xoops-docs/2.7/de/quick-start/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: Englische Dokumentation
+      link: /xoops-docs/2.7/
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
-
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+<CardGrid>
+  <Card title="Neu bei XOOPS?" icon="rocket">
+    Starten Sie mit dem [Schnellstart-Guide](/xoops-docs/2.7/de/quick-start/).
+  </Card>
+  <Card title="Modul-Entwickler?" icon="puzzle">
+    Lesen Sie den [Modul-Guide](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Theme-Entwickler?" icon="seti:css">
+    Lesen Sie den [Theme-Guide](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Upgrade?" icon="up-caret">
+    Folgen Sie dem [Migrations-Guide](/xoops-docs/2.7/migration/from-2-6/).
+  </Card>
 </CardGrid>

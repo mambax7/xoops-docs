@@ -1,17 +1,38 @@
 name: Deploy Documentation
 
+# ── Triggers ──────────────────────────────────────────────────────────────────
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/deploy.yml'
+  # Rebuild every Monday 08:00 UTC to refresh GitHub module data
+  schedule:
+    - cron: '0 8 * * 1'
+  # Allow manual trigger from the GitHub UI
+  workflow_dispatch:
 
+# ── Permissions (required for Pages deployment) ───────────────────────────────
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# ── Only one deployment at a time; cancel in-progress runs on new push ────────
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+# ── Jobs ──────────────────────────────────────────────────────────────────────
 jobs:
   build:
     name: Build Docs
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup pnpm
@@ -28,17 +49,44 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build all docs
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build all docs sites
+        # GITHUB_TOKEN is automatically provided — used to fetch module data
+        # from the GitHub API without hitting the anonymous rate limit (60 req/hr)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm build:all
 
-      # Merge both build outputs into one deploy folder
+      # ── Merge both build outputs into one deploy folder ──────────────────────
+      # Astro builds with base '/xoops-docs/2.7' → output is in dist/xoops-docs/2.7/
+      # We strip the leading 'xoops-docs/' so dist-all/ contains just '2.7/' and '4.x/'
+      # GitHub Pages serves xoops-docs repo at /xoops-docs/, so:
+      #   dist-all/2.7/index.html  →  https://xoops.github.io/xoops-docs/2.7/
+      #   dist-all/4.x/index.html  →  https://xoops.github.io/xoops-docs/4.x/
       - name: Merge build outputs
         run: |
           mkdir -p dist-all
-          cp -r apps/docs-27/dist/* dist-all/
-          cp -r apps/docs-4x/dist/* dist-all/
+          # Copy content out of the nested base-path folder
+          cp -r apps/docs-27/dist/xoops-docs/. dist-all/
+          cp -r apps/docs-4x/dist/xoops-docs/. dist-all/
+          # Root redirect: /xoops-docs/ → /xoops-docs/2.7/
+          cat > dist-all/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta http-equiv="refresh" content="0; url=/xoops-docs/2.7/" />
+              <title>XOOPS Docs</title>
+            </head>
+            <body>
+              Redirecting to <a href="/xoops-docs/2.7/">XOOPS 2.7 Docs</a>&hellip;
+            </body>
+          </html>
+          EOF
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist-all/
@@ -47,11 +95,6 @@ jobs:
     name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
-    # Only deploy on push to master, not on PRs
-    if: github.event_name == 'push'
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
