@@ -1,5 +1,5 @@
 ---
-title: "Troubleshooting​"
+title: "Troubleshooting"
 ---
 
 ## Smarty 4 Template Errors

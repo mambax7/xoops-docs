@@ -38,16 +38,16 @@ mindmap
 
 ## Quick Comparison
 
-| Feature | XOOPS 2.5.x | XOOPS 4.0 |
-|---------|-------------|------------|
-| **PHP Version** | 7.4+ | 8.2+ |
-| **Request Handling** | Page Controller (`index.php`) | Router + Middleware |
-| **Dependencies** | Global objects (`$xoopsDB`) | PSR-11 Container injection |
-| **Events** | Preload system | PSR-14 Event Dispatcher |
-| **Templates** | Smarty 3 | Smarty 4 |
-| **Autoloading** | Class maps | PSR-4 native |
-| **Module Metadata** | `xoops_version.php` | `xoops_version.php` + `module.json` |
-| **HTTP Messages** | Superglobals | PSR-7 Request/Response |
+| Feature | XOOPS 2.7.x                   | XOOPS 4.0                           |
+|---------|-------------------------------|-------------------------------------|
+| **PHP Version** | 8.2+                          | 8.4+                                |
+| **Request Handling** | Page Controller (`index.php`) | Router + Middleware                 |
+| **Dependencies** | Global objects (`$xoopsDB`)   | PSR-11 Container injection          |
+| **Events** | Preload system                | PSR-14 Event Dispatcher             |
+| **Templates** | Smarty 4                     | Smarty 4/5                          |
+| **Autoloading** | Class maps                    | PSR-4 native                        |
+| **Module Metadata** | `xoops_version.php`           | `xoops_version.php` + `module.json` |
+| **HTTP Messages** | Superglobals                  | PSR-7 Request/Response              |
 
 ---
 
@@ -165,7 +165,7 @@ New JSON-based module metadata alongside `xoops_version.php`:
   "name": "mymodule",
   "version": "1.0.0",
   "xoops": {
-    "min": "2026.0",
+    "min": "4.0",
     "compatibility": "H2"
   },
   "routes": {
@@ -283,7 +283,7 @@ flowchart LR
 
 ### Minimum Required (H0 → H1)
 
-- [ ] Test module on PHP 8.2
+- [ ] Test module on PHP 8.4
 - [ ] Add `module.json` with basic metadata
 - [ ] Run hybrid compatibility test suite
 - [ ] Review deprecation log
@@ -310,7 +310,7 @@ flowchart LR
 
 ## Breaking Changes
 
-### ⚠️ Removed in 2026
+### ⚠️ Removed in XOOPS 4.0
 
 | Feature | Replacement |
 |---------|-------------|
@@ -348,22 +348,7 @@ These APIs remain **stable and unchanged**:
 | Resource | Description |
 |----------|-------------|
 | [Vision 2026 Module](../10-Vision2026-Module/Vision2026-Module.md) | Reference implementation |
-| [2026 Tutorial](Tutorials/Getting-Started-with-XOOPS-4.0-Module-Development.md) | Step-by-step new module |
+| [4.0 Tutorial](Tutorials/Getting-Started-with-XOOPS-4.0-Module-Development.md) | Step-by-step new module |
 | [Pattern Decision Tree](../03-Module-Development/Choosing-Data-Access-Pattern.md) | Choose the right approach |
 | [Event Decision Tree](../02-Core-Concepts/Choosing-Event-System.md) | Preloads vs PSR-14 |
-| [Documentation Map](../00-Home/Documentation-Map.md) | Navigate all docs |
-
----
-
-## Timeline
-
-| Milestone | Status | Date |
-|-----------|--------|------|
-| Alpha Release | 🚧 In Progress | Q2 2026 |
-| Beta Release | 📅 Planned | Q3 2026 |
-| Release Candidate | 📅 Planned | Q4 2026 |
-| Stable Release | 📅 Planned | Q1 2027 |
-
----
-
-#xoops-4.0 #whats-new #psr #migration #quick-reference
+| [Documentation Map](../00-Home/Documentation-Map.md) | Navigate all d

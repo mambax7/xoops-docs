@@ -1,5 +1,5 @@
 ---
-title: "Table Creation​"
+title: "Table Creation"
 ---
 
 This page displays the results of creating the XOOPS tables in the database.

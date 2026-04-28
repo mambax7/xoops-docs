@@ -6,7 +6,7 @@ description: "The XOOPS Module Framework - A comprehensive library for modern XO
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
 
 :::tip[The Bridge to Modern XOOPS]
-XMF works in **both XOOPS 2.5.x and XOOPS 4.0.x**. It's the recommended way to modernize your modules today while preparing for 2026. XMF provides PSR-4 autoloading, namespaces, and helpers that smooth the transition.
+XMF works in **both XOOPS 2.5.x and XOOPS 4.0.x**. It's the recommended way to modernize your modules today while preparing for XOOPS 4.0. XMF provides PSR-4 autoloading, namespaces, and helpers that smooth the transition.
 :::
 
 The **XOOPS Module Framework (XMF)** is a powerful library designed to simplify and standardize XOOPS module development. XMF provides modern PHP practices including namespaces, autoloading, and a comprehensive set of helper classes that reduce boilerplate code and improve maintainability.

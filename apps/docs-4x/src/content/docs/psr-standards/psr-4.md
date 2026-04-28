@@ -84,8 +84,8 @@ Examples:
     "type": "xoops-module",
     "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=8.2",
-        "xoops/xoops-core": "^2026.0"
+        "php": ">=8.4",
+        "xoops/xoops-core": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -108,7 +108,7 @@ Examples:
     "type": "project",
     "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "psr/http-message": "^2.0",
         "psr/container": "^2.0",
         "psr/log": "^3.0"

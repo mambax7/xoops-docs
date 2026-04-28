@@ -388,7 +388,7 @@ export default defineConfig({
 				{
 					label: 'Migration',
 					items: [
-						{ slug: 'migration/from-2-6' },
+						{ slug: 'migration/from-2-5' },
 					],
 				},
 

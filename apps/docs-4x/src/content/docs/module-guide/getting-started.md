@@ -6,7 +6,7 @@ This comprehensive tutorial guides you through building a modern XOOPS module us
 
 ## Prerequisites
 
-- PHP 8.2 or higher
+- PHP 8.4 or higher
 - XOOPS 2.6.x installed
 - Composer
 - Basic understanding of PHP OOP
@@ -87,7 +87,7 @@ $modversion = [
     'dirname'     => 'notes',
 
     // Module requirements
-    'min_php'     => '8.2',
+    'min_php'     => '8.4',
     'min_xoops'   => '2.6.0',
     'min_admin'   => '1.2',
 
@@ -1698,7 +1698,7 @@ Congratulations! You've built a complete XOOPS module using modern PHP practices
 
 4. **Best Practices**
    - Immutable value objects
-   - Type-safe code with PHP 8.2+
+   - Type-safe code with PHP 8.4+
    - Comprehensive testing
    - Clear separation of concerns
 

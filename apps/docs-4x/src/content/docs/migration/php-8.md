@@ -363,7 +363,7 @@ composer require --dev phpstan/phpstan
 ./vendor/bin/phpstan analyse
 
 # With specific PHP version
-./vendor/bin/phpstan analyse --php-version=8.2
+./vendor/bin/phpstan analyse --php-version=8.4
 ```
 
 ---

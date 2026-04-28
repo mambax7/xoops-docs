@@ -68,7 +68,7 @@ modules/
     "name": "mymodule",
     "version": "1.0.0",
     "xoops": {
-        "min": "2026.1"
+        "min": "4.0"
     }
 }
 ```
@@ -102,9 +102,9 @@ modules/
     },
 
     "xoops": {
-        "min": "2026.1",
+        "min": "4.0",
         "max": null,
-        "php": ">=8.2",
+        "php": ">=8.4",
         "extensions": ["pdo", "json", "mbstring"],
         "category": "content"
     },
@@ -421,9 +421,9 @@ XOOPS compatibility requirements.
 ```json
 {
     "xoops": {
-        "min": "2026.1",
-        "max": "2026.99",
-        "php": ">=8.2",
+        "min": "4.0",
+        "max": "4.99",
+        "php": ">=8.4",
         "extensions": ["pdo", "json"],
         "category": "content"
     }
@@ -771,8 +771,8 @@ flowchart LR
 ```json
 {
     "xoops": {
-        "min": "2026.1",
-        "php": ">=8.2",
+        "min": "4.0",
+        "php": ">=8.4",
         "extensions": ["pdo_mysql", "json", "mbstring", "gd"]
     }
 }

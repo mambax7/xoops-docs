@@ -1,5 +1,5 @@
 ---
-title: "Database Connection​"
+title: "Database Connection"
 ---
 
 This page collects the information about about the database user account that XOOPS will use.

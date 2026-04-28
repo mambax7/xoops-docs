@@ -7,7 +7,7 @@ title: "Dependency Injection in XOOPS"
 |---------|-------------|------------|
 | Manual DI (constructor injection) | ✅ Available | ✅ Available |
 | PSR-11 Container | ❌ Not built-in | ✅ Native support |
-| `\Xmf\Module\Helper::getContainer()` | ❌ 2026 only | ✅ Available |
+| `\Xmf\Module\Helper::getContainer()` | ❌ 4.0 only | ✅ Available |
 
 In **XOOPS 2.5.x**, use manual constructor injection (passing dependencies explicitly). The PSR-11 container examples below are for **XOOPS 4.0**.
 :::

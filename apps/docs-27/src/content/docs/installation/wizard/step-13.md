@@ -1,5 +1,5 @@
 ---
-title: "Modules Installation​"
+title: "Modules Installation"
 ---
 
 This page collects your choice for the modules to install in your new site. Modules may be added or removed at any time, if desired.

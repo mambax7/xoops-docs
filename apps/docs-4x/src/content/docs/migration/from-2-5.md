@@ -67,7 +67,7 @@ graph LR
 ### Phase 2: Dependencies
 - [ ] Add composer.json
 - [ ] Configure PSR-4 autoloading
-- [ ] Update minimum PHP version to 8.2
+- [ ] Update minimum PHP version to 8.4
 - [ ] Install required packages
 
 ### Phase 3: Code Refactoring
@@ -138,8 +138,8 @@ $modversion['config'][] = [
         "description": "@modinfo.description"
     },
     "requirements": {
-        "xoops": "^2026.0",
-        "php": ">=8.2"
+        "xoops": "^4.0",
+        "php": ">=8.4"
     },
     "features": {
         "hasMain": true,
@@ -358,7 +358,7 @@ modules/mymodule/
 ├── class/                    # 2.5.x location
 │   ├── Item.php
 │   └── ItemHandler.php
-└── src/                      # 2026 location (PSR-4)
+└── src/                      # 4.x location (PSR-4) (PSR-4)
     └── Xoops/
         └── Module/
             └── MyModule/
@@ -461,8 +461,8 @@ class ItemRepository extends Repository
     "type": "xoops-module",
     "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=8.2",
-        "xoops/core": "^2026.0"
+        "php": ">=8.4",
+        "xoops/core": "^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.0",
@@ -594,4 +594,4 @@ class MigrationTest extends TestCase
 
 ---
 
-#xoops #migration #upgrade #2026 #modernization
+#xoops #migration #upgrade #4.0 #modernization

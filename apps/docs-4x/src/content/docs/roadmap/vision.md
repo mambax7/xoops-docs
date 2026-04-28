@@ -60,7 +60,7 @@ graph TB
 
 - Full PSR compliance for interoperability
 - Composer-based dependency management
-- Type-safe code with PHP 8.2+ features
+- Type-safe code with PHP 8.4+ features
 
 ### 2. Separation of Concerns
 

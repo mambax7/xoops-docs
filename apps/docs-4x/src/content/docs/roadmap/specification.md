@@ -32,8 +32,8 @@ The manifest file with IDE autocompletion support via JSON Schema:
         "version": "1.0.0"
     },
     "requirements": {
-        "xoops": "^2026.0",
-        "php": ">=8.2"
+        "xoops": "^4.0",
+        "php": ">=8.4"
     },
     "routes": {
         "index": {

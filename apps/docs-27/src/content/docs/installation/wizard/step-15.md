@@ -1,5 +1,5 @@
 ---
-title: "Cleanup​"
+title: "Cleanup"
 ---
 
 For security purposes, you should remove the _install_ directory from your site. The installer will have renamed the directory to _installremove_ followed by some lengthy random string.

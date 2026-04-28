@@ -8,7 +8,7 @@ XOOPS 4.x module development documentation is coming soon.
 Key differences from 2.7:
 - PSR-4 namespaced classes under `Xoops\Module\YourModule\`
 - Composer-managed module dependencies
-- PHP 8.3 typed properties and enums throughout
+- PHP 8.4 typed properties and enums throughout
 - Bootstrap 5 admin components
 
 For now, see the [XOOPS 2.7 Module Guide](/xoops-docs/2.7/module-guide/introduction/) for
