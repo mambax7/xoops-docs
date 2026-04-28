@@ -3,6 +3,12 @@ dist/
 # generated types
 .astro/
 
+# no backup files, editor temp
+*~
+\#*
+*.bak
+.idea/
+
 # dependencies
 node_modules/
 

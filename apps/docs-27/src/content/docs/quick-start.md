@@ -5,11 +5,11 @@ description: Get XOOPS 2.7 running in under 5 minutes.
 
 ## Requirements
 
-| Component  | Minimum        | Recommended    |
-|------------|----------------|----------------|
-| PHP        | 8.1            | 8.3+           |
-| MySQL      | 5.7            | 8.0+           |
-| MariaDB    | 10.4           | 10.11+         |
+| Component  | Minimum                 | Recommended   |
+|------------|-------------------------|---------------|
+| PHP        | 8.2                    | 8.4+         |
+| MySQL      | 5.7                     | 8.0+          |
+| MariaDB    | 10.4                    | 10.11+        |
 | Web server | Apache 2.4 / Nginx 1.20 | Latest stable |
 
 ## Download

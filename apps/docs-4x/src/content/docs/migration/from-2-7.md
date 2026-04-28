@@ -9,12 +9,12 @@ XOOPS 4.x migration documentation is being written. Check back soon.
 
 ## Breaking Changes Overview
 
-| Area | 2.7 | 4.x |
-|------|-----|-----|
-| PHP requirement | 8.1+ | 8.3+ |
-| Autoloading | Custom `include/` paths | PSR-4 via Composer |
-| Module classes | `XoopsObject` extend | Same + typed properties |
-| Admin UI | Bootstrap 3 | Bootstrap 5 |
-| Template engine | Smarty 3 | Smarty 4 |
+| Area | 2.7                     | 4.x                     |
+|------|-------------------------|-------------------------|
+| PHP requirement | 8.2+                    | 8.4+                    |
+| Autoloading | Custom `include/` paths | PSR-4 via Composer      |
+| Module classes | `XoopsObject` extend    | Same + typed properties |
+| Admin UI | Bootstrap 5             | Bootstrap 5             |
+| Template engine | Smarty 4                | Smarty 4/5              |
 
 More detailed migration steps coming soon.
