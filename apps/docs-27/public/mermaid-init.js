@@ -1,12 +1,17 @@
 // Mermaid diagram renderer for XOOPS Docs
 // Loaded as a static asset — no build step, no npm dependency.
+//
 // Starlight uses expressive-code, which renders mermaid blocks as:
 //   <div class="expressive-code">
-//     <figure><pre data-language="mermaid"><code>...</code></pre></figure>
+//     <figure><pre data-language="mermaid"><code>
+//       <div class="ec-line"><div class="code">...</div></div>
+//       ...
+//     </code></pre></figure>
 //   </div>
-// We target that structure, extract the raw source via textContent,
-// replace the whole expressive-code container with the rendered SVG,
-// and re-render when the user toggles dark/light mode.
+//
+// IMPORTANT: textContent on the <code> element concatenates ec-line divs
+// without newlines, producing invalid Mermaid source.  We must join each
+// .ec-line's textContent with '\n' to reconstruct the original diagram.
 
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
@@ -16,6 +21,16 @@ function currentTheme() {
     : 'dark';
 }
 
+function extractSource(code) {
+  // expressive-code wraps each line in .ec-line; join them to restore newlines
+  const lines = code.querySelectorAll('.ec-line');
+  if (lines.length) {
+    return Array.from(lines).map(l => l.textContent).join('\n').trim();
+  }
+  // Fallback for plain <code> blocks (no expressive-code)
+  return code.textContent.trim();
+}
+
 async function renderMermaid() {
   const codeBlocks = document.querySelectorAll('pre[data-language="mermaid"] code');
   if (!codeBlocks.length) return;
@@ -23,7 +38,7 @@ async function renderMermaid() {
   mermaid.initialize({ startOnLoad: false, theme: currentTheme() });
 
   for (const code of codeBlocks) {
-    const src = code.textContent.trim();
+    const src = extractSource(code);
     // Replace the whole expressive-code wrapper, falling back to the <pre>
     const container = code.closest('.expressive-code') || code.closest('pre');
     const wrapper = document.createElement('div');
@@ -34,7 +49,8 @@ async function renderMermaid() {
       const id = 'mmd-' + Math.random().toString(36).slice(2, 9);
       const { svg } = await mermaid.render(id, src);
       wrapper.innerHTML = svg;
-    } catch {
+    } catch (e) {
+      console.error('Mermaid render error:', e, '\nSource:\n', src);
       wrapper.textContent = src;
     }
     container.replaceWith(wrapper);
