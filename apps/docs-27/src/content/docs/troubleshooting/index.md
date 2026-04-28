@@ -357,7 +357,7 @@ diff -r /path/to/xoops /path/to/fresh-xoops
 ## 📚 External Resources
 
 - [XOOPS Forums](https://xoops.org/modules/newbb/)
-- [GitHub Issues](https://github.com/XOOPS/XoopsCore25/issues)
+- [GitHub Issues](https://github.com/XOOPS/XoopsCore27//issues)
 - [PHP Error Reference](https://www.php.net/manual/en/errorfunc.constants.php)
 
 ---

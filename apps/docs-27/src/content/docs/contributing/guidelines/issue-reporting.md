@@ -13,7 +13,7 @@ description: "How to report bugs, feature requests, and other issues effectively
 
 **Always search first:**
 
-1. Go to [GitHub Issues](https://github.com/XOOPS/XoopsCore25/issues)
+1. Go to [GitHub Issues](https://github.com/XOOPS/XoopsCore27//issues)
 2. Search for keywords related to your issue
 3. Check closed issues - might be already resolved
 4. Look at pull requests - might be in progress

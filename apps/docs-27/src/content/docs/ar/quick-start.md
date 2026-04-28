@@ -1,11 +1,46 @@
 ---
-title: Example Guide
-description: A guide in my new Starlight docs site.
+title: البدء السريع
+description: شغل XOOPS 2.7 في أقل من 5 دقائق.
+dir: rtl
+lang: ar
 ---
 
-Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.
-Writing a good guide requires thinking about what your users are trying to do.
+## المتطلبات
 
-## Further reading
+| المكون   | الحد الأدنى              | الموصى به     |
+|------------|-------------------------|---------------|
+| PHP        | 8.2                    | 8.4+         |
+| MySQL      | 5.7                     | 8.0+          |
+| MariaDB    | 10.4                    | 10.11+        |
+| خادم الويب | Apache 2.4 / Nginx 1.20 | أحدث إصدار مستقر |
 
-- Read [about how-to guides](https://diataxis.fr/how-to-guides/) in the Diátaxis framework
+## التنزيل
+
+قم بتنزيل أحدث إصدار من [GitHub Releases](https://github.com/XOOPS/XoopsCore27/releases).
+
+```bash
+# أو استنساخ مباشرة
+git clone https://github.com/XOOPS/XoopsCore27.git mysite
+cd mysite
+```
+
+## خطوات التثبيت
+
+1. **تحميل الملفات** إلى جذر مستند خادم الويب الخاص بك (على سبيل المثال `public_html/`).
+2. **إنشاء قاعدة بيانات MySQL** ومستخدم بامتيازات كاملة عليها.
+3. **افتح متصفحك** وانتقل إلى نطاقك - سيبدأ مثبت XOOPS تلقائياً.
+4. **اتبع معالج 5 خطوات** - يقوم بتكوين المسارات وإنشاء الجداول وإعداد حسابك الإداري.
+5. **احذف مجلد `install/`** عند مطالبتك. هذا إلزامي لأسباب أمنية.
+
+## التحقق من التثبيت
+
+بعد الإعداد، قم بزيارة:
+
+- **الصفحة الأمامية:** `https://yourdomain.com/`
+- **لوحة التحكم:** `https://yourdomain.com/xoops_data/` *(المسار الذي اخترته أثناء التثبيت)*
+
+## الخطوات التالية
+
+- [دليل التثبيت الكامل](./installation/) — تكوين الخادم والأذونات واستكشاف الأخطاء وإصلاحها
+- [دليل الوحدة](./module-guide/introduction/) — بناء أول وحدة لك
+- [دليل المظهر](./theme-guide/introduction/) — إنشاء أو تخصيص مظهر

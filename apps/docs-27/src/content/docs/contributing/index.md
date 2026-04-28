@@ -44,11 +44,11 @@ XOOPS is an open-source project that thrives on community contributions. Whether
 ```bash
 # Fork the repository on GitHub
 # Then clone your fork
-git clone https://github.com/YOUR_USERNAME/XoopsCore25.git
-cd XoopsCore25
+git clone https://github.com/YOUR_USERNAME/XoopsCore27.git
+cd XoopsCore27
 
 # Add upstream remote
-git remote add upstream https://github.com/XOOPS/XoopsCore25.git
+git remote add upstream https://github.com/XOOPS/XoopsCore27/.git
 
 # Install dependencies
 composer install
@@ -352,8 +352,8 @@ Contributors are recognized through:
 
 ## 📚 Resources
 
-- [GitHub Repository](https://github.com/XOOPS/XoopsCore25)
-- [Issue Tracker](https://github.com/XOOPS/XoopsCore25/issues)
+- [GitHub Repository](https://github.com/XOOPS/XoopsCore27/)
+- [Issue Tracker](https://github.com/XOOPS/XoopsCore27//issues)
 - [XOOPS Forums](https://xoops.org/modules/newbb/)
 - [Discord Community](https://discord.gg/xoops)
 

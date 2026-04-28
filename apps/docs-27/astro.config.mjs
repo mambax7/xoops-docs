@@ -18,10 +18,16 @@ export default defineConfig({
 			],
 
 			locales: {
-				root: { label: 'English', lang: 'en' },
-				de:   { label: 'Deutsch',  lang: 'de' },
-				fr:   { label: 'Français', lang: 'fr' },
-				ar:   { label: 'العربية',  lang: 'ar', dir: 'rtl' },
+				root:     { label: 'English',   lang: 'en' },
+				de:       { label: 'Deutsch',   lang: 'de' },
+				fr:       { label: 'Français',  lang: 'fr' },
+				ar:       { label: 'العربية',   lang: 'ar',   dir: 'rtl' },
+				it:       { label: 'Italiano',  lang: 'it' },
+				pt:       { label: 'Português', lang: 'pt' },
+				ru:       { label: 'Русский',   lang: 'ru' },
+				pl:       { label: 'Polski',    lang: 'pl' },
+				es:       { label: 'Español',   lang: 'es' },
+				'zh-tw':  { label: '繁體中文',  lang: 'zh-TW' },
 			},
 
 			social: [

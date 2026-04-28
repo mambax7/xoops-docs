@@ -839,4 +839,4 @@ echo 'Average order value: $' . number_format($avgOrderValue, 2);
 
 ---
 
-*See also: [XOOPS Database API](https://github.com/XOOPS/XoopsCore25/tree/master/htdocs/class)*
+*See also: [XOOPS Database API](https://github.com/XOOPS/XoopsCore27//tree/master/htdocs/class)*

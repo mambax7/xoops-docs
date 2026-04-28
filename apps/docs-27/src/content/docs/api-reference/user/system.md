@@ -774,4 +774,4 @@ echo '</form>';
 
 ---
 
-*See also: [XOOPS User API](https://github.com/XOOPS/XoopsCore25/tree/master/htdocs/class) | [PHP Security](https://www.php.net/manual/en/book.password.php)*
+*See also: [XOOPS User API](https://github.com/XOOPS/XoopsCore27//tree/master/htdocs/class) | [PHP Security](https://www.php.net/manual/en/book.password.php)*

@@ -1,0 +1,268 @@
+---
+title: "مثال وحدة متقدمة"
+description: "وحدة معقدة بجداول متعددة وعلاقات وواجهة إدارية وكتل"
+dir: rtl
+lang: ar
+---
+
+# مثال وحدة متقدمة - منتدى
+
+وحدة شاملة "منتدى" تعرض الأنماط المتقدمة: أنواع كيانات متعددة وعلاقات وواجهة إدارية معقدة والإخطارات.
+
+## هيكل الوحدة
+
+```
+forum/
+├── xoops_version.php
+├── class/
+│   ├── Repository/
+│   │   ├── ForumRepository.php
+│   │   ├── TopicRepository.php
+│   │   └── PostRepository.php
+│   ├── Entity/
+│   │   ├── Forum.php
+│   │   ├── Topic.php
+│   │   └── Post.php
+│   ├── Service/
+│   │   ├── ForumService.php
+│   │   └── TopicService.php
+│   └── Handler/
+│       └── NotificationHandler.php
+├── templates/
+│   ├── forum_list.html
+│   ├── topic_view.html
+│   └── admin/dashboard.html
+└── sql/mysql.sql
+```
+
+## مخطط قاعدة البيانات
+
+```sql
+-- المنتديات
+CREATE TABLE `xoops_forum_forums` (
+  `forum_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `forum_name` VARCHAR(255) NOT NULL,
+  `forum_description` TEXT,
+  `forum_order` INT,
+  `forum_created` INT NOT NULL
+);
+
+-- المواضيع
+CREATE TABLE `xoops_forum_topics` (
+  `topic_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `topic_forum_id` INT NOT NULL,
+  `topic_author_id` INT NOT NULL,
+  `topic_title` VARCHAR(255) NOT NULL,
+  `topic_post_count` INT DEFAULT 1,
+  `topic_view_count` INT DEFAULT 0,
+  `topic_created` INT NOT NULL,
+  FOREIGN KEY (`topic_forum_id`) REFERENCES `xoops_forum_forums`(`forum_id`)
+);
+
+-- المشاركات
+CREATE TABLE `xoops_forum_posts` (
+  `post_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `post_topic_id` INT NOT NULL,
+  `post_forum_id` INT NOT NULL,
+  `post_author_id` INT NOT NULL,
+  `post_content` LONGTEXT NOT NULL,
+  `post_created` INT NOT NULL,
+  FOREIGN KEY (`post_topic_id`) REFERENCES `xoops_forum_topics`(`topic_id`)
+);
+
+-- الاشتراكات
+CREATE TABLE `xoops_forum_subscriptions` (
+  `subscription_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `subscription_user_id` INT NOT NULL,
+  `subscription_topic_id` INT NOT NULL,
+  UNIQUE (`subscription_user_id`, `subscription_topic_id`)
+);
+```
+
+## فئات الكيان
+
+### كيان الموضوع
+
+```php
+<?php
+class Topic
+{
+    private $id;
+    private $forumId;
+    private $authorId;
+    private $title;
+    private $postCount = 1;
+    private $viewCount = 0;
+    private $createdAt;
+    
+    // الحاصلات والمحددات...
+    public function getId() { return $this->id; }
+    public function setId($id) { $this->id = $id; return $this; }
+    
+    public function getForumId() { return $this->forumId; }
+    public function setForumId($id) { $this->forumId = $id; return $this; }
+    
+    public function getTitle() { return $this->title; }
+    public function setTitle($t) { $this->title = $t; return $this; }
+    
+    public function getPostCount() { return $this->postCount; }
+    public function incrementPostCount() { $this->postCount++; return $this; }
+    
+    public function getViewCount() { return $this->viewCount; }
+    public function incrementViewCount() { $this->viewCount++; return $this; }
+}
+?>
+```
+
+## المستودع بالعلاقات
+
+```php
+<?php
+class TopicRepository
+{
+    private $db;
+    
+    public function __construct($connection)
+    {
+        $this->db = $connection;
+    }
+    
+    public function getWithAuthorInfo($id)
+    {
+        $sql = "SELECT t.*, u.uname as author_name
+                FROM " . $this->db->prefix('forum_topics') . " t
+                LEFT JOIN " . $this->db->prefix('users') . " u
+                ON t.topic_author_id = u.uid
+                WHERE t.topic_id = ?";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        
+        return $stmt->get_result()->fetch_assoc();
+    }
+    
+    public function getByForumWithStats($forumId, $limit = 20, $offset = 0)
+    {
+        $sql = "SELECT t.*, u.uname as author_name,
+                        COUNT(p.post_id) as post_count
+                FROM " . $this->db->prefix('forum_topics') . " t
+                LEFT JOIN " . $this->db->prefix('users') . " u
+                ON t.topic_author_id = u.uid
+                LEFT JOIN " . $this->db->prefix('forum_posts') . " p
+                ON t.topic_id = p.post_topic_id
+                WHERE t.topic_forum_id = ?
+                GROUP BY t.topic_id
+                ORDER BY t.topic_created DESC
+                LIMIT ?, ?";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('iii', $forumId, $offset, $limit);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        $topics = [];
+        while ($row = $result->fetch_assoc()) {
+            $topics[] = $row;
+        }
+        
+        return $topics;
+    }
+}
+?>
+```
+
+## طبقة الخدمة
+
+```php
+<?php
+class TopicService
+{
+    private $topicRepository;
+    private $postRepository;
+    private $notificationHandler;
+    
+    public function __construct(
+        TopicRepository $topicRepository,
+        PostRepository $postRepository,
+        NotificationHandler $notificationHandler
+    ) {
+        $this->topicRepository = $topicRepository;
+        $this->postRepository = $postRepository;
+        $this->notificationHandler = $notificationHandler;
+    }
+    
+    public function createTopic($forumId, $userId, $title, $content)
+    {
+        // تحقق
+        if (strlen($title) < 3) {
+            throw new \InvalidArgumentException('العنوان قصير جداً');
+        }
+        
+        // أنشئ موضوع
+        $topic = new Topic();
+        $topic->setForumId($forumId)
+            ->setAuthorId($userId)
+            ->setTitle($title)
+            ->setCreatedAt(new \DateTime());
+        
+        $topicId = $this->topicRepository->save($topic);
+        
+        // أنشئ أول مشاركة
+        $this->postRepository->createPost($topicId, $forumId, $userId, $content);
+        
+        // أخبر المشتركين
+        $this->notificationHandler->notifyNewTopic($topicId);
+        
+        return $topicId;
+    }
+    
+    public function getTopicWithPosts($topicId, $page = 1, $perPage = 20)
+    {
+        // احصل على موضوع معلومات المؤلف
+        $topic = $this->topicRepository->getWithAuthorInfo($topicId);
+        
+        if (!$topic) {
+            throw new \RuntimeException('لم يتم العثور على الموضوع');
+        }
+        
+        // زيادة عدد المشاهدات
+        $topic['topic_view_count']++;
+        $this->topicRepository->updateViewCount($topicId, $topic['topic_view_count']);
+        
+        // احصل على المشاركات
+        $offset = ($page - 1) * $perPage;
+        $posts = $this->postRepository->getByTopicId($topicId, $perPage, $offset);
+        
+        return [
+            'topic' => $topic,
+            'posts' => $posts,
+            'page' => $page,
+            'totalPages' => ceil($topic['topic_post_count'] / $perPage),
+        ];
+    }
+}
+?>
+```
+
+## ميزات متقدمة
+
+يوضح هذا المثال:
+
+1. **علاقات الكيانات** - المنتديات تحتوي على المواضيع والمواضيع تحتوي على المشاركات
+2. **استعلامات معقدة** - عمليات دمج معلومات المستخدم والإحصائيات
+3. **تنسيق الخدمة** - خدمات متعددة تعمل معاً
+4. **تجميع البيانات** - عدد المشاركات وعدد المشاهدات
+5. **الإخطارات** - الإخطارات المدفوعة بالأحداث للاشتراكات
+6. **عمليات شبيهة بالمعاملات** - إنشاء موضوع مع المشاركة الأولى
+
+## الأنماط ذات الصلة
+
+انظر أيضاً:
+- ../Patterns/Repository-Pattern لاستعلامات معقدة
+- ../Patterns/Service-Layer لتنسيق الخدمة
+- ../Patterns/DTO-Pattern لنقل البيانات
+
+---
+
+Tags: #examples #advanced-module #complex-example #relationships #module-development
