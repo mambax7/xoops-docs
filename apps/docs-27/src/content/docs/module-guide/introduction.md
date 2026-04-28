@@ -1,86 +1,211 @@
 ---
-title: Module Development Introduction
-description: Learn the fundamentals of building XOOPS modules — the domain model, directory structure, and core objects.
+title: "Module Development"
+description: "Comprehensive guide to developing XOOPS modules using modern PHP practices"
 ---
 
-XOOPS modules are self-contained applications that plug into the XOOPS core.
-Each module owns its own database tables, admin pages, templates, and language files.
+This section provides comprehensive documentation for developing XOOPS modules using modern PHP practices, design patterns, and best practices.
 
-## Core Concept: The Module Domain Model
+## Overview
 
-Think of a XOOPS module as a mini-MVC application:
+XOOPS module development has evolved significantly over the years. Modern modules leverage:
+
+- **MVC Architecture** - Clean separation of concerns
+- **PHP 8.x Features** - Type declarations, attributes, named arguments
+- **Design Patterns** - Repository, DTO, Service Layer patterns
+- **Testing** - PHPUnit with modern testing practices
+- **XMF Framework** - XOOPS Module Framework utilities
+
+## Documentation Structure
+
+### Tutorials
+
+Step-by-step guides for building XOOPS modules from scratch.
+
+- Tutorials/Hello-World-Module - Your first XOOPS module
+- Tutorials/Building-a-CRUD-Module - Complete Create, Read, Update, Delete functionality
+
+### Design Patterns
+
+Architectural patterns used in modern XOOPS module development.
+
+- Patterns/MVC-Pattern - Model-View-Controller architecture
+- Patterns/Repository-Pattern - Data access abstraction
+- Patterns/DTO-Pattern - Data Transfer Objects for clean data flow
+
+### Best Practices
+
+Guidelines for writing maintainable, high-quality code.
+
+- Best-Practices/Clean-Code - Clean code principles for XOOPS
+- Best-Practices/Code-Smells - Common anti-patterns and how to fix them
+- Best-Practices/Testing - PHPUnit testing strategies
+
+### Examples
+
+Real-world module analysis and implementation examples.
+
+- Publisher-Module-Analysis - Deep dive into the Publisher module
+
+## Module Directory Structure
+
+A well-organized XOOPS module follows this directory structure:
 
 ```
-mymodule/
-├── xoops_version.php   ← Module manifest (name, version, tables, menu)
-├── index.php           ← Front-end entry point
-├── admin/
-│   └── index.php       ← Admin panel entry point
-├── class/
-│   ├── myobject.php    ← Domain object (extends XoopsObject)
-│   └── myobjecthandler.php  ← Repository (extends XoopsPersistableObjectHandler)
-├── include/
-│   └── functions.php   ← Helper functions
-├── language/
-│   └── english/
-│       └── main.php    ← Translation strings
-└── templates/
-    └── mymodule_index.tpl  ← Smarty templates
+/modules/mymodule/
+    /admin/
+        admin_header.php
+        admin_footer.php
+        index.php
+        menu.php
+    /assets/
+        /css/
+        /js/
+        /images/
+    /blocks/
+        myblock.php
+    /class/
+        /Controller/
+        /Entity/
+        /Repository/
+        /Service/
+    /include/
+        common.php
+        install.php
+        uninstall.php
+        update.php
+    /language/
+        /english/
+            admin.php
+            main.php
+            modinfo.php
+    /preloads/
+        core.php
+    /sql/
+        mysql.sql
+    /templates/
+        /admin/
+        /blocks/
+        main_index.tpl
+    /test/
+        bootstrap.php
+        /Unit/
+        /Integration/
+    index.php
+    xoops_version.php
 ```
 
-## xoops_version.php — The Module Manifest
+## Key Files Explained
 
-Every module starts here. This file tells XOOPS everything it needs to know
-about the module: its name, version, what database tables to create, and
-what to show in the admin menu.
+### xoops_version.php
+
+The module definition file that tells XOOPS about your module:
 
 ```php
 <?php
-$modversion = [
-    'name'          => 'My Module',
-    'version'       => 1.00,
-    'description'   => 'A sample XOOPS module',
-    'author'        => 'Your Name',
-    'credits'       => 'XOOPS Community',
-    'license'       => 'GPL 2.0',
-    'dirname'       => 'mymodule',
-    'image'         => 'assets/images/logo.png',
-    'cube_style'    => true,  // Use XOOPS 2.7 admin UI
+$modversion = [];
 
-    // Database tables (without xoops_ prefix)
-    'tables'        => ['mymodule_items'],
+// Basic Information
+$modversion['name']        = 'My Module';
+$modversion['version']     = 1.00;
+$modversion['description'] = 'A sample XOOPS module';
+$modversion['author']      = 'Your Name';
+$modversion['credits']     = 'Your Team';
+$modversion['license']     = 'GPL 2.0 or later';
+$modversion['dirname']     = 'mymodule';
+$modversion['image']       = 'assets/images/logo.png';
 
-    // Admin menu entries
-    'adminmenu'     => 'admin/menu.php',
-    'hasMain'       => 1,
+// Module Flags
+$modversion['hasMain']     = 1;  // Has frontend pages
+$modversion['hasAdmin']    = 1;  // Has admin section
+$modversion['system_menu'] = 1;  // Show in admin menu
+
+// Admin Configuration
+$modversion['adminindex']  = 'admin/index.php';
+$modversion['adminmenu']   = 'admin/menu.php';
+
+// Database
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+$modversion['tables'] = [
+    'mymodule_items',
+    'mymodule_categories',
+];
+
+// Templates
+$modversion['templates'][] = [
+    'file'        => 'mymodule_index.tpl',
+    'description' => 'Index page template',
+];
+
+// Blocks
+$modversion['blocks'][] = [
+    'file'        => 'myblock.php',
+    'name'        => 'My Block',
+    'description' => 'Displays recent items',
+    'show_func'   => 'mymodule_block_show',
+    'edit_func'   => 'mymodule_block_edit',
+    'template'    => 'mymodule_block.tpl',
+];
+
+// Module Preferences
+$modversion['config'][] = [
+    'name'        => 'items_per_page',
+    'title'       => '_MI_MYMODULE_ITEMS_PER_PAGE',
+    'description' => '_MI_MYMODULE_ITEMS_PER_PAGE_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 10,
 ];
 ```
 
-## XoopsObject — Your Domain Entity
+### Common Include File
 
-`XoopsObject` is the base class for all XOOPS domain entities.
-It is analogous to a Doctrine Entity or an Eloquent Model.
+Create a common bootstrap file for your module:
 
 ```php
 <?php
-// class/myitem.php
-use Xmf\Database\TableLoad;
+// include/common.php
 
-class MyItem extends XoopsObject
-{
-    public function __construct()
-    {
-        parent::__construct();
-        $this->initVar('item_id',    XOBJ_DTYPE_INT,    null, false);
-        $this->initVar('title',      XOBJ_DTYPE_TXTBOX, '',   true,  255);
-        $this->initVar('body',       XOBJ_DTYPE_TXTAREA,'',   false);
-        $this->initVar('created_at', XOBJ_DTYPE_INT,    time(),false);
-    }
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
+
+// Module constants
+define('MYMODULE_DIRNAME', 'mymodule');
+define('MYMODULE_PATH', XOOPS_ROOT_PATH . '/modules/' . MYMODULE_DIRNAME);
+define('MYMODULE_URL', XOOPS_URL . '/modules/' . MYMODULE_DIRNAME);
+
+// Autoload classes
+require_once MYMODULE_PATH . '/class/autoload.php';
 ```
 
-## Next Steps
+## PHP Version Requirements
 
-- Module Structure (coming soon)
-- The XoopsObject System (coming soon)
-- Admin Panel Development (coming soon)
+Modern XOOPS modules should target PHP 8.0 or higher to leverage:
+
+- **Constructor Property Promotion**
+- **Named Arguments**
+- **Union Types**
+- **Match Expressions**
+- **Attributes**
+- **Nullsafe Operator**
+
+## Getting Started
+
+1. Start with the Tutorials/Hello-World-Module tutorial
+2. Progress to Tutorials/Building-a-CRUD-Module
+3. Study the Patterns/MVC-Pattern for architecture guidance
+4. Apply Best-Practices/Clean-Code practices throughout
+5. Implement Best-Practices/Testing from the beginning
+
+## Related Resources
+
+- ../05-XMF-Framework/XMF-Framework - XOOPS Module Framework utilities
+- Database-Operations - Working with the XOOPS database
+- ../04-API-Reference/Template/Template-System - Smarty templating in XOOPS
+- ../02-Core-Concepts/Security/Security-Best-Practices - Securing your module
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | 2025-01-28 | Initial documentation |
