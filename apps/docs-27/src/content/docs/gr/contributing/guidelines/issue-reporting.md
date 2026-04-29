@@ -1,0 +1,479 @@
+---
+title: "Οδηγίες αναφοράς ζητημάτων"
+description: "Πώς να αναφέρετε αποτελεσματικά σφάλματα, αιτήματα για λειτουργίες και άλλα ζητήματα"
+---
+
+> Οι αποτελεσματικές αναφορές σφαλμάτων και τα αιτήματα δυνατοτήτων είναι ζωτικής σημασίας για την ανάπτυξη του XOOPS. Αυτός ο οδηγός σάς βοηθά να δημιουργήσετε προβλήματα υψηλής ποιότητας.
+
+---
+
+## Πριν από την αναφορά
+
+## # Ελέγξτε τα υπάρχοντα ζητήματα
+
+**Πάντα να κάνετε αναζήτηση πρώτα:**
+
+1. Μεταβείτε στο [Ζητήματα GitHub](https://github.com/XOOPS/XoopsCore27/issues)
+2. Αναζητήστε λέξεις-κλειδιά που σχετίζονται με το πρόβλημά σας
+3. Ελέγξτε τα κλειστά ζητήματα - μπορεί να έχουν ήδη επιλυθεί
+4. Δείτε τα αιτήματα έλξης - ενδέχεται να βρίσκονται σε εξέλιξη
+
+Χρησιμοποιήστε φίλτρα αναζήτησης:
+- `is:issue is:open label:bug` - Άνοιγμα σφαλμάτων
+- `is:issue is:open label:feature` - Άνοιγμα αιτημάτων λειτουργιών
+- `is:issue sort:updated` - Ζητήματα που ενημερώθηκαν πρόσφατα
+
+## # Είναι πραγματικά ένα πρόβλημα;
+
+Σκεφτείτε πρώτα:
+
+- **Πρόβλημα διαμόρφωσης;** - Ελέγξτε την τεκμηρίωση
+- **Ερώτηση χρήσης;** - Ρωτήστε σε φόρουμ ή κοινότητα Discord
+- **Ζήτημα ασφαλείας;** - Δείτε την ενότητα #security-issues παρακάτω
+- **Συγκεκριμένη μονάδα;** - Αναφορά στον συντηρητή της μονάδας
+- **Συγκεκριμένο θέμα;** - Αναφορά στον συγγραφέα του θέματος
+
+---
+
+## Τύποι ζητημάτων
+
+## # Αναφορά σφάλματος
+
+Ένα σφάλμα είναι μια απροσδόκητη συμπεριφορά ή ελάττωμα.
+
+**Παραδείγματα:**
+- Η σύνδεση δεν λειτουργεί
+- Σφάλματα βάσης δεδομένων
+- Λείπει η επικύρωση φόρμας
+- Ευπάθεια ασφαλείας
+
+## # Αίτημα δυνατότητας
+
+Ένα αίτημα δυνατότητας είναι μια πρόταση για νέα λειτουργικότητα.
+
+**Παραδείγματα:**
+- Προσθέστε υποστήριξη για νέα δυνατότητα
+- Βελτιώστε την υπάρχουσα λειτουργικότητα
+- Προσθήκη τεκμηρίωσης που λείπει
+- Βελτιώσεις απόδοσης
+
+## # Ενίσχυση
+
+Μια βελτίωση βελτιώνει την υπάρχουσα λειτουργικότητα.
+
+**Παραδείγματα:**
+- Καλύτερα μηνύματα λάθους
+- Βελτιωμένη απόδοση
+- Καλύτερος σχεδιασμός API
+- Καλύτερη εμπειρία χρήστη
+
+## # Τεκμηρίωση
+
+Τα ζητήματα τεκμηρίωσης περιλαμβάνουν έλλειψη ή λανθασμένη τεκμηρίωση.
+
+**Παραδείγματα:**
+- Ελλιπής τεκμηρίωση API
+- Ξεπερασμένοι οδηγοί
+- Λείπουν παραδείγματα κωδικών
+- Λάθη στην τεκμηρίωση
+
+---
+
+## Αναφορά σφάλματος
+
+## # Πρότυπο αναφοράς σφαλμάτων
+
+```markdown
+## Description
+Brief, clear description of the bug.
+
+## Steps to Reproduce
+1. Step one
+2. Step two
+3. Step three
+
+## Expected Behavior
+What should happen.
+
+## Actual Behavior
+What actually happens.
+
+## Environment
+- XOOPS Version: X.Y.Z
+- PHP Version: 8.2/8.3/8.4
+- Database: MySQL/MariaDB version
+- Operating System: Windows/macOS/Linux
+- Browser: Chrome/Firefox/Safari
+
+## Screenshots
+If applicable, add screenshots showing the issue.
+
+## Additional Context
+Any other relevant information.
+
+## Possible Fix
+If you have suggestions for fixing the issue (optional).
+```
+
+## # Παράδειγμα καλής αναφοράς σφαλμάτων
+
+```markdown
+## Description
+Login page shows blank page when database connection fails.
+
+## Steps to Reproduce
+1. Stop the MySQL service
+2. Navigate to the login page
+3. Observe the behavior
+
+## Expected Behavior
+Show a user-friendly error message explaining the database connection issue.
+
+## Actual Behavior
+The page is completely blank - no error message, no interface visible.
+
+## Environment
+- XOOPS Version: 2.7.0
+- PHP Version: 8.0.28
+- Database: MySQL 5.7
+- Operating System: Ubuntu 20.04
+- Browser: Chrome 120
+
+## Additional Context
+This likely affects other pages too. The error should be displayed to admins or logged appropriately.
+
+## Possible Fix
+Check database connection in header.php before rendering the template.
+```
+
+## # Παράδειγμα κακής αναφοράς σφαλμάτων
+
+```markdown
+## Description
+Login doesn't work
+
+## Steps to Reproduce
+It doesn't work
+
+## Expected Behavior
+It should work
+
+## Actual Behavior
+It doesn't
+
+## Environment
+Latest version
+```
+
+---
+
+## Αναφορά αιτήματος λειτουργίας
+
+## # Πρότυπο αιτήματος δυνατότητας
+
+```markdown
+## Description
+Clear, concise description of the feature.
+
+## Problem Statement
+Why is this feature needed? What problem does it solve?
+
+## Proposed Solution
+Describe your ideal implementation or UX.
+
+## Alternatives Considered
+Are there other ways to achieve this goal?
+
+## Additional Context
+Any mockups, examples, or references.
+
+## Expected Impact
+How would this benefit users? Would it be breaking?
+```
+
+## # Παράδειγμα αιτήματος καλής λειτουργίας
+
+```markdown
+## Description
+Add two-factor authentication (2FA) for user accounts.
+
+## Problem Statement
+With increasing security breaches, many CMS platforms now offer 2FA. XOOPS users want stronger account security beyond passwords.
+
+## Proposed Solution
+Implement TOTP-based 2FA (compatible with Google Authenticator, Authy, etc.).
+- Users can enable 2FA in their profile
+- Display QR code for setup
+- Generate backup codes for recovery
+- Require 2FA code at login
+
+## Alternatives Considered
+- SMS-based 2FA (requires carrier integration, less secure)
+- Hardware keys (too complex for average users)
+
+## Additional Context
+Similar to GitHub, GitLab, and WordPress implementations.
+Reference: [TOTP Standard RFC 6238](https://tools.ietf.org/html/rfc6238)
+
+## Expected Impact
+Increases account security. Could be optional initially, mandatory in future versions.
+```
+
+---
+
+## Θέματα ασφαλείας
+
+## # Κάντε NOT Δημόσια αναφορά
+
+**Μη δημιουργείτε ποτέ δημόσιο ζήτημα για ευπάθειες ασφαλείας.**
+
+## # Αναφορά Ιδιωτική
+
+1. **Στείλτε μήνυμα ηλεκτρονικού ταχυδρομείου στην ομάδα ασφαλείας:** security@XOOPS.org
+2. **Συμπεριλάβετε:**
+   - Περιγραφή της ευπάθειας
+   - Βήματα για την αναπαραγωγή
+   - Πιθανές επιπτώσεις
+   - Τα στοιχεία επικοινωνίας σας
+
+## # Υπεύθυνη Αποκάλυψη
+
+- Θα επιβεβαιώσουμε την παραλαβή εντός 48 ωρών
+- Θα παρέχουμε ενημερώσεις κάθε 7 ημέρες
+- Θα εργαστούμε σε ένα καθορισμένο χρονοδιάγραμμα
+- Μπορείτε να ζητήσετε πίστωση για την ανακάλυψη
+- Συντονισμός του χρόνου δημοσιοποίησης
+
+## # Παράδειγμα ζητήματος ασφαλείας
+
+```
+Subject: [SECURITY] XSS Vulnerability in Comment Form
+
+Description:
+The comment form in Publisher module does not properly escape user input,
+allowing stored XSS attacks.
+
+Steps to Reproduce:
+1. Create a comment with: <img src=x onerror="alert('xss')">
+2. Submit the form
+3. The JavaScript executes when viewing the comment
+
+Impact:
+Attackers can steal user session tokens, perform actions as users,
+or deface the website.
+
+Environment:
+- XOOPS 2.7.0
+- Publisher Module 1.x
+```
+
+---
+
+## Τίτλος τεύχους Βέλτιστες πρακτικές
+
+## # Καλοί τίτλοι
+
+```
+✅ Login page shows blank error when database connection fails
+✅ Add two-factor authentication support
+✅ Form validation not preventing SQL injection in name field
+✅ Improve performance of user list query
+✅ Update installation documentation for PHP 8.2
+```
+
+## # Φτωχοί τίτλοι
+
+```
+❌ Bug in system
+❌ Help me!!
+❌ It doesn't work
+❌ Question about XOOPS
+❌ Error
+```
+
+## # Οδηγίες τίτλου
+
+- **Να είστε συγκεκριμένοι** - Αναφέρετε τι και πού
+- **Να είστε συνοπτικοί** - Κάτω από 75 χαρακτήρες
+- **Χρήση ενεστώτα** - "εμφανίζει κενή σελίδα" όχι "εμφανίζεται κενή"
+- **Συμπερίληψη περιβάλλοντος** - "στον πίνακα διαχείρισης", "κατά την εγκατάσταση"
+- **Αποφύγετε τις γενικές λέξεις** - Όχι "διόρθωση", "βοήθεια", "πρόβλημα"
+
+---
+
+## Περιγραφή τεύχους Βέλτιστες πρακτικές
+
+## # Συμπεριλάβετε Βασικές Πληροφορίες
+
+1. **Τι** - Σαφής περιγραφή του ζητήματος
+2. **Where** - Ποια σελίδα, λειτουργική μονάδα ή δυνατότητα
+3. **When** - Βήματα για αναπαραγωγή
+4. **Περιβάλλον** - Έκδοση, λειτουργικό σύστημα, πρόγραμμα περιήγησης, PHP
+5. **Γιατί** - Γιατί αυτό είναι σημαντικό
+
+## # Χρησιμοποιήστε τη μορφοποίηση κώδικα
+
+```markdown
+Error message: `Error: Cannot find user`
+
+Code snippet:
+```php
+$user = $this->getUser($id);
+if (!$user) {
+    echo "Error: Cannot find user";
+}
+```
+```
+
+### Include Screenshots
+
+For UI issues, include:
+- Screenshot of the problem
+- Screenshot of expected behavior
+- Annotate what's wrong (arrows, circles)
+
+### Use Labels
+
+Add labels to categorize:
+- `bug` - Bug report
+- `enhancement` - Enhancement request
+- `documentation` - Documentation issue
+- `help wanted` - Looking for help
+- `good first issue` - Good for new contributors
+
+---
+
+## After Reporting
+
+### Be Responsive
+
+- Check for questions in the issue comments
+- Provide additional information if requested
+- Test suggested fixes
+- Verify bug still exists with new versions
+
+### Follow Etiquette
+
+- Be respectful and professional
+- Assume good intentions
+- Don't demand fixes - developers are volunteers
+- Offer to help if possible
+- Thank contributors for their work
+
+### Keep Issue Focused
+
+- Stay on topic
+- Don't discuss unrelated issues
+- Link to related issues instead
+- Don't use issues for feature voting
+
+---
+
+## What Happens to Issues
+
+### Triage Process
+
+1. **New issue created** - GitHub notifies maintainers
+2. **Initial review** - Checked for clarity and duplicates
+3. **Label assignment** - Categorized and prioritized
+4. **Assignment** - Assigned to someone if appropriate
+5. **Discussion** - Additional info gathered if needed
+
+### Priority Levels
+
+- **Critical** - Data loss, security, complete breakage
+- **High** - Major feature broken, affects many users
+- **Medium** - Part of feature broken, workaround available
+- **Low** - Minor issue, cosmetic, or niche use case
+
+### Resolution Outcomes
+
+- **Fixed** - Issue resolved in a PR
+- **Won't fix** - Rejected for technical or strategic reasons
+- **Duplicate** - Same as another issue
+- **Invalid** - Not actually an issue
+- **Needs more info** - Waiting for additional details
+
+---
+
+## Issue Examples
+
+### Example: Good Bug Report
+
+```markdown
+## Description
+Admin users cannot delete items when using MySQL with strict mode enabled.
+
+## Steps to Reproduce
+1. Enable `sql_mode='STRICT_TRANS_TABLES'` in MySQL
+2. Navigate to Publisher admin panel
+3. Click delete button on any article
+4. Error is shown
+
+## Expected Behavior
+Article should be deleted or show meaningful error.
+
+## Actual Behavior
+Error: "SQL Error - Unknown column 'deleted_at' in ON clause"
+
+## Environment
+- XOOPS Version: 2.7.0
+- PHP Version: 8.2.0
+- Database: MySQL 8.0.32 with STRICT_TRANS_TABLES
+- Operating System: Ubuntu 22.04
+- Browser: Firefox 120
+
+## Screenshots
+[Screenshot of error message]
+
+## Additional Context
+This only happens with strict SQL mode. Works fine with default settings.
+The query is in class/PublisherItem.php:248
+
+## Possible Fix
+Use single quotes around 'deleted_at' or use backticks for all column names.
+```
+
+## # Παράδειγμα: Αίτημα καλής λειτουργίας
+
+```markdown
+## Description
+Add REST API endpoints for read-only access to public content.
+
+## Problem Statement
+Developers want to build mobile apps and external services using XOOPS data.
+Currently limited to SOAP API which is outdated and poorly documented.
+
+## Proposed Solution
+Implement RESTful API with:
+- Endpoints for articles, users, comments (read-only)
+- Token-based authentication
+- Standard HTTP status codes and errors
+- OpenAPI/Swagger documentation
+- Pagination support
+
+## Alternatives Considered
+- Enhanced SOAP API (legacy, not standards-compliant)
+- GraphQL (more complex, maybe future)
+
+## Additional Context
+See Publisher module API refactoring for similar patterns.
+Would align with modern web development practices.
+
+## Expected Impact
+Enable ecosystem of third-party tools and mobile apps.
+Would improve XOOPS adoption and ecosystem.
+```
+
+---
+
+## Σχετική τεκμηρίωση
+
+- Κώδικας Δεοντολογίας
+- Ροή εργασιών συνεισφοράς
+- Οδηγίες αιτήματος έλξης
+- Συνεισφορά Επισκόπηση
+
+---
+
+# XOOPS #issues #bug-reporting #feature-requests #github

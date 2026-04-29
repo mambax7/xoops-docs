@@ -1,0 +1,11 @@
+---
+title: "Menyelesaikan masalah"
+---
+## Ralat Templat Smarty 4Kelas masalah yang paling biasa apabila menaik taraf daripada XOOPS 2.5.x kepada 2.7.0 ialah ketidakserasian templat Smarty 4. Jika anda melangkau atau tidak menyempurnakan [Semakan Pralampu](preflight.md), anda mungkin melihat ralat templat pada bahagian hadapan atau dalam kawasan pentadbir selepas naik taraf.Untuk memulihkan:1. **Jalankan semula pengimbas prapenerbangan** di `/upgrade/preflight.php`. Gunakan sebarang pembaikan automatik yang ditawarkannya atau betulkan templat yang dibenderakan secara manual.
+2. **Kosongkan cache templat yang disusun.** Alih keluar semua kecuali `index.html` daripada `xoops_data/caches/smarty_compile/`. Templat yang disusun Smarty 3 tidak serasi dengan Smarty 4 dan fail lapuk boleh menyebabkan ralat yang mengelirukan.
+3. **Tukar kepada tema yang dihantar buat sementara waktu.** Dari kawasan pentadbir, pilih `xbootstrap5` atau `default` sebagai tema aktif. Ini akan mengesahkan sama ada masalah itu terhad kepada tema tersuai atau di seluruh tapak.
+4. **Sahkan mana-mana tema tersuai dan templat modul** sebelum menghidupkan semula trafik pengeluaran. Beri perhatian khusus kepada templat yang menggunakan blok `{php}`, pengubah suai yang ditamatkan atau sintaks pembatas bukan standard — ini adalah kerosakan Smarty 4 yang paling biasa.Lihat juga bahagian Smarty 4 dalam [Topik Khas](../../installation/specialtopics.md).## Isu KebenaranPeningkatan XOOPS mungkin perlu menulis kepada fail yang sebelum ini telah dibuat baca sahaja. Jika ini berlaku, anda akan melihat mesej seperti ini:![XOOPS Naik Taraf Buat Ralat Boleh Tulis](/XOOPS-docs/2.7/img/installation/upgrade-03-make-writable.png)Penyelesaiannya ialah menukar kebenaran. Anda boleh menukar kebenaran menggunakan FTP jika anda tidak mempunyai lebih banyak akses langsung. Berikut ialah contoh menggunakan FileZilla:![Kebenaran Tukar FileZilla](/XOOPS-docs/2.7/img/installation/upgrade-04-change-permissions.png)## Output PenyahpepijatanAnda boleh mendayakan output penyahpepijatan tambahan dalam logger dengan menambahkan parameter nyahpepijat pada URL yang digunakan untuk melancarkan Peningkatan:
+```
+text
+http://example.com/upgrade/?debug=1
+```

@@ -1,0 +1,243 @@
+---
+title: "Analisis module Penerbit"
+---
+
+## Ikhtisar
+
+Dokumen ini memberikan analisis teknis tentang arsitektur module Publisher, pola, dan detail implementasi. Gunakan ini sebagai referensi untuk memahami struktur module XOOPS kualitas produksi.
+
+## Ikhtisar Arsitektur
+
+```mermaid
+flowchart TB
+    subgraph "Presentation Layer"
+        FE[front-end Pages]
+        AD[Admin Panel]
+        BL[Blocks]
+    end
+
+    subgraph "Application Layer"
+        PH[Page Handlers]
+        BH[Block Handlers]
+        FO[Forms]
+    end
+
+    subgraph "Domain Layer"
+        IT[Item Entity]
+        CA[Category Entity]
+        FI[File Entity]
+    end
+
+    subgraph "Infrastructure"
+        IH[ItemHandler]
+        CH[CategoryHandler]
+        FH[FileHandler]
+        DB[(Database)]
+    end
+
+    FE --> PH
+    AD --> PH
+    BL --> BH
+    PH --> IT
+    PH --> CA
+    BH --> IT
+    IT --> IH
+    CA --> CH
+    FI --> FH
+    IH --> DB
+    CH --> DB
+    FH --> DB
+```
+
+## Struktur Direktori
+
+```
+publisher/
+├── admin/
+│   ├── index.php           # Admin dashboard
+│   ├── item.php            # Article management
+│   ├── category.php        # Category management
+│   ├── permission.php      # Permissions
+│   ├── file.php            # File manager
+│   └── menu.php            # Admin menu
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── class/
+│   ├── Category.php        # Category entity
+│   ├── CategoryHandler.php # Category data access
+│   ├── Item.php            # Article entity
+│   ├── ItemHandler.php     # Article data access
+│   ├── File.php            # File attachment
+│   ├── FileHandler.php     # File data access
+│   ├── Form/               # Form classes
+│   ├── Common/             # Utilities
+│   └── Helper.php          # Module helper
+├── include/
+│   ├── common.php          # Initialization
+│   ├── functions.php       # Utility functions
+│   ├── oninstall.php       # Install hooks
+│   ├── onupdate.php        # Update hooks
+│   └── search.php          # Search integration
+├── language/
+├── templates/
+├── sql/
+└── xoops_version.php
+```
+
+## Analisis Entitas
+
+### Item (Artikel) Entitas
+
+```php
+class Item extends \XoopsObject
+{
+    // Fields
+    public function initVar(): void
+    {
+        $this->initVar('itemid', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('categoryid', XOBJ_DTYPE_INT, 0, false);
+        $this->initVar('title', XOBJ_DTYPE_TXTBOX, '', true);
+        $this->initVar('subtitle', XOBJ_DTYPE_TXTBOX, '');
+        $this->initVar('summary', XOBJ_DTYPE_TXTAREA, '');
+        $this->initVar('body', XOBJ_DTYPE_TXTAREA, '', true);
+        $this->initVar('uid', XOBJ_DTYPE_INT, 0);
+        $this->initVar('status', XOBJ_DTYPE_INT, 0);
+        $this->initVar('datesub', XOBJ_DTYPE_INT, time());
+        // ... more fields
+    }
+
+    // Business methods
+    public function isPublished(): bool
+    {
+        return $this->getVar('status') == _PUBLISHER_STATUS_PUBLISHED;
+    }
+
+    public function canEdit(int $userId): bool
+    {
+        return $this->getVar('uid') == $userId
+            || $this->isAdmin($userId);
+    }
+}
+```
+
+### Pola handler
+
+```php
+class ItemHandler extends \XoopsPersistableObjectHandler
+{
+    public function __construct(\XoopsDatabase $db)
+    {
+        parent::__construct(
+            $db,
+            'publisher_items',
+            Item::class,
+            'itemid',
+            'title'
+        );
+    }
+
+    public function getPublishedItems(int $limit = 10): array
+    {
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('status', _PUBLISHER_STATUS_PUBLISHED));
+        $criteria->setSort('datesub');
+        $criteria->setOrder('DESC');
+        $criteria->setLimit($limit);
+
+        return $this->getObjects($criteria);
+    }
+}
+```
+
+## Sistem Izin
+
+### Jenis Izin
+
+| Izin | Deskripsi |
+|------------|-------------|
+| `publisher_view` | Lihat category/articles |
+| `publisher_submit` | Kirimkan artikel baru |
+| `publisher_approve` | Kiriman yang disetujui secara otomatis |
+| `publisher_moderate` | Tinjau artikel yang tertunda |
+| `publisher_global` | Izin module global |
+
+### Pemeriksaan Izin
+
+```php
+class PermissionHandler
+{
+    public function isGranted(string $permission, int $categoryId): bool
+    {
+        $userId = $GLOBALS['xoopsUser']?->uid() ?? 0;
+        $groups = $this->getUserGroups($userId);
+
+        return $this->grouppermHandler->checkRight(
+            $permission,
+            $categoryId,
+            $groups,
+            $this->helper->getModule()->mid()
+        );
+    }
+}
+```
+
+## Status Alur Kerja
+
+```mermaid
+stateDiagram-v2
+    [*] --> Draft: Create
+    Draft --> Submitted: Submit
+    Submitted --> Published: Approve
+    Submitted --> Rejected: Reject
+    Submitted --> Draft: Return for Edit
+    Published --> Offline: Unpublish
+    Offline --> Published: Republish
+    Published --> [*]: Delete
+    Rejected --> [*]: Delete
+```
+
+## Struktur template
+
+### template Bagian Depan
+
+| template | Tujuan |
+|----------|---------|
+| `publisher_index.tpl` | Beranda module |
+| `publisher_item.tpl` | Artikel tunggal |
+| `publisher_category.tpl` | Daftar kategori |
+| `publisher_submit.tpl` | Formulir penyerahan |
+| `publisher_search.tpl` | Hasil pencarian |
+
+### Blokir template
+
+| template | Tujuan |
+|----------|---------|
+| `publisher_block_latest.tpl` | Artikel terbaru |
+| `publisher_block_spotlight.tpl` | Artikel unggulan |
+| `publisher_block_category.tpl` | Menu kategori |
+
+## Pola Kunci yang Digunakan
+
+1. **Pola handler** - Enkapsulasi akses data
+2. **Objek Nilai** - Konstanta status
+3. **Metode template** - Pembuatan formulir
+4. **Strategi** - Mode tampilan berbeda
+5. **Pengamat** - Pemberitahuan tentang acara
+
+## Pelajaran Pengembangan module
+
+1. Gunakan XoopsPersistableObjectHandler untuk CRUD
+2. Menerapkan izin terperinci
+3. Pisahkan presentasi dari logika
+4. Gunakan Kriteria untuk pertanyaan
+5. Mendukung berbagai status konten
+6. Integrasikan dengan sistem notifikasi XOOPS
+
+## Dokumentasi Terkait
+
+- Membuat-Artikel - Manajemen artikel
+- Pengelolaan-Kategori - Sistem kategori
+- Izin-Pengaturan - Konfigurasi izin
+- Developer-Guide/Hooks-and-Events - Poin ekstensi

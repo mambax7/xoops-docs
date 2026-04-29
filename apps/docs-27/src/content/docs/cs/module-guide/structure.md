@@ -1,0 +1,233 @@
+---
+title: "Struktura modulu"
+---
+
+## Přehled
+
+Dobře organizovaná struktura modulů je základem pro udržitelný vývoj XOOPS. Tato příručka pokrývá starší i moderní (PSR-4) rozložení modulů.
+
+## Standardní rozložení modulu
+
+### Starší struktura
+
+```
+modules/mymodule/
+├── admin/                      # Admin panel files
+│   ├── index.php              # Admin dashboard
+│   ├── menu.php               # Admin menu definition
+│   ├── permissions.php        # Permission management
+│   └── templates/             # Admin templates
+├── assets/                     # Frontend resources
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── class/                      # PHP classes
+│   ├── Common/                # Shared utilities
+│   │   ├── Breadcrumb.php
+│   │   └── Configurator.php
+│   ├── Form/                  # Custom form elements
+│   └── Handler/               # Object handlers
+├── include/                    # Include files
+│   ├── common.php             # Common initialization
+│   ├── functions.php          # Utility functions
+│   ├── oninstall.php          # Installation hooks
+│   ├── onupdate.php           # Update hooks
+│   └── onuninstall.php        # Uninstallation hooks
+├── language/                   # Translations
+│   ├── english/
+│   │   ├── admin.php          # Admin strings
+│   │   ├── main.php           # Frontend strings
+│   │   ├── modinfo.php        # Module info strings
+│   │   └── help/              # Help files
+│   └── other_language/
+├── sql/                        # Database schemas
+│   └── mysql.sql              # MySQL schema
+├── templates/                  # Smarty templates
+│   ├── admin/
+│   └── blocks/
+├── blocks/                     # Block functions
+├── preloads/                   # Preload classes
+├── xoops_version.php          # Module manifest
+├── header.php                 # Module header
+├── footer.php                 # Module footer
+└── index.php                  # Main entry point
+```
+
+### Moderní konstrukce PSR-4
+
+```
+modules/mymodule/
+├── src/                        # PSR-4 autoloaded source
+│   ├── Controller/            # Request handlers
+│   │   ├── ArticleController.php
+│   │   └── CategoryController.php
+│   ├── Service/               # Business logic
+│   │   ├── ArticleService.php
+│   │   └── CategoryService.php
+│   ├── Repository/            # Data access
+│   │   ├── ArticleRepository.php
+│   │   └── ArticleRepositoryInterface.php
+│   ├── Entity/                # Domain objects
+│   │   ├── Article.php
+│   │   └── Category.php
+│   ├── DTO/                   # Data transfer objects
+│   │   ├── CreateArticleDTO.php
+│   │   └── UpdateArticleDTO.php
+│   ├── Event/                 # Domain events
+│   │   └── ArticleCreatedEvent.php
+│   ├── Exception/             # Custom exceptions
+│   │   └── ArticleNotFoundException.php
+│   ├── ValueObject/           # Value types
+│   │   └── ArticleId.php
+│   └── Middleware/            # HTTP middleware
+│       └── AuthenticationMiddleware.php
+├── config/                     # Configuration
+│   ├── routes.php             # Route definitions
+│   ├── services.php           # DI container config
+│   └── events.php             # Event listeners
+├── migrations/                 # Database migrations
+│   ├── 001_create_articles.php
+│   └── 002_add_indexes.php
+├── tests/                      # Test files
+│   ├── Unit/
+│   └── Integration/
+├── templates/                  # Smarty templates
+├── language/                   # Translations (JSON)
+│   ├── en/
+│   │   └── main.json
+│   └── de/
+├── assets/                     # Frontend resources
+├── module.json                 # Module manifest (XOOPS 4.0)
+└── composer.json              # Composer config
+```
+
+## Vysvětlení klíčových souborů
+
+### xoops_version.php (starší manifest)
+
+```php
+<?php
+$modversion = [
+    'name'           => 'My Module',
+    'version'        => '1.0.0',
+    'description'    => 'Module description',
+    'author'         => 'Your Name',
+    'credits'        => 'Contributors',
+    'license'        => 'GPL 2.0',
+    'dirname'        => basename(__DIR__),
+    'modicons16'     => 'assets/images/icons/16',
+    'modicons32'     => 'assets/images/icons/32',
+    'image'          => 'assets/images/logo.png',
+
+    // System
+    'system_menu'    => 1,
+    'hasAdmin'       => 1,
+    'adminindex'     => 'admin/index.php',
+    'adminmenu'      => 'admin/menu.php',
+    'hasMain'        => 1,
+
+    // Database
+    'sqlfile'        => ['mysql' => 'sql/mysql.sql'],
+    'tables'         => ['mymodule_items', 'mymodule_categories'],
+
+    // Templates
+    'templates'      => [
+        ['file' => 'mymodule_index.tpl', 'description' => 'Index page'],
+        ['file' => 'mymodule_item.tpl', 'description' => 'Item detail'],
+    ],
+
+    // Blocks
+    'blocks'         => [
+        [
+            'file'        => 'blocks/recent.php',
+            'name'        => '_MI_MYMOD_BLOCK_RECENT',
+            'description' => '_MI_MYMOD_BLOCK_RECENT_DESC',
+            'show_func'   => 'mymodule_recent_show',
+            'edit_func'   => 'mymodule_recent_edit',
+            'template'    => 'mymodule_block_recent.tpl',
+            'options'     => '5|0',
+        ],
+    ],
+
+    // Config
+    'config'         => [
+        [
+            'name'        => 'items_per_page',
+            'title'       => '_MI_MYMOD_ITEMS_PER_PAGE',
+            'description' => '_MI_MYMOD_ITEMS_PER_PAGE_DESC',
+            'formtype'    => 'textbox',
+            'valuetype'   => 'int',
+            'default'     => 10,
+        ],
+    ],
+];
+```
+
+### module.json (Manifest XOOPS 4.0)
+
+```json
+{
+    "name": "My Module",
+    "slug": "mymodule",
+    "version": "1.0.0",
+    "description": "Module description",
+    "author": "Your Name",
+    "license": "GPL-2.0-or-later",
+    "php": ">=8.2",
+
+    "namespace": "XOOPSModules\\MyModule",
+    "autoload": "src/",
+
+    "admin": {
+        "menu": "config/admin-menu.php"
+    },
+
+    "routes": "config/routes.php",
+    "services": "config/services.php",
+    "events": "config/events.php",
+
+    "templates": [
+        {"file": "index.tpl", "description": "Index page"}
+    ],
+
+    "config": {
+        "items_per_page": {
+            "type": "int",
+            "default": 10,
+            "title": "@mymodule.config.items_per_page"
+        }
+    }
+}
+```
+
+## Účely adresáře
+
+| Adresář | Účel |
+|-----------|---------|
+| `admin/` | Administrační rozhraní |
+| `assets/` | CSS, JavaScript, obrázky |
+| `blocks/` | Funkce vykreslování bloků |
+| `class/` | Třídy PHP (starší) |
+| `config/` | Konfigurační soubory (moderní) |
+| `include/` | Sdílené zahrnuté soubory |
+| `language/` | Překladové soubory |
+| `migrations/` | Migrace databáze |
+| `sql/` | Počáteční schéma databáze |
+| `src/` | Zdrojový kód PSR-4 |
+| `templates/` | Šablony Smarty |
+| `tests/` | Testovací soubory |
+
+## Nejlepší postupy
+
+1. **Samostatné obavy** – Udržujte obchodní logiku mimo šablony
+2. **Používejte jmenné prostory** – Uspořádejte kód se správným jmenným prostorem
+3. **Postupujte podle PSR-4** – Použijte standardní konvence automatického načítání
+4. **Externalize Config** – Udržujte konfiguraci oddělenou od kódu
+5. **Struktura dokumentu** – Včetně README vysvětlující organizaci
+
+## Související dokumentace
+
+- Module-Development - Kompletní průvodce vývojem
+- Best-Practices/Code-Organization - Vzory organizace kódu
+- Modul Manifest - Konfigurace manifestu
+- Database/Database-Schema - Návrh databáze

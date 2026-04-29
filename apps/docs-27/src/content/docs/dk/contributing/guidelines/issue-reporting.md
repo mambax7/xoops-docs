@@ -1,0 +1,479 @@
+---
+title: "Retningslinjer for problemrapportering"
+description: "Sådan rapporteres fejl, funktionsanmodninger og andre problemer effektivt"
+---
+
+> Effektive fejlrapporter og funktionsanmodninger er afgørende for udviklingen af XOOPS. Denne vejledning hjælper dig med at skabe problemer af høj kvalitet.
+
+---
+
+## Før rapportering
+
+### Tjek eksisterende problemer
+
+**Søg altid først:**
+
+1. Gå til [GitHub Issues](https://github.com/XOOPS/XoopsCore27/issues)
+2. Søg efter søgeord relateret til dit problem
+3. Tjek lukkede problemer - er muligvis allerede løst
+4. Se på pull-anmodninger - er muligvis i gang
+
+Brug søgefiltre:
+- `is:issue is:open label:bug` - Åbne fejl
+- `is:issue is:open label:feature` - Åbn funktionsanmodninger
+- `is:issue sort:updated` - Nyligt opdaterede problemer
+
+### Er det virkelig et problem?
+
+Overvej først:
+
+- **Konfigurationsproblem?** - Tjek dokumentationen
+- **Spørgsmål om brug?** - Spørg på fora eller i Discord-fællesskabet
+- **Sikkerhedsproblem?** - Se afsnittet #security-issues nedenfor
+- **Modulspecifik?** - Rapportér til modulvedligeholder
+- **Temaspecifikt?** - Rapportér til temaforfatteren
+
+---
+
+## Problemtyper
+
+### Fejlrapport
+
+En fejl er en uventet adfærd eller defekt.
+
+**Eksempler:**
+- Login virker ikke
+- Database fejl
+- Manglende formularvalidering
+- Sikkerhedssårbarhed
+
+### Funktionsanmodning
+
+En funktionsanmodning er et forslag til ny funktionalitet.
+
+**Eksempler:**
+- Tilføj understøttelse af ny funktion
+- Forbedre eksisterende funktionalitet
+- Tilføj manglende dokumentation
+- Ydeevneforbedringer
+
+### Forbedring
+
+En forbedring forbedrer eksisterende funktionalitet.
+
+**Eksempler:**
+- Bedre fejlmeddelelser
+- Forbedret ydeevne
+- Bedre API design
+- Bedre brugeroplevelse
+
+### Dokumentation
+
+Dokumentationsproblemer omfatter manglende eller forkert dokumentation.
+
+**Eksempler:**
+- Ufuldstændig API dokumentation
+- Forældede guider
+- Manglende kodeeksempler
+- Tastefejl i dokumentationen
+
+---
+
+## Rapportering af en fejl
+
+### Skabelon for fejlrapporter
+
+```markdown
+## Description
+Brief, clear description of the bug.
+
+## Steps to Reproduce
+1. Step one
+2. Step two
+3. Step three
+
+## Expected Behavior
+What should happen.
+
+## Actual Behavior
+What actually happens.
+
+## Environment
+- XOOPS Version: X.Y.Z
+- PHP Version: 8.2/8.3/8.4
+- Database: MySQL/MariaDB version
+- Operating System: Windows/macOS/Linux
+- Browser: Chrome/Firefox/Safari
+
+## Screenshots
+If applicable, add screenshots showing the issue.
+
+## Additional Context
+Any other relevant information.
+
+## Possible Fix
+If you have suggestions for fixing the issue (optional).
+```
+
+### Eksempel på god fejlrapport
+
+```markdown
+## Description
+Login page shows blank page when database connection fails.
+
+## Steps to Reproduce
+1. Stop the MySQL service
+2. Navigate to the login page
+3. Observe the behavior
+
+## Expected Behavior
+Show a user-friendly error message explaining the database connection issue.
+
+## Actual Behavior
+The page is completely blank - no error message, no interface visible.
+
+## Environment
+- XOOPS Version: 2.7.0
+- PHP Version: 8.0.28
+- Database: MySQL 5.7
+- Operating System: Ubuntu 20.04
+- Browser: Chrome 120
+
+## Additional Context
+This likely affects other pages too. The error should be displayed to admins or logged appropriately.
+
+## Possible Fix
+Check database connection in header.php before rendering the template.
+```
+
+### Eksempel på dårlig fejlrapport
+
+```markdown
+## Description
+Login doesn't work
+
+## Steps to Reproduce
+It doesn't work
+
+## Expected Behavior
+It should work
+
+## Actual Behavior
+It doesn't
+
+## Environment
+Latest version
+```
+
+---
+
+## Rapportering af en funktionsanmodning
+
+### Funktionsanmodningsskabelon
+
+```markdown
+## Description
+Clear, concise description of the feature.
+
+## Problem Statement
+Why is this feature needed? What problem does it solve?
+
+## Proposed Solution
+Describe your ideal implementation or UX.
+
+## Alternatives Considered
+Are there other ways to achieve this goal?
+
+## Additional Context
+Any mockups, examples, or references.
+
+## Expected Impact
+How would this benefit users? Would it be breaking?
+```
+
+### Eksempel på god funktionsanmodning
+
+```markdown
+## Description
+Add two-factor authentication (2FA) for user accounts.
+
+## Problem Statement
+With increasing security breaches, many CMS platforms now offer 2FA. XOOPS users want stronger account security beyond passwords.
+
+## Proposed Solution
+Implement TOTP-based 2FA (compatible with Google Authenticator, Authy, etc.).
+- Users can enable 2FA in their profile
+- Display QR code for setup
+- Generate backup codes for recovery
+- Require 2FA code at login
+
+## Alternatives Considered
+- SMS-based 2FA (requires carrier integration, less secure)
+- Hardware keys (too complex for average users)
+
+## Additional Context
+Similar to GitHub, GitLab, and WordPress implementations.
+Reference: [TOTP Standard RFC 6238](https://tools.ietf.org/html/rfc6238)
+
+## Expected Impact
+Increases account security. Could be optional initially, mandatory in future versions.
+```
+
+---
+
+## Sikkerhedsproblemer
+
+### Rapportér NOT offentligt
+
+**Opret aldrig et offentligt problem for sikkerhedssårbarheder.**
+
+### Rapportér privat
+
+1. **Send en e-mail til sikkerhedsteamet:** security@xoops.org
+2. **Inkluder:**
+   - Beskrivelse af sårbarheden
+   - Trin til at reproducere
+   - Potentiel påvirkning
+   - Dine kontaktoplysninger
+
+### Ansvarlig offentliggørelse
+
+- Vi kvitterer for modtagelsen inden for 48 timer
+- Vi vil give opdateringer hver 7. dag
+- Vi vil arbejde på en fast tidslinje
+- Du kan anmode om kredit for opdagelsen
+- Koordinere tidspunktet for offentliggørelse
+
+### Eksempel på sikkerhedsproblem
+
+```
+Subject: [SECURITY] XSS Vulnerability in Comment Form
+
+Description:
+The comment form in Publisher module does not properly escape user input,
+allowing stored XSS attacks.
+
+Steps to Reproduce:
+1. Create a comment with: <img src=x onerror="alert('xss')">
+2. Submit the form
+3. The JavaScript executes when viewing the comment
+
+Impact:
+Attackers can steal user session tokens, perform actions as users,
+or deface the website.
+
+Environment:
+- XOOPS 2.7.0
+- Publisher Module 1.x
+```
+
+---
+
+## Udgavetitel Bedste praksis
+
+### Gode titler
+
+```
+✅ Login page shows blank error when database connection fails
+✅ Add two-factor authentication support
+✅ Form validation not preventing SQL injection in name field
+✅ Improve performance of user list query
+✅ Update installation documentation for PHP 8.2
+```
+
+### Dårlige titler
+
+```
+❌ Bug in system
+❌ Help me!!
+❌ It doesn't work
+❌ Question about XOOPS
+❌ Error
+```
+
+### Retningslinjer for titel
+
+- **Vær specifik** - Nævn hvad og hvor
+- **Vær kortfattet** - Under 75 tegn
+- **Brug nutid** - "viser tom side" ikke "viste tom"
+- **Inkluder kontekst** - "i admin panel", "under installation"
+- **Undgå generiske ord** - Ikke "fix", "hjælp", "problem"
+
+---
+
+## Problembeskrivelse Best Practices
+
+### Inkluder væsentlige oplysninger
+
+1. **Hvad** - Klar beskrivelse af problemet
+2. **Hvor** - Hvilken side, modul eller funktion
+3. **Hvornår** - Trin til gengivelse
+4. **Miljø** - Version, OS, browser, PHP
+5. **Hvorfor** - Hvorfor dette er vigtigt
+
+### Brug kodeformatering
+
+```markdown
+Error message: `Error: Cannot find user`
+
+Code snippet:
+```php
+$user = $this->getUser($id);
+if (!$user) {
+    echo "Error: Cannot find user";
+}
+```
+```
+
+### Include Screenshots
+
+For UI issues, include:
+- Screenshot of the problem
+- Screenshot of expected behavior
+- Annotate what's wrong (arrows, circles)
+
+### Use Labels
+
+Add labels to categorize:
+- `bug` - Bug report
+- `enhancement` - Enhancement request
+- `documentation` - Documentation issue
+- `help wanted` - Looking for help
+- `good first issue` - Good for new contributors
+
+---
+
+## After Reporting
+
+### Be Responsive
+
+- Check for questions in the issue comments
+- Provide additional information if requested
+- Test suggested fixes
+- Verify bug still exists with new versions
+
+### Follow Etiquette
+
+- Be respectful and professional
+- Assume good intentions
+- Don't demand fixes - developers are volunteers
+- Offer to help if possible
+- Thank contributors for their work
+
+### Keep Issue Focused
+
+- Stay on topic
+- Don't discuss unrelated issues
+- Link to related issues instead
+- Don't use issues for feature voting
+
+---
+
+## What Happens to Issues
+
+### Triage Process
+
+1. **New issue created** - GitHub notifies maintainers
+2. **Initial review** - Checked for clarity and duplicates
+3. **Label assignment** - Categorized and prioritized
+4. **Assignment** - Assigned to someone if appropriate
+5. **Discussion** - Additional info gathered if needed
+
+### Priority Levels
+
+- **Critical** - Data loss, security, complete breakage
+- **High** - Major feature broken, affects many users
+- **Medium** - Part of feature broken, workaround available
+- **Low** - Minor issue, cosmetic, or niche use case
+
+### Resolution Outcomes
+
+- **Fixed** - Issue resolved in a PR
+- **Won't fix** - Rejected for technical or strategic reasons
+- **Duplicate** - Same as another issue
+- **Invalid** - Not actually an issue
+- **Needs more info** - Waiting for additional details
+
+---
+
+## Issue Examples
+
+### Example: Good Bug Report
+
+```markdown
+## Description
+Admin users cannot delete items when using MySQL with strict mode enabled.
+
+## Steps to Reproduce
+1. Enable `sql_mode='STRICT_TRANS_TABLES'` in MySQL
+2. Navigate to Publisher admin panel
+3. Click delete button on any article
+4. Error is shown
+
+## Expected Behavior
+Article should be deleted or show meaningful error.
+
+## Actual Behavior
+Error: "SQL Error - Unknown column 'deleted_at' in ON clause"
+
+## Environment
+- XOOPS Version: 2.7.0
+- PHP Version: 8.2.0
+- Database: MySQL 8.0.32 with STRICT_TRANS_TABLES
+- Operating System: Ubuntu 22.04
+- Browser: Firefox 120
+
+## Screenshots
+[Screenshot of error message]
+
+## Additional Context
+This only happens with strict SQL mode. Works fine with default settings.
+The query is in class/PublisherItem.php:248
+
+## Possible Fix
+Use single quotes around 'deleted_at' or use backticks for all column names.
+```
+
+### Eksempel: God funktionsanmodning
+
+```markdown
+## Description
+Add REST API endpoints for read-only access to public content.
+
+## Problem Statement
+Developers want to build mobile apps and external services using XOOPS data.
+Currently limited to SOAP API which is outdated and poorly documented.
+
+## Proposed Solution
+Implement RESTful API with:
+- Endpoints for articles, users, comments (read-only)
+- Token-based authentication
+- Standard HTTP status codes and errors
+- OpenAPI/Swagger documentation
+- Pagination support
+
+## Alternatives Considered
+- Enhanced SOAP API (legacy, not standards-compliant)
+- GraphQL (more complex, maybe future)
+
+## Additional Context
+See Publisher module API refactoring for similar patterns.
+Would align with modern web development practices.
+
+## Expected Impact
+Enable ecosystem of third-party tools and mobile apps.
+Would improve XOOPS adoption and ecosystem.
+```
+
+---
+
+## Relateret dokumentation
+
+- Code of Conduct
+- Bidrag Workflow
+- Pull Request Guidelines
+- Bidragende overblik
+
+---
+
+#xoops #problemer #fejlrapportering #feature-requests #github

@@ -1,0 +1,15 @@
+---
+title: "پیوست 4: ابزارهای مفید"
+---
+| نرم افزار | توضیحات |
+| --- | --- |
+| 7Zip www.7zip.org | برنامه منبع باز به فایل های zip/unzip. |
+| WinSCP www.WinSCP.net | WinSCP یک سرویس گیرنده SFTP منبع باز و سرویس گیرنده FTP برای ویندوز است. عملکرد اصلی آن انتقال امن فایل بین یک کامپیوتر محلی و یک کامپیوتر راه دور است. |
+| سرور WAMP www.wampserver.com | WampServer یک محیط توسعه وب ویندوز است. این به شما امکان می دهد برنامه های کاربردی وب را با Apache، PHP و پایگاه داده MySQL ایجاد کنید. همچنین با PHPMyAdmin همراه است تا به راحتی پایگاه داده های شما را مدیریت کند.  WampServer به طور خودکار (نصب کننده) نصب می شود و استفاده از آن بسیار بصری است. شما می توانید سرور خود را بدون دست زدن به فایل های تنظیمات تنظیم کنید. |
+| XAMPP [http://www.apachefriends.org/en/xampp.html](http://www.apachefriends.org/en/xampp.html) | XAMPP یک توزیع آپاچی با نصب آسان و حاوی MySQL، PHP و Perl است. نصب و استفاده از XAMPP واقعاً بسیار آسان است - فقط دانلود کنید، استخراج کنید و شروع کنید. |
+| KeyPass www.keepass.info | KeePass یک مدیریت رمز عبور منبع باز رایگان است که به شما کمک می کند تا رمزهای عبور خود را به روشی امن مدیریت کنید. شما می توانید تمام رمزهای عبور خود را در یک پایگاه داده قرار دهید که با یک کلید اصلی یا یک فایل کلید قفل شده است. بنابراین شما فقط باید یک رمز عبور اصلی را به خاطر بسپارید یا فایل کلیدی را برای باز کردن قفل کل پایگاه داده انتخاب کنید. پایگاه های داده با استفاده از بهترین و ایمن ترین الگوریتم های رمزگذاری شناخته شده در حال حاضر (AES و Twofish) رمزگذاری می شوند. |
+| ابزارهای وب بسته [http://goo.gl/FMaFk](http://goo.gl/FMaFk) | === USB Apps ==== - 7zip، Filezilla، Kompozer، DataBase Browser، Opera، PicPick، Winmerge، Gimp، Notepad++، OikoCSSeditor، SubCommander، ToDoList، Toucan، Xenu، TeamViewer، Pidgin، FastImageOptimizer -FastImageOptimizer (و آخرین MySQL - PHP و Adminer برای مدیریت پایگاه داده) |
+| مرورگرهای وب بسته [http://goo.gl/UXg8U](http://goo.gl/UXg8U) | === USB Apps ==== - افزونه های فایرفاکس + webdeveloper و XooFoo (نسخه پایدار و توسعه یافته)، IETester 0.4.5، Opera (نسخه پایدار و توسعه دهنده)، شبیه ساز OperaMobile، Safari، Google Chrome + توسعه دهنده وب (نسخه پایدار و توسعه)، Maxthon (نسخه پایدار و توسعه)، مرورگرهای SeaMonkey و Elink |
+| سرور یکنواخت [http://uniformserver.com](http://uniformserver.com) | "چرا به جای XAMPP یا WAMP یا EASYPHP از Uniform Server استفاده کنیم؟ 1. امنیت 2. سبک وزن (xampp 51MB، XAMPlite 28MB. Uniform Server 9.95MB). 3. استفاده آسان تر. ما نیاز داریم
+| سرور یکنواخت توسط XooFoo [http://goo.gl/LGx3V](http://goo.gl/LGx3V) | سرور یکنواخت بهینه شده برای XOOPS |
+| مینی سرور (فقط 5 مگابایت) توسط XooFoo [http://goo.gl/Ke0LW](http://goo.gl/Ke0LW) | یک سرور تولید قابل حمل اولیه با قدرت افزوده PHP که به صفحات وب پویا علاوه بر صفحات htm و html ایستا اجازه می دهد. طراحی شده برای اجازه دادن به سرورهای متعدد در حال اجرا بر روی یک رایانه شخصی یا دیسک های USB، این ها به یک درایو مجازی جداگانه نیاز دارند که به طور خودکار ایجاد شود.  پشتیبانی MySQL فعال شده است و قابلیت این سرور را بیشتر می کند. |

@@ -1,0 +1,4 @@
+---
+title: "Penciptaan Meja"
+---
+Halaman ini memaparkan keputusan mencipta jadual XOOPS dalam pangkalan data.Selepas menyemak dan membetulkan sebarang isu, pilih butang "Teruskan" untuk meneruskan.## Pada KejayaanBahagian _Database tables creation_ menunjukkan jadual pangkalan data yang telah dibuat.![XOOPS Pembuatan Jadual Pemasang](/XOOPS-docs/2.7/img/installation/installer-08.png)## RalatSebarang ralat menunjukkan isu dengan kebenaran yang berkaitan dengan akaun pengguna pangkalan data MySQL and/or pangkalan data MySQL yang dimasukkan dalam langkah sebelumnya. Anda boleh kembali ke bahagian tersebut menggunakan sambungan Pangkalan Data dan pilihan konfigurasi Pangkalan Data dalam menu.

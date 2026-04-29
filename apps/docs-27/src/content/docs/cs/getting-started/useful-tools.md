@@ -1,0 +1,16 @@
+---
+title: "Dodatek 4: Užitečné nástroje"
+---
+
+| Software | Popis |
+| --- | --- |
+| 7Zip www.7zip.org | Open Source program pro soubory zip/unzip. |
+| WinSCP www.WinSCP.net | WinSCP je open source klient SFTP a klient FTP pro Windows. Jeho hlavní funkcí je bezpečný přenos souborů mezi místním a vzdáleným počítačem. |
+| Server WAMP www.wampserver.com | WampServer je webové vývojové prostředí Windows. Umožňuje vytvářet webové aplikace s Apache, PHP a databází MySQL. Dodává se také s PHPMyAdmin pro snadnou správu vašich databází.  WampServer se nainstaluje automaticky (instalátor) a jeho použití je velmi intuitivní. Budete moci vyladit svůj server, aniž byste se dotkli souborů nastavení. |
+| XAMPP [http://www.apachefriends.org/en/xampp.html](http://www.apachefriends.org/en/xampp.html) | XAMPP je snadno instalovatelná distribuce Apache obsahující MySQL, PHP a Perl. XAMPP se opravdu velmi snadno instaluje a používá – stačí stáhnout, rozbalit a spustit. |
+| KeyPass www.keepass.info | KeePass je bezplatný správce hesel s otevřeným zdrojovým kódem, který vám pomůže spravovat vaše hesla bezpečným způsobem. Všechna svá hesla můžete vložit do jedné databáze, která je uzamčena jedním hlavním klíčem nebo souborem klíčů. Stačí si tedy zapamatovat jediné hlavní heslo nebo vybrat soubor klíče k odemknutí celé databáze. Databáze jsou šifrovány pomocí nejlepších a nejbezpečnějších aktuálně známých šifrovacích algoritmů (AES a Twofish). |
+| Balíček Web Tools [http://goo.gl/FMaFk](http://goo.gl/FMaFk) | === Aplikace USB ==== - 7zip, Filezilla, Kompozer, Prohlížeč databází, Opera, PicPick, Winmerge, Gimp, Notepad++, OikoCSSeditor, SubCommander, ToDoList, Toucan, Xenu, MiniServerViewer, Pidgin, LastImage, FastO Virtualizer, FastO Virtualache MySQL - PHP a správce pro správu databáze) |
+| Balíček webových prohlížečů [http://goo.gl/UXg8U](http://goo.gl/UXg8U) | === USB Apps ==== - Firefox + webdevelopper a rozšíření XooFoo (stabilní a vývojová verze), IETester 0.4.5, Opera (stabilní a vývojová verze), OperaMobile Emulator, Safari, Google Chrome + rozšíření pro webdevelopper (stabilní a vývojová verze), Maxthon a EMonkey, stabilní a vývojová verze |
+| Uniform Server [http://uniformserver.com](http://uniformserver.com) | "Proč používat Uniform Server místo XAMPP nebo WAMP nebo EASYPHP? 1. Zabezpečení 2. Lehký (xampp 51 MB, XAMPlite 28 MB. Uniform Server 9,95 MB). 3. Snazší použití ZX0 (příklad Z0PH.5Q.ZX0PH.5 má spoustu zbytečných funkcí, zejména pro komunitu XOOPS Navzdory malé velikosti má Uniform Server vše, co potřebujeme./ /Instalace Uniform Serveru vám v posledních verzích poskytne: - MySQL databázi - phpMyAdmin pro správu databáze ZXQPH0000058 -ZX9QX0 (Má více než 100 oprav chyb, než kolik získáte při stažení XAMPP - eAccelerator, aby byl web rychlejší |
+| Uniform Server od XooFoo [http://goo.gl/LGx3V](http://goo.gl/LGx3V) | Uniform Server optimalizovaný pro XOOPS |
+| Mini Server (pouze 5 MB) od XooFoo [http://goo.gl/Ke0LW](http://goo.gl/Ke0LW) | Základní přenosný produkční server s přidaným výkonem PHP umožňující dynamické webové stránky kromě statických htm a html stránek. Tyto disky jsou navrženy tak, aby umožňovaly běh více serverů na stejném počítači nebo discích USB, a proto budou vyžadovat automaticky vytvořenou samostatnou virtuální jednotku.  Je povolena podpora MySQL, která dále zvyšuje možnosti tohoto serveru. |

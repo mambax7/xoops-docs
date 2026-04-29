@@ -1,0 +1,230 @@
+---
+title: "Renderers voor aangepaste formulieren"
+---
+## Overzicht
+
+Met XOOPS kunt u formulierweergave aanpassen via aangepaste renderers. Dit maakt themaspecifieke styling, toegankelijkheidsverbeteringen en integratie met frontend-frameworks zoals Bootstrap of Tailwind CSS mogelijk.
+
+## Standaardweergave
+
+Standaard gebruiken XOOPS-formulieren de klasse `XoopsFormRenderer`, die standaard HTML uitvoert:
+
+```php
+// Default rendering
+$form = new XoopsThemeForm('My Form', 'myform', 'submit.php');
+$form->addElement(new XoopsFormText('Name', 'name', 50, 255));
+echo $form->render();
+```
+
+## Aangepaste Renderer-architectuur
+
+```mermaid
+classDiagram
+    class XoopsFormRenderer {
+        <<interface>>
+        +renderForm(XoopsForm form)
+        +renderElement(XoopsFormElement element)
+        +renderLabel(string caption)
+    }
+
+    XoopsFormRenderer <|-- XoopsFormRendererBootstrap4
+    XoopsFormRenderer <|-- XoopsFormRendererBootstrap5
+    XoopsFormRenderer <|-- XoopsFormRendererTailwind
+    XoopsFormRenderer <|-- CustomFormRenderer
+```
+
+## Een aangepaste renderer maken
+
+### Basis Renderer-klasse
+
+```php
+namespace Xoops\Modules\MyModule\Form;
+
+use XoopsFormRenderer;
+use XoopsForm;
+use XoopsFormElement;
+
+class BootstrapRenderer extends XoopsFormRenderer
+{
+    public function renderFormStart(XoopsForm $form): string
+    {
+        $class = $form->getExtra() ?: 'needs-validation';
+        return sprintf(
+            '<form name="%s" id="%s" action="%s" method="%s" class="%s" %s>',
+            $form->getName(),
+            $form->getName(),
+            $form->getAction(),
+            $form->getMethod(),
+            $class,
+            $form->getExtra()
+        );
+    }
+
+    public function renderFormEnd(): string
+    {
+        return '</form>';
+    }
+
+    public function renderElement(XoopsFormElement $element): string
+    {
+        $output = '<div class="mb-3">';
+
+        // Label
+        if ($element->getCaption()) {
+            $output .= sprintf(
+                '<label for="%s" class="form-label">%s</label>',
+                $element->getName(),
+                $element->getCaption()
+            );
+        }
+
+        // Element with Bootstrap classes
+        $element->setExtra($element->getExtra() . ' class="form-control"');
+        $output .= $element->render();
+
+        // Description
+        if ($element->getDescription()) {
+            $output .= sprintf(
+                '<div class="form-text">%s</div>',
+                $element->getDescription()
+            );
+        }
+
+        $output .= '</div>';
+
+        return $output;
+    }
+
+    public function renderButton(XoopsFormElement $button): string
+    {
+        $type = $button->getType() === 'submit' ? 'btn-primary' : 'btn-secondary';
+        return sprintf(
+            '<button type="%s" name="%s" class="btn %s">%s</button>',
+            $button->getType(),
+            $button->getName(),
+            $type,
+            $button->getValue()
+        );
+    }
+}
+```
+
+### De renderer registreren
+
+```php
+// In your module's xoops_version.php or bootstrap
+$GLOBALS['xoopsOption']['form_renderer'] = new BootstrapRenderer();
+
+// Or set it per-form
+$form = new XoopsThemeForm('My Form', 'myform', 'submit.php');
+$form->setRenderer(new BootstrapRenderer());
+```
+
+## Ingebouwde renderers
+
+### Bootstrap 4-renderer
+
+```php
+use Xoops\Form\Renderer\Bootstrap4Renderer;
+
+$form->setRenderer(new Bootstrap4Renderer());
+```
+
+### Bootstrap 5-renderer
+
+```php
+use Xoops\Form\Renderer\Bootstrap5Renderer;
+
+$form->setRenderer(new Bootstrap5Renderer([
+    'floating_labels' => true,
+    'validation_style' => 'tooltip'
+]));
+```
+
+## Specifieke elementen weergeven
+
+### Aangepaste renderer selecteren
+
+```php
+public function renderSelect(XoopsFormSelect $select): string
+{
+    $multiple = $select->isMultiple() ? 'multiple' : '';
+    $size = $select->getSize();
+
+    $output = sprintf(
+        '<select name="%s%s" id="%s" class="form-select" %s size="%d">',
+        $select->getName(),
+        $multiple ? '[]' : '',
+        $select->getName(),
+        $multiple,
+        $size
+    );
+
+    foreach ($select->getOptions() as $value => $label) {
+        $selected = in_array($value, (array)$select->getValue()) ? 'selected' : '';
+        $output .= sprintf(
+            '<option value="%s" %s>%s</option>',
+            htmlspecialchars($value),
+            $selected,
+            htmlspecialchars($label)
+        );
+    }
+
+    $output .= '</select>';
+
+    return $output;
+}
+```
+
+### Renderer voor aangepaste bestandsinvoer
+
+```php
+public function renderFile(XoopsFormFile $file): string
+{
+    return sprintf(
+        '<div class="mb-3">
+            <label for="%s" class="form-label">%s</label>
+            <input type="file" class="form-control" id="%s" name="%s" %s>
+        </div>',
+        $file->getName(),
+        $file->getCaption(),
+        $file->getName(),
+        $file->getName(),
+        $file->getExtra()
+    );
+}
+```
+
+## Thema-integratie
+
+### In themasjabloon
+
+```smarty
+{* In theme's form.tpl *}
+{foreach $form.elements as $element}
+    <div class="form-group {$element.class}">
+        {if $element.caption}
+            <label class="control-label">{$element.caption}</label>
+        {/if}
+        {$element.body}
+        {if $element.description}
+            <span class="help-block">{$element.description}</span>
+        {/if}
+    </div>
+{/foreach}
+```
+
+## Beste praktijken
+
+1. **Overnemen van basisrenderer** - Breid `XoopsFormRenderer` uit voor consistentie
+2. **Ondersteunt alle elementtypen** - Behandel tekst, selecteer, selectievakje, keuzerondje, etc.
+3. **Toegankelijkheid** - Voeg de juiste labels toe, ARIA-attributen
+4. **Validatiestijlen** - Geef foutstatussen op de juiste manier weer
+5. **Responsief ontwerp** - Zorg ervoor dat formulieren op mobiel werken
+
+## Gerelateerde documentatie
+
+- Formulierenoverzicht
+- Referentie voor formulierelementen
+- Formuliervalidatie
+- Themaontwikkeling
