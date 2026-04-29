@@ -1,0 +1,32 @@
+---
+title: Dokumentasi XOOPS
+description: Dokumentasi resmi untuk XOOPS 2.7.x
+template: splash
+hero:
+  tagline: CMS PHP sumber terbuka — cepat dipasang, mudah dikembangkan.
+  actions:
+    - text: Mulai cepat
+      link: /xoops-docs/2.7/id/quick-start/
+      icon: right-arrow
+    - text: Dokumentasi dalam Bahasa Inggris
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Baru di XOOPS?" icon="rocket">
+    Mulailah dengan [panduan mulai cepat](/xoops-docs/2.7/id/quick-start/).
+  </Card>
+  <Card title="Pengembang modul?" icon="puzzle">
+    Lihat [panduan modul](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Pengembang tema?" icon="open-book">
+    Lihat [panduan tema](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Memutakhirkan?" icon="up-caret">
+    Ikuti [panduan migrasi](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>

@@ -1,0 +1,32 @@
+---
+title: XOOPS 文档
+description: XOOPS 2.7.x 官方文档
+template: splash
+hero:
+  tagline: 开源 PHP 内容管理系统 — 安装快速，扩展容易。
+  actions:
+    - text: 快速开始
+      link: /xoops-docs/2.7/zh-cn/quick-start/
+      icon: right-arrow
+    - text: 英文文档
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="XOOPS 新手？" icon="rocket">
+    从[快速开始指南](/xoops-docs/2.7/zh-cn/quick-start/)开始。
+  </Card>
+  <Card title="模块开发者？" icon="puzzle">
+    查阅[模块开发指南](/xoops-docs/2.7/module-guide/introduction/)。
+  </Card>
+  <Card title="主题开发者？" icon="open-book">
+    查阅[主题指南](/xoops-docs/2.7/theme-guide/introduction/)。
+  </Card>
+  <Card title="升级中？" icon="up-caret">
+    按照[迁移指南](/xoops-docs/2.7/migration/from-2-5/)操作。
+  </Card>
+</CardGrid>

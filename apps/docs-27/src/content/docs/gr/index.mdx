@@ -1,0 +1,32 @@
+---
+title: Τεκμηρίωση XOOPS
+description: Επίσημη τεκμηρίωση για το XOOPS 2.7.x
+template: splash
+hero:
+  tagline: PHP CMS ανοιχτού κώδικα — γρήγορη εγκατάσταση, εύκολη επέκταση.
+  actions:
+    - text: Γρήγορη εκκίνηση
+      link: /xoops-docs/2.7/gr/quick-start/
+      icon: right-arrow
+    - text: Τεκμηρίωση στα αγγλικά
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Νέος στο XOOPS;" icon="rocket">
+    Ξεκινήστε με τον [οδηγό γρήγορης εκκίνησης](/xoops-docs/2.7/gr/quick-start/).
+  </Card>
+  <Card title="Προγραμματιστής αρθρωμάτων;" icon="puzzle">
+    Συμβουλευτείτε τον [οδηγό αρθρωμάτων](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Σχεδιαστής θεμάτων;" icon="open-book">
+    Συμβουλευτείτε τον [οδηγό θεμάτων](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Αναβαθμίζετε;" icon="up-caret">
+    Ακολουθήστε τον [οδηγό μετάβασης](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>

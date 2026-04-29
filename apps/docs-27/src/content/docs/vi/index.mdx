@@ -1,0 +1,32 @@
+---
+title: Tài liệu XOOPS
+description: Tài liệu chính thức cho XOOPS 2.7.x
+template: splash
+hero:
+  tagline: PHP CMS mã nguồn mở — cài đặt nhanh, mở rộng dễ dàng.
+  actions:
+    - text: Bắt đầu nhanh
+      link: /xoops-docs/2.7/vi/quick-start/
+      icon: right-arrow
+    - text: Tài liệu tiếng Anh
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Mới với XOOPS?" icon="rocket">
+    Bắt đầu với [hướng dẫn khởi động nhanh](/xoops-docs/2.7/vi/quick-start/).
+  </Card>
+  <Card title="Nhà phát triển module?" icon="puzzle">
+    Xem [hướng dẫn module](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Nhà phát triển giao diện?" icon="open-book">
+    Xem [hướng dẫn giao diện](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Đang nâng cấp?" icon="up-caret">
+    Làm theo [hướng dẫn chuyển đổi](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>

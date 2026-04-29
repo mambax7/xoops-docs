@@ -1,0 +1,32 @@
+---
+title: XOOPS dokumentacija
+description: Službena dokumentacija za XOOPS 2.7.x
+template: splash
+hero:
+  tagline: Open source PHP CMS — brza instalacija, jednostavno proširivanje.
+  actions:
+    - text: Brzi početak
+      link: /xoops-docs/2.7/hr/quick-start/
+      icon: right-arrow
+    - text: Engleska dokumentacija
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Novi u XOOPS-u?" icon="rocket">
+    Započnite s [vodičem za brzi početak](/xoops-docs/2.7/hr/quick-start/).
+  </Card>
+  <Card title="Razvijate module?" icon="puzzle">
+    Pogledajte [vodič za module](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Razvijate teme?" icon="open-book">
+    Pogledajte [vodič za teme](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Nadograđujete?" icon="up-caret">
+    Slijedite [vodič za migraciju](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>

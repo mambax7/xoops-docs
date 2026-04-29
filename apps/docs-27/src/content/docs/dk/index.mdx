@@ -1,0 +1,32 @@
+---
+title: XOOPS Dokumentation
+description: Officiel dokumentation til XOOPS 2.7.x
+template: splash
+hero:
+  tagline: Open source PHP CMS — hurtig at installere, let at udvide.
+  actions:
+    - text: Hurtig start
+      link: /xoops-docs/2.7/dk/quick-start/
+      icon: right-arrow
+    - text: Engelsk dokumentation
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Ny til XOOPS?" icon="rocket">
+    Begynd med [hurtigstartguiden](/xoops-docs/2.7/dk/quick-start/).
+  </Card>
+  <Card title="Moduludvikler?" icon="puzzle">
+    Se [modulguiden](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Temaudvikler?" icon="open-book">
+    Se [temaguiden](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Opgraderer du?" icon="up-caret">
+    Følg [migrationsguiden](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>
