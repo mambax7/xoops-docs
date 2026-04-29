@@ -1,0 +1,4 @@
+---
+title: "Semakan Konfigurasi"
+---
+_Menyemak konfigurasi pelayan anda_ ialah semakan persekitaran yang sedang dijalankan oleh pemasang.Jika sebarang masalah dilaporkan dalam bahagian _Keperluan_, ini perlu diperbetulkan, jika tidak, XOOPS akan _tidak_ berfungsi.Bahagian _Pelanjutan yang disyorkan_ menunjukkan sambungan PHP tambahan yang boleh digunakan oleh modul XOOPS atau XOOPS untuk menyediakan fungsi tambahan. Anda boleh meneruskan pemasangan, walaupun sambungan tidak tersedia. Tetapi, jika anda boleh mendayakan ini, itu disyorkan.Selepas menyemak, pilih butang "Teruskan" untuk meneruskan.![Semakan Konfigurasi Pemasang XOOPS](/XOOPS-docs/2.7/img/installation/installer-03.png)

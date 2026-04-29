@@ -1,0 +1,4 @@
+---
+title: "Sambungan Pangkalan Data"
+---
+Halaman ini mengumpul maklumat tentang akaun pengguna pangkalan data yang akan digunakan oleh XOOPS.Selepas memasukkan maklumat yang diminta dan membetulkan sebarang isu, pilih butang "Teruskan" untuk meneruskan.![XOOPS Sambungan Pangkalan Data Pemasang](/XOOPS-docs/2.7/img/installation/installer-05.png)## Data Dikumpul dalam Langkah Ini### Sambungan pelayan#### Pangkalan dataPada masa ini, _mysql_ ialah satu-satunya pilihan yang tersedia.#### Nama hos pelayanNama hos pelayan pangkalan data. Jika anda tidak pasti, _localhost_ berfungsi dalam kebanyakan kes.#### Nama penggunaAkaun pengguna pangkalan data yang harus digunakan oleh XOOPS untuk menyambung ke pelayan pangkalan data.#### Kata laluanKata laluan akaun pengguna pangkalan data yang dimasukkan di atas.#### Gunakan sambungan berterusanLalai ialah 'Tidak'. Biarkan ini kosong jika anda tidak pasti.

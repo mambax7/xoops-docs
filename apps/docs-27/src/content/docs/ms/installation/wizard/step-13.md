@@ -1,0 +1,7 @@
+---
+title: "Pemasangan Modul"
+---
+Halaman ini mengumpulkan pilihan anda untuk memasang modul di tapak baharu anda. Modul boleh ditambah atau dikeluarkan pada bila-bila masa, jika dikehendaki.Selepas memasukkan maklumat yang diminta dan membetulkan sebarang isu, pilih butang "Teruskan" untuk meneruskan.![Pemasangan Modul Pemasang XOOPS](/XOOPS-docs/2.7/img/installation/installer-13.png)## Data Dikumpul dalam Langkah Ini### Modul TersediaPilih "Ya" untuk memasang modul. Anda boleh memilih tiada, mana-mana atau semua modul.Ini ialah modul yang disertakan dengan pemasangan XOOPS 2.7.0 standard.* Pemesejan Peribadi - _pemesejan peribadi yang dipertingkatkan antara pengguna_
+* Profil Pengguna - _enhanced/custom profil pengguna_
+* Pelindung - _keselamatan tapak dipertingkatkan, kawalan spam dan pengurangan serangan_
+* DebugBar - _bar alat nyahpepijat pembangunan dan pementasan berdasarkan Symfony VarDumper; berguna untuk pembangun modul dan untuk mendiagnosis isu pengeluaran, tetapi biasanya tidak diperlukan pada tapak langsung yang menghadap awam_Modul _System_ sentiasa dipasang dan tidak disenaraikan di sini sebagai pilihan.#### NotaAnda boleh menambah modul pada direktori modul apabila memuat naik fail XOOPS sebelum memulakan pemasangan, dan ia juga akan tersedia dalam langkah ini.#### Syor Kuat**Semua tapak XOOPS** hendaklah memasang modul _Protector_.

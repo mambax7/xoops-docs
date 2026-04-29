@@ -1,0 +1,4 @@
+---
+title: "Pemilihan Bahasa"
+---
+Pengedaran XOOPS utama disertakan dengan sokongan bahasa Inggeris. Sokongan untuk tempat tambahan dibekalkan oleh [XOOPS Tapak sokongan setempat](https://XOOPS.org/modules/xoopspartners/). Sokongan ini boleh datang dalam bentuk pengedaran tersuai, atau fail tambahan untuk ditambahkan pada pengedaran utama.Terjemahan XOOPS dikekalkan pada [transifex](https://www.transifex.com/XOOPS/public/)Jika Pemasang XOOPS anda mempunyai sokongan bahasa tambahan, anda boleh memilih bahasa di sini.Pilih butang "Teruskan" untuk meneruskan.![XOOPS Bahasa Pemasang](/XOOPS-docs/2.7/img/installation/installer-01.png)
