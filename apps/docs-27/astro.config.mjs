@@ -28,6 +28,28 @@ export default defineConfig({
 				pl:       { label: 'Polski',    lang: 'pl' },
 				es:       { label: 'Español',   lang: 'es' },
 				'zh-tw':  { label: '繁體中文',  lang: 'zh-TW' },
+				// Non-standard folder codes kept to match existing directories.
+				// Standard ISO 639-1: jp→ja, dk→da, gr→el, zh-cn→zh-Hans.
+				// The `lang` field uses the standard code so HTML lang is correct.
+				jp:       { label: '日本語',         lang: 'ja' },
+				dk:       { label: 'Dansk',          lang: 'da' },
+				nl:       { label: 'Nederlands',     lang: 'nl' },
+				gr:       { label: 'Ελληνικά',       lang: 'el' },
+				tr:       { label: 'Türkçe',         lang: 'tr' },
+				ms:       { label: 'Bahasa Melayu',  lang: 'ms' },
+				hu:       { label: 'Magyar',         lang: 'hu' },
+				he:       { label: 'עברית',          lang: 'he', dir: 'rtl' },
+				hi:       { label: 'हिन्दी',           lang: 'hi' },
+				th:       { label: 'ไทย',            lang: 'th' },
+				id:       { label: 'Bahasa Indonesia', lang: 'id' },
+				vi:       { label: 'Tiếng Việt',     lang: 'vi' },
+				cs:       { label: 'Čeština',        lang: 'cs' },
+				hr:       { label: 'Hrvatski',       lang: 'hr' },
+				sl:       { label: 'Slovenščina',    lang: 'sl' },
+				'zh-cn':  { label: '简体中文',       lang: 'zh-CN' },
+				uk:       { label: 'Українська',     lang: 'uk' },
+				ko:       { label: '한국어',         lang: 'ko' },
+				fa:       { label: 'فارسی',          lang: 'fa', dir: 'rtl' },
 			},
 
 			social: [

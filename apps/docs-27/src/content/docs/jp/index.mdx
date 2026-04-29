@@ -1,0 +1,32 @@
+---
+title: XOOPS ドキュメント
+description: XOOPS 2.7.x 公式ドキュメント
+template: splash
+hero:
+  tagline: オープンソースの PHP CMS — 簡単インストール、簡単拡張。
+  actions:
+    - text: クイックスタート
+      link: /xoops-docs/2.7/jp/quick-start/
+      icon: right-arrow
+    - text: 英語版ドキュメント
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="XOOPS は初めてですか？" icon="rocket">
+    [クイックスタートガイド](/xoops-docs/2.7/jp/quick-start/)から始めましょう。
+  </Card>
+  <Card title="モジュール開発者ですか？" icon="puzzle">
+    [モジュールガイド](/xoops-docs/2.7/module-guide/introduction/)をご覧ください。
+  </Card>
+  <Card title="テーマ開発者ですか？" icon="open-book">
+    [テーマガイド](/xoops-docs/2.7/theme-guide/introduction/)をご覧ください。
+  </Card>
+  <Card title="アップグレードしますか？" icon="up-caret">
+    [移行ガイド](/xoops-docs/2.7/migration/from-2-5/)に従ってください。
+  </Card>
+</CardGrid>

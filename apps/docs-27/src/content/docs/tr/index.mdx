@@ -1,0 +1,32 @@
+---
+title: XOOPS Belgeleri
+description: XOOPS 2.7.x için resmi belgeler
+template: splash
+hero:
+  tagline: Açık kaynak PHP CMS — hızlı kurulum, kolay genişletme.
+  actions:
+    - text: Hızlı başlangıç
+      link: /xoops-docs/2.7/tr/quick-start/
+      icon: right-arrow
+    - text: İngilizce belgeler
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="XOOPS'ta yeni misiniz?" icon="rocket">
+    [Hızlı başlangıç kılavuzu](/xoops-docs/2.7/tr/quick-start/) ile başlayın.
+  </Card>
+  <Card title="Modül geliştiricisi misiniz?" icon="puzzle">
+    [Modül kılavuzuna](/xoops-docs/2.7/module-guide/introduction/) bakın.
+  </Card>
+  <Card title="Tema geliştiricisi misiniz?" icon="open-book">
+    [Tema kılavuzuna](/xoops-docs/2.7/theme-guide/introduction/) bakın.
+  </Card>
+  <Card title="Yükseltme mi yapıyorsunuz?" icon="up-caret">
+    [Geçiş kılavuzunu](/xoops-docs/2.7/migration/from-2-5/) takip edin.
+  </Card>
+</CardGrid>

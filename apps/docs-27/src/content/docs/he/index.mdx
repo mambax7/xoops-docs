@@ -1,0 +1,32 @@
+---
+title: תיעוד XOOPS
+description: תיעוד רשמי ל-XOOPS 2.7.x
+template: splash
+hero:
+  tagline: מערכת ניהול תוכן PHP בקוד פתוח — התקנה מהירה, הרחבה קלה.
+  actions:
+    - text: התחלה מהירה
+      link: /xoops-docs/2.7/he/quick-start/
+      icon: right-arrow
+    - text: תיעוד באנגלית
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="חדש ב-XOOPS?" icon="rocket">
+    התחילו עם [מדריך ההתחלה המהירה](/xoops-docs/2.7/he/quick-start/).
+  </Card>
+  <Card title="מפתח מודולים?" icon="puzzle">
+    עיינו ב[מדריך המודולים](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="מפתח ערכות נושא?" icon="open-book">
+    עיינו ב[מדריך ערכות הנושא](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="משדרגים?" icon="up-caret">
+    עקבו אחר [מדריך המעבר](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>

@@ -1,0 +1,32 @@
+---
+title: เอกสาร XOOPS
+description: เอกสารอย่างเป็นทางการสำหรับ XOOPS 2.7.x
+template: splash
+hero:
+  tagline: PHP CMS โอเพนซอร์ส — ติดตั้งรวดเร็ว ขยายได้ง่าย
+  actions:
+    - text: เริ่มต้นอย่างรวดเร็ว
+      link: /xoops-docs/2.7/th/quick-start/
+      icon: right-arrow
+    - text: เอกสารภาษาอังกฤษ
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="ใหม่กับ XOOPS?" icon="rocket">
+    เริ่มต้นด้วย[คู่มือเริ่มต้นอย่างรวดเร็ว](/xoops-docs/2.7/th/quick-start/)
+  </Card>
+  <Card title="นักพัฒนาโมดูล?" icon="puzzle">
+    ดู[คู่มือโมดูล](/xoops-docs/2.7/module-guide/introduction/)
+  </Card>
+  <Card title="นักพัฒนาธีม?" icon="open-book">
+    ดู[คู่มือธีม](/xoops-docs/2.7/theme-guide/introduction/)
+  </Card>
+  <Card title="กำลังอัปเกรด?" icon="up-caret">
+    ทำตาม[คู่มือการย้ายระบบ](/xoops-docs/2.7/migration/from-2-5/)
+  </Card>
+</CardGrid>

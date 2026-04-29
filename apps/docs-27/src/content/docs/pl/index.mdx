@@ -1,0 +1,32 @@
+---
+title: Dokumentacja XOOPS
+description: Oficjalna dokumentacja XOOPS 2.7.x
+template: splash
+hero:
+  tagline: Otwarty CMS w PHP — szybki w instalacji, łatwy w rozbudowie.
+  actions:
+    - text: Szybki start
+      link: /xoops-docs/2.7/pl/quick-start/
+      icon: right-arrow
+    - text: Dokumentacja w języku angielskim
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Nowy w XOOPS?" icon="rocket">
+    Zacznij od [przewodnika szybkiego startu](/xoops-docs/2.7/pl/quick-start/).
+  </Card>
+  <Card title="Programista modułów?" icon="puzzle">
+    Zajrzyj do [przewodnika po modułach](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Twórca motywów?" icon="open-book">
+    Zajrzyj do [przewodnika po motywach](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Aktualizujesz?" icon="up-caret">
+    Skorzystaj z [przewodnika migracji](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>

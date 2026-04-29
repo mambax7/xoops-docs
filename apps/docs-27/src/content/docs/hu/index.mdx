@@ -1,0 +1,32 @@
+---
+title: XOOPS Dokumentáció
+description: Hivatalos dokumentáció a XOOPS 2.7.x verzióhoz
+template: splash
+hero:
+  tagline: Nyílt forráskódú PHP CMS — gyorsan telepíthető, könnyen bővíthető.
+  actions:
+    - text: Gyors kezdés
+      link: /xoops-docs/2.7/hu/quick-start/
+      icon: right-arrow
+    - text: Angol nyelvű dokumentáció
+      link: /xoops-docs/2.7/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Új a XOOPS-ban?" icon="rocket">
+    Kezdje a [gyorsindítási útmutatóval](/xoops-docs/2.7/hu/quick-start/).
+  </Card>
+  <Card title="Modulfejlesztő?" icon="puzzle">
+    Tekintse meg a [modulkészítési útmutatót](/xoops-docs/2.7/module-guide/introduction/).
+  </Card>
+  <Card title="Sablonfejlesztő?" icon="open-book">
+    Tekintse meg a [sablonkészítési útmutatót](/xoops-docs/2.7/theme-guide/introduction/).
+  </Card>
+  <Card title="Frissít?" icon="up-caret">
+    Kövesse a [migrációs útmutatót](/xoops-docs/2.7/migration/from-2-5/).
+  </Card>
+</CardGrid>
