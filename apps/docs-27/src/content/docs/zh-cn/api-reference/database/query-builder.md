@@ -1,6 +1,6 @@
 ---
-title：“XOOPS查询生成器”
-description：“现代流畅的查询构建器API，用于使用可链接接口构建SELECT、INSERT、UPDATE、DELETE查询”
+title: “XOOPS查询生成器”
+description: “现代流畅的查询构建器API，用于使用可链接接口构建SELECT、INSERT、UPDATE、DELETE查询”
 ---
 
 XOOPS查询生成器提供了一个现代、流畅的界面来构建SQL查询。它有助于防止SQL注入，提高可读性，并为多个数据库系统提供数据库抽象。

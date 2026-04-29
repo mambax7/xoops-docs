@@ -1,6 +1,6 @@
 ---
-title：“MVC XOOPS中的模式”
-description：“-View-Controller模区块中的模型XOOPS架构实现”
+title: “MVC XOOPS中的模式”
+description: “-View-Controller模区块中的模型XOOPS架构实现”
 ---
 
 <span class="version-badge version-xmf">XMF 必需</span> <span class="version-badge version-40x">4.0.x Native</span>

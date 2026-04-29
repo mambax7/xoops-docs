@@ -1,6 +1,6 @@
 ---
-title：“模区块FAQ”
-description：“有关XOOPS模区块的常见问题”
+title: “模区块FAQ”
+description: “有关XOOPS模区块的常见问题”
 ---
 
 # 模区块常见问题

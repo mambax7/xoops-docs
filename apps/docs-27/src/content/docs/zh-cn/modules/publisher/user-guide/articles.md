@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 创建文章”
-description：“在 Publisher 中创建、编辑和格式化文章的完整指南”
+title: “发布者 - 创建文章”
+description: “在 Publisher 中创建、编辑和格式化文章的完整指南”
 ---
 
 # 在 Publisher 中创建文章

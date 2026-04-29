@@ -1,6 +1,6 @@
 ---
-title：“性能FAQ”
-description：“有关XOOPS性能优化的常见问题”
+title: “性能FAQ”
+description: “有关XOOPS性能优化的常见问题”
 ---
 
 # 性能常见问题解答

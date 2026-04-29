@@ -218,7 +218,7 @@ Før du dykker ned i specifikke problemer, skal du kontrollere disse almindelige
 
 2. **Tjek skabelonsyntaks:**
    
-```smart
+```smarty
    {* Korrekt *}
    {$variable}
 

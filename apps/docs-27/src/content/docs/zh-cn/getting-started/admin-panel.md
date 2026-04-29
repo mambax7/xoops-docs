@@ -1,6 +1,6 @@
 ---
-title：“管理面板概述”
-description：“XOOPS管理面板布局、导航、仪表板功能和核心管理功能的综合指南”
+title: “管理面板概述”
+description: “XOOPS管理面板布局、导航、仪表板功能和核心管理功能的综合指南”
 ---
 
 # XOOPS 管理面板概述

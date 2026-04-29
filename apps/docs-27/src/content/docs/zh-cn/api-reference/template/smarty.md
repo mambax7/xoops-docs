@@ -1,6 +1,6 @@
 ---
-title：“Smarty模板API参考”
-description：“完成XOOPS中Smarty模板的API参考”
+title: “Smarty模板API参考”
+description: “完成XOOPS中Smarty模板的API参考”
 ---
 
 > 完成 XOOPS 中 Smarty 模板的 API 文档。

@@ -1,6 +1,6 @@
 ---
-title：“白屏死机（WSOD）”
-description：“诊断并修复XOOPS中的白屏死机”
+title: “白屏死机（WSOD）”
+description: “诊断并修复XOOPS中的白屏死机”
 ---
 
 > 如何诊断和修复空白页，参见XOOPS。

@@ -1,6 +1,6 @@
 ---
-title：“贡献指南”
-description：“如何为 XOOPS CMS 开发、编码标准和社区指南做出贡献”
+title: “贡献指南”
+description: “如何为 XOOPS CMS 开发、编码标准和社区指南做出贡献”
 ---
 
 # 🤝 贡献于XOOPS

@@ -1,6 +1,6 @@
 ---
-title：“输入清理”
-description：“在XOOPS中使用 MyTextSanitizer 和验证技术”
+title: “输入清理”
+description: “在XOOPS中使用 MyTextSanitizer 和验证技术”
 ---
 
 永远不要相信用户输入。使用之前务必验证和清理所有输入数据。 XOOPS 提供了 `MyTextSanitizer` 类来清理文本输入和各种用于验证的辅助函数。

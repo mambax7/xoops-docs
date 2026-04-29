@@ -1,6 +1,6 @@
 ---
-title：“性能优化”
-description：“XOOPS的速度优化指南，包括缓存、数据库优化、CDN集成和性能监控”
+title: “性能优化”
+description: “XOOPS的速度优化指南，包括缓存、数据库优化、CDN集成和性能监控”
 ---
 
 # XOOPS 性能优化

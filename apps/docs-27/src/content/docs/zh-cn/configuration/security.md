@@ -1,6 +1,6 @@
 ---
-title：“安全配置”
-description：“XOOPS的完整安全强化指南，包括文件权限、SSL/HTTPS、敏感目录和安全最佳实践”
+title: “安全配置”
+description: “XOOPS的完整安全强化指南，包括文件权限、SSL/HTTPS、敏感目录和安全最佳实践”
 ---
 
 #XOOPS安全配置

@@ -1,6 +1,6 @@
 ---
-title：“XOOPSDatabase 类”
-description：“提供连接管理、查询执行和结果处理的数据库抽象层”
+title: “XOOPSDatabase 类”
+description: “提供连接管理、查询执行和结果处理的数据库抽象层”
 ---
 
 `XOOPSDatabase`类为XOOPS提供数据库抽象层，处理连接管理、查询执行、结果处理和错误处理。它通过驱动程序架构支持多个数据库驱动程序。

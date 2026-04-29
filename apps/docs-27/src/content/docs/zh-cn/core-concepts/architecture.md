@@ -1,6 +1,6 @@
 ---
-title：“XOOPS架构”
-description：“XOOPS系统架构的全面概述，包括核心组件、请求生命周期和扩展点”
+title: “XOOPS架构”
+description: “XOOPS系统架构的全面概述，包括核心组件、请求生命周期和扩展点”
 ---
 
 :::注意[关于本文档]

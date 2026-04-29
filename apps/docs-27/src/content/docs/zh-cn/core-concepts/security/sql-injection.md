@@ -1,6 +1,6 @@
 ---
-title：“SQL注射预防”
-description：“数据库安全实践和防止SQL注入XOOPS”
+title: “SQL注射预防”
+description: “数据库安全实践和防止SQL注入XOOPS”
 ---
 
 SQL注入是最危险和最常见的Web应用程序漏洞之一。本指南介绍了如何保护您的 XOOPS 模区块免受 SQL 注入攻击。

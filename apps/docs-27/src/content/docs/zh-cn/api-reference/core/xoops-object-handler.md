@@ -1,6 +1,6 @@
 ---
-title：“XOOPSObjectHandler 类”
-description：“用于对具有数据库持久性的 XOOPSObject 实例进行 CRUD 操作的基本处理程序类”
+title: “XOOPSObjectHandler 类”
+description: “用于对具有数据库持久性的 XOOPSObject 实例进行 CRUD 操作的基本处理程序类”
 ---
 
 `XOOPSObjectHandler`类及其扩展`XOOPSPersistableObjectHandler`提供了一个标准化接口，用于在`XOOPSObject`实例上执行CRUD（创建、读取、更新、删除）操作。这实现了数据映射器模式，将域逻辑与数据库访问分开。

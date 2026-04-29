@@ -1,5 +1,5 @@
 ---
-title：“语言选择”
+title: “语言选择”
 ---
 
 主要的 XOOPS 发行版附带英语支持。对其他语言环境的支持由 [XOOPS Local support sites](https://XOOPS.org/modules/XOOPSpartners/) 提供。这种支持可以以定制发行版的形式出现，也可以以添加到主发行版的附加文件的形式出现。

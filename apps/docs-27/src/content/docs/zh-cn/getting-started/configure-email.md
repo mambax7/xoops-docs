@@ -1,5 +1,5 @@
 ---
-title：“配置电子邮件”
+title: “配置电子邮件”
 ---
 
 ![XOOPS Email Configuration](/XOOPS-docs/2.7/img/installation/XOOPS-04-email-setup.png)

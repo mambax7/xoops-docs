@@ -1,6 +1,6 @@
 ---
-title：“使用 Ray 调试器”
-description：“使用 Ray 调试器调试 XOOPS 应用程序”
+title: “使用 Ray 调试器”
+description: “使用 Ray 调试器调试 XOOPS 应用程序”
 ---
 
 # 使用 Ray 调试器进行 XOOPS

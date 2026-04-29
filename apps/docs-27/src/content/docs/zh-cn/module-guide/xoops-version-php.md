@@ -1,5 +1,5 @@
 ---
-title：“XOOPS_version.php - 模区块清单”
+title: “XOOPS_version.php - 模区块清单”
 ---
 
 ## 概述

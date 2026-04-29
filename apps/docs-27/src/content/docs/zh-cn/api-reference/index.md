@@ -1,6 +1,6 @@
 ---
-title：“XOOPSAPI参考”
-description：“XOOPS CMS核心类、数据库层、表单和模区块的综合API文档”
+title: “XOOPSAPI参考”
+description: “XOOPS CMS核心类、数据库层、表单和模区块的综合API文档”
 ---
 
 欢迎使用全面的 XOOPS API 参考文档。本节提供构成 XOOPS 内容管理系统的所有核心类、方法和系统的详细文档。

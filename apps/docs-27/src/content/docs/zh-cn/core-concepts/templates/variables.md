@@ -1,6 +1,6 @@
 ---
-title：“模板变量”
-description：“XOOPS模板中的可用Smarty变量”
+title: “模板变量”
+description: “XOOPS模板中的可用Smarty变量”
 ---
 
 XOOPS自动向Smarty模板提供许多变量。本参考记录了主题和模区块模板开发的可用变量。

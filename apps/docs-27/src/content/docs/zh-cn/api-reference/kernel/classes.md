@@ -1,6 +1,6 @@
 ---
-title：“XOOPS内核类”
-description：“核心内核类，包括 XOOPSKernel、系统引导、配置管理和核心系统组件”
+title: “XOOPS内核类”
+description: “核心内核类，包括 XOOPSKernel、系统引导、配置管理和核心系统组件”
 ---
 
 XOOPS内核提供了用于引导系统、管理配置、处理系统事件和提供核心实用程序的基础框架。这些类构成了 XOOPS 应用程序的主干。

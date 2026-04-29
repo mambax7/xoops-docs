@@ -1,6 +1,6 @@
 ---
-title：“数据库层”
-description：“XOOPS数据库抽象、XOOPSObject、处理程序和 Criteria 系统的综合指南”
+title: “数据库层”
+description: “XOOPS数据库抽象、XOOPSObject、处理程序和 Criteria 系统的综合指南”
 ---
 
 # 🗄️ 数据库层

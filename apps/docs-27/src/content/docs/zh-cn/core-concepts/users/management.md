@@ -1,6 +1,6 @@
 ---
-title：“用户管理”
-description：“XOOPS用户系统、注册、身份验证和个人资料管理的综合指南”
+title: “用户管理”
+description: “XOOPS用户系统、注册、身份验证和个人资料管理的综合指南”
 ---
 
 # XOOPS中的用户管理

@@ -1,6 +1,6 @@
 ---
-title：“JavaScript编码标准”
-description：“XOOPS JavaScript编码标准和最佳实践”
+title: “JavaScript编码标准”
+description: “XOOPS JavaScript编码标准和最佳实践”
 ---
 
 # JavaScript 标准

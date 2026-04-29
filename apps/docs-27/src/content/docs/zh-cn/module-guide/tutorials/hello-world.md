@@ -1,6 +1,6 @@
 ---
-title：“Hello World 模区块”
-description：“创建第一个XOOPS模区块的步骤-by-step教程”
+title: “Hello World 模区块”
+description: “创建第一个XOOPS模区块的步骤-by-step教程”
 ---
 
 # Hello World 模区块教程

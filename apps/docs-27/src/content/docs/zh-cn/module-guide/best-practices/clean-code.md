@@ -1,5 +1,5 @@
 ---
-title：“XOOPS 的整洁代码原则”
+title: “XOOPS 的整洁代码原则”
 ---
 
 ## 概述

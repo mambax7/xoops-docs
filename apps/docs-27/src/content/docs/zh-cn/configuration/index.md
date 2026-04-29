@@ -1,6 +1,6 @@
 ---
-title：“基本配置”
-description：“初始XOOPS设置，包括主文件。php设置、站点名称、电子邮件和时区配置”
+title: “基本配置”
+description: “初始XOOPS设置，包括主文件。php设置、站点名称、电子邮件和时区配置”
 ---
 
 # 基本XOOPS配置

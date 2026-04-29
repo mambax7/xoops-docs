@@ -1,6 +1,6 @@
 ---
-title：“Smarty模板调试”
-description：“XOOPS的高级模板调试和故障排除技术”
+title: “Smarty模板调试”
+description: “XOOPS的高级模板调试和故障排除技术”
 ---
 
 > 用于调试 XOOPS 主题和模区块中的 Smarty 模板的高级技术。

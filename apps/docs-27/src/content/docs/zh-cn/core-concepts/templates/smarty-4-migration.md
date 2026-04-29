@@ -1,6 +1,6 @@
 ---
-title：“Smarty 4 迁移”
-description：“将XOOPS模板从Smarty 3升级到Smarty 4的指南”
+title: “Smarty 4 迁移”
+description: “将XOOPS模板从Smarty 3升级到Smarty 4的指南”
 ---
 
 本指南涵盖了从 XOOPS 中的 Smarty 3 升级到 Smarty 4 时所需的更改和迁移步骤。了解这些差异对于保持与现代 XOOPS 安装的兼容性至关重要。

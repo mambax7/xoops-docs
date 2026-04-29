@@ -1,5 +1,5 @@
 ---
-title：“XOOPS表单元素”
+title: “XOOPS表单元素”
 ---
 
 ## 概述

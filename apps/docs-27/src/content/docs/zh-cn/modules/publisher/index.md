@@ -1,6 +1,6 @@
 ---
-title：“发布者模区块”
-description：“XOOPS的Publisher新闻和博客模区块的完整文档”
+title: “发布者模区块”
+description: “XOOPS的Publisher新闻和博客模区块的完整文档”
 ---
 
 > XOOPS CMS 的首要新闻和博客发布模区块。

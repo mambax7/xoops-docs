@@ -1,6 +1,6 @@
 ---
-title：“管理用户”
-description：“XOOPS中的用户管理综合指南，包括创建用户、用户组、权限和用户角色”
+title: “管理用户”
+description: “XOOPS中的用户管理综合指南，包括创建用户、用户组、权限和用户角色”
 ---
 
 # 管理 XOOPS 中的用户

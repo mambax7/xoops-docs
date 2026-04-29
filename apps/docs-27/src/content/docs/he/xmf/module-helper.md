@@ -1,6 +1,6 @@
 ---
 title: "עזר מודול XMF"
-description: "פעולות מודול פשוטות באמצעות הכיתה Xmf\Module\Helper ועוזרים קשורים"
+description: 'פעולות מודול פשוטות באמצעות הכיתה Xmf\Module\Helper ועוזרים קשורים'
 ---
 
 מחלקה `Xmf\Module\Helper` מספקת דרך קלה לגשת למידע הקשור למודול, תצורות, מטפלים ועוד. השימוש ב-Modul Helper מפשט את הקוד שלך ומפחית את ה-boilerplate.

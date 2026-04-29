@@ -1,6 +1,6 @@
 ---
-title：“权限助手”
-description：“使用 XMF 权限助手管理 XOOPS 组权限”
+title: “权限助手”
+description: “使用 XMF 权限助手管理 XOOPS 组权限”
 ---
 
 XOOPS拥有基于用户组成员资格的强大而灵活的权限系统。 XMF 权限助手简化了这些权限的使用，将复杂的权限检查减少到单个方法调用。

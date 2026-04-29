@@ -1,6 +1,6 @@
 ---
-title：“Publisher - API参考”
-description：“包含类、方法和代码示例的 Publisher 模区块的完整 API 参考”
+title: “Publisher - API参考”
+description: “包含类、方法和代码示例的 Publisher 模区块的完整 API 参考”
 ---
 
 # PublisherAPI参考

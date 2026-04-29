@@ -1,5 +1,5 @@
 ---
-title：“附录 2：通过 FTP 上传XOOPS”
+title: “附录 2：通过 FTP 上传XOOPS”
 ---
 
 本附录介绍如何使用 FTP 或 SFTP 将 XOOPS 2.7.0 部署到远程主机。任何控制面板（cPanel、Plesk、DirectAdmin 等）都会公开相同的底层步骤。

@@ -1,6 +1,6 @@
 ---
-title：“贡献工作流程”
-description：“为XOOPS项目做出贡献的步骤-by-step指南”
+title: “贡献工作流程”
+description: “为XOOPS项目做出贡献的步骤-by-step指南”
 ---
 
 > 本指南将引导您完成为 XOOPS 做出贡献的完整过程，从初始设置到合并拉取请求。

@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 权限设置”
-description：“在 Publisher 中设置组权限和访问控制的综合指南”
+title: “发布者 - 权限设置”
+description: “在 Publisher 中设置组权限和访问控制的综合指南”
 ---
 
 # 发布者权限设置

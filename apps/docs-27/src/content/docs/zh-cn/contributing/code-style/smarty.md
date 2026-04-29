@@ -1,6 +1,6 @@
 ---
-title：“Smarty模板约定”
-description：“XOOPS Smarty模板编码标准和最佳实践”
+title: “Smarty模板约定”
+description: “XOOPS Smarty模板编码标准和最佳实践”
 ---
 
 > XOOPS 使用 Smarty 进行模板化。本指南涵盖了开发 Smarty 模板的惯例和最佳实践。

@@ -1,6 +1,6 @@
 ---
-title：“模区块开发”
-description：“使用现代PHP实践开发XOOPS模区块的综合指南”
+title: “模区块开发”
+description: “使用现代PHP实践开发XOOPS模区块的综合指南”
 ---
 
 本节提供了使用现代 PHP 实践、设计模式和最佳实践开发 XOOPS 模区块的综合文档。

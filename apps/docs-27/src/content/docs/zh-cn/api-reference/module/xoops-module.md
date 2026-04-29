@@ -1,6 +1,6 @@
 ---
-title：“XOOPSModule API参考”
-description：“XOOPSModule 和模区块系统类的完整API参考”
+title: “XOOPSModule API参考”
+description: “XOOPSModule 和模区块系统类的完整API参考”
 ---
 
 > 完成 XOOPS 模区块系统的 API 文档。

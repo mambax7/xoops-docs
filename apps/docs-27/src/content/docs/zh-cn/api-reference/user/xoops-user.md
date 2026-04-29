@@ -1,6 +1,6 @@
 ---
-title：“XOOPSUser API参考”
-description：“XOOPSUser 和用户管理类的完整API参考”
+title: “XOOPSUser API参考”
+description: “XOOPSUser 和用户管理类的完整API参考”
 ---
 
 > 完成 XOOPS 用户系统的 API 文档。

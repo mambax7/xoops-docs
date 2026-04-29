@@ -1,5 +1,5 @@
 ---
-title：“飞行前检查”
+title: “飞行前检查”
 ---
 
 XOOPS 2.7.0 将其模板引擎从 Smarty 3 升级到 Smarty 4。Smarty 4 的模板语法比 Smarty 3 更严格，并且某些自定义主题和模区块模板可能需要调整才能在 XOOPS 上正常工作2.7.0。

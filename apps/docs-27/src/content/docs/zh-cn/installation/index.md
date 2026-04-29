@@ -1,6 +1,6 @@
 ---
-title：“完整安装指南”
-description：“使用安装向导、安全强化和故障排除安装XOOPS的步骤-by-step指南”
+title: “完整安装指南”
+description: “使用安装向导、安全强化和故障排除安装XOOPS的步骤-by-step指南”
 ---
 
 # 完整的XOOPS安装指南

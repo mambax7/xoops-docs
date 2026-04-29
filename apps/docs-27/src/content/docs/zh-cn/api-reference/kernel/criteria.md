@@ -1,6 +1,6 @@
 ---
-title：“标准API参考”
-description：“API XOOPS标准查询构建系统的完整参考”
+title: “标准API参考”
+description: “API XOOPS标准查询构建系统的完整参考”
 ---
 
 > 完成 XOOPS 标准查询构建系统的 API 文档。

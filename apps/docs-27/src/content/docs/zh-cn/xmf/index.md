@@ -1,6 +1,6 @@
 ---
-title：“XMF框架”
-description：“XOOPS模区块框架 - 用于现代XOOPS模区块开发的综合库”
+title: “XMF框架”
+description: “XOOPS模区块框架 - 用于现代XOOPS模区块开发的综合库”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

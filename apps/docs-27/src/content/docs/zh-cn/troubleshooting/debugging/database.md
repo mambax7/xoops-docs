@@ -1,6 +1,6 @@
 ---
-title：“数据库调试”
-description：“调试SQL和XOOPS中的数据库问题”
+title: “数据库调试”
+description: “调试SQL和XOOPS中的数据库问题”
 ---
 
 # 数据库调试技巧

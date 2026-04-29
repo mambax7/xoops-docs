@@ -1,6 +1,6 @@
 ---
-title：“XOOPSObject 类”
-description：“XOOPS系统中所有数据对象的基类，提供属性管理、验证和序列化”
+title: “XOOPSObject 类”
+description: “XOOPS系统中所有数据对象的基类，提供属性管理、验证和序列化”
 ---
 
 `XOOPSObject`类是XOOPS系统中所有数据对象的基本基类。它提供了用于管理对象属性、验证、脏跟踪和序列化的标准化接口。

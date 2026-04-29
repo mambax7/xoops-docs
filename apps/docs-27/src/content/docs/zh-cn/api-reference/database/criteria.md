@@ -1,6 +1,6 @@
 ---
-title：“Criteria 和 CriteriaCompo 类”
-description：“使用 Criteria 类构建查询和高级过滤”
+title: “Criteria 和 CriteriaCompo 类”
+description: “使用 Criteria 类构建查询和高级过滤”
 ---
 
 `Criteria` 和 `CriteriaCompo` 类提供了一个流畅的对象-oriented 接口，用于构建复杂的数据库查询。这些类抽象了 SQL WHERE 子句，允许开发人员安全且可读地构造动态查询。

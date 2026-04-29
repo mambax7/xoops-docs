@@ -1,6 +1,6 @@
 ---
-title：“模区块安装失败”
-description：“诊断并修复XOOPS中的模区块安装问题”
+title: “模区块安装失败”
+description: “诊断并修复XOOPS中的模区块安装问题”
 ---
 
 > XOOPS中解决模区块安装问题的常见问题和解决方案。

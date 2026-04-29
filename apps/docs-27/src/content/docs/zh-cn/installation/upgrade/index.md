@@ -1,6 +1,6 @@
 ---
-title：“升级XOOPS”
-description：“如何将现有的XOOPS安装安全地升级到新版本。”
+title: “升级XOOPS”
+description: “如何将现有的XOOPS安装安全地升级到新版本。”
 ---
 
 本部分将引导您升级现有的 XOOPS 站点。升级向导在更新核心文件时会保留您的数据、模区块和主题。

@@ -1,6 +1,6 @@
 ---
-title：“模板错误”
-description：“调试并修复Smarty XOOPS中的模板错误”
+title: “模板错误”
+description: “调试并修复Smarty XOOPS中的模板错误”
 ---
 
 # 模板错误（Smarty调试）
