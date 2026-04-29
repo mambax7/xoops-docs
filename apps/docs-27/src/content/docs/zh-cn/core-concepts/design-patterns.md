@@ -1,6 +1,6 @@
 ---
-title：“XOOPS中的设计模式”
-description：“XOOPS开发中使用的设计模式的综合指南，包括MVC、Singleton、Factory、Observer等”
+title: “XOOPS中的设计模式”
+description: “XOOPS开发中使用的设计模式的综合指南，包括MVC、Singleton、Factory、Observer等”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

@@ -1,6 +1,6 @@
 ---
-title：“代码组织最佳实践”
-description：“模区块结构、命名约定和PSR-4自动加载”
+title: “代码组织最佳实践”
+description: “模区块结构、命名约定和PSR-4自动加载”
 ---
 
 # XOOPS 中的代码组织最佳实践

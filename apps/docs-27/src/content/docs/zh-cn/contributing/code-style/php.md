@@ -1,6 +1,6 @@
 ---
-title：“PHP编码标准”
-description：“XOOPS PHP基于PSR-1、PSR-4和PSR-12的编码标准”
+title: “PHP编码标准”
+description: “XOOPS PHP基于PSR-1、PSR-4和PSR-12的编码标准”
 ---
 
 # PHP-Standards

@@ -1,6 +1,6 @@
 ---
-title：“主题FAQ”
-description：“有关XOOPS主题的常见问题”
+title: “主题FAQ”
+description: “有关XOOPS主题的常见问题”
 ---
 
 # 主题常见问题解答

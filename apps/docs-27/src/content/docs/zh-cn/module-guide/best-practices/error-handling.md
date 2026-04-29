@@ -1,6 +1,6 @@
 ---
-title：“错误处理最佳实践”
-description：“异常管理、日志记录和用户-friendly错误消息”
+title: “错误处理最佳实践”
+description: “异常管理、日志记录和用户-friendly错误消息”
 ---
 
 # XOOPS 中的错误处理最佳实践

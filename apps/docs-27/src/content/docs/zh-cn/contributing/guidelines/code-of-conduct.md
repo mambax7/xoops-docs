@@ -1,6 +1,6 @@
 ---
-title：“XOOPS社区行为准则”
-description：“XOOPS 贡献者和成员的社区标准和期望”
+title: “XOOPS社区行为准则”
+description: “XOOPS 贡献者和成员的社区标准和期望”
 ---
 
 # 行为准则

@@ -1,6 +1,6 @@
 ---
-title：“升级XOOPS”
-description：“升级XOOPS的完整指南，包括备份、数据库迁移和故障排除”
+title: “升级XOOPS”
+description: “升级XOOPS的完整指南，包括备份、数据库迁移和故障排除”
 ---
 
 本指南涵盖将XOOPS从旧版本升级到最新版本，同时保留您的数据和自定义设置。

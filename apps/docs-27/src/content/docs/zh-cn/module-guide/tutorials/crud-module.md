@@ -1,6 +1,6 @@
 ---
-title：“构建CRUD模区块”
-description：“构建具有数据库操作、表单和管理界面的CRUD模区块的完整教程”
+title: “构建CRUD模区块”
+description: “构建具有数据库操作、表单和管理界面的CRUD模区块的完整教程”
 ---
 
 # 构建 CRUD 模区块教程

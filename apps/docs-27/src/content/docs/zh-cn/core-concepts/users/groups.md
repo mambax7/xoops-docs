@@ -1,6 +1,6 @@
 ---
-title：“团体系统”
-description：“XOOPS组管理、默认组、自定义组和组层次结构的综合指南”
+title: “团体系统”
+description: “XOOPS组管理、默认组、自定义组和组层次结构的综合指南”
 ---
 
 # XOOPS中的群组系统

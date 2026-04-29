@@ -1,6 +1,6 @@
 ---
-title：“XOOPS用户系统”
-description：“XOOPSUser 类、XOOPSGroup 管理、用户身份验证、会话处理和访问控制”
+title: “XOOPS用户系统”
+description: “XOOPSUser 类、XOOPSGroup 管理、用户身份验证、会话处理和访问控制”
 ---
 
 XOOPS用户系统管理用户帐户、身份验证、授权、组成员身份和会话管理。它提供了一个强大的框架来保护您的应用程序并控制用户访问。

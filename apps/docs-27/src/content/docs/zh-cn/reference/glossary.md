@@ -1,6 +1,6 @@
 ---
-title：“XOOPS术语表”
-description：“XOOPS-specific术语和概念的定义”
+title: “XOOPS术语表”
+description: “XOOPS-specific术语和概念的定义”
 ---
 
 > XOOPS-specific术语和概念的综合词汇表。

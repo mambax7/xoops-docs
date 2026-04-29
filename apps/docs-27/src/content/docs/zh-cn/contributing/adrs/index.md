@@ -1,6 +1,6 @@
 ---
-title：“ADR索引”
-description：“XOOPS CMS的所有架构决策记录的索引”
+title: “ADR索引”
+description: “XOOPS CMS的所有架构决策记录的索引”
 ---
 
 # 📋 架构决策记录索引

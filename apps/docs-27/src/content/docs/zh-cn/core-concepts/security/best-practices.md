@@ -1,6 +1,6 @@
 ---
-title：“安全最佳实践”
-description：“XOOPS模区块开发的综合安全指南”
+title: “安全最佳实践”
+description: “XOOPS模区块开发的综合安全指南”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

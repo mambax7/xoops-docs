@@ -1,6 +1,6 @@
 ---
-title：“XOOPS模板系统”
-description：“Smarty集成、XOOPSTpl类、模板变量、主题管理和模板渲染”
+title: “XOOPS模板系统”
+description: “Smarty集成、XOOPSTpl类、模板变量、主题管理和模板渲染”
 ---
 
 XOOPS模板系统建立在强大的Smarty模板引擎之上，提供了一种灵活且可扩展的方式来将表示逻辑与业务逻辑分开。它管理主题、模板渲染、变量分配和动态内容生成。

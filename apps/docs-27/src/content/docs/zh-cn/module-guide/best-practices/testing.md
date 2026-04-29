@@ -1,6 +1,6 @@
 ---
-title：“PHPUnit 测试最佳实践”
-description：“设置 PHPUnit、编写单元和集成测试、代码覆盖率”
+title: “PHPUnit 测试最佳实践”
+description: “设置 PHPUnit、编写单元和集成测试、代码覆盖率”
 ---
 
 # XOOPS 中的 PHPUnit 测试最佳实践

@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 安装指南”
-description：“安装和初始化发布者模区块的步骤-by-step说明”
+title: “发布者 - 安装指南”
+description: “安装和初始化发布者模区块的步骤-by-step说明”
 ---
 
 # 发布者安装指南

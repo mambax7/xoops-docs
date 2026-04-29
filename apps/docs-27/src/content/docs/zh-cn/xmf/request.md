@@ -1,6 +1,6 @@
 ---
-title：“XMF请求”
-description：“使用XMF\Request类确保HTTP请求处理和输入验证”
+title: “XMF请求”
+description: “使用XMF\Request类确保HTTP请求处理和输入验证”
 ---
 
 `XMF\Request`类通过内置的-in清理和类型转换提供对HTTP请求变量的受控访问。默认情况下，它可以防止潜在有害的注入，同时使输入符合指定类型。

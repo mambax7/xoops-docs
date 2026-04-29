@@ -1,6 +1,6 @@
 ---
-title：“选择数据访问模式”
-description：“为XOOPS模区块选择正确数据访问模式的决策树”
+title: “选择数据访问模式”
+description: “为XOOPS模区块选择正确数据访问模式的决策树”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

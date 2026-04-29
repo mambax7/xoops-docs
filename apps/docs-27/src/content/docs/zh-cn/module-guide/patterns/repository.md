@@ -1,6 +1,6 @@
 ---
-title：“XOOPS中的存储库模式”
-description：“数据访问抽象层实现”
+title: “XOOPS中的存储库模式”
+description: “数据访问抽象层实现”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

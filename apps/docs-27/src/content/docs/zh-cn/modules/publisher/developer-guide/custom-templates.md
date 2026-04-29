@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 自定义模板”
-description：“自定义 Publisher 模板和创建自定义主题的指南”
+title: “发布者 - 自定义模板”
+description: “自定义 Publisher 模板和创建自定义主题的指南”
 ---
 
 # Publisher 中的自定义模板

@@ -1,5 +1,5 @@
 ---
-title：“CSSXOOPS主题的最佳实践”
+title: “CSSXOOPS主题的最佳实践”
 ---
 
 ## 概述

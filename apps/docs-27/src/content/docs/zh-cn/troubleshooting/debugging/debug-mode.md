@@ -1,6 +1,6 @@
 ---
-title：“启用调试模式”
-description：“如何启用和使用XOOPS调试模式进行故障排除”
+title: “启用调试模式”
+description: “如何启用和使用XOOPS调试模式进行故障排除”
 ---
 
 > XOOPS 调试功能和工具的综合指南。

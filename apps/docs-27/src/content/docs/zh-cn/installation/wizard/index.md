@@ -1,6 +1,6 @@
 ---
-title：“安装向导”
-description：“XOOPS安装向导的步骤-by-step演练 - 15个屏幕解释。”
+title: “安装向导”
+description: “XOOPS安装向导的步骤-by-step演练 - 15个屏幕解释。”
 ---
 
 XOOPS 安装向导将指导您完成 15-step 流程，配置数据库、创建管理员帐户并准备站点以供首次使用。

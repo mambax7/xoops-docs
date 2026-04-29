@@ -1,6 +1,6 @@
 ---
-title：“XMF模区块助手”
-description：“使用XMF\Module\Helper类和相关帮助程序简化模区块操作”
+title: “XMF模区块助手”
+description: “使用XMF\Module\Helper类和相关帮助程序简化模区块操作”
 ---
 
 `XMF\Module\Helper`类提供了一种访问模区块-related信息、配置、处理程序等的简单方法。使用模区块助手可以简化代码并减少样板文件。

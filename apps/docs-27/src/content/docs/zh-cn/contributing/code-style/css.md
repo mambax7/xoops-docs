@@ -1,6 +1,6 @@
 ---
-title：“CSS 和 SCSS 指南”
-description：“XOOPS CSS/SCSS编码标准和最佳实践”
+title: “CSS 和 SCSS 指南”
+description: “XOOPS CSS/SCSS编码标准和最佳实践”
 ---
 
 > XOOPS 遵循现代 CSS 标准，并进行 SCSS 预处理，重点关注可维护性和性能。

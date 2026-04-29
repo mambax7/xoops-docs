@@ -1,6 +1,6 @@
 ---
-title：“权限系统”
-description：“XOOPS权限系统、类型、检查、层次结构和访问控制的完整指南”
+title: “权限系统”
+description: “XOOPS权限系统、类型、检查、层次结构和访问控制的完整指南”
 ---
 
 # XOOPS中的权限系统

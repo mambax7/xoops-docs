@@ -1,6 +1,6 @@
 ---
-title：“XOOPSForm API参考”
-description：“XOOPSForm 和表单元素类的完整API参考”
+title: “XOOPSForm API参考”
+description: “XOOPSForm 和表单元素类的完整API参考”
 ---
 
 > 完成 XOOPS 表格生成系统的 API 文档。

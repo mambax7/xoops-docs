@@ -1,6 +1,6 @@
 ---
-title：“模区块管理页面”
-description：“使用XMF创建标准化和转发-compatible模区块管理页面”
+title: “模区块管理页面”
+description: “使用XMF创建标准化和转发-compatible模区块管理页面”
 ---
 
 `XMF\Module\Admin`类提供了创建模区块管理接口的一致方法。对管理页面使用 XMF 可确保与未来的 XOOPS 版本向前兼容，同时保持统一的用户体验。

@@ -1,5 +1,5 @@
 ---
-title：“关于XOOPSCMS”
+title: “关于XOOPSCMS”
 ---
 
 ![](/XOOPS-docs/2.7/img/installation/logoXOOPS.jpg)

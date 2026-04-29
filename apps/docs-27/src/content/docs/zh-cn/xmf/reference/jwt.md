@@ -1,6 +1,6 @@
 ---
-title：“JWT - JSON Web 令牌”
-description：“XMFJWT安全令牌实施-based身份验证和AJAX保护”
+title: “JWT - JSON Web 令牌”
+description: “XMFJWT安全令牌实施-based身份验证和AJAX保护”
 ---
 
 `XMF\Jwt`命名空间为XOOPS模区块提供JSON网络令牌(JWT)支持。 JWT 支持安全、无状态的身份验证，对于保护 AJAX 请求特别有用。

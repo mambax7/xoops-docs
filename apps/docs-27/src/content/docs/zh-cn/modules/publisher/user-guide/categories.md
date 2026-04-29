@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 管理类别”
-description：“在 Publisher 中创建、组织和管理文章类别的指南”
+title: “发布者 - 管理类别”
+description: “在 Publisher 中创建、组织和管理文章类别的指南”
 ---
 
 # 在 Publisher 中管理类别

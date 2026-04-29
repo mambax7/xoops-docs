@@ -1,6 +1,6 @@
 ---
-title：“XOOPS表格”
-description：“XOOPS表单生成系统的完整指南，包括所有表单元素、验证和渲染”
+title: “XOOPS表格”
+description: “XOOPS表单生成系统的完整指南，包括所有表单元素、验证和渲染”
 ---
 
 # 📝 XOOPS 表格系统

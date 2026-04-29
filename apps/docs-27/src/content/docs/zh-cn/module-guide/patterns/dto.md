@@ -1,6 +1,6 @@
 ---
-title：“DTO XOOPS中的模式”
-description：“用于干净数据处理的数据传输对象”
+title: “DTO XOOPS中的模式”
+description: “用于干净数据处理的数据传输对象”
 ---
 
 # DTO XOOPS 中的模式（数据传输对象）

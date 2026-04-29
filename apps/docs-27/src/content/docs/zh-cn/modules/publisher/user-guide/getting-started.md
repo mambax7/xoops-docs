@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 入门”
-description：“XOOPS发布者模区块快速入门指南”
+title: “发布者 - 入门”
+description: “XOOPS发布者模区块快速入门指南”
 ---
 
 # 发布者入门

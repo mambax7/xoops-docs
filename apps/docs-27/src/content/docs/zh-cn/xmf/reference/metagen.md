@@ -1,6 +1,6 @@
 ---
-title：“XMF Metagen 类”
-description：“XMF框架中的元标记生成和SEO助手”
+title: “XMF Metagen 类”
+description: “XMF框架中的元标记生成和SEO助手”
 ---
 
 XMF框架中的`Metagen`类提供了一个全面的工具包，用于生成和管理HTML元标签、开放图标签和其他SEO-related元数据。

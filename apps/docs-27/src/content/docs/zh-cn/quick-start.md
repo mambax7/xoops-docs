@@ -1,6 +1,6 @@
 ---
-title：快速入门
-description：在 5 分钟内运行 XOOPS 2.7。
+title: 快速入门
+description: 在 5 分钟内运行 XOOPS 2.7。
 ---
 
 ## 要求

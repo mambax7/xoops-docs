@@ -1,6 +1,6 @@
 ---
-title：“前端集成最佳实践”
-description：“Bootstrap 5、Tailwind CSS、JavaScript 和 AJAX 模式”
+title: “前端集成最佳实践”
+description: “Bootstrap 5、Tailwind CSS、JavaScript 和 AJAX 模式”
 ---
 
 # XOOPS 中的前端集成最佳实践

@@ -1,6 +1,6 @@
 ---
-title：“XMF入门”
-description：“XOOPS模区块框架的安装、基本概念和第一步”
+title: “XMF入门”
+description: “XOOPS模区块框架的安装、基本概念和第一步”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

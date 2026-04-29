@@ -1,6 +1,6 @@
 ---
-title：从XOOPS 2.5 升级到 2.7
-description：将XOOPS安装从 2.5.x 安全升级到 2.7.x 的步骤-by-step指南。
+title: 从XOOPS 2.5 升级到 2.7
+description: 将XOOPS安装从 2.5.x 安全升级到 2.7.x 的步骤-by-step指南。
 ---
 
 :::注意[先备份]

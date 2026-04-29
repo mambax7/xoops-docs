@@ -1,6 +1,6 @@
 ---
-title：“安装FAQ”
-description：“有关XOOPS安装的常见问题”
+title: “安装FAQ”
+description: “有关XOOPS安装的常见问题”
 ---
 
 > 有关安装 XOOPS 的常见问题和解答。

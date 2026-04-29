@@ -1,5 +1,5 @@
 ---
-title：“phpinfo”
+title: “phpinfo”
 ---
 
 此步骤是可选的，但可以轻松地为您节省数小时的挫败感。

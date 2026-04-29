@@ -1,6 +1,6 @@
 ---
-title：“发布者 - 挂钩和事件”
-description：“使用挂钩、事件和插件系统扩展 Publisher 的指南”
+title: “发布者 - 挂钩和事件”
+description: “使用挂钩、事件和插件系统扩展 Publisher 的指南”
 ---
 
 # 发布者挂钩和事件

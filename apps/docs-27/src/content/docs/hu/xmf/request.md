@@ -1,6 +1,6 @@
 ---
 title: "XMF-kérés"
-description: "Biztonságos HTTP kéréskezelés és bemenet ellenőrzése az XMF\Request osztály segítségével"
+description: 'Biztonságos HTTP kéréskezelés és bemenet ellenőrzése az XMF\Request osztály segítségével'
 ---
 A `XMF\Request` osztály szabályozott hozzáférést biztosít a HTTP kérési változókhoz, beépített fertőtlenítéssel és típuskonverzióval. Alapértelmezés szerint véd a potenciálisan káros injekciók ellen, miközben megfelel a megadott típusoknak.
 

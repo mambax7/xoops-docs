@@ -1,6 +1,6 @@
 ---
-title：“Smarty基础知识”
-description：“XOOPS中Smarty模板的基础知识”
+title: “Smarty基础知识”
+description: “XOOPS中Smarty模板的基础知识”
 ---
 
 <span class="version-badge version-25x">2.5.x：Smarty 3</span> <span class="version-badge version-40x">4.0.x：Smarty 4</span>

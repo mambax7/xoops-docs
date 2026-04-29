@@ -1,6 +1,6 @@
 ---
 title: "XMF modul segítő"
-description: "Egyszerűsített modulműveletek az XMF\module\Helper osztály és a kapcsolódó segítők segítségével"
+description: 'Egyszerűsített modulműveletek az XMF\module\Helper osztály és a kapcsolódó segítők segítségével'
 ---
 A `XMF\module\Helper` osztály egyszerű módot biztosít a modullal kapcsolatos információk, konfigurációk, kezelők és egyebek elérésére. A modulsegéd használata leegyszerűsíti a kódot és csökkenti a kazán.
 

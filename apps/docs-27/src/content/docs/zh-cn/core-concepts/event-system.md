@@ -1,5 +1,5 @@
 ---
-title：“XOOPS事件系统”
+title: “XOOPS事件系统”
 ---
 
 <span class="version-badge version-25x">2.5.x：预加载</span> <span class="version-badge version-40x">4.0.x：PSR-14</span>

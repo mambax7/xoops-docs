@@ -1,6 +1,6 @@
 ---
-title：“系统设置”
-description：“XOOPS管理系统设置、配置选项和首选项层次结构的综合指南”
+title: “系统设置”
+description: “XOOPS管理系统设置、配置选项和首选项层次结构的综合指南”
 ---
 
 #XOOPS系统设置

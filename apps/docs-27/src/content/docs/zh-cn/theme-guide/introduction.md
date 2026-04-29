@@ -1,6 +1,6 @@
 ---
-title：“主题开发”
-description：“使用 Smarty 模板继承创建和自定义 XOOPS 主题”
+title: “主题开发”
+description: “使用 Smarty 模板继承创建和自定义 XOOPS 主题”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

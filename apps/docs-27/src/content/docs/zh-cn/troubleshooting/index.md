@@ -1,6 +1,6 @@
 ---
-title：“故障排除”
-description：“常见XOOPS问题的解决方案、调试技术和FAQ”
+title: “故障排除”
+description: “常见XOOPS问题的解决方案、调试技术和FAQ”
 ---
 
 > XOOPS CMS 的常见问题解决方案和调试技巧。

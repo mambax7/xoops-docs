@@ -1,5 +1,5 @@
 ---
-title：“Smarty XOOPS中的模板”
+title: “Smarty XOOPS中的模板”
 ---
 
 ## 概述

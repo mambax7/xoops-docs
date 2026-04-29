@@ -1,6 +1,6 @@
 ---
-title：“创建您的第一页”
-description：“在XOOPS中创建和发布内容的步骤-by-step指南，包括格式、媒体嵌入和发布选项”
+title: “创建您的第一页”
+description: “在XOOPS中创建和发布内容的步骤-by-step指南，包括格式、媒体嵌入和发布选项”
 ---
 
 # 在 XOOPS 中创建您的第一页

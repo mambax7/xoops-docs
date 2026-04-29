@@ -1,6 +1,6 @@
 ---
-title：“XOOPS模区块系统”
-description：“模区块生命周期、XOOPSModule 类、模区块installation/uninstallation、模区块挂钩和模区块管理”
+title: “XOOPS模区块系统”
+description: “模区块生命周期、XOOPSModule 类、模区块installation/uninstallation、模区块挂钩和模区块管理”
 ---
 
 XOOPS模区块系统提供了用于开发、安装、管理和扩展模区块功能的完整框架。模区块是自我-contained包，通过附加特性和功能扩展XOOPS。

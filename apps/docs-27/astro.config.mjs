@@ -64,9 +64,21 @@ export default defineConfig({
 
 			expressiveCode: {
 				shiki: {
+					langAlias: {
+						smarty: 'html',
+						neon: 'yaml',
+						'.json': 'json',
+						'###': 'txt',
+						'3.': 'txt',
+						tekst: 'txt',
+						'ข้อความ': 'txt',
+						ทุบตี: 'bash',
+						อินี่: 'ini',
+						ฉลาด: 'html',
+					},
 					bundledLangs: [
 						'php', 'javascript', 'typescript',
-						'html', 'css', 'smarty',
+						'html', 'css', 'ini',
 						'bash', 'shell', 'sql',
 						'json', 'yaml', 'astro',
 					],

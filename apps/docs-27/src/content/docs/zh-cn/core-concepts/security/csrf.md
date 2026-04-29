@@ -1,6 +1,6 @@
 ---
-title：“CSRF保护”
-description：“使用 XOOPSSecurity 类理解和实现 XOOPS 中的 CSRF 保护”
+title: “CSRF保护”
+description: “使用 XOOPSSecurity 类理解和实现 XOOPS 中的 CSRF 保护”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>

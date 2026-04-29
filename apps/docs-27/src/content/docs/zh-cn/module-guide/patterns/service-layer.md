@@ -1,6 +1,6 @@
 ---
-title：“XOOPS中的服务层模式”
-description：“业务逻辑抽象和依赖注入”
+title: “XOOPS中的服务层模式”
+description: “业务逻辑抽象和依赖注入”
 ---
 
 <span class="version-badge version-25x">2.5.x ✅</span> <span class="version-badge version-40x">4.0.x ✅</span>
